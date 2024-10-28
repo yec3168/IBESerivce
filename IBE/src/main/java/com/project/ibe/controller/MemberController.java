@@ -11,21 +11,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MemberController {
-    @Autowired
-    private MemberService memberService;
+
+    @GetMapping("/")
+    public String index() {
+        return "index"; // login.html 페이지로 이동
+    }
 
     @GetMapping("/login")
     public String login() {
         return "login"; // login.html 페이지로 이동
     }
 
-//    @PostMapping("/loginProc")
-//    public String loginProc() {
-//        return "loginProc"; // login.html 페이지로 이동
-//    }
-
-//    @GetMapping("/register")
-//    public String registerForm() {
-//        return "register"; // register.html 페이지로 이동
-//    }
+    @GetMapping("/admin")
+    public String loginProc() {
+        return "admin"; // login.html 페이지로 이동
+    }
 }

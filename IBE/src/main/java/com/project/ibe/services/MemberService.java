@@ -18,7 +18,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
-    public Member findByMemberEmail(String email) {
-        return memberRepository.findByMemberEmail(email);
+    public Member findByMemberEmail(String memberEmail) {
+        System.out.println("memberservice" + memberRepository.findByMemberEmail(memberEmail));
+        return memberRepository.findByMemberEmail(memberEmail);
     }
 }

@@ -24,12 +24,15 @@ public class SecurityConfig {
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
+                .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/loginProc")
+                        .usernameParameter("memberEmail")
+                        .passwordParameter("memberPassword")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
-                .csrf(auth -> auth.disable());
+                .csrf((auth) -> auth.disable());
 
 
 

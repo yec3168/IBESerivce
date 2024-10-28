@@ -17,6 +17,10 @@ public class RegisterService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void registerProcess(RegisterDTO registerDTO) {
+        boolean isMember = memberRepository.existsByMemberEmail(registerDTO.getMemberEmail());
+        if(isMember)
+            return;
+
         Member data = new Member();
         data.setMemberEmail(registerDTO.getMemberEmail());
         data.setMemberPassword(bCryptPasswordEncoder.encode(registerDTO.getMemberPassword()));
