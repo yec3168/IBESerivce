@@ -1,13 +1,15 @@
 import { Form, Button, FloatingLabel , Row, Col } from "react-bootstrap";
 import Logo from '../assets/images/sign/ibe_logo1.png'
 import Kakao from '../assets/images/sign/kakao_login.png'
+import { RiKakaoTalkFill } from "react-icons/ri";
 import './Sign.css'
 
 function SignInComponent(){
     return(
         <div className="sign-in__wrapper">
             <div className="sign-in__backdrop"></div>
-                <Form className="shadow p-4 bg-white rounded" >
+            {/* <Form className="shadow p-4 bg-white rounded" >*/}
+                <Form className=" bg-white rounded" >
                     <img
                     className="img mx-auto d-block mb-2 w-50"
                     src={Logo}
@@ -48,11 +50,11 @@ function SignInComponent(){
                         <Col className="d-flex justify-content-center">간편로그인</Col>
                     </Row>
 
-                    <img
-                    className="img mx-auto d-block mb-2 w-100"
-                    src={Kakao}
-                    alt="Kakao"
-                    />
+                    <Button className="w-100 mb-3" variant="primary" type="button"  style={{backgroundColor:'#FFE337', color:'black'}}>
+                        <RiKakaoTalkFill/>
+                        카톡으로 쉽게 시작하기
+                    </Button>
+
 
 
                 </Form>
