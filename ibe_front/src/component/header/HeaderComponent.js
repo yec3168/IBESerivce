@@ -1,5 +1,5 @@
-import ibe_logo from '../../ibe_logo.png'
-import coin_purse_icon from '../../coin_purse_icon.png'
+import ibe_logo from '../assets/images/header/ibe_logo.png'
+import coin_purse_icon from '../assets/images/header/coin_purse_icon.png'
 import './HeaderComponent.css'
 
 const HeaderComponent = () => {
@@ -12,11 +12,11 @@ const HeaderComponent = () => {
                         <div class="collapse navbar-collapse justify-content-end" id="loginMenubar">
                             <ul class="navbar-nav">
                                 <li class="nav-item mx-3">
-                                    <a class="nav-link active" href="/">로그인</a>
+                                    <a class="nav-link active" href="/signin">로그인</a>
                                 </li>
                                 <div class="vr"></div>
                                 <li class="nav-item ms-3">
-                                    <a class="nav-link active" href="/">회원가입</a>
+                                    <a class="nav-link active" href="/signup">회원가입</a>
                                 </li>
                                 <li class="nav-item mx-1">
                                     <a class="nav-link active" href="/">고객센터</a>
@@ -63,12 +63,6 @@ const HeaderComponent = () => {
                         
                     </div>
                 </nav>
-                
-
-            
-
-                <p>여기까지 header입니다</p>
-                <hr/>
             </header>
         </div>
     );
