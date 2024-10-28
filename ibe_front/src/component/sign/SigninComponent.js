@@ -1,4 +1,4 @@
-import { Form, Button, Alert, Row, Col } from "react-bootstrap";
+import { Form, Button, FloatingLabel , Row, Col } from "react-bootstrap";
 import Logo from '../assets/images/sign/ibe_logo1.png'
 import Kakao from '../assets/images/sign/kakao_login.png'
 import './Sign.css'
@@ -14,21 +14,21 @@ function SignInComponent(){
                     alt="logo"
                     />
 
-                    <Form.Group className="mb-2 mb-3 " controlId="email">
+                    <FloatingLabel className="mb-2 mb-3 " controlId="email" label="이메일">
                         <Form.Control
                             type="text"
-                            placeholder="이메일"
+                            placeholder="@gmail.com"
                             required
                         />
-                    </Form.Group>
+                    </FloatingLabel>
 
-                    <Form.Group className="mb-2 mb-3 " controlId="password">
+                    <FloatingLabel className="mb-2 mb-3 " controlId="password" label="비밀번호">
                         <Form.Control
                             type="password"
                             placeholder="비밀번호"
                             required
                         />
-                    </Form.Group>
+                    </FloatingLabel>
 
                     <Form.Group className="mb-2 mb-3" controlId="checkbox">
                         <Form.Check type="checkbox" label="로그인 상태 유지" />
