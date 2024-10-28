@@ -1,5 +1,5 @@
 import { Form, Button, Row, Col } from "react-bootstrap";
-import{FaAddressBook } from "react-icons/fa"
+// import{FaAddressBook } from "react-icons/fa"
 import Logo from '../assets/images/sign/ibe_logo1.png'
 
 import './Sign.css'
@@ -89,9 +89,9 @@ const SignupComponent = () => {
                 </Row>
 
 
-                <Button className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
+                <Button href="/signin" className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
                         회원가입
-                    </Button>
+                </Button>
 
             </Form>
         </div>

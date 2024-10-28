@@ -71,6 +71,11 @@
     
   }
 
+  .signin_a {
+    text-decoration: none;
+    color: black;
+  }
+
 
   /*---------------sign up-------------*/
   .sign-up__wrapper {

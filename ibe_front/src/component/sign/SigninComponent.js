@@ -36,14 +36,14 @@ function SignInComponent(){
                         <Form.Check type="checkbox" label="로그인 상태 유지" />
                     </Form.Group>
 
-                    <Button className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
+                    <Button href="/" className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
                         로그인
                     </Button>
 
                     <Row className="mb-2 mb-3" style={{borderBottom: '1px solid #666666'}}>
-                        <Col className="col_list">아이디 찾기</Col>
-                        <Col className="col_list">비밀번호 찾기</Col>
-                        <Col className="col_list">회원가입</Col>
+                        <Col className="col_list"><a class="signin_a" href="/">아이디 찾기</a></Col>
+                        <Col className="col_list"><a class="signin_a" href="/">비밀번호 찾기</a></Col>
+                        <Col className="col_list"><a class="signin_a" href="/signup">회원가입</a></Col>
                     </Row>
 
                     <Row className="mb-2 mb-3">
