@@ -4,7 +4,7 @@ import icons from "./icon_ib.png"
 const FooterComponent = () => {
     const footerLeftMsg =[
         {
-            msg :"(주)아이비 태표이사:연응찬"
+            msg :"(주)아이비 대표이사:연응찬"
         },
         {
             msg :"서울시 강동구 유캠대로 415 아이비 빌딩 FAX:02-1234-5678"
@@ -35,7 +35,7 @@ const FooterComponent = () => {
                         <table className = {styles.footer_table}>
                             <tr>
                                 <td>공지사항</td>
-                                <td>고객샌터</td>
+                                <td>고객센터</td>
                             </tr>
                             <tr>
                                 <td>회사소개</td>
