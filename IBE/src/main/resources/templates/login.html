@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<h2>Login</h2>
+<form action="/loginProc" method="post">
+    <div>
+        <label>Email:</label>
+        <input type="text" name="memberEmail" required /> <!-- memberEmail로 변경 -->
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="memberPassword" required /> <!-- memberPassword로 변경 -->
+    </div>
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>
