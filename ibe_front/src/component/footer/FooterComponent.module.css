@@ -1,0 +1,26 @@
+.footer{
+    background-color: #FFEAB7;
+}
+.footer_left{
+    position: relative;
+    top : 50px;
+    left: 10%;
+    text-align : left;
+    font-family : Noto Sans;
+    font-weight: bold;
+    font-size: 15px;
+    color: #494444;
+}   
+.footer_right{
+    position: relative;
+    top : -60px;
+    left: 70%;
+    text-align : left;
+    font-family : Noto Sans;
+    font-weight: bold;
+    font-size: 15px;
+    color: #494444;
+}
+.footer_table{
+    border-spacing : 5px;
+}
