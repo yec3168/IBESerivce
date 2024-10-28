@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LayoutComponent from './component/layout/LayoutComponent';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import SignInComponent from './component/sign/SigninComponent';
 import SignupComponent from './component/sign/SignupComponent';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
