@@ -6,31 +6,31 @@
     background-color: #FFEAB7;
 }
 
-#div_bgBanner{
-    width: 100%;
-    height: 430px;
-    background-color: #FFEAB7;
-    position: relative;
+#div_bgBanner {
+  width: 100%;
+  height: 430px;
+  background-color: #ffeab7;
+  position: relative;
 }
 
-#div_endOfBanner{
-    width: 100%;
-    height: 300px;
-    background-color: white;
+#div_endOfBanner {
+  width: 100%;
+  height: 300px;
+  background-color: white;
 }
 
 /* Banner Component */
 
 .carousel-control-next,
 .carousel-control-prev {
-    filter: invert(100%);
+  filter: invert(100%);
 }
 
 .carousel-item {
-    text-align: center;
+  text-align: center;
 }
 
 #img_carousel {
-    width: 60%;
-    height: 400px;
+  width: 60%;
+  height: 400px;
 }
