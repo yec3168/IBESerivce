@@ -1,16 +1,19 @@
-import banner_info from '../assets/images/main/banner/banner_info.png'
+import BannerComponent from './BannerComponent';
 import './MainComponent.css'
 
 const MainComponent = () =>{
     return (
         <>
-            {/* 임시 코드 - carousel 작성 예정 */}
+            {/* 헤더 끝 노란색 구분선 */}
+            <div id="div_endOfHeader"/>
             
-            <div id="div_bg">
-                <p>Main Page BODY입니다</p>
-                <img src={banner_info} alt="banner" width="600px"/>
+            {/* carousel */}
+            <div id="div_bgBanner">
+                <BannerComponent/>
             </div>
-            <div id="div_temp"/>
+            
+            <div id="div_endOfBanner" />
+
         </>
     );
 }
