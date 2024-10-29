@@ -6,7 +6,7 @@ const REST_API_URL = `${REST_API_BASE_URL}/member`
 
 
 // 회원 등록
-export const saveMember = (memberFrom) => axios.post( `${REST_API_URL}/signup`, memberFrom )
+export const saveMember = (memberForm) => axios.post( `${REST_API_URL}/signup`, memberForm )
 
 
 // 로그인
