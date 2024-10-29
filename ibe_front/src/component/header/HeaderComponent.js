@@ -14,6 +14,15 @@ const HeaderComponent = () => {
               id="loginMenubar"
             >
               <ul class="navbar-nav loginMenubar">
+                <span id="span_parent" class="mr-80">
+                  <img src={coin_purse_icon} width="20px" alt="coin_purse" id="coin_purse_icon" />
+                  <li class="nav-item">
+                    <a class="nav-link active4" href="/" id="amt">
+                      <span id="span_amt">10,000&nbsp;</span>
+                      <span id="span_won">P</span>
+                    </a>
+                  </li>
+                </span>
                 <li class="nav-item mx-3">
                   <a class="nav-link active" href="/signin">
                     로그인
@@ -58,20 +67,20 @@ const HeaderComponent = () => {
               <ul class="navbar-nav menubar">
                 <li class="nav-item mr-150">
                   <a class="nav-link active1" href="/">
-                    구매하기
+                    전체 상품
                   </a>
                 </li>
                 <li class="nav-item mr-150">
                   <a class="nav-link active2" href="/">
-                    판매하기
+                    판매 신청
                   </a>
                 </li>
                 <li class="nav-item mr-150">
                   <a class="nav-link active3" href="/">
-                    카테고리
+                    아이비 게시판
                   </a>
                 </li>
-                <span id="span_parent" class="mr-150">
+                {/* <span id="span_parent" class="mr-150">
                   <img
                     src={coin_purse_icon}
                     width="30px"
@@ -84,9 +93,9 @@ const HeaderComponent = () => {
                       <span id="span_won">₩</span>
                     </a>
                   </li>
-                </span>
+                </span> */}
 
-                <li class="nav-item mr-80">
+                <li class="nav-item mr-150">
                   <a class="nav-link active5" href="/">
                     마이페이지
                   </a>
