@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 // import{FaAddressBook } from "react-icons/fa"
 import Logo from '../assets/images/sign/ibe_logo1.png'
@@ -5,85 +6,134 @@ import Logo from '../assets/images/sign/ibe_logo1.png'
 import './Sign.css'
 
 const SignupComponent = () => {
+    const [memberEmail, setMemberEmail] = useState("");
+    const [memberPassword, setMemberPassword] = useState("");
+    const [memberPassword1, setMemberPassword1] = useState("");
+    const [memberName, setMemberName] = useState("");
+    const [memberNickName, setMemberNickName] = useState("");
+    const [memberBirth, setMemberBirth] = useState("");
+    const [memberAddr, setMemberAddr] = useState("");
+    const [memberAddrDetail, setMemberAddrDetail] = useState("");
+    const [memberPhone, setMemberPhone] = useState("");
+    const [memberBank, setMemberBank] = useState("");
+    const [memberAccountNumber, setMemberAccountNumber] = useState("");
+
     return (
         <div className="sign-up__wrapper">
-            <div className="sign-up__backdrop"></div>
-            <Form className="shadow p-4 bg-white rounded" >
+            
+            <Form className=" bg-white rounded" >
                 <img
                 className="img mx-auto d-block mb-2 w-50"
                 src={Logo}
                 alt="logo"
                 />
                 {/* 이메일 */}
-                <Form.Group className="mb-2  " controlId="email">
+                <Form.Group className="mb-2  " controlId="memberEmail">
                     <Row>
                         <Col className="col-10">
-                            <Form.Control type="email" placeholder="이메일" required/>
+                            <Form.Control type="email"
+                             value={memberEmail}
+                             onChange={(e) => setMemberEmail(e.target.value)}
+                             placeholder="이메일" required/>
                         </Col>
                         <Col lassName="col-2">
                         <Button className="w-100 mb-3" variant="primary" type="button"  style={{backgroundColor:'#FFD774'}}>
-                             중복확인
+                             중복
                         </Button>
                         </Col>
                     </Row>
                 </Form.Group>
 
                 {/* 비밀번호 */}
-                <Form.Group className="mb-2 mb-4 " controlId="password">
-                        <Form.Control type="password" placeholder="비밀번호" required/>
+                <Form.Group className="mb-2 mb-4 " controlId="memberPassword">
+                        <Form.Control type="password" 
+                         value={memberPassword}
+                         onChange={(e) => setMemberPassword(e.target.value)}
+                        placeholder="비밀번호" required/>
+                </Form.Group>
+
+                <Form.Group className="mb-2 mb-4 " controlId="memberPassword1">
+                        <Form.Control type="password" 
+                        value={memberPassword1}
+                        onChange={(e) => setMemberPassword1(e.target.value)}
+                        placeholder="비밀번호 재확인" required/>
                 </Form.Group>
                 
                 {/* 이름, 닉네임 */}
                 <Row className="mb-2 mb-4 ">
                     <Col className="col-6">
-                        <Form.Group controlId="name">
-                            <Form.Control type="text" placeholder="이름" required/>
+                        <Form.Group controlId="memberName">
+                            <Form.Control type="text" 
+                                value={memberName}
+                                onChange={(e) => setMemberName(e.target.value)}
+                                placeholder="이름" required/>
                         </Form.Group>
                     </Col>
                     <Col className="col-6">
-                        <Form.Group controlId="nickname">
-                            <Form.Control type="text" placeholder="닉네임" required/>
+                        <Form.Group controlId="memberNickname">
+                            <Form.Control type="text" 
+                                value={memberNickName}
+                                onChange={(e) => setMemberNickName(e.target.value)}
+                                placeholder="닉네임" required/>
                         </Form.Group>
                     </Col>
                 </Row>
 
+
                 {/* 생년월일 */}
-                <Form.Group className="mb-2 mb-4 " controlId="birthday">
-                        <Form.Control type="date" placeholder="생년월일" required/>
+                <Form.Group className="mb-2 mb-4 " controlId="memberBirth">
+                        <Form.Control type="date" 
+                        value={memberBirth}
+                        onChange={(e) => setMemberBirth(e.target.value)}
+                        placeholder="생년월일" required/>
                 </Form.Group>
 
                 {/* 주소 */}
-                <Form.Group className="mb-2 mb-4 " controlId="address">
-                        <Form.Control type="text" placeholder="주소" required/>
+                <Form.Group className="mb-2 mb-4 " controlId="memberAddr">
+                        <Form.Control type="text"
+                        value={memberAddr}
+                        onChange={(e) => setMemberAddr(e.target.value)}
+                        placeholder="주소" required/>
                 </Form.Group>
 
                 {/* 상세주소 */}
-                <Form.Group className="mb-2 mb-4 " controlId="address_detail">
-                        <Form.Control type="text" placeholder="상세주소" required/>
+                <Form.Group className="mb-2 mb-4 " controlId="memberAddrDetail">
+                        <Form.Control type="text"
+                        value={memberAddrDetail}
+                        onChange={(e) => setMemberAddrDetail(e.target.value)}
+                        placeholder="상세주소" required/>
                 </Form.Group>
 
                 {/* 상세주소 */}
-                <Form.Group className="mb-2 mb-4 " controlId="phone">
-                        <Form.Control type="text" placeholder="번호" required/>
+                <Form.Group className="mb-2 mb-4 " controlId="memberPhone">
+                        <Form.Control type="text" 
+                        value={memberPhone}
+                        onChange={(e) => setMemberPhone(e.target.value)}
+                        placeholder="번호" required/>
                 </Form.Group>
 
                 
                 {/* 계좌 */}
                 <Row className="mb-2 mb-4 ">
                     <Col className="col-2">
-                        <Form.Group className="mb-2 mb-4  " controlId="phone">
-                            <Form.Select aria-label="Default select example">
-                                <option>은행</option>
+                        <Form.Group className="mb-2" controlId="memberBank">
+                            <Form.Select aria-label="은행"
+                            value={memberBank}
+                            onChange={(e) => setMemberBank(e.target.value)}
+                            >
                                 <option value="KB">국민</option>
                                 <option value="SINHAN">신한</option>
                                 <option value="WOORI">우리</option>
                             </Form.Select>
-
                         </Form.Group>
                     </Col>
+
                     <Col className="col-10">
-                        <Form.Group controlId="account_number">
-                            <Form.Control type="text" placeholder="계좌번호" required/>
+                        <Form.Group controlId="memberAccountNumber">
+                            <Form.Control type="text" 
+                            value={memberAccountNumber}
+                            onChange={(e) => setMemberAccountNumber(e.target.value)}
+                            placeholder="계좌번호" required/>
                         </Form.Group>
                     </Col>
                 </Row>

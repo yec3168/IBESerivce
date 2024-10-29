@@ -97,7 +97,7 @@
   }
 
   .sign-up__wrapper form {
-    width: 48rem;
+    width: 36rem;
     max-width: 90%;
     z-index: 1;
     animation: showSignInForm 1s;
