@@ -36,20 +36,20 @@ const HeaderComponent = () => {
                         {/* 메뉴바 */}
                         <div class="collapse navbar-collapse justify-content-end" id="menubar">
                             <ul class="navbar-nav menubar">
-                                <li class="nav-item mr-100">
+                                <li class="nav-item mr-150">
                                     <a class="nav-link active" href="/">구매하기</a>
                                 </li>
-                                <li class="nav-item mr-100">
+                                <li class="nav-item mr-150">
                                     <a class="nav-link active" href="/">판매하기</a>
                                 </li>
-                                <li class="nav-item mr-100">
+                                <li class="nav-item mr-150">
                                     <a class="nav-link active" href="/">카테고리</a>
                                 </li>
-                                <span id="span_parent">
+                                <span id="span_parent" class="mr-150">
                                     <img src={coin_purse_icon} width="30px" alt="coin_purse" id="coin_purse_icon"/>
-                                    <li class="nav-item mr-70 ml-20">
+                                    <li class="nav-item">
                                         <a class="nav-link active" href="/" id="amt">
-                                                <span id="span_amt">&nbsp;10,000</span>
+                                                <span id="span_amt">10,000</span>
                                                 <span id="span_won">₩</span>
                                         </a>
                                     </li>

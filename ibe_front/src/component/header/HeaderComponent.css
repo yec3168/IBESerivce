@@ -2,8 +2,8 @@
     height: 100px;
 }
 
-.mr-100{
-    margin-right: 100px;
+.mr-150{
+    margin-right: 150px;
 }
 
 .mr-80{
@@ -14,8 +14,8 @@
     margin-right: 70px;
 }
 
-.ml-20{
-    margin-left: 20px;
+.ml-30{
+    margin-left: 70px;
 }
 
 nav {
@@ -44,6 +44,12 @@ nav {
     margin: 0;
     padding: 0;
     position: absolute;
-    left: 0px;
+    left: -30px;
     top: 10px;
+}
+
+#amt{
+    float: left;
+    left: 0px;
+    position: absolute;
 }

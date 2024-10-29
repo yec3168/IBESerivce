@@ -47,11 +47,20 @@
   height: 50px;
 }
 
-/* .col{
-  border: 1px solid black;
-  height: 200px;
+#div_iconCol{
+  height: 150px;
   width: 200px;
-} */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#div_nameCol{
+  height: 50px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+}
 
 #div_allIcons{
   width: 100%;
@@ -60,17 +69,16 @@
   align-items: center;
 }
 
-#div_col{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #img_categoryIcons{
-  width: 150px;
-  height: 150px;
+  width: 110px;
+  height: 110px;
 }
 
 #div_categoryName{
   height: 100px;
+}
+
+#div_nameTxt{
+  font-family: "CookieRun-Regular", sans-serif !important;
+  font-size: 20px;
 }
