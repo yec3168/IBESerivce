@@ -18,6 +18,11 @@ const SignupComponent = () => {
     const [memberBank, setMemberBank] = useState("");
     const [memberAccountNumber, setMemberAccountNumber] = useState("");
 
+    
+
+
+    const isSame = memberPassword === memberPassword1;
+
     return (
         <div className="sign-up__wrapper">
             
@@ -47,9 +52,12 @@ const SignupComponent = () => {
                 {/* 비밀번호 */}
                 <Form.Group className="mb-2 mb-4 " controlId="memberPassword">
                         <Form.Control type="password" 
-                         value={memberPassword}
-                         onChange={(e) => setMemberPassword(e.target.value)}
+                        value={memberPassword}
+                        onChange={(e) => setMemberPassword(e.target.value)}
                         placeholder="비밀번호" required/>
+                        <Form.Text className="passwordHelpBlock" muted>
+                            비밀번호는 6 ~ 20자로 입력해주세요.
+                        </Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-2 mb-4 " controlId="memberPassword1">
@@ -57,6 +65,13 @@ const SignupComponent = () => {
                         value={memberPassword1}
                         onChange={(e) => setMemberPassword1(e.target.value)}
                         placeholder="비밀번호 재확인" required/>
+                        {memberPassword1 !== '' && !isSame ?(
+                            <Form.Text className="passwordHelpBlock" muted>
+                              비밀번호는 6 ~ 20자로 입력해주세요.
+                            </Form.Text>
+                        ):(
+                            <Form.Text className="passwordHelpBlock " muted>비밀번호가 다릅니다.</Form.Text>
+                        )}
                 </Form.Group>
                 
                 {/* 이름, 닉네임 */}
