@@ -4,6 +4,11 @@ import product_shampoo from '../assets/images/main/product/product_shampoo.png'
 import product_stroller from '../assets/images/main/product/product_stroller.png'
 import product_slide from '../assets/images/main/product/product_slide.png'
 import product_humidifier from '../assets/images/main/product/product_humidifier.png'
+import badge_available from '../assets/images/main/badge/badge_available.png'
+import badge_finished from '../assets/images/main/badge/badge_finished.png'
+import badge_high from '../assets/images/main/badge/badge_high.png'
+import badge_mid from '../assets/images/main/badge/badge_mid.png'
+import badge_low from '../assets/images/main/badge/badge_low.png'
 
 const productImgs = [
     product_book, product_slide, product_stroller, product_humidifier
@@ -33,6 +38,33 @@ const AllProductsComponent=()=>{
                             </div>
                         )
                     })}
+                </div>
+                {/* 전체 상품 상태 */}
+                <div class="row row-cols-4">
+                    <div class="col" id="div_proStateCol">
+                        <div id="div_proState">
+                            <img src={badge_available} alt="available" class="proStateBadge"/> 
+                            <img src={badge_high} alt="high" class="proStateBadge"/>
+                        </div>
+                    </div>
+                    <div class="col" id="div_proStateCol">
+                        <div id="div_proState">
+                            <img src={badge_available} alt="available" class="proStateBadge"/> 
+                            <img src={badge_mid} alt="high" class="proStateBadge"/>
+                        </div>
+                    </div>
+                    <div class="col" id="div_proStateCol">
+                        <div id="div_proState">
+                            <img src={badge_finished} alt="available" class="proStateBadge"/> 
+                            <img src={badge_mid} alt="high" class="proStateBadge"/>
+                        </div>
+                    </div>
+                    <div class="col" id="div_proStateCol">
+                        <div id="div_proState">
+                            <img src={badge_finished} alt="available" class="proStateBadge"/> 
+                            <img src={badge_low} alt="high" class="proStateBadge"/>
+                        </div>
+                    </div>
                 </div>
                 {/* 전체 상품 이름 */}
                 <div class="row row-cols-4">

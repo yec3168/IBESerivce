@@ -100,10 +100,20 @@
 #div_proNameTxt{
   font-family: "CookieRun-Regular", sans-serif !important;
   font-size: 20px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 #div_proPriceTxt{
   font-family: "CookieRun-Regular", sans-serif !important;
   font-size: 20px;
+}
+
+#div_proState{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.proStateBadge{
+  margin-right: 10px;
+  width: 100px;
 }
