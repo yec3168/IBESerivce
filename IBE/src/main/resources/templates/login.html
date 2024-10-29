@@ -8,11 +8,14 @@
 <form action="/loginProc" method="post">
     <div>
         <label>Email:</label>
-        <input type="text" name="memberEmail" required /> <!-- memberEmail로 변경 -->
+        <input type="text" name="memberEmail" required />
     </div>
     <div>
         <label>Password:</label>
-        <input type="password" name="memberPassword" required /> <!-- memberPassword로 변경 -->
+        <input type="password" name="memberPassword" required />
+    </div>
+    <div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     </div>
     <button type="submit">Login</button>
 </form>
