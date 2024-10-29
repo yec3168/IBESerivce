@@ -4,7 +4,7 @@ import './HeaderComponent.css'
 
 const HeaderComponent = () => {
     return (
-        <div>
+        <div class="container-fluid fixed-top bg-white" id="div_header">
             <header>
                 <nav class="navbar navbar-expand-lg" >
                     <div class="container-fluid fixed-top">
@@ -36,26 +36,26 @@ const HeaderComponent = () => {
                         {/* 메뉴바 */}
                         <div class="collapse navbar-collapse justify-content-end" id="menubar">
                             <ul class="navbar-nav menubar">
-                                <li class="nav-item mx-5">
+                                <li class="nav-item mr-100">
                                     <a class="nav-link active" href="/">구매하기</a>
                                 </li>
-                                <li class="nav-item mx-5">
+                                <li class="nav-item mr-100">
                                     <a class="nav-link active" href="/">판매하기</a>
                                 </li>
-                                <li class="nav-item mx-5">
+                                <li class="nav-item mr-100">
                                     <a class="nav-link active" href="/">카테고리</a>
                                 </li>
                                 <span id="span_parent">
                                     <img src={coin_purse_icon} width="30px" alt="coin_purse" id="coin_purse_icon"/>
-                                    <li class="nav-item mx-5" >
+                                    <li class="nav-item mr-70 ml-20">
                                         <a class="nav-link active" href="/" id="amt">
-                                                <span id="span_amt">10,000</span>
-                                                <span id="span_won"> ₩</span>
+                                                <span id="span_amt">&nbsp;10,000</span>
+                                                <span id="span_won">₩</span>
                                         </a>
                                     </li>
                                 </span>
                                 
-                                <li class="nav-item mx-5">
+                                <li class="nav-item mr-80">
                                     <a class="nav-link active" href="/">마이페이지</a>
                                 </li>
                             </ul>
