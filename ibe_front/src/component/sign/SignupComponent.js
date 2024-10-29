@@ -23,9 +23,10 @@ const SignupComponent = () => {
 
     const isSame = memberPassword === memberPassword1;
 
-    const [useEmail, setUseEmail] = useState(true); // 이메일 중복 (true면 중복이 있음. 사용불가)
+    // const [useEmail, setUseEmail] = useState(true); // 이메일 중복 (true면 중복이 있음. 사용불가)
     
-    function checkDuplicatedEmail(){
+    const  checkDuplicatedEmail = (event) => {
+        event.preventDefault(); 
         checkEmail(memberEmail).then( response =>{
             console.log(response.data)
             if(response.data){
@@ -42,16 +43,44 @@ const SignupComponent = () => {
             }
         }) 
     }
+    
+    const onSubmitHandler = (event) => {
+        console.log("asd")
+        event.preventDefault(); 
+        
+        let memberForm ={
+            memberEmail : memberEmail,
+            memberPassword: memberPassword,
+            memberName : memberName,
+            memberNickName : memberNickName,
+            memberBirth : memberBirth,
+            memberAddr : memberAddr,
+            memberAddrDetail : memberAddrDetail,
+            memberPhone : memberPhone,
+            memberBank : memberBank,
+            memberAccountNumber : memberAccountNumber
+        }
+        console.log("asd")
+        saveMember(memberForm).then(
+            console.log("들어옴"),
+            (response) => {
+                console.log(response.data);
+                if(response.data.status === "200"){
+                    alert("회원가입 성공!")
+                } 
+            }
+        )
+
+    }
 
     return (
         <div className="sign-up__wrapper">
             
-            <Form className=" bg-white rounded" >
-                <img
-                className="img mx-auto d-block mb-2 w-50"
-                src={Logo}
-                alt="logo"
-                />
+            <Form className=" bg-white rounded" onSubmit={onSubmitHandler}>
+                <a href="/"> 
+                    <img className="img mx-auto d-block mb-2 w-50"src={Logo}alt="logo"/>
+                </a>
+               
                 {/* 이메일 */}
                 <Form.Group className="mb-2  " controlId="memberEmail">
                     <Row>
@@ -62,7 +91,7 @@ const SignupComponent = () => {
                              placeholder="이메일" required/>
                         </Col>
                         <Col lassName="col-2">
-                        <Button className="w-100 mb-3" variant="primary" type="button"  style={{backgroundColor:'#FFD774'}} onClick={checkDuplicatedEmail}>
+                        <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}} onClick={checkDuplicatedEmail}>
                              중복
                         </Button>
                         </Col>
@@ -186,7 +215,7 @@ const SignupComponent = () => {
                 </Row>
 
 
-                <Button href="/signin" className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
+                <Button      className="w-100 mb-3" variant="default" type="submit"  style={{backgroundColor:'#FFD774'}}>
                         회원가입
                 </Button>
 
