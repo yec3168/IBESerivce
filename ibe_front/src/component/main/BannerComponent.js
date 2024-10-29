@@ -14,7 +14,7 @@ const BannerComponent = () => {
         {banner_imgs.map((item, idx) => { 
             return (
                 <Carousel.Item interval={2000}>
-                    <img src={item} alt="banner" width="650px" height="350px" />
+                    <img id="img_carousel" src={item} alt="banner" />
                 </Carousel.Item>
             )
         })}
