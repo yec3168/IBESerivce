@@ -20,10 +20,11 @@ const SignupComponent = () => {
     const [memberAccountNumber, setMemberAccountNumber] = useState("");
 
 
-
-    const isSame = memberPassword === memberPassword1;
-
-    // const [useEmail, setUseEmail] = useState(true); // 이메일 중복 (true면 중복이 있음. 사용불가)
+    // memberPassword === memberPassword1;
+    const [isSame, setIsSame] = useState(true);
+    const [isValidLength, setIsValidLength] = useState(true)
+     
+  
     
     const  checkDuplicatedEmail = (event) => {
         event.preventDefault(); 
@@ -46,6 +47,24 @@ const SignupComponent = () => {
     
     const onSubmitHandler = (event) => {
         event.preventDefault(); 
+        if( memberPassword.length >= 6 && memberPassword.length <= 20){
+            setIsValidLength(true);
+           
+        }
+        else{
+            setIsValidLength(false);
+            return false;
+        }
+
+        if(memberPassword === memberPassword1){
+            setIsSame(true)
+        }
+        else{
+            setIsSame(false)
+            return false;
+        }
+
+       
         
         let memberForm ={
             memberEmail : memberEmail,
@@ -114,9 +133,12 @@ const SignupComponent = () => {
                         value={memberPassword}
                         onChange={(e) => setMemberPassword(e.target.value)}
                         placeholder="비밀번호" required/>
-                        <Form.Text className="passwordHelpBlock" muted>
-                            비밀번호는 6 ~ 20자로 입력해주세요.
-                        </Form.Text>
+                       
+                        {isValidLength
+                        ? (<p className="passwordHelpBlock"  style={{ fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p>  )
+                        : (<p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p> )} 
+                        
+
                 </Form.Group>
 
                 <Form.Group className="mb-2 mb-4 " controlId="memberPassword1">
@@ -124,12 +146,10 @@ const SignupComponent = () => {
                         value={memberPassword1}
                         onChange={(e) => setMemberPassword1(e.target.value)}
                         placeholder="비밀번호 재확인" required/>
-                        {memberPassword1 !== '' && !isSame ?(
-                            <Form.Text className="passwordHelpBlock" muted>
-                              비밀번호는 6 ~ 20자로 입력해주세요.
-                            </Form.Text>
+                        {isSame ?(
+                            <div />
                         ):(
-                            <Form.Text className="passwordHelpBlock " muted>비밀번호가 다릅니다.</Form.Text>
+                            <p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}} muted>비밀번호가 다릅니다.</p>
                         )}
                 </Form.Group>
                 

@@ -14,12 +14,12 @@ function SignInComponent(){
     const onSubmitHandler =  (event) => {
         // 버튼만 누르면 리프레시 되는것을 막아줌
         event.preventDefault();
-       
+       console.log("asd")
         // if(memberEmail === "admin@test.com" || memberPassword ==="admin1"){
-        //     setIsEmpty(false);
+        //     setIsEmpty(true);
         // }
         // else{
-        //     setIsEmpty(true)
+        //     setIsEmpty(false)
         // }
     
 
@@ -31,10 +31,20 @@ function SignInComponent(){
         login(memberForm).then(
             response => {
                 console.log(response.data)
-                if(response.data.status === "200"){
-                    alert("로그인 성공!")
-                    window.location.href ="/"
+                try{
+                    if(response.data.status === "200"){
+                        alert("로그인 성공!")
+                        window.location.href ="/"
+                        setIsEmpty(false)
+                    }
+                } catch(error){
+                    if(error.response.status === 404){
+                        setIsEmpty(true)
+                        return false;
+                    }
+                   
                 }
+            
             }
         )
     }
@@ -62,15 +72,15 @@ function SignInComponent(){
                          value={memberPassword}
                          onChange={(e) => setMemberPassword(e.target.value)}
                          required />
-                         {
+                        {
                             isEmpty ? (
-                                 <div />
+                                <div />
                                 ) : (
                                 <Form.Text className="passwordHelpBlock" muted>
                                     비밀번호는 6 ~ 20자로 입력해주세요.
                                 </Form.Text>
                             )
-                         }
+                        }
                         
                     </FloatingLabel>
 
