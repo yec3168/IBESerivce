@@ -1,5 +1,6 @@
 package com.project.ibe.dto;
 
+import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,7 @@ public class MemberDetails implements UserDetails {
         collection.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return member.getRole();
+                return member.getRole().toString();
             }
         });
         return collection;

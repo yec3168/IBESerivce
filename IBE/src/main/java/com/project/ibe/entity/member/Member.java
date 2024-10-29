@@ -65,7 +65,8 @@ public class Member {
 //    private LocalDateTime updateDate;   // 수정날짜
 //
     @Column(nullable = false)
-    private String role;                  // 권한
+    @Enumerated(EnumType.STRING)
+    private Role role;                  // 권한
 //
 //    @Column(nullable = false)
 //    private Long memberPoint;           // 보유포인트

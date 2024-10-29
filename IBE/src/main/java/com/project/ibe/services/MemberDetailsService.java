@@ -14,7 +14,6 @@ import java.sql.SQLOutput;
 @Service
 public class MemberDetailsService implements UserDetailsService {
 
-
     @Autowired
     private MemberRepository memberRepository;
 

@@ -1,6 +1,7 @@
 package com.project.ibe.services;
 
 import com.project.ibe.dto.RegisterDTO;
+import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class RegisterService {
         Member data = new Member();
         data.setMemberEmail(registerDTO.getMemberEmail());
         data.setMemberPassword(bCryptPasswordEncoder.encode(registerDTO.getMemberPassword()));
-        data.setRole("ROLE_ADMIN");
+        data.setRole(Role.ROLE_ADMIN);
         memberRepository.save(data);
     }
 }
