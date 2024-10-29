@@ -1,11 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+#div_header{
+    height: 130px;
+}
+
+.mr-100{
+    margin-right: 100px;
+}
+
+.mr-80{
+    margin-right: 80px;
+}
+
+.mr-70{
+    margin-right: 70px;
+}
+
+.ml-20{
+    margin-left: 20px;
+}
 
 nav {
-    font-family: "Jua", sans-serif !important;
+    font-family: "CookieRun-Regular", sans-serif !important;
 }
 
 .menubar {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 #span_parent{
@@ -22,6 +40,6 @@ nav {
     margin: 0;
     padding: 0;
     position: absolute;
-    left: 25px;
-    top: 5px;
+    left: 0px;
+    top: 10px;
 }

@@ -1,9 +1,9 @@
 /* MainComponent */
 
-#div_endOfHeader {
-  width: 100%;
-  height: 30px;
-  background-color: #ffeab7;
+#div_endOfHeader{
+    width: 100%;
+    height: 160px;
+    background-color: #FFEAB7;
 }
 
 #div_bgBanner {
