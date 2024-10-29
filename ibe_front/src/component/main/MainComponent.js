@@ -1,3 +1,4 @@
+import AllProductsComponent from './AllProductsComponent';
 import BannerComponent from './BannerComponent';
 import CategoryIconsComponent from './CategoryIconsComponent';
 import './Main.css'
@@ -17,8 +18,13 @@ const MainComponent = () =>{
             <div id="div_bgCategory">
                 <CategoryIconsComponent/>
             </div>
+
+            {/* 전체 상품 */}
+            <div>
+                <AllProductsComponent/>
+            </div>
             
-            <div id="div_endOfBanner" />
+            <div id="div_endOfMainBody" />
 
         </>
     );
