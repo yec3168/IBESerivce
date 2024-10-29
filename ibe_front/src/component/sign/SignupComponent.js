@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import {checkEmail, saveMember} from '../service/MemberService';
 // import{FaAddressBook } from "react-icons/fa"
 import Logo from '../assets/images/sign/ibe_logo1.png'
 
@@ -18,10 +19,29 @@ const SignupComponent = () => {
     const [memberBank, setMemberBank] = useState("");
     const [memberAccountNumber, setMemberAccountNumber] = useState("");
 
-    
 
 
     const isSame = memberPassword === memberPassword1;
+
+    const [useEmail, setUseEmail] = useState(true); // 이메일 중복 (true면 중복이 있음. 사용불가)
+    
+    function checkDuplicatedEmail(){
+        checkEmail(memberEmail).then( response =>{
+            console.log(response.data)
+            if(response.data){
+                alert("사용할 수 없는 이메일입니다.")
+                //setUseEmail(true);
+            }
+            else{
+                if(window.confirm("사용가능한 이메일입니다.")){
+                    //setUseEmail(false)
+                }
+                else{
+                    setMemberEmail("")
+                }
+            }
+        }) 
+    }
 
     return (
         <div className="sign-up__wrapper">
@@ -42,10 +62,17 @@ const SignupComponent = () => {
                              placeholder="이메일" required/>
                         </Col>
                         <Col lassName="col-2">
-                        <Button className="w-100 mb-3" variant="primary" type="button"  style={{backgroundColor:'#FFD774'}}>
+                        <Button className="w-100 mb-3" variant="primary" type="button"  style={{backgroundColor:'#FFD774'}} onClick={checkDuplicatedEmail}>
                              중복
                         </Button>
                         </Col>
+                        {/* {
+                            useEmail? (
+                                <p style={{color:"red"}}>사용할 수 없는 이메일입니다.</p>
+                            ) : (
+                                <p style={{color:"blue"}}>사용할 수 있는 이메일입니다.</p>
+                            )
+                        } */}
                     </Row>
                 </Form.Group>
 
@@ -137,8 +164,13 @@ const SignupComponent = () => {
                             onChange={(e) => setMemberBank(e.target.value)}
                             >
                                 <option value="KB">국민</option>
-                                <option value="SINHAN">신한</option>
+                                <option value="SHINHAN">신한</option>
+                                <option value="HANA">하나</option>
                                 <option value="WOORI">우리</option>
+                                <option value="NH">농협</option>
+                                <option value="KAKAO">카카오</option>
+                                <option value="TOSS">토스</option>
+                                
                             </Form.Select>
                         </Form.Group>
                     </Col>
