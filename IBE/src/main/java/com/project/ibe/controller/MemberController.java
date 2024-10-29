@@ -16,6 +16,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody MemberSignUpRequest memberSignUpRequest) {
+//        System.out.println(memberSignUpRequest.getMemberBank());
         return memberService.signUp(memberSignUpRequest);
     }
 

@@ -45,7 +45,6 @@ const SignupComponent = () => {
     }
     
     const onSubmitHandler = (event) => {
-        console.log("asd")
         event.preventDefault(); 
         
         let memberForm ={
@@ -60,14 +59,16 @@ const SignupComponent = () => {
             memberBank : memberBank,
             memberAccountNumber : memberAccountNumber
         }
-        console.log("asd")
+
+        // console.log("asd")
+
         saveMember(memberForm).then(
-            console.log("들어옴"),
             (response) => {
                 console.log(response.data);
                 if(response.data.status === "200"){
                     alert("회원가입 성공!")
-                } 
+                    window.location.href ="/signin"
+                }
             }
         )
 
@@ -95,13 +96,15 @@ const SignupComponent = () => {
                              중복
                         </Button>
                         </Col>
-                        {/* {
+                        {
+                        /* {
                             useEmail? (
                                 <p style={{color:"red"}}>사용할 수 없는 이메일입니다.</p>
                             ) : (
                                 <p style={{color:"blue"}}>사용할 수 있는 이메일입니다.</p>
                             )
-                        } */}
+                        } */
+                        }
                     </Row>
                 </Form.Group>
 
@@ -186,12 +189,13 @@ const SignupComponent = () => {
                 
                 {/* 계좌 */}
                 <Row className="mb-2 mb-4 ">
-                    <Col className="col-2">
+                    <Col className="col-3">
                         <Form.Group className="mb-2" controlId="memberBank">
                             <Form.Select aria-label="은행"
                             value={memberBank}
                             onChange={(e) => setMemberBank(e.target.value)}
                             >
+                                <option>은행선택</option>
                                 <option value="KB">국민</option>
                                 <option value="SHINHAN">신한</option>
                                 <option value="HANA">하나</option>
@@ -204,7 +208,7 @@ const SignupComponent = () => {
                         </Form.Group>
                     </Col>
 
-                    <Col className="col-10">
+                    <Col className="col-9">
                         <Form.Group controlId="memberAccountNumber">
                             <Form.Control type="text" 
                             value={memberAccountNumber}

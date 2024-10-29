@@ -37,9 +37,12 @@ public class MemberService {
 
 
     public ResponseEntity<?> signUp(MemberSignUpRequest memberSignUpRequest) {
+
         if(memberRepository.existsByMemberEmail(memberSignUpRequest.getMemberEmail())) {
             throw new BusinessException("Email Exist", HttpStatus.NOT_FOUND);
         }
+
+
         memberSignUpRequest.setMemberPassword(bCryptPasswordEncoder.encode(memberSignUpRequest.getMemberPassword()));
         Member member =  modelMapper.map(memberSignUpRequest, Member.class);
         member.setMemberPoint(0L);
