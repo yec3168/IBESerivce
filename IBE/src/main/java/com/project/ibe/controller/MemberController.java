@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/api/member")
 public class MemberController {
 
-    private final RegisterService registerService;
     private final MemberService memberService;
 
     @PostMapping("/signup")
@@ -29,7 +28,5 @@ public class MemberController {
     public Boolean checkEmail(@PathVariable String memberEmail) {
         return memberService.checkEmail(memberEmail);
     }
-
-
 
 }
