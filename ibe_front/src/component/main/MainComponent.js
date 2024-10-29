@@ -2,6 +2,7 @@ import AllProductsComponent from './AllProductsComponent';
 import BannerComponent from './BannerComponent';
 import CategoryIconsComponent from './CategoryIconsComponent';
 import './Main.css'
+import TrendingProductsComponent from './TrendingProductsComponent';
 
 const MainComponent = () =>{
     return (
@@ -22,6 +23,14 @@ const MainComponent = () =>{
             {/* 전체 상품 */}
             <div>
                 <AllProductsComponent/>
+            </div>
+
+            {/* 상품 목록 사이 div 설정 */}
+            <div id="div_spacing"/>
+
+            {/* 인기 상품 */}
+            <div>
+                <TrendingProductsComponent/>
             </div>
             
             <div id="div_endOfMainBody" />
