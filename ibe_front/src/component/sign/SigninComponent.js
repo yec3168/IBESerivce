@@ -1,42 +1,49 @@
+import React, { useState } from "react";
 import { Form, Button, FloatingLabel , Row, Col } from "react-bootstrap";
 import Logo from '../assets/images/sign/ibe_logo1.png'
-import Kakao from '../assets/images/sign/kakao_login.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
 import './Sign.css'
 
 function SignInComponent(){
+    const [memberEmail, setMemberEmail] = useState("");
+    const [memberPassword, setMemberPassword] = useState("");
+  
+
+ 
+   
+
+
     return(
         <div className="sign-in__wrapper">
             <div className="sign-in__backdrop"></div>
             {/* <Form className="shadow p-4 bg-white rounded" >*/}
                 <Form className=" bg-white rounded" >
-                    <img
-                    className="img mx-auto d-block mb-2 w-50"
-                    src={Logo}
-                    alt="logo"
-                    />
-
+                    <img className="img mx-auto d-block mb-2 w-50" src={Logo} alt="logo"/>
+                    
                     <FloatingLabel className="mb-2 mb-3 " controlId="email" label="이메일">
-                        <Form.Control
-                            type="text"
-                            placeholder="@gmail.com"
-                            required
-                        />
+                        <Form.Control type="email" 
+                        placeholder="이메일" 
+                        value ={memberEmail}
+                        onChange={(e) => setMemberEmail(e.target.value)}
+                        required />
                     </FloatingLabel>
+
 
                     <FloatingLabel className="mb-2 mb-3 " controlId="password" label="비밀번호">
-                        <Form.Control
-                            type="password"
-                            placeholder="비밀번호"
-                            required
-                        />
+                        <Form.Control type="password"
+                         placeholder="비밀번호" 
+                         value={memberPassword}
+                         onChange={(e) => setMemberPassword(e.target.value)}
+                         required />
                     </FloatingLabel>
+
 
                     <Form.Group className="mb-2 mb-3" controlId="checkbox">
                         <Form.Check type="checkbox" label="로그인 상태 유지" />
                     </Form.Group>
 
-                    <Button href="/" className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
+
+                    <Button href="#" className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
                         로그인
                     </Button>
 
@@ -46,12 +53,14 @@ function SignInComponent(){
                         <Col className="col_list"><a class="signin_a" href="/signup">회원가입</a></Col>
                     </Row>
 
+
                     <Row className="mb-2 mb-3">
                         <Col className="d-flex justify-content-center">간편로그인</Col>
                     </Row>
 
+
                     <Button className="w-100 mb-3" variant="primary" type="button"  style={{backgroundColor:'#FFE337', color:'black'}}>
-                        <RiKakaoTalkFill/>
+                        <RiKakaoTalkFill s/>
                         카톡으로 쉽게 시작하기
                     </Button>
 
