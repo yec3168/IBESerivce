@@ -2,19 +2,16 @@ package com.project.ibe.controller;
 
 import com.project.ibe.dto.MemberSignInRequest;
 import com.project.ibe.dto.MemberSignUpRequest;
-import com.project.ibe.dto.RegisterDTO;
 import com.project.ibe.services.MemberService;
-import com.project.ibe.services.RegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/api/member")
 public class MemberController {
 
-    private final RegisterService registerService;
     private final MemberService memberService;
 
     @PostMapping("/signup")
@@ -29,7 +26,4 @@ public class MemberController {
     public Boolean checkEmail(@PathVariable String memberEmail) {
         return memberService.checkEmail(memberEmail);
     }
-
-
-
 }
