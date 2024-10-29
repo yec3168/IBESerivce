@@ -1,5 +1,5 @@
 #div_header{
-    height: 130px;
+    height: 100px;
 }
 
 .mr-100{
@@ -23,7 +23,11 @@ nav {
 }
 
 .menubar {
-    font-size: 25px;
+    font-size: 20px;
+}
+
+.loginMenubar{
+    font-size: 15px;
 }
 
 #span_parent{

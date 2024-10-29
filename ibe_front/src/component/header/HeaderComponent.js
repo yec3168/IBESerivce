@@ -10,7 +10,7 @@ const HeaderComponent = () => {
                     <div class="container-fluid fixed-top">
                         {/* 로그인 메뉴바 */}
                         <div class="collapse navbar-collapse justify-content-end" id="loginMenubar">
-                            <ul class="navbar-nav">
+                            <ul class="navbar-nav loginMenubar">
                                 <li class="nav-item mx-3">
                                     <a class="nav-link active" href="/signin">로그인</a>
                                 </li>
@@ -27,7 +27,7 @@ const HeaderComponent = () => {
                     <div class="container-fluid">                        
                         {/* 메인 로고 */}
                         <a class="navbar-brand" href="/">
-                                <img src={ibe_logo} width="250px" alt="logo"/>
+                                <img src={ibe_logo} width="200px" alt="logo"/>
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
