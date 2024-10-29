@@ -20,7 +20,6 @@ public class RegisterController {
 
     @PostMapping("/registerProc")
     public String registerProc(RegisterDTO registerDTO) {
-//        System.out.println(registerDTO.getMemberEmail()+"aaa");
         registerService.registerProcess(registerDTO);
         return "redirect:/login";
     }

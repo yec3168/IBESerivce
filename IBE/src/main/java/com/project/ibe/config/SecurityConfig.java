@@ -46,14 +46,6 @@ public class SecurityConfig {
                                                             //changeSessionId 로그인 시 동일한 세션에 대한 id 변경
                 )
         ;
-
-
-
         return http.build();
     }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }
