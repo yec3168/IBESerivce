@@ -1,11 +1,13 @@
 import FooterComponent from "../footer/FooterComponent";
 import HeaderComponent from "../header/HeaderComponent";
 
-const LayoutComponent = () =>{
+const LayoutComponent = (props) =>{
     return (
         <div>
             <HeaderComponent/>
-            <p>아이비 BODY</p>
+            <main>
+                {props.children}
+            </main>
             <FooterComponent/>
         </div>   
     )

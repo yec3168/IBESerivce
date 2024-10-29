@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+nav {
+    font-family: "Jua", sans-serif !important;
+}
+
+.menubar {
+    font-size: 30px;
+}
+
+#span_parent{
+    position: relative;
+}
+
+#span_won{
+    color: darkorange;
+    position: relative;
+}
+
+#coin_purse_icon{
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 25px;
+    top: 5px;
+}
