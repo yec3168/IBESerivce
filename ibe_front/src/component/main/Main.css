@@ -47,24 +47,30 @@
   height: 50px;
 }
 
-.col{
-  /* border: 1px solid black; */
+/* .col{
+  border: 1px solid black;
   height: 200px;
   width: 200px;
-}
+} */
 
 #div_allIcons{
-  /* background-color: red; */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* #div_col{
-
+#div_col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #img_categoryIcons{
+  width: 150px;
+  height: 150px;
+}
 
-} */
+#div_categoryName{
+  height: 100px;
+}
