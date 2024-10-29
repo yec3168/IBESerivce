@@ -10,7 +10,7 @@ const categoryIcons = [
     icon_all, icon_clothes, icon_toys, icon_books, icon_outdoor, icon_etc
 ];
 
-const categoryName = [
+const categoryNames = [
     "전체", "아동 의류", "아동 완구", "아동 도서", "외출 용품", "기타"
 ];
 
@@ -33,10 +33,10 @@ const CategoryIconsComponent = () => {
                 </div>
             </div>
 
-            {/* 카테고리 icon 메뉴바 */}
+            {/* 카테고리 이름 메뉴바 */}
             <div class="container" id="div_allIcons">
                 <div class="row row-cols-6" id="div_categoryName">
-                    {categoryName.map((item, idx) => { 
+                    {categoryNames.map((item, idx) => { 
                         return (
                             <div class="col" id="div_nameCol">
                                 <div id="div_nameTxt">{item}</div>
