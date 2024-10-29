@@ -4,8 +4,8 @@ import './MainComponent.css'
 const MainComponent = () =>{
     return (
         <>
-            {/* 헤더 끝 노란색 구분선 */}
-            <div id="div_endOfHeader"/>
+            {/* 헤더 픽스된 위치만큼 div 설정 */}
+            <div id="div_headerHeight"/>
             
             {/* carousel */}
             <div id="div_bgBanner">

@@ -1,15 +1,13 @@
 /* MainComponent */
 
-#div_endOfHeader{
+#div_headerHeight{
     width: 100%;
     height: 160px;
-    /* background-color: #FFEAB7; */
 }
 
 #div_bgBanner {
   width: 100%;
   height: 430px;
-  /* background-color: #ffeab7; */
   background-image: url('../assets/images/main/banner/banner_teddy_trans.png');
   background-repeat: no-repeat;
   background-size: cover;
