@@ -1,6 +1,5 @@
 package com.project.ibe.entity.common;
 
 public enum Bank {
-    KB, SINHAN, HANA, WOORI, NH, KAKAO, TOSS
-
+    KB, SINHAN, HANA, WOORI, NH, KAKAO, TOSS;
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -51,6 +52,7 @@ public class Member {
     private String memberPassword;      // 비밀번호
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Bank memberBank;            // 환급은행
 
     @Column(nullable = false)
@@ -71,6 +73,6 @@ public class Member {
     @Column(nullable = false)
     private Long memberPoint;           // 보유포인트
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String memberAuthNumber;     // 인증번호
 }

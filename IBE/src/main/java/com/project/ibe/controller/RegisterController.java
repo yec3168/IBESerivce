@@ -21,6 +21,6 @@ public class RegisterController {
     @PostMapping("/registerProc")
     public String registerProc(RegisterDTO registerDTO) {
         registerService.registerProcess(registerDTO);
-        return "redirect:/login";
+        return "/";
     }
 }
