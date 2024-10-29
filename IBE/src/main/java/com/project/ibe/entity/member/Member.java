@@ -33,8 +33,8 @@ public class Member {
     @Size(max = 10)
     private String memberNickName;      // 닉네임
 
-    @Column(nullable = false, unique = true)
-    private Date memberBirth;           // 주민번호
+    @Column(nullable = false)
+    private Date memberBirth;           // 생일
 
     @Column(nullable = false)
     private String memberPhone;         // 전화번호

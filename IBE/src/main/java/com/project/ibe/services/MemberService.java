@@ -19,11 +19,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -65,5 +67,9 @@ public class MemberService {
 
 
         return new ResponseEntity<>(new SuccessResponse("200","성공"),HttpStatus.OK);
+    }
+
+    public Boolean checkEmail(String memberEmail) {
+        return memberRepository.existsByMemberEmail(memberEmail);
     }
 }
