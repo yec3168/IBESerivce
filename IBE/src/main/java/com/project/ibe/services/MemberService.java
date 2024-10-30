@@ -1,10 +1,10 @@
 package com.project.ibe.services;
 
-
 import com.project.ibe.config.SmsUtil;
 import com.project.ibe.dto.member.MemberSignupResponse;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
+import com.project.ibe.dto.member.*;
 import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
@@ -85,12 +85,19 @@ public class MemberService {
         return memberRepository.existsByMemberEmail(memberEmail);
     }
 
-
     //문자 인증 로직 ( 전화번호 인증 )
     public String sendSmsToFindEmail(String memberPhone) {
         String randomCode = smsUtil.generateRandomNumber();
-        smsUtil.sendOne(memberPhone.replaceAll("-",""), randomCode);
+        smsUtil.sendOne(memberPhone.replaceAll("-", ""), randomCode);
 
         return randomCode;
+    }
+
+    // 이메일 인증 auth number update
+    public boolean updateAuthNumber(String memberEmail, String authNumber){
+        Member member = memberRepository.findByMemberEmail(memberEmail);
+        member.setMemberAuthNumber(authNumber);
+
+        return true;
     }
 }
