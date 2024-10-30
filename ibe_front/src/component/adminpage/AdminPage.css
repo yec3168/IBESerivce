@@ -1,0 +1,211 @@
+/* src/AdminPage.css */
+
+body {
+  background-color: #fff5da;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.admin-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px; /* 사이드바 너비 */
+  background: #fff5b7; /* 사이드바 색상 */
+  color: #d27a00; /* 글자색 */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 나열 */
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* 사이드바 그림자 */
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  flex: 1; /* 각 메뉴 항목이 공간을 가득 차게 함 */
+  margin: 1rem 0;
+}
+
+.sidebar nav a {
+  display: block; /* 링크가 블록 요소로 설정 */
+  color: #d27a00; /* 메뉴 링크 글자색 */
+  text-decoration: none;
+  text-align: center; /* 텍스트 중앙 정렬 */
+  padding: 1rem; /* 패딩 추가 */
+}
+
+.sidebar nav a:hover {
+  color: #ffd700; /* 호버 시 글자색 변경 */
+  text-decoration: underline; /* 호버 시 텍스트 밑줄 */
+}
+
+.sidebar nav a.active {
+  background: #ffcb6a; /* 선택된 메뉴 항목 색상 */
+  color: #d27a00; /* 텍스트 색상 */
+  border-radius: 4px; /* 모서리 둥글게 */
+}
+
+.content {
+  flex: 1; /* 남은 공간을 채우기 */
+  padding: 2rem;
+  background: #fff5da;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background: #007bff; /* 버튼 색상 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0056b3; /* 버튼 호버 색상 */
+}
+
+input[type='text'] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+  margin-right: 0.5rem;
+}
+
+ul {
+  list-style-type: none; /* 불릿 제거 */
+  padding: 0;
+}
+
+ul li {
+  background: #fff5b7; /* 사용자 리스트 배경 색상 */
+}
+
+/* src/AdminPage.css */
+
+.stats-container {
+  display: flex;
+  justify-content: space-between; /* 좌우 공간을 균등하게 배분 */
+}
+
+.stat-item {
+  text-align: center; /* 중앙 정렬 */
+  color: #333; /* 텍스트 색상 */
+  font-weight: bold; /* 강조 */
+}
+
+.stat-box {
+  flex: 1; /* 각 박스가 균등하게 배치 */
+  margin: 0 1rem; /* 좌우 여백 */
+  padding: 1rem;
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  border-bottom: 4px solid #d27a00; /* 하단 테두리 색상 */
+}
+
+.box-1 {
+  border-bottom: 4px solid #788eff; /* 하단 테두리 색상 */
+  margin-right: 0.5rem;
+}
+
+.box-2 {
+  border-bottom: 4px solid #ffd063; /* 하단 테두리 색상 */
+  margin-right: 0.5rem;
+}
+
+.box-3 {
+  border-bottom: 4px solid #78ff91; /* 하단 테두리 색상 */
+  margin-right: 0.5rem;
+}
+
+.box-4 {
+  border-bottom: 4px solid #ff8888; /* 하단 테두리 색상 */
+}
+
+.dashboard-container {
+  display: flex; /* Flexbox를 사용하여 나란히 배치 */
+  justify-content: space-between; /* 두 그래프 사이 공간 분배 */
+  margin: 1rem; /* 상하 여백 */
+}
+
+.chart-box {
+  flex: 1; /* 기본적으로 균등하게 배치 */
+  padding: 1rem; /* 내부 여백 */
+  background: #fff; /* 배경색 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.bar-chart {
+  flex: 2; /* 막대 그래프 박스의 너비를 늘림 */
+  margin-right: 1rem;
+}
+
+.pie-chart {
+  flex: 1; /* 원형 그래프 박스의 기본 너비 */
+}
+
+.chart-box h3 {
+  text-align: center; /* 제목 중앙 정렬 */
+  color: #333; /* 제목 색상 */
+}
+
+.admin-header {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  margin: 1rem; /* 좌우 여백 */
+  padding: 1rem; /* 패딩 추가 */
+  background-color: #fff5b7; /* 상단바 색상 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.account-info {
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.content-h2 {
+  margin: 1rem; /* 좌우 여백 */
+}
+
+.stats-summary {
+  background: #fff; /* 배경색 */
+  margin: 1rem; /* 좌우 여백 */
+  padding: 1rem; /* 여백 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.summary-item {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 좌우 공간을 균등하게 분배 */
+  margin: 1rem; /* 좌우 여백 */ /* 각 항목 간의 여백 */
+  font-weight: bold; /* 강조 */
+  color: #333; /* 텍스트 색상 */
+}
+
+.content-h2 {
+  margin: 1rem; /* 좌우 여백 */
+}
+
+.logout-button {
+  margin-left: 1rem;
+}
