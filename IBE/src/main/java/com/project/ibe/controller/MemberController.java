@@ -5,6 +5,7 @@ import com.project.ibe.dto.member.MemberSignUpRequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,8 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/signup")
-    public Response signUp(@RequestBody MemberSignUpRequest memberSignUpRequest) {
+    @PostMapping("/signup") // @Valid 넣어야함.
+    public Response signUp( @RequestBody MemberSignUpRequest memberSignUpRequest) {
 
         try{
             return new Response(ResponseCode.SUCCESS, memberService.signUp(memberSignUpRequest), "200");

@@ -37,7 +37,7 @@ public class Member {
 //    @Column(nullable = false)
 //    private Date memberBirth;           // 생일
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String memberPhone;         // 전화번호
 
     @Column(nullable = false)

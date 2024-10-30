@@ -1,5 +1,7 @@
 package com.project.ibe.services;
 
+
+import com.project.ibe.config.SmsUtil;
 import com.project.ibe.dto.member.MemberSignupResponse;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
@@ -24,7 +26,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberBankRepository memberBankRepository;
-
+    private final SmsUtil smsUtil;  // SmsUtil 추가
     private final ModelMapper modelMapper;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -81,5 +83,14 @@ public class MemberService {
     // 이메일 체크
     public Boolean checkEmail(String memberEmail) {
         return memberRepository.existsByMemberEmail(memberEmail);
+    }
+
+
+    //문자 인증 로직 ( 전화번호 인증 )
+    public String sendSmsToFindEmail(String memberPhone) {
+        String randomCode = smsUtil.generateRandomNumber();
+        smsUtil.sendOne(memberPhone.replaceAll("-",""), randomCode);
+
+        return randomCode;
     }
 }
