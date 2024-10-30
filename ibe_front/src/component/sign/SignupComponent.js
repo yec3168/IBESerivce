@@ -81,15 +81,18 @@ const SignupComponent = () => {
 
         // console.log("asd")
 
-        saveMember(memberForm).then(
-            (response) => {
+        saveMember(memberForm)
+            .then((response) => {
                 console.log(response.data);
-                if(response.data.status === "200"){
-                    alert("회원가입 성공!")
-                    window.location.href ="/signin"
+                if (response.data.status === "200") {
+                    alert("회원가입 성공!");
+                    window.location.href = "/signin";
                 }
-            }
-        )
+        })
+        .catch((error) => {
+            console.error("회원가입 실패:", error); // 에러 로그 확인
+            alert("회원가입에 실패했습니다. 다시 시도해주세요."); // 사용자에게 실패 알림
+        });
 
     }
 
@@ -176,10 +179,14 @@ const SignupComponent = () => {
 
                 {/* 생년월일 */}
                 <Form.Group className="mb-2 mb-4 " controlId="memberBirth">
-                        <Form.Control type="date" 
+                        <Form.Control 
+                        type="text" 
                         value={memberBirth}
+                        placeholder="생년월일"
+                        onFocus={(e) => (e.target.type = "date")}
+                        onBlur={(e) => (e.target.type = "text")}
                         onChange={(e) => setMemberBirth(e.target.value)}
-                        placeholder="생년월일" required/>
+                        required/>
                 </Form.Group>
 
                 {/* 주소 */}
@@ -203,7 +210,7 @@ const SignupComponent = () => {
                         <Form.Control type="text" 
                         value={memberPhone}
                         onChange={(e) => setMemberPhone(e.target.value)}
-                        placeholder="번호" required/>
+                        placeholder="전화번호" required/>
                 </Form.Group>
 
                 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController //json
 @RequiredArgsConstructor
-@RequestMapping("/api/member")
+@RequestMapping("/api/members")
 public class MemberController {
 
     private final MemberService memberService;
