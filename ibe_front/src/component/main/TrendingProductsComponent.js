@@ -26,9 +26,10 @@ const TrendingProductsComponent=()=>{
     return (
         <>
             {/* 인기 상품 title */}
-            <div id="div_allTitle">인기 급상승 상품</div>
+            {/* <div id="div_allTitle">인기 급상승 상품</div> */}
 
             <div class="container">
+                <div id="div_allTitle">인기 급상승 상품</div>
                 {/* 인기 상품 이미지 */}
                 <div class="row row-cols-4">
                     {productImgs.map((item, idx) => { 

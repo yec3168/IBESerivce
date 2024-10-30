@@ -5,7 +5,7 @@ import './Main.css'
 import TrendingProductsComponent from './TrendingProductsComponent';
 import AdComponent from './AdComponent';
 
-import banner_trust2 from '../assets/images/main/banner/banner_trust2.png'
+import banner_trust3 from '../assets/images/main/banner/banner_trust3.png'
 const MainComponent = () =>{
     return (
         <>
@@ -37,7 +37,7 @@ const MainComponent = () =>{
 
             {/* 광고 컴포넌트 */}
             <div className="section_ad">
-                <AdComponent image ={{ src : banner_trust2}}/>
+                <AdComponent image ={{ src : banner_trust3}}/>
             </div>
 
             <div id="div_endOfMainBody" />
