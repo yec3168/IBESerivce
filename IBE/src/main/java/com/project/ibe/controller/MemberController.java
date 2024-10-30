@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController //json
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
 public class MemberController {
@@ -16,8 +16,10 @@ public class MemberController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody MemberSignUpRequest memberSignUpRequest) {
+//        System.out.println(memberSignUpRequest.getMemberBank());
         return memberService.signUp(memberSignUpRequest);
     }
+
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody MemberSignInRequest memberSignInRequest) {
         return memberService.signIn(memberSignInRequest);

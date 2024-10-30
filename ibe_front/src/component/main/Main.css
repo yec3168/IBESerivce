@@ -18,7 +18,12 @@
     margin-top: 15px;
 }
 
-#div_endOfBanner {
+#div_spacing{
+  width: 100%;
+  height: 100px;
+}
+
+#div_endOfMainBody {
   width: 100%;
   height: 300px;
   background-color: white;
@@ -47,24 +52,73 @@
   height: 50px;
 }
 
-.col{
-  /* border: 1px solid black; */
-  height: 200px;
+#div_iconCol{
+  height: 150px;
   width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#div_nameCol{
+  height: 50px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
 }
 
 #div_allIcons{
-  /* background-color: red; */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* #div_col{
-
+#img_categoryIcons{
+  width: 110px;
+  height: 110px;
 }
 
-#img_categoryIcons{
+#div_categoryName{
+  height: 100px;
+}
 
-} */
+#div_nameTxt{
+  font-family: "CookieRun-Regular", sans-serif !important;
+  font-size: 20px;
+}
+
+/* AllProductsComponent */
+
+#div_allTitle{
+  font-family: "CookieRun-Regular", sans-serif !important;
+  font-size: 30px;
+  margin-left: 110px;
+}
+
+#img_product{
+  width: 300px;
+  border-radius: 5%;
+  margin-top: 30px;
+}
+
+#div_proNameTxt{
+  font-family: "CookieRun-Regular", sans-serif !important;
+  font-size: 20px;
+  /* margin-top: 20px; */
+}
+
+#div_proPriceTxt{
+  font-family: "CookieRun-Regular", sans-serif !important;
+  font-size: 20px;
+}
+
+#div_proState{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.proStateBadge{
+  margin-right: 10px;
+  width: 100px;
+}

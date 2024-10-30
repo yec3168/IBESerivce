@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, FloatingLabel , Row, Col, Alert } from "react-bootstrap";
 import Logo from '../assets/images/sign/ibe_logo1.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
+import {login } from '../service/MemberService';
 import './Sign.css'
 
 function SignInComponent(){
@@ -13,25 +14,39 @@ function SignInComponent(){
     const onSubmitHandler =  (event) => {
         // 버튼만 누르면 리프레시 되는것을 막아줌
         event.preventDefault();
-       
-        if(memberEmail === "admin@test.com" || memberPassword ==="admin1"){
-            setIsEmpty(false);
-        }
-        else{
-            setIsEmpty(true)
-        }
-        
-        console.log(isEmpty)
-
-        console.log('Email', memberEmail);
-        console.log('Password', memberPassword);
-
-        // let body = {
-        //     memberEmail: memberEmail,
-        //     memberPassword: memberPassword,
+       console.log("asd")
+        // if(memberEmail === "admin@test.com" || memberPassword ==="admin1"){
+        //     setIsEmpty(true);
         // }
+        // else{
+        //     setIsEmpty(false)
+        // }
+    
+
+        let memberForm = {
+            memberEmail: memberEmail,
+            memberPassword: memberPassword
+        }
       
-        //dispatch(loginUser(body));
+        login(memberForm).then(
+            response => {
+                console.log(response.data)
+                try{
+                    if(response.data.status === "200"){
+                        alert("로그인 성공!")
+                        window.location.href ="/"
+                        setIsEmpty(false)
+                    }
+                } catch(error){
+                    if(error.response.status === 404){
+                        setIsEmpty(true)
+                        return false;
+                    }
+                   
+                }
+            
+            }
+        )
     }
 
     return(
@@ -57,15 +72,15 @@ function SignInComponent(){
                          value={memberPassword}
                          onChange={(e) => setMemberPassword(e.target.value)}
                          required />
-                         {
+                        {
                             isEmpty ? (
-                                 <div />
+                                <div />
                                 ) : (
                                 <Form.Text className="passwordHelpBlock" muted>
                                     비밀번호는 6 ~ 20자로 입력해주세요.
                                 </Form.Text>
                             )
-                         }
+                        }
                         
                     </FloatingLabel>
 

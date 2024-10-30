@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import {checkEmail, saveMember} from '../service/MemberService';
 // import{FaAddressBook } from "react-icons/fa"
 import Logo from '../assets/images/sign/ibe_logo1.png'
 
@@ -18,20 +19,88 @@ const SignupComponent = () => {
     const [memberBank, setMemberBank] = useState("");
     const [memberAccountNumber, setMemberAccountNumber] = useState("");
 
+
+    // memberPassword === memberPassword1;
+    const [isSame, setIsSame] = useState(true);
+    const [isValidLength, setIsValidLength] = useState(true)
+     
+  
     
+    const  checkDuplicatedEmail = (event) => {
+        event.preventDefault(); 
+        checkEmail(memberEmail).then( response =>{
+            console.log(response.data)
+            if(response.data){
+                alert("사용할 수 없는 이메일입니다.")
+                //setUseEmail(true);
+            }
+            else{
+                if(window.confirm("사용가능한 이메일입니다.")){
+                    //setUseEmail(false)
+                }
+                else{
+                    setMemberEmail("")
+                }
+            }
+        }) 
+    }
+    
+    const onSubmitHandler = (event) => {
+        event.preventDefault(); 
+        if( memberPassword.length >= 6 && memberPassword.length <= 20){
+            setIsValidLength(true);
+           
+        }
+        else{
+            setIsValidLength(false);
+            return false;
+        }
 
+        if(memberPassword === memberPassword1){
+            setIsSame(true)
+        }
+        else{
+            setIsSame(false)
+            return false;
+        }
 
-    const isSame = memberPassword === memberPassword1;
+       
+        
+        let memberForm ={
+            memberEmail : memberEmail,
+            memberPassword: memberPassword,
+            memberName : memberName,
+            memberNickName : memberNickName,
+            memberBirth : memberBirth,
+            memberAddr : memberAddr,
+            memberAddrDetail : memberAddrDetail,
+            memberPhone : memberPhone,
+            memberBank : memberBank,
+            memberAccountNumber : memberAccountNumber
+        }
+
+        // console.log("asd")
+
+        saveMember(memberForm).then(
+            (response) => {
+                console.log(response.data);
+                if(response.data.status === "200"){
+                    alert("회원가입 성공!")
+                    window.location.href ="/signin"
+                }
+            }
+        )
+
+    }
 
     return (
         <div className="sign-up__wrapper">
             
-            <Form className=" bg-white rounded" >
-                <img
-                className="img mx-auto d-block mb-2 w-50"
-                src={Logo}
-                alt="logo"
-                />
+            <Form className=" bg-white rounded" onSubmit={onSubmitHandler}>
+                <a href="/"> 
+                    <img className="img mx-auto d-block mb-2 w-50"src={Logo}alt="logo"/>
+                </a>
+               
                 {/* 이메일 */}
                 <Form.Group className="mb-2  " controlId="memberEmail">
                     <Row>
@@ -42,10 +111,19 @@ const SignupComponent = () => {
                              placeholder="이메일" required/>
                         </Col>
                         <Col lassName="col-2">
-                        <Button className="w-100 mb-3" variant="primary" type="button"  style={{backgroundColor:'#FFD774'}}>
+                        <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}} onClick={checkDuplicatedEmail}>
                              중복
                         </Button>
                         </Col>
+                        {
+                        /* {
+                            useEmail? (
+                                <p style={{color:"red"}}>사용할 수 없는 이메일입니다.</p>
+                            ) : (
+                                <p style={{color:"blue"}}>사용할 수 있는 이메일입니다.</p>
+                            )
+                        } */
+                        }
                     </Row>
                 </Form.Group>
 
@@ -55,9 +133,12 @@ const SignupComponent = () => {
                         value={memberPassword}
                         onChange={(e) => setMemberPassword(e.target.value)}
                         placeholder="비밀번호" required/>
-                        <Form.Text className="passwordHelpBlock" muted>
-                            비밀번호는 6 ~ 20자로 입력해주세요.
-                        </Form.Text>
+                       
+                        {isValidLength
+                        ? (<p className="passwordHelpBlock"  style={{ fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p>  )
+                        : (<p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p> )} 
+                        
+
                 </Form.Group>
 
                 <Form.Group className="mb-2 mb-4 " controlId="memberPassword1">
@@ -65,12 +146,10 @@ const SignupComponent = () => {
                         value={memberPassword1}
                         onChange={(e) => setMemberPassword1(e.target.value)}
                         placeholder="비밀번호 재확인" required/>
-                        {memberPassword1 !== '' && !isSame ?(
-                            <Form.Text className="passwordHelpBlock" muted>
-                              비밀번호는 6 ~ 20자로 입력해주세요.
-                            </Form.Text>
+                        {isSame ?(
+                            <div />
                         ):(
-                            <Form.Text className="passwordHelpBlock " muted>비밀번호가 다릅니다.</Form.Text>
+                            <p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}} muted>비밀번호가 다릅니다.</p>
                         )}
                 </Form.Group>
                 
@@ -130,20 +209,26 @@ const SignupComponent = () => {
                 
                 {/* 계좌 */}
                 <Row className="mb-2 mb-4 ">
-                    <Col className="col-2">
+                    <Col className="col-3">
                         <Form.Group className="mb-2" controlId="memberBank">
                             <Form.Select aria-label="은행"
                             value={memberBank}
                             onChange={(e) => setMemberBank(e.target.value)}
                             >
+                                <option>은행선택</option>
                                 <option value="KB">국민</option>
-                                <option value="SINHAN">신한</option>
+                                <option value="SHINHAN">신한</option>
+                                <option value="HANA">하나</option>
                                 <option value="WOORI">우리</option>
+                                <option value="NH">농협</option>
+                                <option value="KAKAO">카카오</option>
+                                <option value="TOSS">토스</option>
+                                
                             </Form.Select>
                         </Form.Group>
                     </Col>
 
-                    <Col className="col-10">
+                    <Col className="col-9">
                         <Form.Group controlId="memberAccountNumber">
                             <Form.Control type="text" 
                             value={memberAccountNumber}
@@ -154,7 +239,7 @@ const SignupComponent = () => {
                 </Row>
 
 
-                <Button href="/signin" className="w-100 mb-3" variant="primary" type="submit"  style={{backgroundColor:'#FFD774'}}>
+                <Button      className="w-100 mb-3" variant="default" type="submit"  style={{backgroundColor:'#FFD774'}}>
                         회원가입
                 </Button>
 
