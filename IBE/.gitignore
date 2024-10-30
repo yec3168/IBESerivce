@@ -13,8 +13,11 @@ target/
 .springBeans
 .sts4-cache
 
+
 application.properties
 ### IntelliJ IDEA ###
+applicaton-API.properties
+
 .idea
 *.iws
 *.iml
