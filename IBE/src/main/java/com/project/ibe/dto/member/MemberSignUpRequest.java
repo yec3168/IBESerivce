@@ -1,4 +1,4 @@
-package com.project.ibe.dto;
+package com.project.ibe.dto.member;
 
 import com.project.ibe.entity.common.Bank;
 import lombok.Data;
@@ -11,7 +11,7 @@ public class MemberSignUpRequest {
     private String memberPassword;
     private String memberName;
     private String memberNickName;
-    private Date memberBirth;
+//    private Date memberBirth;
     private String memberAddr;
     private String memberAddrDetail;
     private String memberPhone;

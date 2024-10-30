@@ -23,6 +23,7 @@ import java.util.Date;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long memberId;              // pk 회원번호
 
     @Column(nullable = false)
@@ -33,8 +34,8 @@ public class Member {
     @Size(max = 10)
     private String memberNickName;      // 닉네임
 
-    @Column(nullable = false)
-    private Date memberBirth;           // 생일
+//    @Column(nullable = false)
+//    private Date memberBirth;           // 생일
 
     @Column(nullable = false)
     private String memberPhone;         // 전화번호
@@ -51,12 +52,12 @@ public class Member {
     @Column(nullable = false)
     private String memberPassword;      // 비밀번호
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Bank memberBank;            // 환급은행
+//    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private Bank memberBank;            // 환급은행
 
-    @Column(nullable = false)
-    private String memberAccountNumber; // 환급계좌
+//    @Column(nullable = false)
+//    private String memberAccountNumber; // 환급계좌
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

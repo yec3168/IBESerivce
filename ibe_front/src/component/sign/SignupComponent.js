@@ -12,7 +12,7 @@ const SignupComponent = () => {
     const [memberPassword1, setMemberPassword1] = useState("");
     const [memberName, setMemberName] = useState("");
     const [memberNickName, setMemberNickName] = useState("");
-    const [memberBirth, setMemberBirth] = useState("");
+    // const [memberBirth, setMemberBirth] = useState("");
     const [memberAddr, setMemberAddr] = useState("");
     const [memberAddrDetail, setMemberAddrDetail] = useState("");
     const [memberPhone, setMemberPhone] = useState("");
@@ -20,19 +20,16 @@ const SignupComponent = () => {
     const [memberAccountNumber, setMemberAccountNumber] = useState("");
 
 
-    // memberPassword === memberPassword1;
     const [isSame, setIsSame] = useState(true);
     const [isValidLength, setIsValidLength] = useState(true)
-     
-  
-    
+
+    // 이메일 중복확인
     const  checkDuplicatedEmail = (event) => {
         event.preventDefault(); 
         checkEmail(memberEmail).then( response =>{
             console.log(response.data)
             if(response.data){
                 alert("사용할 수 없는 이메일입니다.")
-                //setUseEmail(true);
             }
             else{
                 if(window.confirm("사용가능한 이메일입니다.")){
@@ -45,6 +42,7 @@ const SignupComponent = () => {
         }) 
     }
     
+    // 회원가입 버튼 이벤트 리스너.
     const onSubmitHandler = (event) => {
         event.preventDefault(); 
         if( memberPassword.length >= 6 && memberPassword.length <= 20){
@@ -71,7 +69,7 @@ const SignupComponent = () => {
             memberPassword: memberPassword,
             memberName : memberName,
             memberNickName : memberNickName,
-            memberBirth : memberBirth,
+            // memberBirth : memberBirth,
             memberAddr : memberAddr,
             memberAddrDetail : memberAddrDetail,
             memberPhone : memberPhone,
@@ -84,7 +82,7 @@ const SignupComponent = () => {
         saveMember(memberForm)
             .then((response) => {
                 console.log(response.data);
-                if (response.data.status === "200") {
+                if (response.data.code === "200") {
                     alert("회원가입 성공!");
                     window.location.href = "/signin";
                 }
@@ -178,7 +176,7 @@ const SignupComponent = () => {
 
 
                 {/* 생년월일 */}
-                <Form.Group className="mb-2 mb-4 " controlId="memberBirth">
+                {/* <Form.Group className="mb-2 mb-4 " controlId="memberBirth">
                         <Form.Control 
                         type="text" 
                         value={memberBirth}
@@ -187,7 +185,7 @@ const SignupComponent = () => {
                         onBlur={(e) => (e.target.type = "text")}
                         onChange={(e) => setMemberBirth(e.target.value)}
                         required/>
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* 주소 */}
                 <Form.Group className="mb-2 mb-4 " controlId="memberAddr">
