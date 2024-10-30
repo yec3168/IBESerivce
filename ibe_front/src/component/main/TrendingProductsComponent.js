@@ -1,6 +1,6 @@
 import './Main.css'
 import product_book from '../assets/images/main/product/product_book.png'
-import product_shampoo from '../assets/images/main/product/product_shampoo.png'
+// import product_shampoo from '../assets/images/main/product/product_shampoo.png'
 import product_stroller from '../assets/images/main/product/product_stroller.png'
 import product_slide from '../assets/images/main/product/product_slide.png'
 import product_humidifier from '../assets/images/main/product/product_humidifier.png'
@@ -29,7 +29,7 @@ const TrendingProductsComponent=()=>{
             {/* <div id="div_allTitle">인기 급상승 상품</div> */}
 
             <div class="container">
-                <div id="div_allTitle">인기 급상승 상품</div>
+                <div id="div_allTitle">이런 상품을 어떠세요?</div>
                 {/* 인기 상품 이미지 */}
                 <div class="row row-cols-4">
                     {productImgs.map((item, idx) => { 
