@@ -62,11 +62,11 @@ function SignInComponent(){
 
                     <FloatingLabel className="mb-2 mb-3 " controlId="password" label="비밀번호">
                         <Form.Control type="password"
-                         placeholder="비밀번호" 
+                         placeholder="비밀번호는 6 ~ 20자로 입력해주세요." 
                          value={memberPassword}
                          onChange={(e) => setMemberPassword(e.target.value)}
                          required />
-                        {
+                        {/* {
                             isEmpty ? (
                                 <div />
                                 ) : (
@@ -74,7 +74,7 @@ function SignInComponent(){
                                     비밀번호는 6 ~ 20자로 입력해주세요.
                                 </Form.Text>
                             )
-                        }
+                        } */}
                         
                     </FloatingLabel>
 
@@ -102,7 +102,7 @@ function SignInComponent(){
                         로그인
                     </Button>
 
-                    <Row className="mb-2 mb-3" style={{borderBottom: '1px solid #666666'}}>
+                    <Row className="mb-2 mb-3" style={{ width:"95%", borderBottom: '1px solid #666666', margin:"auto"}}>
                         <Col className="col_list"><a class="signin_a" href="/">아이디 찾기</a></Col>
                         <Col className="col_list"><a class="signin_a" href="/">비밀번호 찾기</a></Col>
                         <Col className="col_list"><a class="signin_a" href="/signup">회원가입</a></Col>
