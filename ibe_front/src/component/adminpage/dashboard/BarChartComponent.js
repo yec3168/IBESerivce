@@ -1,4 +1,3 @@
-// src/BarChartComponent.js
 import React from 'react';
 import {
   BarChart,
@@ -11,20 +10,31 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  { name: 'January', value: 4000 },
-  { name: 'February', value: 3000 },
-  { name: 'March', value: 2000 },
-  { name: 'April', value: 2780 },
-  { name: 'May', value: 1890 },
-  { name: 'June', value: 2390 },
-  { name: 'July', value: 3490 },
-];
+const data = {
+  defaultData: [
+    { name: 'January', value: 4000 },
+    { name: 'February', value: 3000 },
+    { name: 'March', value: 2000 },
+    { name: 'April', value: 2780 },
+    { name: 'May', value: 1890 },
+    { name: 'June', value: 2390 },
+    { name: 'July', value: 3490 },
+  ],
+  alternativeData: [
+    { name: 'January', value: 2400 },
+    { name: 'February', value: 1398 },
+    { name: 'March', value: 9800 },
+    { name: 'April', value: 3908 },
+    { name: 'May', value: 4800 },
+    { name: 'June', value: 3800 },
+    { name: 'July', value: 4300 },
+  ],
+};
 
-const BarChartComponent = () => {
+const BarChartComponent = ({ dataKey }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data}>
+      <BarChart data={data[dataKey]}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />

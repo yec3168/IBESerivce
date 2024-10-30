@@ -1,11 +1,11 @@
-// src/AdminPage.js
 import React, { useState } from 'react';
 import './AdminPage.css';
 import BarChartComponent from './dashboard/BarChartComponent';
 import PieChartComponent from './dashboard/PieChartComponent';
 
 const AdminPage = () => {
-  const [activeMenu, setActiveMenu] = useState('dashboard'); // 현재 선택된 메뉴 상태
+  const [activeMenu, setActiveMenu] = useState('dashboard');
+  const [selectedData, setSelectedData] = useState('defaultData'); // 기본 데이터 선택
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
@@ -13,6 +13,10 @@ const AdminPage = () => {
 
   const handleLogout = () => {
     alert('로그아웃되었습니다.'); // 예시
+  };
+
+  const handleDataChange = (event) => {
+    setSelectedData(event.target.value);
   };
 
   // 예시 데이터
@@ -25,7 +29,7 @@ const AdminPage = () => {
 
   return (
     <div className="admin-container">
-      <aside className="sidebar">
+      <aside className="admin-sidebar">
         <h2>IBE 관리자</h2>
         <nav>
           <ul>
@@ -72,10 +76,10 @@ const AdminPage = () => {
         <header className="admin-header">
           <div className="account-info">
             <span>관리자계정id</span>
-            <button className="logout-button" onClick={handleLogout}>
+            <button className="admin-button" onClick={handleLogout}>
               로그아웃
             </button>
-            <button className="logout-button" onClick={handleLogout}>
+            <button className="admin-button" href="/">
               홈 화면으로 돌아가기
             </button>
           </div>
@@ -96,10 +100,15 @@ const AdminPage = () => {
           </div>
         </div>
         <section id="dashboard">
-        <div className="dashboard-container">
+          <div className="dashboard-container">
             <div className="chart-box bar-chart">
               <h3>막대 그래프</h3>
-              <BarChartComponent />
+              <select onChange={handleDataChange}>
+                <option value="defaultData">기본 데이터</option>
+                <option value="alternativeData">대체 데이터</option>
+                {/* 다른 데이터 타입 추가 가능 */}
+              </select>
+              <BarChartComponent dataKey={selectedData} />
             </div>
             <div className="chart-box pie-chart">
               <h3>원형 그래프</h3>
