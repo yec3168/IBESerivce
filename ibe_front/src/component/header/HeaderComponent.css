@@ -1,0 +1,49 @@
+#div_header{
+    height: 100px;
+}
+
+.mr-100{
+    margin-right: 100px;
+}
+
+.mr-80{
+    margin-right: 80px;
+}
+
+.mr-70{
+    margin-right: 70px;
+}
+
+.ml-20{
+    margin-left: 20px;
+}
+
+nav {
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+.menubar {
+    font-size: 20px;
+}
+
+.loginMenubar{
+    font-size: 15px;
+}
+
+#span_parent{
+    position: relative;
+}
+
+#span_won{
+    color: darkorange;
+    position: relative;
+}
+
+#coin_purse_icon{
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0px;
+    top: 10px;
+}

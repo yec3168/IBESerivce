@@ -1,0 +1,110 @@
+/* ---------- SIGN IN ---------- */
+.sign-in__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  .sign-in__backdrop {
+    position: absolute;
+    inset: 0;
+    /* background-color: rgba(194, 188, 188, 0.171); */
+  }
+  
+  .sign-in__wrapper form {
+    width: 28rem;
+    max-width: 90%;
+    z-index: 1;
+    animation: showSignInForm 1s;
+  }
+  
+  .sign-in__wrapper form img {
+    width: 4rem;
+  }
+  
+  /* @keyframes showSignInForm {
+    0%,
+    30% {
+      transform: translate(0, -150%);
+    }
+    70%,
+    90% {
+      transform: translate(0, 1rem);
+    }
+    80%,
+    100% {
+      transform: translate(0, 0);
+    }
+  } */
+  
+  .col_list:nth-child(1){
+    /* font-family: "Roboto", serif; */
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    text-align: center;
+    border-right: 1px solid #666666;
+  }
+
+  .col_list:nth-child(2){
+    /* font-family: "Roboto", serif; */
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    text-align: center;
+    border-right: 1px solid #666666;
+  }
+
+  .col_list:nth-child(3){
+    /* font-family: "Roboto", serif; */
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    text-align: center;
+    
+  }
+
+  .signin_a {
+    text-decoration: none;
+    color: black;
+  }
+
+
+  /*---------------sign up-------------*/
+  .sign-up__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  .sign-up__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(194, 188, 188, 0.171);
+  }
+
+  .sign-up__wrapper form {
+    width: 36rem;
+    max-width: 90%;
+    z-index: 1;
+    animation: showSignInForm 1s;
+  }
+  
+  .sign-up__wrapper form img {
+    width: 4rem;
+  }
+  
+ 

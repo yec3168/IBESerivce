@@ -28,8 +28,6 @@ public class MemberService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-
     public ResponseEntity<?> signUp(MemberSignUpRequest memberSignUpRequest) {
         if(memberRepository.existsByMemberEmail(memberSignUpRequest.getMemberEmail())) {
             throw new BusinessException("Email Exist", HttpStatus.NOT_FOUND);
@@ -37,8 +35,6 @@ public class MemberService {
         memberSignUpRequest.setMemberPassword(bCryptPasswordEncoder.encode(memberSignUpRequest.getMemberPassword()));
         Member member =  modelMapper.map(memberSignUpRequest, Member.class);
         member.setMemberPoint(0L);
-//        new Bank(memberSignUpRequest.getMemberBank());
-//        member.setMemberBank(Bank.NH);
         member.setRole(Role.ROLE_ADMIN);
         memberRepository.save(member);
 
@@ -58,7 +54,6 @@ public class MemberService {
             throw new BusinessException("Password is not correct", HttpStatus.NOT_FOUND);
         }
         //to do :  jwt token 만들어서 return 하기 (나중에)
-
 
         return new ResponseEntity<>(new SuccessResponse("200","성공"),HttpStatus.OK);
     }
