@@ -40,23 +40,6 @@ function SignInComponent(){
             console.error("로그인 실패:", error); // 에러 로그 확인
             setIsEmpty(true);
         });
-        // try{
-        //     login(memberForm).then(
-        //         response =>{
-        //             console.log(response.data)
-        //             if(response.data.status === "200"){
-        //                 alert("로그인 성공!")
-        //                 window.location.href ="/"
-        //                 setIsEmpty(false)
-        //             }
-        //         }
-        //     )
-        // }catch(error){
-        //     if(error.response.status === 404){
-        //         setIsEmpty(true)
-        //         return false;
-        //     }
-        // }
 
     }
 
