@@ -234,7 +234,7 @@ const SignupComponent = () => {
 
     return (
         <div className="sign-up__wrapper">
-            
+            {/* <div className="sign-up__backdrop"></div> */}
             <Form className=" bg-white rounded" onSubmit={onSubmitHandler}>
                 <a href="/"> 
                     <img className="img mx-auto d-block mb-2 w-50"src={Logo}alt="logo"/>

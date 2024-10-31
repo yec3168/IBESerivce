@@ -98,7 +98,7 @@
   .sign-up__backdrop {
     position: absolute;
     inset: 0;
-    background-color: rgba(194, 188, 188, 0.171);
+    /* background-color: rgba(194, 188, 188, 0.171); */
   }
 
   .sign-up__wrapper form {

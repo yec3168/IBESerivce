@@ -1,10 +1,7 @@
 package com.project.ibe.entity.member;
 
-import com.project.ibe.entity.common.Bank;
 import com.project.ibe.entity.common.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,10 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC) //protected
