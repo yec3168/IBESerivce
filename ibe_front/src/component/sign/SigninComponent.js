@@ -35,6 +35,10 @@ function SignInComponent(){
                 window.location.href = "/";
                 setIsEmpty(false);
             }   
+            else{
+                 console.error("로그인 실패");
+                setIsEmpty(true);
+            }
         })
         .catch(error => {
             console.error("로그인 실패:", error); // 에러 로그 확인
@@ -45,12 +49,13 @@ function SignInComponent(){
 
     return(
         <div className="sign-in__wrapper">
-            <div className="sign-in__backdrop"></div>
+            {/* <div className="sign-in__backdrop"></div> */}
             {/* <Form className="shadow p-4 bg-white rounded" >*/}
                 <Form className=" bg-white rounded"  onSubmit={onSubmitHandler}>
                     <a href="/">
                         <img className="img mx-auto d-block mb-2 w-50" src={Logo} alt="logo" />
                     </a>
+                    
                     <FloatingLabel className="mb-2 mb-3 " controlId="email" label="이메일">
                         <Form.Control type="email" 
                         placeholder="이메일" 
@@ -103,7 +108,7 @@ function SignInComponent(){
                     </Button>
 
                     <Row className="mb-2 mb-3" style={{ width:"95%", borderBottom: '1px solid #666666', margin:"auto"}}>
-                        <Col className="col_list"><a class="signin_a" href="/">아이디 찾기</a></Col>
+                        <Col className="col_list"><a class="signin_a" href="/searchEmail">아이디 찾기</a></Col>
                         <Col className="col_list"><a class="signin_a" href="/">비밀번호 찾기</a></Col>
                         <Col className="col_list"><a class="signin_a" href="/signup">회원가입</a></Col>
                     </Row>

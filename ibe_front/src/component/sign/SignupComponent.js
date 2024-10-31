@@ -420,6 +420,7 @@ const SignupComponent = () => {
           />
         </Form.Group>
 
+<<<<<<< HEAD
         {/* 전화번호 */}
         <Form.Group className="mb-2 " controlId="memberPhone">
           <Row>
@@ -466,6 +467,240 @@ const SignupComponent = () => {
                   disabled={isVerified}
                 >
                   확인
+=======
+
+
+    return (
+        <div className="sign-up__wrapper">
+            {/* <div className="sign-up__backdrop"></div> */}
+            <Form className=" bg-white rounded" onSubmit={onSubmitHandler}>
+                <a href="/"> 
+                    <img className="img mx-auto d-block mb-2 w-50"src={Logo}alt="logo"/>
+                </a>
+               
+                {/* 이메일 */}
+                <Form.Group className="mb-2  " controlId="memberEmail">
+                    <Row>
+                        <Col className="col-10">
+                            <Form.Control type="email"
+                             value={memberEmail}
+                             onChange={(e) => setMemberEmail(e.target.value)}
+                             placeholder="이메일" required/>
+                        </Col>
+                        <Col lassName="col-2">
+                        <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}} onClick={checkDuplicatedEmail}>
+                             중복
+                        </Button>
+                        </Col>
+                        {useEmail && (
+                            <p style={{color:"red"}}>{emailMessage}</p>
+                        ) }
+                        {!useEmail &&(
+                            <p style={{color:"blue"}}>{emailMessage}</p>
+                        )}
+                    </Row>
+                </Form.Group>
+
+
+
+                {/* 비밀번호 */}
+                <Form.Group className="mb-2 mb-4 " controlId="memberPassword">
+                        <Form.Control type="password" 
+                        value={memberPassword}
+                        maxLength={20}
+                        onChange={(e) => setMemberPassword(e.target.value)}
+                        placeholder="비밀번호" required/>
+                       
+                        {isValidLength &&
+                         (<p className="passwordHelpBlock"  style={{ fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p>  )}
+                        {!isValidLength &&
+                         (<p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p> )} 
+                        
+
+                </Form.Group>
+
+                <Form.Group className="mb-2 mb-4 " controlId="memberPassword1">
+                        <Form.Control type="password" 
+                        value={memberPassword1}
+                        maxLength={20}
+                        onChange={(e) => setMemberPassword1(e.target.value)}
+                        placeholder="비밀번호 재확인" required/>
+                        {isSame ?(
+                            <div />
+                        ):(
+                            <p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}} muted>비밀번호가 다릅니다.</p>
+                        )}
+                </Form.Group>
+                
+                {/* 이름, 닉네임 */}
+                {/* 이름 */}
+                <Row className="mb-2 ">
+                    <Col className="col-6">
+                        <Form.Group controlId="memberName">
+                            <Form.Control
+                                type="text"
+                                value={memberName}
+                                maxLength={11}
+                                onChange={(e) => {
+                                    setMemberName(e.target.value);
+                                    setIsNameValid(validateName(e.target.value));
+                                }}
+                                placeholder="이름"
+                                required
+                            />
+                            {isNameValid && <p style={{ fontSize: "12px" }}>한글 2~11자로 입력해 주세요.</p>}
+                            {!isNameValid && <p style={{ color: "red", fontSize: "12px" }}>이름은 한글 2~11자로 입력해 주세요.</p>}
+                        </Form.Group>
+                    </Col>
+
+                    {/* 닉네임 */}
+                    <Col className="col-6">
+                        <Form.Group controlId="memberNickname">
+                            <Form.Control
+                                type="text"
+                                value={memberNickName}
+                                maxLength={11}
+                                onChange={(e) => {
+                                    setMemberNickName(e.target.value);
+                                    setIsNicknameValid(validateNickname(e.target.value));
+                                }}
+                                placeholder="닉네임"
+                                required
+                            />
+                            {isNicknameValid && <p style={{ fontSize: "12px" }}>한글, 영문, 숫자 포함 2~11자로 입력해 주세요.</p>}
+                            {!isNicknameValid && <p style={{ color: "red", fontSize: "12px" }}>닉네임은 한글, 영문, 숫자 포함 2~11자로 입력해 주세요.</p>}
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+
+                {/* 주소 */}
+                <Form.Group className="mb-2  " controlId="memberAddr">
+                        
+                        <Row>
+                            <Col lassName="col-9">
+                                    <Form.Control type="text"
+                                        value={memberAddr}
+                                        onChange={(e) => setMemberAddr(e.target.value)}
+                                        placeholder="주소" required/>
+                            </Col>
+                            <Col className="col-3">
+                                <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}} onClick={handlePostcodeButtonClick}>
+                                    주소찾기
+                                </Button>
+                            </Col>
+                        </Row>
+                </Form.Group>
+                {/* DaumPostcode 모달 */}
+                <Modal show={showPostcode} onHide={() => setShowPostcode(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>주소 검색</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <DaumPostcode onComplete={handleCompletePostcode} />
+                    </Modal.Body>
+                </Modal>
+
+                {/* 상세주소 */}
+                <Form.Group className="mb-2 mb-4 " controlId="memberAddrDetail">
+                        <Form.Control type="text"
+                        value={memberAddrDetail}
+                        onChange={(e) => setMemberAddrDetail(e.target.value)}
+                        placeholder="상세주소" required/>
+                </Form.Group>
+
+
+                
+                {/* 전화번호 */}
+                <Form.Group className="mb-2 " controlId="memberPhone">
+                    <Row>
+                        <Col className="col-8">
+                            <Form.Control type="text" 
+                            value={displayFormattedPhoneNumber(memberPhone)}
+                            onChange={handleChange}
+                            placeholder="전화번호" required/>
+                        </Col>
+                        <Col lassName="col-4">
+                        <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}}  onClick={sendVerification}>
+                           인증번호 전송
+                        </Button>
+                        </Col>
+                    </Row>
+                </Form.Group>
+                {verificationSent && (
+                    <Form.Group className="mb-2 " controlId="memberPhoneCheck">
+                        <Row>
+                            <Col className="col-10">
+                                <Form.Control
+                                    placeholder="인증번호 입력"
+                                    type="text"
+                                    value={verificationCode}
+                                    onChange={handleVerificationCodeChange}
+                                />
+                            </Col>
+                            <Col className="col-2">
+                                <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}} onClick={verifyCode} disabled={isVerified}>
+                                    확인
+                                </Button>
+                            </Col>
+
+                        </Row>
+                        {!isVerified && (
+                                <p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}}  muted >{verificationMessage}</p> // 인증 실패 메시지
+                        )}
+                        {isVerified && (
+                                <p className="passwordHelpBlock"  style={{color:"blue", fontSize:"12px"}}  muted >{verificationMessage}</p> // 인증 성공 메시지
+                        )}
+                    </Form.Group>
+                )}
+
+
+
+
+                
+                {/* 계좌 */}
+                <Row className="mb-2 mb-4 ">
+                    <Col className="col-3">
+                        <Form.Group className="mb-2" controlId="memberBank">
+                            <Form.Select aria-label="은행"
+                            value={memberBank}
+                            onChange={(e) => setMemberBank(e.target.value)}
+                            >
+                                <option>은행선택</option>
+                                <option value="KB">국민</option>
+                                <option value="SHINHAN">신한</option>
+                                <option value="HANA">하나</option>
+                                <option value="WOORI">우리</option>
+                                <option value="NH">농협</option>
+                                <option value="KAKAO">카카오</option>
+                                <option value="TOSS">토스</option>
+                                
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+
+                    <Col className="col-9">
+                        <Form.Group controlId="memberAccountNumber">
+                            <Form.Control
+                                type="text"
+                                value={memberAccountNumber}
+                                onChange={(e) => {
+                                    setMemberAccountNumber(e.target.value);
+                                    setIsAccountNumberValid(validateAccountNumber(e.target.value));
+                                }}
+                                placeholder="계좌번호"
+                                required
+                            />
+                            {!isAccountNumberValid && <p style={{ color: "red", fontSize: "12px" }}>계좌번호는 숫자 10~15자리로 입력해 주세요.</p>}
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+
+
+                <Button      className="w-100 mb-3" variant="default" type="submit"  style={{backgroundColor:'#FFD774'}}>
+                        회원가입
+>>>>>>> ecbdd23bce77871bf594e1022f00dd6ea939fdee
                 </Button>
               </Col>
             </Row>
