@@ -4,6 +4,7 @@ import com.project.ibe.entity.common.Bank;
 import com.project.ibe.entity.common.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,17 +28,18 @@ public class Member {
     private Long memberId;              // pk 회원번호
 
     @Column(nullable = false)
-    @Size(max = 8)
+    @Size(min = 2, max = 8)
     private String memberName;          // 이름
 
     @Column(nullable = false)
-    @Size(max = 10)
+    @Size(min = 2, max = 8)
     private String memberNickName;      // 닉네임
 
 //    @Column(nullable = false)
 //    private Date memberBirth;           // 생일
 
     @Column(nullable = false, unique = true)
+    @Size(min=5, max = 15)
     private String memberPhone;         // 전화번호
 
     @Column(nullable = false)
