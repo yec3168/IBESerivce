@@ -47,7 +47,7 @@ const SignupComponent = () => {
         if(memberEmail.trim() ==="")
             return;
         checkEmail(memberEmail).then( response =>{
-            console.log(response.data)
+            console.log(response.data.data)
             if(response.data){
                 alert("사용할 수 없는 이메일입니다.")
                 setUseEmail(true);
@@ -153,27 +153,7 @@ const SignupComponent = () => {
     // 회원가입 버튼 이벤트 리스너.
     const onSubmitHandler = (event) => {
         event.preventDefault(); 
-        // if( memberPassword.length >= 6 && memberPassword.length <= 20)
-        //     setIsValidLength(true);
-        // else{
-        //     setIsValidLength(false);
-        //     return false;
-        // }
-        // if( memberPassword === memberPassword1)
-        //     setIsSame(true)  
-        // else{
-        //     setIsSame(false);
-        //     return false;
-        // }
-        // if(useEmail){
-        //     alert("이메일 중복확인 해주세요.")
-        //     return false;
-        // }
-        // if(!isVerified){
-        //     alert("전화번호 인증해주세요.")
-        //     return false;
-        // }
-            
+      
         // Validation 체크
         const isPasswordValidLength = memberPassword.length >= 6 && memberPassword.length <= 20;
         const isPasswordSame = memberPassword === memberPassword1;
