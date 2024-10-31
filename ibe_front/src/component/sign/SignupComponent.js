@@ -13,7 +13,6 @@ const SignupComponent = () => {
     const [memberPassword1, setMemberPassword1] = useState("");
     const [memberName, setMemberName] = useState("");
     const [memberNickName, setMemberNickName] = useState("");
-    // const [memberBirth, setMemberBirth] = useState("");
     const [memberAddr, setMemberAddr] = useState("");
     const [memberAddrDetail, setMemberAddrDetail] = useState("");
     const [memberPhone, setMemberPhone] = useState("");
@@ -24,6 +23,13 @@ const SignupComponent = () => {
     const [emailMessage, setEmailMessage] = useState("");
     const [isSame, setIsSame] = useState(true);
     const [isValidLength, setIsValidLength] = useState(true)
+    const [isNameValid, setIsNameValid] = useState(true);
+    const [isNicknameValid, setIsNicknameValid] = useState(true);
+    const [isAccountNumberValid, setIsAccountNumberValid] = useState(true);
+
+    const validateName = (name) => /^[가-힣]{2,11}$/.test(name); // 한글만, 2~11자
+    const validateNickname = (nickname) => /^[a-zA-Z0-9가-힣]{2,11}$/.test(nickname); // 한글, 영문, 숫자만, 2~11자
+    const validateAccountNumber = (accountNumber) => /^[0-9]{10,15}$/.test(accountNumber); // 숫자만, 10~15자리
 
     // 전화번호 인증번호 관련
     const [verificationSent, setVerificationSent] = useState(false); // 버튼 클릭하면 인증번호 호출. (true, false)
@@ -61,11 +67,9 @@ const SignupComponent = () => {
     }
 
     /**
-     * 주소 관련
+     * 주소 관련 daum Post api 
      */
-
     const [showPostcode, setShowPostcode] = useState(false); // 주소 검색창 표시 상태
-
     const handleCompletePostcode = (data) => {
         // 주소 선택 시 실행될 함수
         setMemberAddr(data.address);
@@ -149,16 +153,42 @@ const SignupComponent = () => {
     // 회원가입 버튼 이벤트 리스너.
     const onSubmitHandler = (event) => {
         event.preventDefault(); 
-        if( memberPassword.length >= 6 && memberPassword.length <= 20)
-            setIsValidLength(true);
-        else{
-            setIsValidLength(false);
-            return false;
-        }
-        if( memberPassword === memberPassword1)
-            setIsSame(true)  
-        else{
-            setIsSame(false);
+        // if( memberPassword.length >= 6 && memberPassword.length <= 20)
+        //     setIsValidLength(true);
+        // else{
+        //     setIsValidLength(false);
+        //     return false;
+        // }
+        // if( memberPassword === memberPassword1)
+        //     setIsSame(true)  
+        // else{
+        //     setIsSame(false);
+        //     return false;
+        // }
+        // if(useEmail){
+        //     alert("이메일 중복확인 해주세요.")
+        //     return false;
+        // }
+        // if(!isVerified){
+        //     alert("전화번호 인증해주세요.")
+        //     return false;
+        // }
+            
+        // Validation 체크
+        const isPasswordValidLength = memberPassword.length >= 6 && memberPassword.length <= 20;
+        const isPasswordSame = memberPassword === memberPassword1;
+        const isNameFormatValid = validateName(memberName);
+        const isNicknameFormatValid = validateNickname(memberNickName);
+        const isAccountNumberFormatValid = validateAccountNumber(memberAccountNumber);
+
+        setIsValidLength(isPasswordValidLength);
+        setIsSame(isPasswordSame);
+        setIsNameValid(isNameFormatValid);
+        setIsNicknameValid(isNicknameFormatValid);
+        setIsAccountNumberValid(isAccountNumberFormatValid);
+
+        if (!isPasswordValidLength || !isPasswordSame || !isNameFormatValid || !isNicknameFormatValid || !isAccountNumberFormatValid) {
+            alert("모든 필드를 올바르게 입력해 주세요.");
             return false;
         }
         if(useEmail){
@@ -169,7 +199,6 @@ const SignupComponent = () => {
             alert("전화번호 인증해주세요.")
             return false;
         }
-            
          
         let memberForm ={
             memberEmail : memberEmail,
@@ -266,30 +295,49 @@ const SignupComponent = () => {
                 </Form.Group>
                 
                 {/* 이름, 닉네임 */}
-                <Row className="mb-2 mb-4 ">
+                {/* 이름 */}
+                <Row className="mb-2 ">
                     <Col className="col-6">
                         <Form.Group controlId="memberName">
-                            <Form.Control type="text" 
+                            <Form.Control
+                                type="text"
                                 value={memberName}
                                 maxLength={11}
-                                onChange={(e) => setMemberName(e.target.value)}
-                                placeholder="이름" required/>
+                                onChange={(e) => {
+                                    setMemberName(e.target.value);
+                                    setIsNameValid(validateName(e.target.value));
+                                }}
+                                placeholder="이름"
+                                required
+                            />
+                            {isNameValid && <p style={{ fontSize: "12px" }}>한글 2~11자로 입력해 주세요.</p>}
+                            {!isNameValid && <p style={{ color: "red", fontSize: "12px" }}>이름은 한글 2~11자로 입력해 주세요.</p>}
                         </Form.Group>
                     </Col>
+
+                    {/* 닉네임 */}
                     <Col className="col-6">
                         <Form.Group controlId="memberNickname">
-                            <Form.Control type="text" 
+                            <Form.Control
+                                type="text"
                                 value={memberNickName}
                                 maxLength={11}
-                                onChange={(e) => setMemberNickName(e.target.value)}
-                                placeholder="닉네임" required/>
+                                onChange={(e) => {
+                                    setMemberNickName(e.target.value);
+                                    setIsNicknameValid(validateNickname(e.target.value));
+                                }}
+                                placeholder="닉네임"
+                                required
+                            />
+                            {isNicknameValid && <p style={{ fontSize: "12px" }}>한글, 영문, 숫자 포함 2~11자로 입력해 주세요.</p>}
+                            {!isNicknameValid && <p style={{ color: "red", fontSize: "12px" }}>닉네임은 한글, 영문, 숫자 포함 2~11자로 입력해 주세요.</p>}
                         </Form.Group>
                     </Col>
                 </Row>
 
 
                 {/* 주소 */}
-                <Form.Group className="mb-2 mb-4 " controlId="memberAddr">
+                <Form.Group className="mb-2  " controlId="memberAddr">
                         
                         <Row>
                             <Col lassName="col-9">
@@ -323,6 +371,8 @@ const SignupComponent = () => {
                         placeholder="상세주소" required/>
                 </Form.Group>
 
+
+                
                 {/* 전화번호 */}
                 <Form.Group className="mb-2 " controlId="memberPhone">
                     <Row>
@@ -368,6 +418,7 @@ const SignupComponent = () => {
 
 
 
+
                 
                 {/* 계좌 */}
                 <Row className="mb-2 mb-4 ">
@@ -392,15 +443,20 @@ const SignupComponent = () => {
 
                     <Col className="col-9">
                         <Form.Group controlId="memberAccountNumber">
-                            <Form.Control type="text" 
-                            value={memberAccountNumber}
-                            onChange={(e) => setMemberAccountNumber(e.target.value)}
-                            placeholder="계좌번호" required/>
+                            <Form.Control
+                                type="text"
+                                value={memberAccountNumber}
+                                onChange={(e) => {
+                                    setMemberAccountNumber(e.target.value);
+                                    setIsAccountNumberValid(validateAccountNumber(e.target.value));
+                                }}
+                                placeholder="계좌번호"
+                                required
+                            />
+                            {!isAccountNumberValid && <p style={{ color: "red", fontSize: "12px" }}>계좌번호는 숫자 10~15자리로 입력해 주세요.</p>}
                         </Form.Group>
                     </Col>
                 </Row>
-
-
 
 
 
