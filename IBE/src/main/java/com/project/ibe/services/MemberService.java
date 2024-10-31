@@ -89,7 +89,9 @@ public class MemberService {
     //문자 인증 로직 ( 전화번호 인증 )
     public String sendSmsToFindEmail(String memberPhone) {
         String randomCode = smsUtil.generateRandomNumber();
-        smsUtil.sendOne(memberPhone.replaceAll("-", ""), randomCode);
+
+        //실제 테스트시 아래 코드 주석 풀기.
+//        smsUtil.sendOne(memberPhone.replaceAll("-", ""), randomCode);
 
         return randomCode;
     }
@@ -103,10 +105,11 @@ public class MemberService {
                 );
 
         String randomCode = smsUtil.generateRandomNumber();
+
+        //실제 테스트시 아래 코드 주석 풀기.
 //        smsUtil.sendOne(memberSmsReqequest.getMemberPhone().replaceAll("-", ""), randomCode);
 
-
-        return MemberSmsResponse.builder()
+       return MemberSmsResponse.builder()
                 .memberEmail(member.getMemberEmail())
                 .memberName(member.getMemberName())
                 .randomCode(randomCode)
