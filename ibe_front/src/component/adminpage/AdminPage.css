@@ -5,55 +5,9 @@
   height: 100vh; /* 전체 화면 높이 */
 }
 
-.admin-sidebar {
-  width: 250px; /* 사이드바 너비 */
-  background: #FFFBDF; /* 사이드바 색상 */
-  color: #d27a00; /* 글자색 */
-  display: flex;
-  flex-direction: column; /* 세로 방향으로 나열 */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* 사이드바 그림자 */
-  position: fixed; /* 고정 위치 */
-  height: 100vh; /* 전체 화면 높이 */
-  z-index: 1000; /* 다른 요소들보다 위에 표시 */
-}
-
-.admin-sidebar h2 {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.admin-sidebar nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.admin-sidebar nav ul li {
-  flex: 1; /* 각 메뉴 항목이 공간을 가득 차게 함 */
-  margin: 1rem 0;
-}
-
-.admin-sidebar nav a {
-  display: block; /* 링크가 블록 요소로 설정 */
-  color: #d27a00; /* 메뉴 링크 글자색 */
-  text-decoration: none;
-  text-align: center; /* 텍스트 중앙 정렬 */
-  padding: 1rem; /* 패딩 추가 */
-}
-
-.admin-sidebar nav a:hover {
-  color: #ffd700; /* 호버 시 글자색 변경 */
-  text-decoration: none; /* 호버 시 텍스트 밑줄 */
-}
-
-.admin-sidebar nav a.active {
-  background: #ffcb6a; /* 선택된 메뉴 항목 색상 */
-  color: #d27a00; /* 텍스트 색상 */
-}
-
 .content {
   margin-left: 250px; /* 사이드바 너비만큼 여백 추가 */
-  background: #FFFAED;
+  background: #fffaed;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   flex-grow: 1; /* 콘텐츠가 남은 공간을 채우도록 함 */
   overflow-y: auto; /* 콘텐츠 영역에서도 스크롤 가능 */
@@ -61,13 +15,14 @@
 
 .admin-button {
   padding: 0.5rem 1rem;
-  background: #FFFAED; /* 버튼 색상 */
+  background: #fffaed; /* 버튼 색상 */
   margin: 0.5rem;
   color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.3s ease;
+  font-weight: bold;
 }
 
 .admin-button:hover {
