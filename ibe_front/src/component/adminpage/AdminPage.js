@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './AdminPage.css';
 import BarChartComponent from './dashboard/BarChartComponent';
 import PieChartComponent from './dashboard/PieChartComponent';
+import AdminSidebar from './AdminSidebar';
 
 const AdminPage = () => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
@@ -29,49 +30,7 @@ const AdminPage = () => {
 
   return (
     <div className="admin-container">
-      <aside className="admin-sidebar">
-        <h2>IBE 관리자</h2>
-        <nav>
-          <ul>
-            <li>
-              <a
-                href="#dashboard"
-                onClick={() => handleMenuClick('dashboard')}
-                className={activeMenu === 'dashboard' ? 'active' : ''}
-              >
-                대시보드
-              </a>
-            </li>
-            <li>
-              <a
-                href="#board"
-                onClick={() => handleMenuClick('board')}
-                className={activeMenu === 'board' ? 'active' : ''}
-              >
-                게시판 관리
-              </a>
-            </li>
-            <li>
-              <a
-                href="#users"
-                onClick={() => handleMenuClick('users')}
-                className={activeMenu === 'users' ? 'active' : ''}
-              >
-                사용자 관리
-              </a>
-            </li>
-            <li>
-              <a
-                href="#settings"
-                onClick={() => handleMenuClick('settings')}
-                className={activeMenu === 'settings' ? 'active' : ''}
-              >
-                문의 관리
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+            <AdminSidebar activeMenu={activeMenu} handleMenuClick={handleMenuClick} />
       <main className="content">
         <header className="admin-header">
           <div className="account-info">
