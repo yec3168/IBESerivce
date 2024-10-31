@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import {checkEmail, saveMember} from '../service/MemberService';
+import {checkEmail, saveMember, saveCodeNumber} from '../service/MemberService';
 // import{FaAddressBook } from "react-icons/fa"
 import Logo from '../assets/images/sign/ibe_logo1.png'
 
@@ -19,9 +19,19 @@ const SignupComponent = () => {
     const [memberBank, setMemberBank] = useState("");
     const [memberAccountNumber, setMemberAccountNumber] = useState("");
 
-
+    const [useEmail, setUseEmail] = useState(true);
+    const [emailMessage, setEmailMessage] = useState("");
     const [isSame, setIsSame] = useState(true);
     const [isValidLength, setIsValidLength] = useState(true)
+
+    // 전화번호 인증번호 관련
+    const [verificationSent, setVerificationSent] = useState(false); // 버튼 클릭하면 인증번호 호출. (true, false)
+	const [verificationCode, setVerificationCode] = useState("");  // 사용자가 입력한 인증번호 저장. ( String)
+    const [isVerified, setIsVerified] = useState(false); // 인증 성공 여부
+	const [verificationMessage, setVerificationMessage] = useState(""); // 메세지 출력
+
+    // 전화번호 인증번호 저장.
+    const [saveCode, setSaveCode] = useState("");
 
     // 이메일 중복확인
     const  checkDuplicatedEmail = (event) => {
@@ -30,40 +40,94 @@ const SignupComponent = () => {
             console.log(response.data)
             if(response.data){
                 alert("사용할 수 없는 이메일입니다.")
+                setUseEmail(true);
+                setEmailMessage("사용할 수 없는 이메일입니다.")
             }
             else{
                 if(window.confirm("사용가능한 이메일입니다.")){
-                    //setUseEmail(false)
+                    setUseEmail(false)
+                    setEmailMessage("사용할 수 있는 이메일입니다.")
                 }
                 else{
                     setMemberEmail("")
+                    setUseEmail(null)
                 }
             }
         }) 
     }
+       // 입력 폼 변경 시 실행되는 함수
+	const handleChange = (e) => {
+		const numbersOnly = e.target.value.replace(/\D/g, "");
+		if (numbersOnly.length <= 11) {
+			setMemberPhone(numbersOnly);
+		}
+	};
+    // 전화번호 입력에 '-' 넣는 함수
+    const displayFormattedPhoneNumber = (phone) => {
+		if (phone.length <= 3) {
+			return phone;
+		} else if (phone.length <= 7) {
+			return `${phone.slice(0, 3)}-${phone.slice(3)}`;
+		} else {
+			return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(
+				7
+			)}`;
+		}
+	};
+
+    // 인증번호 전송 함수
+	const sendVerification = () => {
+		if (memberPhone.length < 10) return;
+		// 정확한 전화번호 입력.
+        setVerificationSent(true);
+ 
+		// 인증번호 전송하는 로직
+        saveCodeNumber(memberPhone)
+            .then(response =>{
+                console.log(response.data);
+                setSaveCode(response.data.message);
+            })
+            .catch((error) => {
+                console.error("인증 실패.:", error); // 에러 로그 확인
+                setSaveCode("");
+            });
+
+	};
+
+	// 인증번호 확인 함수
+	const verifyCode = () => {
+        console.log(verificationCode)
+        console.log(saveCode)
+		// 인증번호 확인하는 로직
+        if(verificationCode === saveCode){
+            setIsVerified(true);
+			setVerificationMessage("인증 성공");
+        }
+        else{
+            setIsVerified(false);
+			setVerificationMessage("인증번호가 잘못되었습니다.");
+        }
+	};
+    const handleVerificationCodeChange = (e) => {
+		const numbersOnly = e.target.value.replace(/\D/g, "");
+		if (numbersOnly.length <= 6) {
+			setVerificationCode(numbersOnly);
+		}
+	};
+
     
     // 회원가입 버튼 이벤트 리스너.
     const onSubmitHandler = (event) => {
         event.preventDefault(); 
-        if( memberPassword.length >= 6 && memberPassword.length <= 20){
+        if( memberPassword.length >= 6 && memberPassword.length <= 20 && memberPassword === memberPassword1 && isVerified){
             setIsValidLength(true);
-           
-        }
+            setIsSame(true)
+        } 
         else{
             setIsValidLength(false);
-            return false;
-        }
-
-        if(memberPassword === memberPassword1){
-            setIsSame(true)
-        }
-        else{
             setIsSame(false)
             return false;
         }
-
-       
-        
         let memberForm ={
             memberEmail : memberEmail,
             memberPassword: memberPassword,
@@ -77,8 +141,7 @@ const SignupComponent = () => {
             memberAccountNumber : memberAccountNumber
         }
 
-        // console.log("asd")
-
+        
         saveMember(memberForm)
             .then((response) => {
                 console.log(response.data);
@@ -93,6 +156,9 @@ const SignupComponent = () => {
         });
 
     }
+
+
+
 
     return (
         <div className="sign-up__wrapper">
@@ -116,22 +182,22 @@ const SignupComponent = () => {
                              중복
                         </Button>
                         </Col>
-                        {
-                        /* {
-                            useEmail? (
-                                <p style={{color:"red"}}>사용할 수 없는 이메일입니다.</p>
-                            ) : (
-                                <p style={{color:"blue"}}>사용할 수 있는 이메일입니다.</p>
-                            )
-                        } */
-                        }
+                        {useEmail && (
+                            <p style={{color:"red"}}>{emailMessage}</p>
+                        ) }
+                        {!useEmail &&(
+                            <p style={{color:"blue"}}>{emailMessage}</p>
+                        )}
                     </Row>
                 </Form.Group>
+
+
 
                 {/* 비밀번호 */}
                 <Form.Group className="mb-2 mb-4 " controlId="memberPassword">
                         <Form.Control type="password" 
                         value={memberPassword}
+                        maxLength={20}
                         onChange={(e) => setMemberPassword(e.target.value)}
                         placeholder="비밀번호" required/>
                        
@@ -145,6 +211,7 @@ const SignupComponent = () => {
                 <Form.Group className="mb-2 mb-4 " controlId="memberPassword1">
                         <Form.Control type="password" 
                         value={memberPassword1}
+                        maxLength={20}
                         onChange={(e) => setMemberPassword1(e.target.value)}
                         placeholder="비밀번호 재확인" required/>
                         {isSame ?(
@@ -160,6 +227,7 @@ const SignupComponent = () => {
                         <Form.Group controlId="memberName">
                             <Form.Control type="text" 
                                 value={memberName}
+                                maxLength={11}
                                 onChange={(e) => setMemberName(e.target.value)}
                                 placeholder="이름" required/>
                         </Form.Group>
@@ -168,24 +236,13 @@ const SignupComponent = () => {
                         <Form.Group controlId="memberNickname">
                             <Form.Control type="text" 
                                 value={memberNickName}
+                                maxLength={11}
                                 onChange={(e) => setMemberNickName(e.target.value)}
                                 placeholder="닉네임" required/>
                         </Form.Group>
                     </Col>
                 </Row>
 
-
-                {/* 생년월일 */}
-                {/* <Form.Group className="mb-2 mb-4 " controlId="memberBirth">
-                        <Form.Control 
-                        type="text" 
-                        value={memberBirth}
-                        placeholder="생년월일"
-                        onFocus={(e) => (e.target.type = "date")}
-                        onBlur={(e) => (e.target.type = "text")}
-                        onChange={(e) => setMemberBirth(e.target.value)}
-                        required/>
-                </Form.Group> */}
 
                 {/* 주소 */}
                 <Form.Group className="mb-2 mb-4 " controlId="memberAddr">
@@ -203,13 +260,50 @@ const SignupComponent = () => {
                         placeholder="상세주소" required/>
                 </Form.Group>
 
-                {/* 상세주소 */}
-                <Form.Group className="mb-2 mb-4 " controlId="memberPhone">
-                        <Form.Control type="text" 
-                        value={memberPhone}
-                        onChange={(e) => setMemberPhone(e.target.value)}
-                        placeholder="전화번호" required/>
+                {/* 전화번호 */}
+                <Form.Group className="mb-2 " controlId="memberPhone">
+                    <Row>
+                        <Col className="col-8">
+                            <Form.Control type="text" 
+                            value={displayFormattedPhoneNumber(memberPhone)}
+                            onChange={handleChange}
+                            placeholder="전화번호" required/>
+                        </Col>
+                        <Col lassName="col-4">
+                        <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}}  onClick={sendVerification}>
+                           인증번호 전송
+                        </Button>
+                        </Col>
+                    </Row>
                 </Form.Group>
+                {verificationSent && (
+                    <Form.Group className="mb-2 " controlId="memberPhoneCheck">
+                        <Row>
+                            <Col className="col-10">
+                                <Form.Control
+                                    placeholder="인증번호 입력"
+                                    type="text"
+                                    value={verificationCode}
+                                    onChange={handleVerificationCodeChange}
+                                />
+                            </Col>
+                            <Col className="col-2">
+                                <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}} onClick={verifyCode} disabled={isVerified}>
+                                    확인
+                                </Button>
+                            </Col>
+
+                        </Row>
+                        {!isVerified && (
+                                <p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}}  muted >{verificationMessage}</p> // 인증 실패 메시지
+                        )}
+                        {isVerified && (
+                                <p className="passwordHelpBlock"  style={{color:"blue", fontSize:"12px"}}  muted >{verificationMessage}</p> // 인증 성공 메시지
+                        )}
+                    </Form.Group>
+                )}
+
+
 
                 
                 {/* 계좌 */}
@@ -242,6 +336,9 @@ const SignupComponent = () => {
                         </Form.Group>
                     </Col>
                 </Row>
+
+
+
 
 
                 <Button      className="w-100 mb-3" variant="default" type="submit"  style={{backgroundColor:'#FFD774'}}>

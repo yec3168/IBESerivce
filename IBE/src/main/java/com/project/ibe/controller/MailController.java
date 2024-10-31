@@ -21,16 +21,16 @@ public class MailController {
     private final MailService mailService;
     private final MemberService memberService;
 
-    @ResponseBody
-    @PostMapping("/emailAuth") // 인증번호를 memberAuthNumber로 넘김
-    public Response emailAuth(@RequestBody MailRequest mailReq) throws MessagingException, UnsupportedEncodingException {
-        String memberEmail = mailReq.getEmail();
-        String authNumber = mailService.sendSimpleMessage(mailReq.getEmail());
-
-        try{
-            return new Response(ResponseCode.SUCCESS, memberService.updateAuthNumber(memberEmail, authNumber), "200");
-        } catch (Exception e){
-            return new Response(ResponseCode.FAIL, false, "404");
-        }
-    }
+//    @ResponseBody
+//    @PostMapping("/emailAuth") // 인증번호를 memberAuthNumber로 넘김
+//    public Response emailAuth(@RequestBody MailRequest mailReq) throws MessagingException, UnsupportedEncodingException {
+//        String memberEmail = mailReq.getEmail();
+//        String authNumber = mailService.sendSimpleMessage(mailReq.getEmail());
+//
+//        try{
+//            return new Response(ResponseCode.SUCCESS, memberService.updateAuthNumber(memberEmail, authNumber), "200");
+//        } catch (Exception e){
+//            return new Response(ResponseCode.FAIL, false, "404");
+//        }
+//    }
 }

@@ -15,3 +15,7 @@ export const login = (loginMember) => axios.post(`${REST_API_URL}/signin`, login
 
 // 이메일 중복확인
 export const checkEmail = (memberEmail) => axios.get(`${REST_API_URL}/signup/${memberEmail}/`)
+
+
+// 전화번호 인증번호 받기
+export const saveCodeNumber = (memberPhone) => axios.post(`${REST_API_URL}/mail/send/${memberPhone}/`)
