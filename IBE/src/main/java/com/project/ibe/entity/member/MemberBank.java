@@ -21,7 +21,7 @@ public class MemberBank {
     @Enumerated(EnumType.STRING)
     private Bank memberBank;            // 환급은행
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String memberAccountNumber; // 환급계좌
 
     @Builder

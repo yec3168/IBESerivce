@@ -4,7 +4,8 @@ import com.project.ibe.config.SmsUtil;
 import com.project.ibe.dto.member.MemberSignupResponse;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
-import com.project.ibe.dto.member.*;
+import com.project.ibe.dto.member.sms.MemberSmsReqequest;
+import com.project.ibe.dto.member.sms.MemberSmsResponse;
 import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
@@ -91,6 +92,26 @@ public class MemberService {
         smsUtil.sendOne(memberPhone.replaceAll("-", ""), randomCode);
 
         return randomCode;
+    }
+
+    //문자 인증 로직 ( 전화번호 인증 )
+    public MemberSmsResponse sendSmsToFindEmail(MemberSmsReqequest memberSmsReqequest) {
+        // 회원을 못찾음.
+        Member member = memberRepository.findByMemberNameAndMemberPhone(memberSmsReqequest.getMemberName(), memberSmsReqequest.getMemberPhone())
+                .orElseThrow(
+                        () -> new BusinessException("Member not Found", HttpStatus.NOT_FOUND)
+                );
+
+        String randomCode = smsUtil.generateRandomNumber();
+//        smsUtil.sendOne(memberSmsReqequest.getMemberPhone().replaceAll("-", ""), randomCode);
+
+
+        return MemberSmsResponse.builder()
+                .memberEmail(member.getMemberEmail())
+                .memberName(member.getMemberName())
+                .randomCode(randomCode)
+                .build();
+
     }
 
     // 이메일 인증 auth number update

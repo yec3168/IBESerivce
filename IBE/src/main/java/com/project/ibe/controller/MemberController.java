@@ -3,14 +3,13 @@ package com.project.ibe.controller;
 import com.project.ibe.dto.member.MailRequest;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
+import com.project.ibe.dto.member.sms.MemberSmsReqequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.MailService;
 import com.project.ibe.services.MemberService;
 import jakarta.mail.MessagingException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -87,6 +86,16 @@ public class MemberController {
         } catch (Exception e) {
             e.printStackTrace();
             return new Response(ResponseCode.FAIL, "실패", "400");
+        }
+    }
+
+    @PostMapping("/mail/send")
+    public Response sendSms(@RequestBody MemberSmsReqequest memberSmsReqequest) {
+        try {
+            return new Response(ResponseCode.SUCCESS, memberService.sendSmsToFindEmail(memberSmsReqequest), "200");
+        } catch (Exception e) {
+
+            return new Response(ResponseCode.FAIL, e.getMessage(), "400");
         }
     }
 }
