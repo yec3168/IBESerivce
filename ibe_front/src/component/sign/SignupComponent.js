@@ -47,7 +47,7 @@ const SignupComponent = () => {
         if(memberEmail.trim() ==="")
             return;
         checkEmail(memberEmail).then( response =>{
-            console.log(response.data)
+            console.log(response.data.data)
             if(response.data){
                 alert("사용할 수 없는 이메일입니다.")
                 setUseEmail(true);
