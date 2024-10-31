@@ -3,7 +3,7 @@ import LayoutComponent from "../LayoutComponent";
 
 const MainPage = () =>{
     return (
-        <LayoutComponent>
+        <LayoutComponent >
             <MainComponent/>
         </LayoutComponent>
     )

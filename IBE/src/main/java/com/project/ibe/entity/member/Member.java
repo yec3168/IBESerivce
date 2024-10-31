@@ -4,6 +4,7 @@ import com.project.ibe.entity.common.Bank;
 import com.project.ibe.entity.common.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,20 +24,22 @@ import java.util.Date;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long memberId;              // pk 회원번호
 
     @Column(nullable = false)
-    @Size(max = 8)
+    @Size(min = 2, max = 8)
     private String memberName;          // 이름
 
     @Column(nullable = false)
-    @Size(max = 10)
+    @Size(min = 2, max = 8)
     private String memberNickName;      // 닉네임
 
-    @Column(nullable = false)
-    private Date memberBirth;           // 생일
+//    @Column(nullable = false)
+//    private Date memberBirth;           // 생일
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @Size(min=5, max = 15)
     private String memberPhone;         // 전화번호
 
     @Column(nullable = false)
@@ -51,12 +54,12 @@ public class Member {
     @Column(nullable = false)
     private String memberPassword;      // 비밀번호
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Bank memberBank;            // 환급은행
+//    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private Bank memberBank;            // 환급은행
 
-    @Column(nullable = false)
-    private String memberAccountNumber; // 환급계좌
+//    @Column(nullable = false)
+//    private String memberAccountNumber; // 환급계좌
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

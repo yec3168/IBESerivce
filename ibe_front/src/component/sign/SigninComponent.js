@@ -30,7 +30,7 @@ function SignInComponent(){
         login(memberForm)
             .then(response => {
             console.log(response.data);
-            if (response.data.status === "200") {
+            if (response.data.code === "200") {
                 alert("로그인 성공!");
                 window.location.href = "/";
                 setIsEmpty(false);
