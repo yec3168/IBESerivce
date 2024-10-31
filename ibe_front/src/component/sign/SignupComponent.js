@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Modal  } from "react-bootstrap";
 import {checkEmail, saveMember, saveCodeNumber} from '../service/MemberService';
 // import{FaAddressBook } from "react-icons/fa"
 import Logo from '../assets/images/sign/ibe_logo1.png'
+import DaumPostcode from 'react-daum-postcode';
 
 import './Sign.css'
 
@@ -33,9 +34,12 @@ const SignupComponent = () => {
     // 전화번호 인증번호 저장.
     const [saveCode, setSaveCode] = useState("");
 
+
     // 이메일 중복확인
     const  checkDuplicatedEmail = (event) => {
         event.preventDefault(); 
+        if(memberEmail.trim() ==="")
+            return;
         checkEmail(memberEmail).then( response =>{
             console.log(response.data)
             if(response.data){
@@ -55,6 +59,29 @@ const SignupComponent = () => {
             }
         }) 
     }
+
+    /**
+     * 주소 관련
+     */
+
+    const [showPostcode, setShowPostcode] = useState(false); // 주소 검색창 표시 상태
+
+    const handleCompletePostcode = (data) => {
+        // 주소 선택 시 실행될 함수
+        setMemberAddr(data.address);
+        setShowPostcode(false); // 모달 창 닫기
+    };
+
+    const handlePostcodeButtonClick = () => {
+        setShowPostcode(true); // 주소 검색 모달 창 열기
+    };
+
+
+
+
+    /**
+     * 전화번호 관련
+     */
        // 입력 폼 변경 시 실행되는 함수
 	const handleChange = (e) => {
 		const numbersOnly = e.target.value.replace(/\D/g, "");
@@ -115,19 +142,35 @@ const SignupComponent = () => {
 		}
 	};
 
+
+
+
     
     // 회원가입 버튼 이벤트 리스너.
     const onSubmitHandler = (event) => {
         event.preventDefault(); 
-        if( memberPassword.length >= 6 && memberPassword.length <= 20 && memberPassword === memberPassword1 && isVerified){
+        if( memberPassword.length >= 6 && memberPassword.length <= 20)
             setIsValidLength(true);
-            setIsSame(true)
-        } 
         else{
             setIsValidLength(false);
-            setIsSame(false)
             return false;
         }
+        if( memberPassword === memberPassword1)
+            setIsSame(true)  
+        else{
+            setIsSame(false);
+            return false;
+        }
+        if(useEmail){
+            alert("이메일 중복확인 해주세요.")
+            return false;
+        }
+        if(!isVerified){
+            alert("전화번호 인증해주세요.")
+            return false;
+        }
+            
+         
         let memberForm ={
             memberEmail : memberEmail,
             memberPassword: memberPassword,
@@ -141,7 +184,7 @@ const SignupComponent = () => {
             memberAccountNumber : memberAccountNumber
         }
 
-        
+        // 회원가입 backend post 호출.
         saveMember(memberForm)
             .then((response) => {
                 console.log(response.data);
@@ -201,9 +244,10 @@ const SignupComponent = () => {
                         onChange={(e) => setMemberPassword(e.target.value)}
                         placeholder="비밀번호" required/>
                        
-                        {isValidLength
-                        ? (<p className="passwordHelpBlock"  style={{ fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p>  )
-                        : (<p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p> )} 
+                        {isValidLength &&
+                         (<p className="passwordHelpBlock"  style={{ fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p>  )}
+                        {!isValidLength &&
+                         (<p className="passwordHelpBlock"  style={{color:"red", fontSize:"12px"}}  muted >비밀번호는 6 ~ 20자여야 합니다.</p> )} 
                         
 
                 </Form.Group>
@@ -246,11 +290,30 @@ const SignupComponent = () => {
 
                 {/* 주소 */}
                 <Form.Group className="mb-2 mb-4 " controlId="memberAddr">
-                        <Form.Control type="text"
-                        value={memberAddr}
-                        onChange={(e) => setMemberAddr(e.target.value)}
-                        placeholder="주소" required/>
+                        
+                        <Row>
+                            <Col lassName="col-9">
+                                    <Form.Control type="text"
+                                        value={memberAddr}
+                                        onChange={(e) => setMemberAddr(e.target.value)}
+                                        placeholder="주소" required/>
+                            </Col>
+                            <Col className="col-3">
+                                <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774'}} onClick={handlePostcodeButtonClick}>
+                                    주소찾기
+                                </Button>
+                            </Col>
+                        </Row>
                 </Form.Group>
+                {/* DaumPostcode 모달 */}
+                <Modal show={showPostcode} onHide={() => setShowPostcode(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>주소 검색</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <DaumPostcode onComplete={handleCompletePostcode} />
+                    </Modal.Body>
+                </Modal>
 
                 {/* 상세주소 */}
                 <Form.Group className="mb-2 mb-4 " controlId="memberAddrDetail">

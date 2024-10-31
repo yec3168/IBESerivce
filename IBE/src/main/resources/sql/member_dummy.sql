@@ -13,13 +13,13 @@ INSERT INTO `member` (
       (NOW(), '오민정', 500, NOW(), '오닉', '전라북도 전주', NULL, '456456', 'oh@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-7788-9900', 'ROLE_CLIENT'),
       (NOW(), '이동욱', 550, NOW(), '이닉3', '충청남도 천안', NULL, '789789', 'lee3@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-8899-0011', 'ROLE_CLIENT');
 INSERT INTO member_bank (member_id, member_account_number, member_bank) VALUES
-                                                                            (1, '123-456-7890', 'HANA'),
-                                                                            (2, '234-567-8901', 'KAKAO'),
-                                                                            (3, '345-678-9012', 'KB'),
-                                                                            (4, '456-789-0123', 'NH'),
-                                                                            (5, '567-890-1234', 'SHINHAN'),
-                                                                            (6, '678-901-2345', 'TOSS'),
-                                                                            (7, '789-012-3456', 'WOORI'),
-                                                                            (8, '890-123-4567', 'HANA'),
-                                                                            (9, '901-234-5678', 'KAKAO'),
-                                                                            (10, '012-345-6789', 'KB');
+    (1, '123-456-7890', 'HANA'),
+    (2, '234-567-8901', 'KAKAO'),
+    (3, '345-678-9012', 'KB'),
+    (4, '456-789-0123', 'NH'),
+    (5, '567-890-1234', 'SHINHAN'),
+    (6, '678-901-2345', 'TOSS'),
+    (7, '789-012-3456', 'WOORI'),
+    (8, '890-123-4567', 'HANA'),
+    (9, '901-234-5678', 'KAKAO'),
+    (10, '012-345-6789', 'KB');
