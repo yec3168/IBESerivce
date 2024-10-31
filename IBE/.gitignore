@@ -16,7 +16,7 @@ target/
 
 application.properties
 ### IntelliJ IDEA ###
-applicaton-API.properties
+applicaton-api.properties
 
 .idea
 *.iws
