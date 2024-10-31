@@ -10,7 +10,7 @@ INSERT INTO `member` (
       (NOW(), '강민수', 350, NOW(), '강닉', '울산광역시 남구', NULL, '777888', 'kang@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '01044556677', 'ROLE_CLIENT'),
       (NOW(), '이수빈', 400, NOW(), '이닉2', '세종특별자치시', NULL, '999000', 'lee2@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '01055667788', 'ROLE_ADMIN'),
       (NOW(), '김하늘', 450, NOW(), '김닉2', '경기도 수원시', NULL, '123123', 'kim2@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '01066778899', 'ROLE_DEFAULT'),
-      (NOW(), '오민정', 500, NOW(), '오닉', '전라북도 전주', NULL, '456456', 'oh@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '01077889900', 'ROLE_CLIENT'),
+      (NOW(), '오민정', 500, NOW(), '오닉', '전라북도 전주', NULL, '456456', 'yec3618@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '01077889900', 'ROLE_CLIENT'),
       (NOW(), '이동욱', 550, NOW(), '이닉3', '충청남도 천안', NULL, '789789', 'lee3@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '01088990011', 'ROLE_CLIENT');
 INSERT INTO member_bank (member_id, member_account_number, member_bank) VALUES
     (1, '123-456-7890', 'HANA'),

@@ -22,3 +22,7 @@ export const saveCodeNumber = (memberPhone) => axios.post(`${REST_API_URL}/mail/
 
 // 이메일 찾기
 export const searchEmail = (memberSnsRequest) => axios.post(`${REST_API_URL}/mail/send`, memberSnsRequest)
+
+
+// 메일전송
+export const sendMail = (mailRequest) => axios.post(`${REST_API_URL}/emailAuth`, mailRequest)

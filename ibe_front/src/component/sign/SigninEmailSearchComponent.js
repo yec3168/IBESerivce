@@ -143,7 +143,7 @@ const SigninEmailSearchComponent =() =>{
                     <a href="/">
                         <img className="img mx-auto d-block mb-2 w-50" src={Logo} alt="logo" />
                     </a>
-
+                    {/* <div>아이디찾기</div> */}
                     {/* //이름 입력 */}
                     <FloatingLabel className="mb-2 mb-3 " controlId="memberEmail" label="이름">
                         <Form.Control
@@ -235,7 +235,7 @@ const SigninEmailSearchComponent =() =>{
                         >
                             확인
                         </Button>
-                    </div>
+                        </div>
                        
                     </Modal.Body>
                 </Modal>

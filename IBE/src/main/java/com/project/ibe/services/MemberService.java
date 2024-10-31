@@ -69,7 +69,7 @@ public class MemberService {
         if(!memberRepository.existsByMemberEmail(memberSignInRequest.getMemberEmail())){
             throw new UsernameNotFoundException(memberSignInRequest.getMemberEmail() + " 이 존재하지 않습니다.");
         }
-        Member member = memberRepository.findByMemberEmail(memberSignInRequest.getMemberEmail());
+        Member member = getMemberByEmail(memberSignInRequest.getMemberEmail());
 
         if(!bCryptPasswordEncoder.matches(memberSignInRequest.getMemberPassword(), member.getMemberPassword())){
             throw new BusinessException("Password is not correct", HttpStatus.NOT_FOUND);
@@ -119,9 +119,17 @@ public class MemberService {
 
     // 이메일 인증 auth number update
     public boolean updateAuthNumber(String memberEmail, String authNumber){
-        Member member = memberRepository.findByMemberEmail(memberEmail);
+        Member member = getMemberByEmail(memberEmail);
         member.setMemberAuthNumber(authNumber);
 
         return true;
+    }
+
+    private Member getMemberByEmail(String memberEmail) {
+        Member member = memberRepository.findByMemberEmail(memberEmail)
+                .orElseThrow(
+                        () -> new BusinessException("Member Not Found", HttpStatus.NOT_FOUND)
+                );
+        return member;
     }
 }

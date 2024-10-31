@@ -2,8 +2,10 @@ package com.project.ibe.services;
 
 import com.project.ibe.dto.member.MemberDetails;
 import com.project.ibe.entity.member.Member;
+import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +19,11 @@ public class MemberDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException {
-        Member memberData = memberRepository.findByMemberEmail(memberEmail);
+        Member memberData =
+                memberRepository.findByMemberEmail(memberEmail)
+                        .orElseThrow(
+                                () -> new BusinessException("Member not Found", HttpStatus.NOT_FOUND)
+                        );
         if(memberData != null) {
             return new MemberDetails(memberData);
         }
