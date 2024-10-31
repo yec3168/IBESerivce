@@ -7,6 +7,7 @@ import MainPage from "./component/layout/pages/MainPage";
 import ProductDetailPage from "./component/layout/pages/ProductDetailPage";
 import SigninEmailSearchComponent from "./component/sign/SigninEmailSearchComponent"; 
 import SignPasswordSeacchComponent from "./component/sign/SignPasswordSearchComponent";
+import MypagePage from "./component/layout/pages/MypagePage";
 
 function App() {
   return (
@@ -21,9 +22,14 @@ function App() {
         </Routes>
 
         {/* 상품 Router */}
-        <Routes>
+        {/* <Routes>
           <Route  path="/products/detail/:id" element={<ProductDetailPage />} />
-        </Routes>
+        </Routes> */}
+
+        {/* 마이페이지 Router */}
+        {/* <Routes>
+          <Route path="/mypage" element={<MypagePage/>} />
+        </Routes> */}
      </BrowserRouter>
     </>
   );
