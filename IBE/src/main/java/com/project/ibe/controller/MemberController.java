@@ -57,10 +57,6 @@ public class MemberController {
 
         return memberService.checkEmail(memberEmail);
     }
-
-<<<<<<< HEAD
-=======
-
     /**
      * 메일 인증번호 발송
      */
@@ -91,5 +87,4 @@ public class MemberController {
             return new Response(ResponseCode.FAIL, "실패", "400");
         }
     }
->>>>>>> 578c18c99050ca28d2c32bb4f165fb4d9e3bf221
 }
