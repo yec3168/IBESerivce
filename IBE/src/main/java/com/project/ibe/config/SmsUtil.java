@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 @Component
-@PropertySource("classpath:application-test.properties") // 파일 경로 설정
+@PropertySource("classpath:application-api.properties") // 파일 경로 설정
 public class SmsUtil {
+
     @Value("${coolsms.api.key}")
     private String apiKey;
     @Value("${coolsms.api.secret}")
