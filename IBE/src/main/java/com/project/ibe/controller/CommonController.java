@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommonController {
     private final MemberService memberService;
 
-    @PostMapping("/send/{memberPhone}/")
-    public Response sendSms(@PathVariable String memberPhone) {
-        try {
-            String generatedCode = memberService.sendSmsToFindEmail(memberPhone);
-            return new Response(ResponseCode.SUCCESS, generatedCode, "200");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Response(ResponseCode.FAIL, "실패", "400");
-        }
-    }
+//    @PostMapping("/mail/send/{memberPhone}/")
+//    public Response sendSms(@PathVariable String memberPhone) {
+//        try {
+//            String generatedCode = memberService.sendSmsToFindEmail(memberPhone);
+//            return new Response(ResponseCode.SUCCESS, generatedCode, "200");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new Response(ResponseCode.FAIL, "실패", "400");
+//        }
+//    }
 }
