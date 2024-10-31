@@ -7,7 +7,7 @@
 
 .admin-sidebar {
   width: 250px; /* 사이드바 너비 */
-  background: #fff5b7; /* 사이드바 색상 */
+  background: #FFFBDF; /* 사이드바 색상 */
   color: #d27a00; /* 글자색 */
   display: flex;
   flex-direction: column; /* 세로 방향으로 나열 */
@@ -53,7 +53,7 @@
 
 .content {
   margin-left: 250px; /* 사이드바 너비만큼 여백 추가 */
-  background: #fff5da;
+  background: #FFFAED;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   flex-grow: 1; /* 콘텐츠가 남은 공간을 채우도록 함 */
   overflow-y: auto; /* 콘텐츠 영역에서도 스크롤 가능 */
@@ -61,8 +61,9 @@
 
 .admin-button {
   padding: 0.5rem 1rem;
-  background: #007bff; /* 버튼 색상 */
-  color: white;
+  background: #FFFAED; /* 버튼 색상 */
+  margin: 0.5rem;
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -142,7 +143,7 @@
 .admin-header {
   display: flex;
   justify-content: flex-end; /* 오른쪽 정렬 */
-  padding: 1rem; /* 패딩 추가 */
+  padding: 0.5rem; /* 패딩 추가 */
   background-color: #ffcb8b; /* 상단바 색상 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
