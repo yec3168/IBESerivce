@@ -60,6 +60,8 @@ public class MailService {
 
         helper.setText(htmlContent, true);
         helper.addInline("ibeLogo", new ClassPathResource("images/ibe_logo.png"));
+        helper.addInline("emailImg01", new ClassPathResource("images/email_img_01.png"));
+        helper.addInline("emailImg02", new ClassPathResource("images/email_img_02.png"));
 
 //        message.setText(htmlContent, "UTF-8");
 //        message.setHeader("content-Type", "text/html");
