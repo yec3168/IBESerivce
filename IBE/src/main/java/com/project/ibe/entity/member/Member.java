@@ -1,5 +1,6 @@
 package com.project.ibe.entity.member;
 
+import com.project.ibe.entity.common.AuditingFields;
 import com.project.ibe.entity.common.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PUBLIC) //protected
 @Getter @Setter
 @Table(name = "member")
-public class Member {
+public class Member extends  AuditingFields{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -55,13 +56,13 @@ public class Member {
 //    @Column(nullable = false)
 //    private String memberAccountNumber; // 환급계좌
 
-    @Column(nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime entryDate;    // 가입날짜
-
-    @Column(nullable = false)
-    @UpdateTimestamp
-    private LocalDateTime updateDate;   // 수정날짜
+//    @Column(nullable = false, updatable = false)
+//    @CreationTimestamp
+//    private LocalDateTime entryDate;    // 가입날짜
+//
+//    @Column(nullable = false)
+//    @UpdateTimestamp
+//    private LocalDateTime updateDate;   // 수정날짜
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

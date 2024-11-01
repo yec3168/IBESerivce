@@ -1,4 +1,4 @@
-package com.project.ibe.services;
+package com.project.ibe.services.member;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

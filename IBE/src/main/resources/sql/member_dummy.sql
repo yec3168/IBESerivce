@@ -24,4 +24,4 @@ INSERT INTO member_bank (member_id, member_account_number, member_bank) VALUES
     (8, '890-123-4567', 'HANA'),
     (9, '901-234-5678', 'KAKAO'),
     (10, '012-345-6789', 'KB'),
-    (11, '012-345-6789', 'HANA');
+    (11, '012-345-6780', 'HANA');

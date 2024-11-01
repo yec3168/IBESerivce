@@ -1,9 +1,9 @@
-package com.project.ibe.services;
+package com.project.ibe.services.member;
 
 import com.project.ibe.dto.member.MemberDetails;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
-import com.project.ibe.repository.MemberRepository;
+import com.project.ibe.repository.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
