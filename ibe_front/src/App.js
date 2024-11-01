@@ -12,6 +12,7 @@ import SignPasswordSeacchComponent from "./component/sign/SignPasswordSearchComp
 import AdminPage from './component/adminpage/AdminPage';
 
 import MypagePage from './component/layout/pages/MypagePage'
+import ProductCreatePage from './component/layout/pages/ProductCreatePage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         {/* 상품 Router */}
         <Routes>
           <Route path="/products/detail/:id" element={<ProductDetailPage />} />
+          <Route path="/products/create" element={<ProductCreatePage />} />
         </Routes>
         {/* 관리자페이지 Router */}
         <Routes>

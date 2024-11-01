@@ -1,4 +1,4 @@
-.product_detail{
+.product{
     margin-top: 150px;
     margin-bottom: 150px;
 }
@@ -134,4 +134,28 @@
 #md_recommand{
     margin-top: 100px;
     margin-bottom: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------물품 생성----------------------------- */
+
+#section_1{
+    width: 40%;
+    text-align: center;
+}
+#section_1 #page_title{
+    font-family: "CookieRun-Regular", sans-serif !important;
+
 }

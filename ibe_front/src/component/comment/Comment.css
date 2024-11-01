@@ -1,22 +1,133 @@
-#comment{
+#comment {
     width: 90%;
+    margin: 0 auto;
 }
 
-#comment #comment_info{
-    margin-top: 100px;
-    margin-bottom: 50px;
-    width: 100%;
+#comment #comment_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #666666;
 }
 
-#comment #comment_info .comment_top{
-    font-size: 30px;
+#comment #comment_info .comment_top {
+    font-size: 20px;
     font-family: "CookieRun-Regular", sans-serif !important;
 }
 
-#comment #comment_inputs{
+#comment #comment_info .comment_report {
     font-size: 15px;
-    margin-bottom: 50px;
-    width: 100%;
+    color: #666;
+    cursor: pointer;
+}
+
+#comment_inputs {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+#comment_inputs .form-control {
+    font-size: 15px;
     font-family: "CookieRun-Regular", sans-serif !important;
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#comment_inputs .submit-btn {
+    font-size: 14px;
+    color: black;
+    background-color: #FFD97A;
+    border: none;
+    padding: 5px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#comment_list .comment-item {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+#comment_list .comment-profile {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#comment_list .comment-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#comment_list .comment-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#comment_list .comment-text {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.reply-btn {
+    font-size: 13px;
+    color: black;
+    background-color: #FFD97A;
+    border: none;
+    margin-top: 5px;
+    align-self: flex-start;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reply-form .form-control {
+    font-size: 14px;
+    resize: none;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+}
+
+.submit-reply-btn {
+    font-size: 13px;
+    color: #007bff;
+    margin-top: 5px;
+}
+
+.reply-list {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.reply-item {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.reply-profile {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.reply-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.reply-name {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.reply-text {
+    font-size: 13px;
+    margin: 5px 0;
 }

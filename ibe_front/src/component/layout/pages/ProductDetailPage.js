@@ -1,4 +1,4 @@
-import ProductDetailComponent from "../../detail/ProductDetailComponent";
+import ProductDetailComponent from "../../product/ProductDetailComponent";
 import LayoutComponent from "../LayoutComponent";
 
 const ProductDetailPage = () => {

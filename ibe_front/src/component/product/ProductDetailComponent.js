@@ -3,7 +3,7 @@ import {Row, Col, Carousel, Breadcrumb, Badge, Button  } from "react-bootstrap";
 import TrendingProductsComponent from "../main/TrendingProductsComponent";
 import CommentCommponent from "../comment/CommentComponent";
 
-import "./Detail.css"
+import "./Product.css"
 
 const ProductDetailComponent = () => {
     // 상품의 이미지 리스트 api를 받아서 등록할 예정 (useEffect 사용)
@@ -15,7 +15,7 @@ const ProductDetailComponent = () => {
         <>
             <div>
                 {/* Product의 정보를 보여주는 div */}
-                <div className="product_detail">
+                <div className="product">
                     <Row >
                         <Col className="col-6">
                             <Carousel>
