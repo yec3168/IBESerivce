@@ -1,14 +1,13 @@
 package com.project.ibe.controller;
 
-import com.project.ibe.services.MemberService;
+import com.project.ibe.services.member.MemberService;
 import com.project.ibe.dto.member.MailRequest;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
 import com.project.ibe.dto.member.sms.MemberSmsReqequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
-import com.project.ibe.services.MailService;
-import com.project.ibe.services.MemberService;
+import com.project.ibe.services.member.MailService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

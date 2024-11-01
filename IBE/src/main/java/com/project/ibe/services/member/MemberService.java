@@ -1,4 +1,4 @@
-package com.project.ibe.services;
+package com.project.ibe.services.member;
 
 
 import com.project.ibe.config.SmsUtil;
@@ -11,8 +11,8 @@ import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
 import com.project.ibe.exception.BusinessException;
-import com.project.ibe.repository.MemberBankRepository;
-import com.project.ibe.repository.MemberRepository;
+import com.project.ibe.repository.member.MemberBankRepository;
+import com.project.ibe.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.project.ibe.repository;
+package com.project.ibe.repository.member;
 
 import com.project.ibe.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
