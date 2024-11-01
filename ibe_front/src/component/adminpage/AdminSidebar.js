@@ -60,7 +60,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                   }}
                   className={activeMenu === 'deletedPost' ? 'active' : ''}
                 >
-                  - 삭제된 게시글 조회
+                  - 게시글 조회
                 </a>
               </li>
             </ul>

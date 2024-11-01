@@ -1,9 +1,9 @@
-import './AdminPage.css';
+import './AdminManagerList.css';
 
 const AdminManagerList = () => {
   return (
     <>
-         <h2 className="content-h2">관리자 목록</h2>   
+      <h2>관리자 목록</h2>
     </>
   );
 };
