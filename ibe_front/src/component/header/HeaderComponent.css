@@ -1,27 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+#div_header {
+  height: 100px;
+}
+
+.mr-150 {
+  margin-right: 150px;
+}
+
+.mr-80 {
+  margin-right: 80px;
+}
+
+.mr-70 {
+  margin-right: 70px;
+}
+
+.ml-30 {
+  margin-left: 70px;
+}
 
 nav {
-    font-family: "Jua", sans-serif !important;
+  font-family: "CookieRun-Regular", sans-serif !important;
 }
 
 .menubar {
-    font-size: 30px;
+  font-size: 20px;
 }
 
-#span_parent{
-    position: relative;
+.loginMenubar {
+  font-size: 15px;
 }
 
-#span_won{
-    color: darkorange;
-    position: relative;
+#span_parent {
+  position: relative;
 }
 
-#coin_purse_icon{
-    float: left;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    left: 25px;
-    top: 5px;
+#span_won {
+  color: darkorange;
+  position: relative;
+}
+
+#coin_purse_icon {
+  float: left;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: -10px;
+  top: 10px;
+}
+
+#amt {
+  float: left;
+  left: 0px;
+  position: absolute;
+}
+
+.nav-link.active1 {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link.active1:hover {
+  color: #f4890a;
+}
+
+.nav-link.active2 {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link.active2:hover {
+  color: #f4890a;
+}
+
+.nav-link.active3 {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link.active3:hover {
+  color: #f4890a;
+}
+
+.nav-link.active4 {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link.active4:hover {
+  color: #f4890a;
+}
+
+.nav-link.active5 {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  /* margin-left: 43px; */
+}
+
+.nav-link.active5:hover {
+  color: #f4890a;
 }
