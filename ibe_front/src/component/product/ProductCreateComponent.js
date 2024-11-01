@@ -94,47 +94,16 @@ const ProductCreateComponent = () => {
             setProductContent("");
             setImages([]);
             setErrors({});
+
+            alert("등록에 성공하였습니다.\n 잠시만 기다려주세요.")
+            window.location.href ="/products"
         })
         .catch(errors =>{
             console.log(errors)
+            alert("등록에 실패했습니다. 다시 시도해주세요.")
+            return false;
         })
 
-
-        // try {
-        //     // Spring Boot API 호출
-        //     const response = await fetch("/api/products", {
-        //         method: "POST",
-        //         body: formData,
-        //         headers: {
-        //             "Accept": "application/json",
-        //         },
-        //     });
-    
-        //     if (!response.ok) {
-        //         throw new Error("Failed to create product");
-        //     }
-    
-        //     const data = await response.json();
-            
-        //     // 서버에서 이미지 경로를 받아온 후 객체에 저장
-        //     const savedProduct = {
-        //         ...data,
-        //         imagePaths: data.images.map(image => image.imagePath) // 서버 응답에서 이미지 경로를 추출
-        //     };
-            
-        //     console.log("Product Details Submitted:", savedProduct);
-    
-        //     // 폼 리셋
-        //     setProductTitle("");
-        //     setProductCategory("");
-        //     setProductConditionState("");
-        //     setProductPoint("");
-        //     setProductContent("");
-        //     setImages([]);
-        //     setErrors({});
-        // } catch (error) {
-        //     console.error("Error submitting product:", error);
-        // }
     };
 
     return (
@@ -189,47 +158,6 @@ const ProductCreateComponent = () => {
                         </Form.Group>
                     </Row>
 
-                    {/* <Row>
-                        <Form.Group as={Col} className="mb-3" controlId="product_state">
-                            <Form.Label column >
-                                상태
-                            </Form.Label>
-                            <Col  >
-                                <FloatingLabel controlId="floatingCondition" label="상태" className="mb-3">
-                                    <Form.Select 
-                                        value={productConditionState} 
-                                        onChange={(e) => setProductConditionState(e.target.value)} 
-                                        isInvalid={!!errors.condition}
-                                    >
-                                        <option value="">상태를 선택해주세요.</option>
-                                        <option value="HIGH">상</option>
-                                        <option value="MEDIUM">중</option>
-                                        <option value="LOW">하</option>
-                                    </Form.Select>
-                                    <Form.Control.Feedback type="invalid">{errors.condition}</Form.Control.Feedback>
-                                </FloatingLabel>
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Col} className="mb-3" controlId="product_point">
-                            <Form.Label column>
-                                포인트
-                            </Form.Label>
-                            <Col  >
-                                <FloatingLabel controlId="floatingPoints" label="포인트" className="mb-3">
-                                    <Form.Control 
-                                        type="number" 
-                                        placeholder="포인트를 입력해주세요." 
-                                        value={productPoint} 
-                                        onChange={(e) => setProductPoint(e.target.value)} 
-                                        isInvalid={!!errors.points}
-                                    />
-                                    <Form.Control.Feedback type="invalid">{errors.points}</Form.Control.Feedback>
-                                </FloatingLabel>
-                            </Col>
-                        </Form.Group>
-                    </Row> */}
-            
 
                     <Row>
                         <Form.Group as={Row} className="mb-3" controlId="product_state">

@@ -67,21 +67,22 @@ const ProductListComponent = () => {
       <div id="product_container" className="mt-4">
         {/* Filter and sorting options */}
         <Row className="mb-3">
-          <Col md={3}>
+          <Col md={2}>
             <Form.Select
-              className="order_option"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+                className="order_option"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value="all">카테고리</option>
-              <option value="KIDS_BOOKS">KIDS_BOOKS</option>
-              <option value="KIDS_CLOTHING">KIDS_CLOTHING</option>
-              <option value="KIDS_TOYS">KIDS_TOYS</option>
-              <option value="MISC">MISC</option>
-              <option value="OUTDOOR_SUPPLIES">OUTDOOR_SUPPLIES</option>
+                <option value="all">카테고리</option>
+                <option value="KIDS_CLOTHING">아동 의류</option>
+                <option value="KIDS_TOYS">아동 완구</option>
+                <option value="KIDS_BOOKS">아동 도서</option>
+                <option value="OUTDOOR_SUPPLIES">외출 용품</option>
+                <option value="MISC">기타</option>
+
             </Form.Select>
           </Col>
-          <Col md={3}>
+          <Col md={2}>
             <Form.Select
               className="order_option"
               value={sortOrder}
