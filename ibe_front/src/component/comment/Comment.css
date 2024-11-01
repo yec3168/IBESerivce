@@ -18,11 +18,11 @@
     font-family: "CookieRun-Regular", sans-serif !important;
 }
 
-#comment #comment_info .comment_report {
+/* #comment #comment_info .comment_report {
     font-size: 15px;
     color: #666;
     cursor: pointer;
-}
+} */
 
 #comment_inputs {
     margin-bottom: 30px;
@@ -130,4 +130,15 @@
 .reply-text {
     font-size: 13px;
     margin: 5px 0;
+}
+
+.submit-reply-btn{
+    font-size: 14px;
+    color: black;
+    background-color: #FFD97A;
+    border: none;
+    padding: 5px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }

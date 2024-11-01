@@ -151,11 +151,147 @@
 
 /* ------------------------------------------물품 생성----------------------------- */
 
-#section_1{
+/* #section_1{
     width: 40%;
     text-align: center;
+    margin-bottom: 30px;
 }
 #section_1 #page_title{
     font-family: "CookieRun-Regular", sans-serif !important;
 
+}
+
+#section_2{
+    width: 70%;
+    margin: auto;
+    
+}
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-thumbnail {
+    position: relative;
+    margin: 5px;
+}
+
+.image-thumbnail img {
+    width: 100px; 
+    height: auto;
+}
+
+.image-thumbnail div {
+    text-align: center;
+    font-size: 12px;
+}
+
+.image-thumbnail button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.image-thumbnail {
+    position: relative;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.image-name {
+    overflow: hidden;         
+    white-space: nowrap;      
+    text-overflow: ellipsis;  
+    width: 100%;             
+    max-width: 150px;        
+    display: block;         
+} */
+form .form-label {
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+#section_2 .floatingLabel {
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+/* Targeting Form.Control */
+#section_2 .form-control {
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+#section_1 {
+    width: 40%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#section_1 #page_title {
+    font-family: "CookieRun-Regular", sans-serif !important;
+    font-size: 2rem; /* Increased font size for emphasis */
+    color: #333; /* Darker text color for contrast */
+}
+
+#section_2 {
+    width: 70%;
+    margin: auto;
+}
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-thumbnail {
+    position: relative;
+    margin: 5px;
+}
+
+.image-thumbnail img {
+    width: 100px; 
+    height: auto;
+    border-radius: 5px; /* Rounded corners for images */
+}
+
+.image-thumbnail div {
+    text-align: center;
+    font-size: 12px;
+}
+
+.image-thumbnail button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #FFD97A; /* Matching button color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 2px 5px; /* Padding for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition */
+}
+
+.image-thumbnail button:hover {
+    background-color: #f0c26a; /* Darken button on hover */
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+.image-thumbnail {
+    position: relative;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.image-name {
+    overflow: hidden;         
+    white-space: nowrap;      
+    text-overflow: ellipsis;  
+    width: 100%;             
+    max-width: 150px;        
+    display: block;         
+    margin-top: 5px;         
+    color: #555;              /* Dark grey text for readability */
+    font-size: 12px;          /* Font size for image names */
 }

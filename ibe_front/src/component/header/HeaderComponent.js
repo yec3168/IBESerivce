@@ -6,7 +6,7 @@ const HeaderComponent = () => {
   return (
     <div class="container-fluid fixed-top bg-white" id="div_header">
       <header>
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg" id="header_nav">
           <div class="container-fluid fixed-top">
             {/* 로그인 메뉴바 */}
             <div
