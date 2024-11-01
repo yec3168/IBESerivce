@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private Long productId;
 
     @Column(nullable = false)
@@ -41,7 +42,7 @@ public class Product {
     private ProductConditionState productConditionState; // 물품상태
 
     @Column(nullable = false)
-    private String productHit; // 조회수
+    private int productHit; // 조회수
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

@@ -1,0 +1,95 @@
+.inquiry-list-container {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.inquiry-list {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.inquiry-list-item {
+  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+.inquiry-list-column {
+  display: flex;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.inquiry-list-header {
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #e9ecef;
+  font-weight: bold;
+}
+
+.inquiry-list-content {
+  padding: 10px;
+  background-color: #fff;
+  transition: max-height 0.3s ease;
+}
+
+.column {
+  font-weight: bold;
+  flex: 1;
+  padding: 5px;
+  text-align: center; /* 가운데 정렬 */
+}
+
+.column.id {
+  flex: 1;
+}
+
+.column.category {
+  flex: 1;
+}
+
+.column.title {
+  flex: 16;
+}
+
+.column.nickname {
+  flex: 2;
+}
+
+.column.date {
+  flex: 2;
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+.action-button {
+  padding: 8px 12px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+.column.responder {
+  flex: 2; /* 기존 flex 값에서 변경 가능 */
+  padding: 5px;
+}
+
+.column.responseDate {
+  flex: 2; /* 기존 flex 값에서 변경 가능 */
+  padding: 5px;
+}

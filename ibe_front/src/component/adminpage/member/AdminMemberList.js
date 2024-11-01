@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AdminMemberList.css'; // 스타일 시트 import
 import dummyMembers from './DummyMembers'; // 더미 회원 데이터 import
-import AdminMemberListDetails from './AdminMemberListDetails'; // 모달 컴포넌트 import
+import AdminMemberListDetails from './modal/AdminMemberListDetails'; // 모달 컴포넌트 import
 
 const AdminMemberList = () => {
   const [selectedMember, setSelectedMember] = useState(null); // 선택된 회원 상태
