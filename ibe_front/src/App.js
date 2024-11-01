@@ -13,6 +13,7 @@ import AdminPage from './component/adminpage/AdminPage';
 
 import MypagePage from './component/layout/pages/MypagePage'
 import ProductCreatePage from './component/layout/pages/ProductCreatePage';
+import ProductListPage from './component/layout/pages/ProductListPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         </Routes>
         {/* 상품 Router */}
         <Routes>
+          <Route path="/products" element={<ProductListPage/>} />
           <Route path="/products/detail/:id" element={<ProductDetailPage />} />
           <Route path="/products/create" element={<ProductCreatePage />} />
         </Routes>
