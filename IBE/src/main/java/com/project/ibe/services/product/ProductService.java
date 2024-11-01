@@ -56,7 +56,7 @@ public class ProductService {
         List<ProductImg> productImages = new ArrayList<>();
         List<String> filePathList = new ArrayList<>();
 
-        String productImageUrl = saveImageURL + "/images/product";
+        String productImageUrl = saveImageURL + "images/product";
         if(!fileService.createDirectory(productImageUrl)){
             throw new BusinessException("Directory가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
@@ -76,6 +76,5 @@ public class ProductService {
         productFormResponse.setFilePathList(filePathList);
 
         return productFormResponse;
-
     }
 }

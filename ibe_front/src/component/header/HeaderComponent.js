@@ -71,7 +71,7 @@ const HeaderComponent = () => {
                   </a>
                 </li>
                 <li class="nav-item mr-150">
-                  <a class="nav-link active2" href="/">
+                  <a class="nav-link active2" href="/products/create">
                     판매 신청
                   </a>
                 </li>
