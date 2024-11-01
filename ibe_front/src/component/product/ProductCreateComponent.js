@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
+import {saveProduct} from "../service/ProductService";
+
 import './Product.css';
 
 const ProductCreateComponent = () => {
@@ -7,13 +9,16 @@ const ProductCreateComponent = () => {
     const [productTitle, setProductTitle] = useState("");
     const [productCategory, setProductCategory] = useState("");
     const [productCondition, setProductCondition] = useState("");
-    const [productPoints, setProductPoints] = useState("");
+    const [productPoint, setProductPoint] = useState("");
     const [productContent, setProductContent] = useState(""); // For product content
     const [errors, setErrors] = useState({});
 
+    // 이미지 핸들러
     const handleImageChange = (event) => {
         const file = event.target.files[0];
 
+        console.log(file)
+        // 파일이고/ 이미지로 시작하며/ 5개이하면 ok
         if (file && file.type.startsWith('image/') && images.length < 5) {
             setImages(prevImages => [...prevImages, file]);
             setErrors(prevErrors => ({ ...prevErrors, images: undefined })); // Clear image error
@@ -23,11 +28,13 @@ const ProductCreateComponent = () => {
 
         event.target.value = ""; // Reset the file input after selection
     };
-
+    // 이미지 제거
     const handleRemoveImage = (index) => {
         setImages(prevImages => prevImages.filter((_, i) => i !== index));
     };
 
+
+    // validation 체크.
     const validateForm = () => {
         const newErrors = {};
         
@@ -40,7 +47,7 @@ const ProductCreateComponent = () => {
         if (productCondition.trim() === "") {
             newErrors.condition = "제품 상태를 선택해야 합니다.";
         }
-        if (productPoints.trim() === "" || isNaN(productPoints) || Number(productPoints) <= 0) {
+        if (productPoint.trim() === "" || isNaN(productPoint) || Number(productPoint) <= 0) {
             newErrors.points = "올바른 포인트를 입력해야 합니다.";
         }
         if (images.length === 0) {
@@ -53,33 +60,80 @@ const ProductCreateComponent = () => {
         return newErrors;
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         
         const formErrors = validateForm();
+        // 유효성 검사에서 오류가 발생하면 반환
         if (Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
             return;
         }
-
-        // Submit logic goes here (e.g., sending data to the server)
-        console.log("Product Details Submitted:", {
+        
+        // // FormData 객체 생성
+        const formData = new FormData();
+        formData.append("productFormRequest", new Blob([JSON.stringify({
             productTitle,
             productCategory,
             productCondition,
-            productPoints,
+            productPoint,
             productContent,
-            images
+        })], { type: "application/json" }));
+        images.forEach(image => {
+            formData.append("images", image);
         });
-        
-        // Reset form after submission
-        setProductTitle("");
-        setProductCategory("");
-        setProductCondition("");
-        setProductPoints("");
-        setProductContent(""); // Reset product content
-        setImages([]);
-        setErrors({});
+       
+        saveProduct(formData)
+        .then( (response) =>{
+            console.log(response)
+            setProductTitle("");
+            setProductCategory("");
+            setProductCondition("");
+            setProductPoint("");
+            setProductContent("");
+            setImages([]);
+            setErrors({});
+        })
+        .catch(errors =>{
+            console.log(errors)
+        })
+
+
+        // try {
+        //     // Spring Boot API 호출
+        //     const response = await fetch("/api/products", {
+        //         method: "POST",
+        //         body: formData,
+        //         headers: {
+        //             "Accept": "application/json",
+        //         },
+        //     });
+    
+        //     if (!response.ok) {
+        //         throw new Error("Failed to create product");
+        //     }
+    
+        //     const data = await response.json();
+            
+        //     // 서버에서 이미지 경로를 받아온 후 객체에 저장
+        //     const savedProduct = {
+        //         ...data,
+        //         imagePaths: data.images.map(image => image.imagePath) // 서버 응답에서 이미지 경로를 추출
+        //     };
+            
+        //     console.log("Product Details Submitted:", savedProduct);
+    
+        //     // 폼 리셋
+        //     setProductTitle("");
+        //     setProductCategory("");
+        //     setProductCondition("");
+        //     setProductPoint("");
+        //     setProductContent("");
+        //     setImages([]);
+        //     setErrors({});
+        // } catch (error) {
+        //     console.error("Error submitting product:", error);
+        // }
     };
 
     return (
@@ -102,13 +156,13 @@ const ProductCreateComponent = () => {
                                         value={productCategory} 
                                         onChange={(e) => setProductCategory(e.target.value)} 
                                         isInvalid={!!errors.category} 
-                                        >
-                                        <option value="">카테고리를 선택해주세요.</option>
-                                        <option value="KIDS_BOOKS">아동 도서</option>
-                                        <option value="KIDS_CLOTHING">아동 의류</option>
-                                        <option value="KIDS_TOYS">아동 완구</option>
-                                        <option value="OUTDOOR_SUPPLIES">외부 물품</option>
-                                        <option value="MISC">기타</option>
+                                            >
+                                            <option value="">카테고리를 선택해주세요.</option>
+                                            <option value="KIDS_BOOKS">아동 도서</option>
+                                            <option value="KIDS_CLOTHING">아동 의류</option>
+                                            <option value="KIDS_TOYS">아동 완구</option>
+                                            <option value="OUTDOOR_SUPPLIES">외부 물품</option>
+                                            <option value="MISC">기타</option>
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
                                 </FloatingLabel>
@@ -165,8 +219,8 @@ const ProductCreateComponent = () => {
                                     <Form.Control 
                                         type="number" 
                                         placeholder="포인트를 입력해주세요." 
-                                        value={productPoints} 
-                                        onChange={(e) => setProductPoints(e.target.value)} 
+                                        value={productPoint} 
+                                        onChange={(e) => setProductPoint(e.target.value)} 
                                         isInvalid={!!errors.points}
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.points}</Form.Control.Feedback>
@@ -210,8 +264,8 @@ const ProductCreateComponent = () => {
                                     <Form.Control 
                                         type="number" 
                                         placeholder="포인트를 입력해주세요." 
-                                        value={productPoints} 
-                                        onChange={(e) => setProductPoints(e.target.value)} 
+                                        value={productPoint} 
+                                        onChange={(e) => setProductPoint(e.target.value)} 
                                         isInvalid={!!errors.points}
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.points}</Form.Control.Feedback>
@@ -244,14 +298,14 @@ const ProductCreateComponent = () => {
                         <Col>
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label column sm="2">이미지 추가하기</Form.Label>
-                                <input 
-                                    type="file" 
-                                    accept="image/*" 
-                                    onChange={handleImageChange}
-                                    className="form-control"
-                                    hidden
-                                    id="imageUpload"
-                                />
+                                    <input 
+                                        type="file" 
+                                        accept="image/*" 
+                                        onChange={handleImageChange}
+                                        className="form-control"
+                                        hidden
+                                        id="imageUpload"
+                                    />
                                 <Button 
                                     variant="default" 
                                     onClick={() => document.getElementById('imageUpload').click()}

@@ -42,7 +42,7 @@ public class Product {
     private ProductConditionState productConditionState; // 물품상태
 
     @Column(nullable = false)
-    private String productHit; // 조회수
+    private int productHit; // 조회수
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
