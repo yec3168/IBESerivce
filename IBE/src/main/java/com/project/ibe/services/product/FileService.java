@@ -20,11 +20,6 @@ public class FileService {
         return true;
     }
 
-    public void saveFile(MultipartFile multipartFile, String url) throws Exception{
-        FileOutputStream fos = new FileOutputStream(url);
-        fos.write(multipartFile.getBytes());
-        fos.close();
-    }
 
     public String uuidFileName(MultipartFile multipartFile){
         UUID uuid = UUID.randomUUID();

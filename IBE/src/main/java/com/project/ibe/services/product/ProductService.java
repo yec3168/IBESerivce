@@ -36,7 +36,6 @@ public class ProductService {
     private String saveImageURL; // C:/ibe/
     public ProductFormResponse createProduct(ProductFormRequest productFormRequest, List<MultipartFile> images) throws IOException {
         // 먼저 제품을 저장하여 생성된 ID를 가져옴
-
         if(!fileService.createDirectory(saveImageURL)){
             throw new BusinessException("Directory가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
@@ -57,13 +56,13 @@ public class ProductService {
         List<ProductImg> productImages = new ArrayList<>();
         List<String> filePathList = new ArrayList<>();
 
-        saveImageURL += "images/product";
-        if(!fileService.createDirectory(saveImageURL)){
+        String productImageUrl = saveImageURL + "/images/product";
+        if(!fileService.createDirectory(productImageUrl)){
             throw new BusinessException("Directory가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
 
         for (MultipartFile image : images) {
-            String filePath = saveImageURL + File.separator + fileService.uuidFileName(image);
+            String filePath = productImageUrl + File.separator + fileService.uuidFileName(image);
             image.transferTo(new File(filePath)); // 이미지 파일 저장
 
             // ProductImg 엔티티 생성

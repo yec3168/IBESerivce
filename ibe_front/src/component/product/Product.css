@@ -208,16 +208,13 @@
     max-width: 150px;        
     display: block;         
 } */
+
+
 form .form-label {
     font-family: "CookieRun-Regular", sans-serif !important;
 }
 
-#section_2 .floatingLabel {
-    font-family: "CookieRun-Regular", sans-serif !important;
-}
-
-/* Targeting Form.Control */
-#section_2 .form-control {
+.form-floating{
     font-family: "CookieRun-Regular", sans-serif !important;
 }
 
