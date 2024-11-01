@@ -28,8 +28,6 @@ public class FileService {
 
     public String uuidFileName(MultipartFile multipartFile){
         UUID uuid = UUID.randomUUID();
-        String filename = uuid.toString() + multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
-
-        return filename;
+        return uuid.toString() + multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
     }
 }

@@ -8,7 +8,7 @@ const ProductCreateComponent = () => {
     const [images, setImages] = useState([]);
     const [productTitle, setProductTitle] = useState("");
     const [productCategory, setProductCategory] = useState("");
-    const [productCondition, setProductCondition] = useState("");
+    const [productConditionState, setProductConditionState] = useState("");
     const [productPoint, setProductPoint] = useState("");
     const [productContent, setProductContent] = useState(""); // For product content
     const [errors, setErrors] = useState({});
@@ -44,7 +44,7 @@ const ProductCreateComponent = () => {
         if (productCategory === "") {
             newErrors.category = "카테고리를 선택해야 합니다.";
         }
-        if (productCondition.trim() === "") {
+        if (productConditionState.trim() === "") {
             newErrors.condition = "제품 상태를 선택해야 합니다.";
         }
         if (productPoint.trim() === "" || isNaN(productPoint) || Number(productPoint) <= 0) {
@@ -75,7 +75,7 @@ const ProductCreateComponent = () => {
         formData.append("productFormRequest", new Blob([JSON.stringify({
             productTitle,
             productCategory,
-            productCondition,
+            productConditionState,
             productPoint,
             productContent,
         })], { type: "application/json" }));
@@ -86,9 +86,10 @@ const ProductCreateComponent = () => {
         saveProduct(formData)
         .then( (response) =>{
             console.log(response)
+
             setProductTitle("");
             setProductCategory("");
-            setProductCondition("");
+            setProductConditionState("");
             setProductPoint("");
             setProductContent("");
             setImages([]);
@@ -126,7 +127,7 @@ const ProductCreateComponent = () => {
         //     // 폼 리셋
         //     setProductTitle("");
         //     setProductCategory("");
-        //     setProductCondition("");
+        //     setProductConditionState("");
         //     setProductPoint("");
         //     setProductContent("");
         //     setImages([]);
@@ -196,8 +197,8 @@ const ProductCreateComponent = () => {
                             <Col  >
                                 <FloatingLabel controlId="floatingCondition" label="상태" className="mb-3">
                                     <Form.Select 
-                                        value={productCondition} 
-                                        onChange={(e) => setProductCondition(e.target.value)} 
+                                        value={productConditionState} 
+                                        onChange={(e) => setProductConditionState(e.target.value)} 
                                         isInvalid={!!errors.condition}
                                     >
                                         <option value="">상태를 선택해주세요.</option>
@@ -238,8 +239,8 @@ const ProductCreateComponent = () => {
                             <Col  className="col-3">
                                 <FloatingLabel controlId="floatingCondition" label="상태" className="mb-3">
                                     <Form.Select 
-                                        value={productCondition} 
-                                        onChange={(e) => setProductCondition(e.target.value)} 
+                                        value={productConditionState} 
+                                        onChange={(e) => setProductConditionState(e.target.value)} 
                                         isInvalid={!!errors.condition}
                                     >
                                         <option value="">상태를 선택해주세요.</option>

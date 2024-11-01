@@ -1,6 +1,7 @@
 package com.project.ibe.services.product;
 
 import com.project.ibe.dto.product.ProductFormRequest;
+import com.project.ibe.dto.product.ProductFormResponse;
 import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductImg;
@@ -33,18 +34,17 @@ public class ProductService {
 
     @Value("${imgSave.location}")
     private String saveImageURL; // C:/ibe/
-    public Product createProduct(ProductFormRequest productFormRequest, List<MultipartFile> images) throws IOException {
+    public ProductFormResponse createProduct(ProductFormRequest productFormRequest, List<MultipartFile> images) throws IOException {
         // 먼저 제품을 저장하여 생성된 ID를 가져옴
 
         if(!fileService.createDirectory(saveImageURL)){
             throw new BusinessException("Directory가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
-        
+
         // 물품 저장.
         Product product =modelMapper.map(productFormRequest, Product.class);
         product.setProductHit(0);
         product.setProductTradeState(ProductTradeState.TRADING_AVAILABLE);
-
         /**
          * JWT 완성되면 넣어줘야함.
          */
@@ -57,6 +57,11 @@ public class ProductService {
         List<ProductImg> productImages = new ArrayList<>();
         List<String> filePathList = new ArrayList<>();
 
+        saveImageURL += "images/product";
+        if(!fileService.createDirectory(saveImageURL)){
+            throw new BusinessException("Directory가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+        }
+
         for (MultipartFile image : images) {
             String filePath = saveImageURL + File.separator + fileService.uuidFileName(image);
             image.transferTo(new File(filePath)); // 이미지 파일 저장
@@ -68,8 +73,10 @@ public class ProductService {
         }
         productImgRepository.saveAll(productImages); // 모든 이미지 저장
 
-        return savedProduct; // 저장된 제품 반환
+        ProductFormResponse productFormResponse = modelMapper.map(savedProduct, ProductFormResponse.class);
+        productFormResponse.setFilePathList(filePathList);
 
-        return null;
+        return productFormResponse;
+
     }
 }

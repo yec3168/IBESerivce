@@ -10,7 +10,7 @@ import lombok.*;
 public class ProductImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_img+id")
+    @Column(name = "product_img_id")
     private Long productImgId;
 
     @ManyToOne
