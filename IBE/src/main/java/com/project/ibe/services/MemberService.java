@@ -5,11 +5,8 @@ import com.project.ibe.config.SmsUtil;
 import com.project.ibe.dto.member.MemberSignupResponse;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
-<<<<<<< HEAD
-=======
 import com.project.ibe.dto.member.sms.MemberSmsReqequest;
 import com.project.ibe.dto.member.sms.MemberSmsResponse;
->>>>>>> 5b810ef5a81fb4152cb5a800baa0bba70de8352a
 import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
