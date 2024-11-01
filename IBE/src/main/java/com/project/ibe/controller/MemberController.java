@@ -1,10 +1,6 @@
 package com.project.ibe.controller;
 
-<<<<<<< HEAD
-import com.project.ibe.dto.MemberSignInRequest;
-import com.project.ibe.dto.MemberSignUpRequest;
 import com.project.ibe.services.MemberService;
-=======
 import com.project.ibe.dto.member.MailRequest;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
@@ -14,7 +10,6 @@ import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.MailService;
 import com.project.ibe.services.MemberService;
 import jakarta.mail.MessagingException;
->>>>>>> 5b810ef5a81fb4152cb5a800baa0bba70de8352a
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,16 +17,10 @@ import java.io.UnsupportedEncodingException;
 
 @RestController //json
 @RequiredArgsConstructor
-<<<<<<< HEAD
-@RequestMapping("/api/member")
-public class MemberController {
-
-=======
 @RequestMapping("/api/members")
 public class MemberController {
 
     private final MailService mailService;
->>>>>>> 5b810ef5a81fb4152cb5a800baa0bba70de8352a
     private final MemberService memberService;
 
     /**
@@ -68,10 +57,6 @@ public class MemberController {
 
         return memberService.checkEmail(memberEmail);
     }
-<<<<<<< HEAD
-=======
-
-
     /**
      * 메일 인증번호 발송
      */
@@ -112,5 +97,4 @@ public class MemberController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "400");
         }
     }
->>>>>>> 5b810ef5a81fb4152cb5a800baa0bba70de8352a
 }

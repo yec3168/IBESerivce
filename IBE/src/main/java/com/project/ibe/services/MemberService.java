@@ -1,11 +1,15 @@
 package com.project.ibe.services;
 
+
 import com.project.ibe.config.SmsUtil;
 import com.project.ibe.dto.member.MemberSignupResponse;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
+<<<<<<< HEAD
+=======
 import com.project.ibe.dto.member.sms.MemberSmsReqequest;
 import com.project.ibe.dto.member.sms.MemberSmsResponse;
+>>>>>>> 5b810ef5a81fb4152cb5a800baa0bba70de8352a
 import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
@@ -15,6 +19,9 @@ import com.project.ibe.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+
+
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,6 +42,7 @@ public class MemberService {
 
     //회원가입
     public MemberSignupResponse signUp(MemberSignUpRequest memberSignUpRequest) {
+
 
         if(memberRepository.existsByMemberEmail(memberSignUpRequest.getMemberEmail())) {
             throw new BusinessException("중복된 이메일 입니다.", HttpStatus.BAD_REQUEST);
@@ -74,10 +82,7 @@ public class MemberService {
         if(!bCryptPasswordEncoder.matches(memberSignInRequest.getMemberPassword(), member.getMemberPassword())){
             throw new BusinessException("Password is not correct", HttpStatus.NOT_FOUND);
         }
-
         //to do :  jwt token 만들어서 return 하기 (나중에)
-
-
         return true;
     }
 
