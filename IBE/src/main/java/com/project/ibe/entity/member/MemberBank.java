@@ -11,7 +11,7 @@ import lombok.*;
 public class MemberBank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long memberBankId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
