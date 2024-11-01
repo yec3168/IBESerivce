@@ -7,13 +7,138 @@
     width: 80%;
     height: 500px;
 }
-.product_info > #product_title{
+
+/* 물품 제목, 거래상태 css */
+#product_info > #product_title{
     font-family: "CookieRun-Regular", sans-serif !important;
     font-weight: 500;
 }
 
-.product_info  > #product_price_state > #product_price{
+#product_info  > #product_price_deal > #product_price{
     font-family: "CookieRun-Regular", sans-serif !important;
     font-weight: 700;
     font-size: 70px;
+}
+
+
+/* 물품 조회수, 댓글 수 css */
+#product_info > #product_view_comment {
+    margin-top: 10px;
+    width: 20%;
+    text-align: center;
+}
+
+#product_info > #product_view_comment  #product_cnt{
+    font-family: "CookieRun-Regular", sans-serif !important;
+    color: #666666;
+    font-size: 12px;
+}
+
+
+/* 물품 상태의 대한 css */
+#product_info > #product_state{
+    font-family: 'Jua', sans-serif;
+    margin-top: 20px;
+    width: 40%;
+    height: 80px;
+    border: 1px solid #8B8989;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 35px;
+}
+#product_info > #product_state .state_title{
+    color: #666666;
+    margin-bottom: 0;
+    margin-top: 1rem;
+}
+
+#product_info > #product_state .state_info{
+    color: #666666;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+
+/* 판매자 정보 css */
+#product_info > #product_seller_info{
+    margin-top: 40px;
+}
+#product_info > #product_seller_info > #info_title{
+    margin-top: 40px;
+    font-family: 'Jua', sans-serif;
+    border-bottom: 1px solid black;
+    width: 80%;
+    font-size: 25px;
+    
+}
+
+#product_info > #product_seller_info > #seller_detail{
+    margin-top: 20px;
+    width: 30%;
+}
+  /* 판매자 닉네임 */
+#product_info > #product_seller_info > #seller_detail  #seller_nickname{
+    margin-top: 20px;
+    font-family: 'Jua', sans-serif;
+    font-size: 18px;
+}
+
+/* 게시글 작성날짜 */
+#product_info > #product_seller_info > #seller_detail  #product_create_info{
+    margin-top: 20px;
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: #666666;
+}
+
+#product_info > #product_buttons{
+    text-align: center;
+    width: 80%;
+    margin-top: 30px;
+}
+
+
+/* -------------------상세정보-------------------------- */
+
+#product_content{
+    border-top: 1px solid #666666;
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+/* 상품정보 타이틀 */
+#product_content > #product_content_title{
+    margin-top: 50px;
+    font-size: 40px;
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+/* 상품 상세정보 */
+#product_content > #product_content_view{
+    margin-top: 40px;
+    font-size: 20px;
+}
+
+/* 제품 경고사항  */
+#product_content > #product_waring{
+    margin-top: 80px;
+}
+
+#product_content > #product_waring .warning{
+    font-size: 12px;
+    font-family: 'Jua', sans-serif;
+    margin-bottom: 0;
+}
+
+
+#md_recommand{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+#md_recommand > #md_recommand_title{
+    margin-top: 50px;
+    font-size: 40px;
+    color: #666666;
+    font-family: "CookieRun-Regular", sans-serif !important;
 }
