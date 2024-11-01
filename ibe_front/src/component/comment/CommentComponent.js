@@ -44,7 +44,7 @@ const CommentComponent = () => {
             {/* 상단 댓글 수 및 신고 */}
             <div id="comment_info">
                 <span className="comment_top"><FaRegCommentDots /> 댓글 {comments.length}</span>
-                <span className="comment_report">신고</span>
+                {/* <span className="comment_report">신고</span> */}
             </div>
             
             {/* 댓글 입력 폼 */}

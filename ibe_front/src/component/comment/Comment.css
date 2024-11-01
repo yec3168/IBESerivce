@@ -18,11 +18,11 @@
     font-family: "CookieRun-Regular", sans-serif !important;
 }
 
-#comment #comment_info .comment_report {
+/* #comment #comment_info .comment_report {
     font-size: 15px;
     color: #666;
     cursor: pointer;
-}
+} */
 
 #comment_inputs {
     margin-bottom: 30px;
