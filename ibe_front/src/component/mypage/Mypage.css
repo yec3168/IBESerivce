@@ -7,17 +7,8 @@
     height: 100px;
 }
 
-#container_001{
-    /* background-color: yellow; */
-}
-
 #mypage_col_001{
-    /* background-color: aqua; */
     width: 300px;
-}
-
-#mypage_col_002{
-    /* background-color: blue; */
 }
 
 /* MypageSidenavComponent */
@@ -26,6 +17,11 @@
     font-family: "CookieRun-Regular", sans-serif !important;
     width: 250px;
     height: 1000px;
+}
+
+#mypage_sidenav_bigmenu{
+    color: black !important;
+    margin-left: '20px';
 }
 
 /* MemberInfoCardComponent */
