@@ -10,6 +10,9 @@ import SigninEmailSearchComponent from "./component/sign/SigninEmailSearchCompon
 import SignPasswordSeacchComponent from "./component/sign/SignPasswordSearchComponent";
 
 import AdminPage from './component/adminpage/AdminPage';
+
+import MypagePage from './component/layout/pages/MypagePage'
+
 function App() {
   return (
     <>
@@ -28,6 +31,10 @@ function App() {
         {/* 관리자페이지 Router */}
         <Routes>
           <Route path="/admin" element={<AdminPage />} />
+        </Routes>
+        {/* 마이페이지 Router */}
+        <Routes>
+          <Route path="/mypage" element={<MypagePage/>} />
         </Routes>
       </BrowserRouter>
     </>
