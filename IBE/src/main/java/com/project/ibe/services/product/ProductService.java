@@ -1,6 +1,7 @@
 package com.project.ibe.services.product;
 
 import com.project.ibe.dto.product.ProductFormRequest;
+import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductImg;
 import com.project.ibe.exception.BusinessException;
@@ -38,26 +39,36 @@ public class ProductService {
         if(!fileService.createDirectory(saveImageURL)){
             throw new BusinessException("Directory가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
-        System.out.println(productFormRequest.getProductTitle());
-        System.out.println(images.toString());
+        
+        // 물품 저장.
+        Product product =modelMapper.map(productFormRequest, Product.class);
+        product.setProductHit(0);
+        product.setProductTradeState(ProductTradeState.TRADING_AVAILABLE);
 
-//        Product savedProduct = productRepository.save(
-//                modelMapper.map(productFormRequest, Product.class)
-//        );
-//
-//        List<ProductImg> productImages = new ArrayList<>();
-//
-//        for (MultipartFile image : productFormRequest.getImages()) {
-//            String filePath = saveImageURL + File.separator + image.getOriginalFilename();
-//            image.transferTo(new File(filePath)); // 이미지 파일 저장
-//
-//            // ProductImg 엔티티 생성
-//            ProductImg productImg = new ProductImg(savedProduct, filePath);
-//            productImages.add(productImg);
-//        }
-//        productImgRepository.saveAll(productImages); // 모든 이미지 저장
-//
-//        return savedProduct; // 저장된 제품 반환
+        /**
+         * JWT 완성되면 넣어줘야함.
+         */
+//        savedProduct.setMember(???);
+
+        Product savedProduct = productRepository.save(product);
+
+
+        // 이미지를 저장할 리스트.
+        List<ProductImg> productImages = new ArrayList<>();
+        List<String> filePathList = new ArrayList<>();
+
+        for (MultipartFile image : images) {
+            String filePath = saveImageURL + File.separator + fileService.uuidFileName(image);
+            image.transferTo(new File(filePath)); // 이미지 파일 저장
+
+            // ProductImg 엔티티 생성
+            ProductImg productImg = new ProductImg(savedProduct, filePath);
+            productImages.add(productImg);
+            filePathList.add(productImg.getImagePath());
+        }
+        productImgRepository.saveAll(productImages); // 모든 이미지 저장
+
+        return savedProduct; // 저장된 제품 반환
 
         return null;
     }

@@ -1,7 +1,5 @@
 package com.project.ibe.entity.product;
 
-
-
 import jakarta.persistence.*;
 import lombok.*;
 

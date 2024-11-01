@@ -60,37 +60,6 @@ const ProductCreateComponent = () => {
         return newErrors;
     };
 
-    // submit 핸들러
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-        
-    //     const formErrors = validateForm();
-    //     // key값에 에러가 있음 되돌아감.
-    //     if (Object.keys(formErrors).length > 0) {
-    //         setErrors(formErrors);
-    //         return;
-    //     }
-        
-    //     // Submit logic goes here (e.g., sending data to the server)
-    //     console.log("Product Details Submitted:", {
-    //         productTitle,
-    //         productCategory,
-    //         productCondition,
-    //         productPoint,
-    //         productContent,
-    //         images
-    //     });
-        
-    //     // Reset form after submission
-
-    //     setProductTitle("");
-    //     setProductCategory("");
-    //     setProductCondition("");
-    //     setProductPoint("");
-    //     setProductContent(""); // Reset product content
-    //     setImages([]);
-    //     setErrors({});
-    // };
     const handleSubmit = async (event) => {
         event.preventDefault();
         
@@ -101,38 +70,35 @@ const ProductCreateComponent = () => {
             return;
         }
         
-        // FormData 객체 생성
+        // // FormData 객체 생성
         const formData = new FormData();
-        formData.append("productFormRequest", JSON.stringify({
+        formData.append("productFormRequest", new Blob([JSON.stringify({
             productTitle,
             productCategory,
             productCondition,
             productPoint,
             productContent,
-        }));
+        })], { type: "application/json" }));
         images.forEach(image => {
-            formData.append("images", image); // 이미지를 FormData에 추가
+            formData.append("images", image);
         });
-
-        // formData.append("productTitle",  productTitle);
-        // formData.append("productCategory",  productCategory);
-        // formData.append("productCondition",  productCondition);
-        // formData.append("productPoint",  productPoint);
-        // formData.append("productContent",  productContent);
-        // formData.append("images", images);
-        
        
-        // formData.forEach( data =>{
-        //     console.log(data)
-        // })
-    
         saveProduct(formData)
         .then( (response) =>{
             console.log(response)
+            setProductTitle("");
+            setProductCategory("");
+            setProductCondition("");
+            setProductPoint("");
+            setProductContent("");
+            setImages([]);
+            setErrors({});
         })
         .catch(errors =>{
             console.log(errors)
         })
+
+
         // try {
         //     // Spring Boot API 호출
         //     const response = await fetch("/api/products", {
