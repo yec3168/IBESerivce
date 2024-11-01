@@ -131,3 +131,14 @@
     font-size: 13px;
     margin: 5px 0;
 }
+
+.submit-reply-btn{
+    font-size: 14px;
+    color: black;
+    background-color: #FFD97A;
+    border: none;
+    padding: 5px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

@@ -91,7 +91,7 @@ const CommentComponent = () => {
                                         onChange={(e) => setReplyText({ ...replyText, [comment.id]: e.target.value })}
                                         style={{ height: "80px" }}
                                     />
-                                    <Button type="submit" variant="link" className="submit-reply-btn">등록</Button>
+                                    <Button type="submit"  className="submit-reply-btn">등록</Button>
                                 </Form>
                             )}
 
