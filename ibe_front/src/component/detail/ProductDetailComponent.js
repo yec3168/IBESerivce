@@ -1,6 +1,7 @@
 import product_stroller from "../assets/images/main/product/product_stroller.png";
 import {Row, Col, Carousel, Breadcrumb, Badge, Button  } from "react-bootstrap";
 import TrendingProductsComponent from "../main/TrendingProductsComponent";
+import CommentCommponent from "../comment/CommentComponent";
 
 import "./Detail.css"
 
@@ -149,6 +150,11 @@ const ProductDetailComponent = () => {
                 
                 <div id="md_recommand">
                     <TrendingProductsComponent />
+                </div>
+
+
+                <div className="d-flex justify-content-center">
+                    <CommentCommponent />
                 </div>
             </div>  
         </>

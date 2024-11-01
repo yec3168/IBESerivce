@@ -1,0 +1,22 @@
+#comment{
+    width: 90%;
+}
+
+#comment #comment_info{
+    margin-top: 100px;
+    margin-bottom: 50px;
+    width: 100%;
+    border-bottom: 1px solid #666666;
+}
+
+#comment #comment_info .comment_top{
+    font-size: 30px;
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+#comment #comment_inputs{
+    font-size: 15px;
+    margin-bottom: 50px;
+    width: 100%;
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
