@@ -40,11 +40,11 @@ public class MemberController {
      */
     @PostMapping("/signin")
     public Response signin(@RequestBody MemberSignInRequest memberSignInRequest) {
-//        try{
+        try{
             return new Response(ResponseCode.SUCCESS, memberService.signIn(memberSignInRequest), "200");
-//        } catch (Exception e){
-//            return new Response(ResponseCode.FAIL, false, "404");
-//        }
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, false, "404");
+        }
 
     }
 
