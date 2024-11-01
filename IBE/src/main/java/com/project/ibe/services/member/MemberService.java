@@ -11,12 +11,14 @@ import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
 import com.project.ibe.exception.BusinessException;
+import com.project.ibe.jwt.JwtTokenProvider;
 import com.project.ibe.repository.member.MemberBankRepository;
 import com.project.ibe.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-
 
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,7 +35,7 @@ public class MemberService {
     private final MemberBankRepository memberBankRepository;
     private final SmsUtil smsUtil;  // SmsUtil 추가
     private final ModelMapper modelMapper;
-
+    private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -70,7 +72,7 @@ public class MemberService {
 
 
     // 로그인 logic
-    public boolean signIn(MemberSignInRequest memberSignInRequest) {
+    public String signIn(MemberSignInRequest memberSignInRequest) {
         if(!memberRepository.existsByMemberEmail(memberSignInRequest.getMemberEmail())){
             throw new UsernameNotFoundException(memberSignInRequest.getMemberEmail() + " 이 존재하지 않습니다.");
         }
@@ -80,7 +82,8 @@ public class MemberService {
             throw new BusinessException("Password is not correct", HttpStatus.NOT_FOUND);
         }
         //to do :  jwt token 만들어서 return 하기 (나중에)
-        return true;
+        String token = jwtTokenProvider.createToken(member.getMemberEmail());
+        return token;
     }
 
     // 이메일 체크
