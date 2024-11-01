@@ -1,5 +1,5 @@
 import React from 'react';
-import './AdminMemberList.css'; // 모달 스타일 시트
+import './AdminMemberModal.css'; // 모달 스타일 시트
 
 const AdminMemberListDetails = ({ member, closeModal }) => {
   const handleAccountAction = () => {

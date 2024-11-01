@@ -11,15 +11,17 @@
   border-bottom: 1px solid #ddd;
 }
 
+.sales-request-column {
+  display: flex;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
 .sales-request-header {
   display: flex;
   padding: 10px;
   cursor: pointer;
   background-color: #f9f9f9;
-}
-
-.sales-request-header:hover {
-  background-color: #f0f0f0;
 }
 
 .sales-request-content {
@@ -69,4 +71,47 @@
 
 .action-button:hover {
   background-color: #0056b3;
+}
+
+.sales-request-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.sales-request-list {
+  margin-top: 10px;
+}
+
+.sales-request-header {
+  display: flex;
+  background-color: #e9ecef;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.sales-request-item {
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+.sales-request-content {
+  padding: 10px;
+  background-color: #fff;
+}
+
+.column {
+  flex: 1;
+  padding: 5px;
+  text-align: center; /* 가운데 정렬 */
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+.action-button {
+  margin-right: 10px;
 }
