@@ -1,4 +1,4 @@
-package com.project.ibe.dto;
+package com.project.ibe.dto.member;
 
 import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;

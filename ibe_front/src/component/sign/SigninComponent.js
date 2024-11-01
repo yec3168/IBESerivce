@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, FloatingLabel , Row, Col, Alert } from "react-bootstrap";
 import Logo from '../assets/images/sign/ibe_logo1.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
+import {login } from '../service/MemberService';
 import './Sign.css'
 
 function SignInComponent(){
@@ -13,35 +14,48 @@ function SignInComponent(){
     const onSubmitHandler =  (event) => {
         // 버튼만 누르면 리프레시 되는것을 막아줌
         event.preventDefault();
-       
-        if(memberEmail === "admin@test.com" || memberPassword ==="admin1"){
-            setIsEmpty(false);
-        }
-        else{
-            setIsEmpty(true)
-        }
-        
-        console.log(isEmpty)
-
-        console.log('Email', memberEmail);
-        console.log('Password', memberPassword);
-
-        // let body = {
-        //     memberEmail: memberEmail,
-        //     memberPassword: memberPassword,
+       console.log("asd")
+        // if(memberEmail === "admin@test.com" || memberPassword ==="admin1"){
+        //     setIsEmpty(true);
         // }
-      
-        //dispatch(loginUser(body));
+        // else{
+        //     setIsEmpty(false)
+        // }
+    
+
+        let memberForm = {
+            memberEmail: memberEmail,
+            memberPassword: memberPassword
+        }
+        login(memberForm)
+            .then(response => {
+            console.log(response.data);
+            if (response.data.code === "200") {
+                alert("로그인 성공!");
+                window.location.href = "/";
+                setIsEmpty(false);
+            }   
+            else{
+                 console.error("로그인 실패");
+                setIsEmpty(true);
+            }
+        })
+        .catch(error => {
+            console.error("로그인 실패:", error); // 에러 로그 확인
+            setIsEmpty(true);
+        });
+
     }
 
     return(
         <div className="sign-in__wrapper">
-            <div className="sign-in__backdrop"></div>
+            {/* <div className="sign-in__backdrop"></div> */}
             {/* <Form className="shadow p-4 bg-white rounded" >*/}
                 <Form className=" bg-white rounded"  onSubmit={onSubmitHandler}>
                     <a href="/">
                         <img className="img mx-auto d-block mb-2 w-50" src={Logo} alt="logo" />
                     </a>
+                    
                     <FloatingLabel className="mb-2 mb-3 " controlId="email" label="이메일">
                         <Form.Control type="email" 
                         placeholder="이메일" 
@@ -53,19 +67,19 @@ function SignInComponent(){
 
                     <FloatingLabel className="mb-2 mb-3 " controlId="password" label="비밀번호">
                         <Form.Control type="password"
-                         placeholder="비밀번호" 
+                         placeholder="비밀번호는 6 ~ 20자로 입력해주세요." 
                          value={memberPassword}
                          onChange={(e) => setMemberPassword(e.target.value)}
                          required />
-                         {
+                        {/* {
                             isEmpty ? (
-                                 <div />
+                                <div />
                                 ) : (
                                 <Form.Text className="passwordHelpBlock" muted>
                                     비밀번호는 6 ~ 20자로 입력해주세요.
                                 </Form.Text>
                             )
-                         }
+                        } */}
                         
                     </FloatingLabel>
 
@@ -93,9 +107,9 @@ function SignInComponent(){
                         로그인
                     </Button>
 
-                    <Row className="mb-2 mb-3" style={{borderBottom: '1px solid #666666'}}>
-                        <Col className="col_list"><a class="signin_a" href="/">아이디 찾기</a></Col>
-                        <Col className="col_list"><a class="signin_a" href="/">비밀번호 찾기</a></Col>
+                    <Row className="mb-2 mb-3" style={{ width:"95%", borderBottom: '1px solid #666666', margin:"auto"}}>
+                        <Col className="col_list"><a class="signin_a" href="/searchEmail">아이디 찾기</a></Col>
+                        <Col className="col_list"><a class="signin_a" href="/searchPassword">비밀번호 찾기</a></Col>
                         <Col className="col_list"><a class="signin_a" href="/signup">회원가입</a></Col>
                     </Row>
 

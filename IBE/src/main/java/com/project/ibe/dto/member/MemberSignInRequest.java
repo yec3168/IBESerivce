@@ -1,4 +1,4 @@
-package com.project.ibe.dto;
+package com.project.ibe.dto.member;
 
 import lombok.Data;
 

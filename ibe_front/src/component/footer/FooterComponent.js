@@ -12,7 +12,7 @@ const FooterComponent = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footer_left}>
-        <img src={icons} alt="IB Logo" height="75px" />
+        <img src={icons} alt="IB Logo" height="70px" />
         {footerLeftMsg.map((item, index) => (
           <div key={index}>{item.msg}</div>
         ))}
@@ -23,8 +23,14 @@ const FooterComponent = () => {
           <tbody>
             <tr>
               <td>공지사항</td>
-              <td>
-                <a href="#">고객센터</a>
+              <td id="client_center">
+                <a
+                  href="https://www.example.com/customer-service"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  고객센터
+                </a>
               </td>
             </tr>
             <tr>
