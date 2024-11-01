@@ -23,7 +23,7 @@
   flex-direction: column; /* 세로 방향으로 정렬 */
 }
 
-.sale-row {
+.sale-row, .info-row {
   display: flex; /* 가로 방향으로 나열 */
   padding: 10px; /* 패딩 추가 */
   border-bottom: 1px solid #ddd; /* 구분선 추가 */
@@ -152,3 +152,64 @@
   color: #ccc;
   cursor: not-allowed;
 }
+
+.view-post-container {
+  padding: 1rem;
+  background-color: #fffaed; /* 배경색 */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center; /* 제목 중앙 정렬 */
+}
+
+.post-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-group {
+  margin-bottom: 20px; /* 버튼 간격 */
+}
+
+.sale-button,
+.info-button {
+  padding: 10px 20px; /* 버튼 안쪽 여백 */
+  margin: 0 10px; /* 버튼 간격 */
+  border: none; /* 기본 테두리 제거 */
+  border-radius: 5px; /* 둥근 모서리 */
+  cursor: pointer; /* 커서 모양 변경 */
+  font-size: 16px; /* 글자 크기 */
+  transition: background-color 0.3s ease; /* 배경색 변화 효과 */
+}
+
+.sale-button {
+  background-color: #28a745; /* 판매 게시글 버튼 배경색 */
+  color: white; /* 판매 게시글 버튼 글자색 */
+}
+
+.sale-button:hover {
+  background-color: #218838; /* 마우스 오버 시 배경색 */
+}
+
+.sale-button:active {
+  background-color: #1e7e34; /* 클릭 시 배경색 */
+}
+
+.info-button {
+  background-color: #17a2b8; /* 정보 게시글 버튼 배경색 */
+  color: white; /* 정보 게시글 버튼 글자색 */
+}
+
+.info-button:hover {
+  background-color: #138496; /* 마우스 오버 시 배경색 */
+}
+
+.info-button:active {
+  background-color: #117a8b; /* 클릭 시 배경색 */
+}
+
+.column.author { flex: 2; }
+.column.category { flex: 2; }
