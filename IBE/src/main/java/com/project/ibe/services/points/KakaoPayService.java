@@ -2,11 +2,16 @@ package com.project.ibe.services.points;
 
 import com.project.ibe.dto.points.ApproveResponse;
 import com.project.ibe.dto.points.KakaoReadyResponse;
+import com.project.ibe.entity.common.PayResult;
+import com.project.ibe.entity.points.Pay;
+import com.project.ibe.repository.points.PayRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -14,8 +19,10 @@ import java.util.Map;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class KakaoPayService {
 
+    private final PayRepository payRepository;
     // 카카오페이 결제창 연결
     public KakaoReadyResponse payReady(String name, int totalPrice) {
         String frontUrl ="http://localhost:3000/point/charge";
@@ -43,6 +50,17 @@ public class KakaoPayService {
         // RestTemplate의 postForEntity : POST 요청을 보내고 ResponseEntity로 결과를 반환받는 메소드
         ResponseEntity<KakaoReadyResponse> responseEntity = template.postForEntity(url, requestEntity, KakaoReadyResponse.class);
         log.info("결제준비 응답객체: " + responseEntity.getBody());
+        if(!(responseEntity.getBody().getTid()==null ||responseEntity.getBody().getTid().isEmpty())) {
+            Pay pay = new Pay();
+            pay.setMemberEmail("구현필요");
+            pay.setPayName(name);
+//        pay.setPayPoint(); 승인후 세팅
+            pay.setPay_price(totalPrice);
+            pay.setTax_free_amount(0);
+            pay.setPartnerOrderId(responseEntity.getBody().getTid());
+            payRepository.save(pay);
+        }
+
 
         return responseEntity.getBody();
     }
@@ -50,6 +68,7 @@ public class KakaoPayService {
     // 카카오페이 결제 승인
     // 사용자가 결제 수단을 선택하고 비밀번호를 입력해 결제 인증을 완료한 뒤,
     // 최종적으로 결제 완료 처리를 하는 단계
+    @Transactional
     public ApproveResponse payApprove(String tid, String pgToken) {
         Map<String, String> parameters = new HashMap<>();
         // 회원 아이디, 주문번호 받아오는 로직 필요  jwt 토큰 구현후 작업필요.
@@ -67,7 +86,9 @@ public class KakaoPayService {
         ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
         log.info("결제승인 응답객체: " + approveResponse);
         //  포인트 충전 로직 필요.
-
+        Pay pay = payRepository.findByPartnerOrderId(tid).orElseThrow();
+        pay.setPayPoint(3000L);
+        pay.setPayResult(PayResult.SUCCESS);
         return approveResponse;
     }
 
