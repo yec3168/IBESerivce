@@ -3,7 +3,8 @@ INSERT INTO product (
     product_trade_state, product_condition_state, product_hit,
     product_category, product_created_at, member_id
 ) VALUES
-    ('유아용 의자 팝니다', '안전하고 편안한 유아용 의자입니다.', 1500, 'TRADING_AVAILABLE', 'HIGH', 10, 'OUTDOOR_SUPPLIES', NOW(), 1),
+    ('유아용 패딩 팝니다', '상태 좋은 남자 아이 파란색 패딩입니다.', 3000, 'TRADING_AVAILABLE', 'HIGH', 1, 'KIDS_CLOTHING', NOW(), 1),
+    ('유아용 미끄럽틀 팝니다', '안전한 유아용 미끄럽틀입니다.', 7000, 'TRADING_AVAILABLE', 'HIGH', 10, 'KIDS_TOYS', NOW(), 1),
     ('아기 침대 팝니다', '부드럽고 안전한 아기 침대입니다.', 2000, 'TRADE_COMPLETED', 'HIGH', 5, 'MISC', NOW(), 2),
     ('유아용 장난감 팝니다', '다양한 기능을 가진 유아용 장난감입니다.', 1000, 'TRADING_AVAILABLE', 'MEDIUM', 15, 'KIDS_TOYS', NOW(), 1),
     ('아기용 배냇저고리 팝니다', '부드러운 면 소재의 배냇저고리입니다.', 500, 'TRADING_AVAILABLE', 'HIGH', 20, 'KIDS_CLOTHING', NOW(), 3),
