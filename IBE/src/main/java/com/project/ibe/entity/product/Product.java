@@ -1,6 +1,8 @@
 package com.project.ibe.entity.product;
 
 import com.project.ibe.entity.common.Category;
+import com.project.ibe.entity.common.ProductConditionState;
+import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.member.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -31,15 +33,18 @@ public class Product {
     private Long productPoint; // 상품 가격
 
     @Column(nullable = false)
-    private String productTradeState; //거래상태
+    @Enumerated(EnumType.STRING)
+    private ProductTradeState productTradeState; //거래상태
 
     @Column(nullable = false)
-    private String productConditionState; // 물품상태
+    @Enumerated(EnumType.STRING)
+    private ProductConditionState productConditionState; // 물품상태
 
     @Column(nullable = false)
     private String productHit; // 조회수
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Category productCategory;
 
     @Column(nullable = false)
