@@ -3,10 +3,15 @@ package com.project.ibe.services;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 
 @Service
@@ -14,7 +19,6 @@ import java.util.Random;
 public class MailService {
 
     private final JavaMailSender javaMailSender;
-//    private static final String senderEmail = "메일을 보낼 구글 이메일";
     private static final String senderEmail = "fhbsy84@gmail.com";
 
     // 랜덤으로 숫자 생성
@@ -34,26 +38,42 @@ public class MailService {
         return key.toString();
     }
 
-    public MimeMessage createMail(String mail, String number) throws MessagingException {
+    // 메일 생성
+    public MimeMessage createMail(String mail, String authNumber) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        message.setFrom(senderEmail);
-        message.setRecipients(MimeMessage.RecipientType.TO, mail);
-        message.setSubject("이메일 인증");
-        String body = "";
-        body += "<h3>요청하신 인증 번호입니다.</h3>";
-        body += "<h1>" + number + "</h1>";
-        body += "<h3>감사합니다.</h3>";
-        message.setText(body, "UTF-8", "html");
+        helper.setFrom(senderEmail);
+        helper.setTo(mail);
+        helper.setSubject("아이비 이메일 인증");
+
+        Path path = Paths.get("src/main/resources/emailAuthTemplate.html");
+        String htmlContent;
+
+        try {
+            htmlContent = Files.readString(path);
+        } catch (Exception e) {
+            throw new RuntimeException("HTML 파일을 읽는 중 오류 발생", e);
+        }
+
+        htmlContent = htmlContent.replace("{authNumber}", authNumber);
+
+        helper.setText(htmlContent, true);
+        helper.addInline("ibeLogo", new ClassPathResource("images/ibe_logo.png"));
+        helper.addInline("emailImg01", new ClassPathResource("images/email_img_01.png"));
+        helper.addInline("emailImg02", new ClassPathResource("images/email_img_02.png"));
+
+//        message.setText(htmlContent, "UTF-8");
+//        message.setHeader("content-Type", "text/html");
 
         return message;
     }
 
     // 메일 발송
     public String sendSimpleMessage(String sendEmail) throws MessagingException {
-        String number = createNumber(); // 랜덤 인증번호 생성
+        String authNumber = createNumber(); // 랜덤 인증번호 생성
 
-        MimeMessage message = createMail(sendEmail, number); // 메일 생성
+        MimeMessage message = createMail(sendEmail, authNumber); // 메일 생성
         try {
             javaMailSender.send(message); // 메일 발송
         } catch (MailException e) {
@@ -61,6 +81,6 @@ public class MailService {
             throw new IllegalArgumentException("메일 발송 중 오류가 발생했습니다.");
         }
 
-        return number; // 생성된 인증번호 반환
+        return authNumber; // 생성된 인증번호 반환
     }
 }

@@ -5,6 +5,11 @@ import com.project.ibe.config.SmsUtil;
 import com.project.ibe.dto.member.MemberSignupResponse;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
+<<<<<<< HEAD
+=======
+import com.project.ibe.dto.member.sms.MemberSmsReqequest;
+import com.project.ibe.dto.member.sms.MemberSmsResponse;
+>>>>>>> 5b810ef5a81fb4152cb5a800baa0bba70de8352a
 import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
@@ -72,7 +77,7 @@ public class MemberService {
         if(!memberRepository.existsByMemberEmail(memberSignInRequest.getMemberEmail())){
             throw new UsernameNotFoundException(memberSignInRequest.getMemberEmail() + " 이 존재하지 않습니다.");
         }
-        Member member = memberRepository.findByMemberEmail(memberSignInRequest.getMemberEmail());
+        Member member = getMemberByEmail(memberSignInRequest.getMemberEmail());
 
         if(!bCryptPasswordEncoder.matches(memberSignInRequest.getMemberPassword(), member.getMemberPassword())){
             throw new BusinessException("Password is not correct", HttpStatus.NOT_FOUND);
@@ -89,16 +94,47 @@ public class MemberService {
     //문자 인증 로직 ( 전화번호 인증 )
     public String sendSmsToFindEmail(String memberPhone) {
         String randomCode = smsUtil.generateRandomNumber();
-        smsUtil.sendOne(memberPhone.replaceAll("-", ""), randomCode);
+
+        //실제 테스트시 아래 코드 주석 풀기.
+//        smsUtil.sendOne(memberPhone.replaceAll("-", ""), randomCode);
 
         return randomCode;
     }
 
+    //문자 인증 로직 ( 전화번호 인증 )
+    public MemberSmsResponse sendSmsToFindEmail(MemberSmsReqequest memberSmsReqequest) {
+        // 회원을 못찾음.
+        Member member = memberRepository.findByMemberNameAndMemberPhone(memberSmsReqequest.getMemberName(), memberSmsReqequest.getMemberPhone())
+                .orElseThrow(
+                        () -> new BusinessException("Member not Found", HttpStatus.NOT_FOUND)
+                );
+
+        String randomCode = smsUtil.generateRandomNumber();
+
+        //실제 테스트시 아래 코드 주석 풀기.
+//        smsUtil.sendOne(memberSmsReqequest.getMemberPhone().replaceAll("-", ""), randomCode);
+
+       return MemberSmsResponse.builder()
+                .memberEmail(member.getMemberEmail())
+                .memberName(member.getMemberName())
+                .randomCode(randomCode)
+                .build();
+
+    }
+
     // 이메일 인증 auth number update
     public boolean updateAuthNumber(String memberEmail, String authNumber){
-        Member member = memberRepository.findByMemberEmail(memberEmail);
+        Member member = getMemberByEmail(memberEmail);
         member.setMemberAuthNumber(authNumber);
 
         return true;
+    }
+
+    private Member getMemberByEmail(String memberEmail) {
+        Member member = memberRepository.findByMemberEmail(memberEmail)
+                .orElseThrow(
+                        () -> new BusinessException("Member Not Found", HttpStatus.NOT_FOUND)
+                );
+        return member;
     }
 }
