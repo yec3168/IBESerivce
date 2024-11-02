@@ -7,4 +7,6 @@ import lombok.Data;
 public class MemberAdminRequest {
     private String memberEmail;
     private Role role;
+    private String memberPassword;
+    private String memberName;
 }

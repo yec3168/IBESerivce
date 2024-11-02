@@ -1,12 +1,10 @@
 package com.project.ibe.controller.admin;
 
 import com.project.ibe.dto.admin.MemberAdminRequest;
+import com.project.ibe.dto.admin.SingleEmailRequest;
 import com.project.ibe.services.admin.AdminListService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLOutput;
 
@@ -20,5 +18,20 @@ public class AdminListController {
     @PostMapping("/changerole")
     public void changeRole(@RequestBody MemberAdminRequest memberAdminRequest) {
         adminListService.changeRole(memberAdminRequest);
+    }
+
+    @PostMapping("/changepass")
+    public void changePassword(@RequestBody MemberAdminRequest memberAdminRequest) {
+        adminListService.changePassword(memberAdminRequest);
+    }
+
+    @PostMapping("/addmanager")
+    public void addManager(@RequestBody MemberAdminRequest memberAdminRequest) {
+        adminListService.addManager(memberAdminRequest);
+    }
+
+    @DeleteMapping("/deletemanager")
+    public void deleteManager(@RequestBody SingleEmailRequest singleEmailRequest) {
+        adminListService.deleteManager(singleEmailRequest);
     }
 }
