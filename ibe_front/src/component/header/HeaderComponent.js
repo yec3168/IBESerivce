@@ -66,7 +66,7 @@ const HeaderComponent = () => {
             >
               <ul class="navbar-nav menubar">
                 <li class="nav-item mr-150">
-                  <a class="nav-link active1" href="/">
+                  <a class="nav-link active1" href="/products">
                     전체 상품
                   </a>
                 </li>

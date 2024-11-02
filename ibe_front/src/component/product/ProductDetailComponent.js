@@ -2,7 +2,7 @@ import thumbnaiil from "../assets/images/thumbnail.png"
 import {Row, Col, Carousel, Breadcrumb, Badge, Button  } from "react-bootstrap";
 import TrendingProductsComponent from "../main/TrendingProductsComponent";
 import CommentCommponent from "../comment/CommentComponent";
-import { getProductList } from "../service/ProductService";
+import { getProduct } from "../service/ProductService";
 import React, {useEffect, useState} from "react"; 
 import {useParams} from "react-router-dom";
 
@@ -25,7 +25,7 @@ const ProductDetailComponent = () => {
     const {id} = useParams();
 
     useEffect(() => {
-        getProductList(id)
+        getProduct(id)
         .then( (response) =>{
             console.log(response.data)
             if(response.data.code === '202'){
