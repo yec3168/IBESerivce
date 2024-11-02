@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+import org.json.simple.JSONObject;
 
 
 @Getter
@@ -14,5 +14,5 @@ import lombok.ToString;
 @ToString
 @Builder
 public class NhResponse {
-
+    JSONObject response;
 }
