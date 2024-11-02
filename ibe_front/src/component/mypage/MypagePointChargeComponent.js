@@ -37,7 +37,7 @@ const MypagePointChargeComponent = () => {
             response =>{
                 console.log(response.data);
                 localStorage.setItem("tid", response.data.tid);
-                window.open(response.data.next_redirect_pc_url)
+                window.open(response.data.next_redirect_pc_url,'_blank','width=900,height=1000');
             }
             
         )
