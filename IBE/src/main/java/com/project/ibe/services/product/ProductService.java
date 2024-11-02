@@ -102,7 +102,7 @@ public class ProductService {
                 .orElseThrow(
                         () -> new BusinessException("등록된 물품이 없거나, 삭제된 게시물 입니다.", HttpStatus.NOT_FOUND)
                 );
-
+        product.setProductHit(product.getProductHit() + 1);
         List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
 
         // 이미지 Path만 저장.
@@ -111,6 +111,9 @@ public class ProductService {
             images.add(productImg.getImagePath());
         }
         ProductDetailResponse productDetailResponse = modelMapper.map(product, ProductDetailResponse.class);
+        productDetailResponse.setProductCategory(product.getProductCategory().getDescription());
+        productDetailResponse.setProductConditionState(product.getProductConditionState().getDescription());
+        productDetailResponse.setProductTradeState(product.getProductTradeState().getDescription());
         productDetailResponse.setImagePath(images);
         return productDetailResponse;
     }
