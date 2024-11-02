@@ -18,7 +18,7 @@ const MypageSidenavComponent = () => {
               <Nav.Link className='disabled' id="mypage_sidenav_bigmenu">아이비 포인트</Nav.Link>
                 <div className="ml-5" id="mypage_sidenav_smenu" style={{ marginLeft:'20px'}}>
                   <Nav.Link href="/mypage/pntcharge">포인트 충전</Nav.Link>
-                  <Nav.Link href="#">포인트 환급</Nav.Link>
+                  <Nav.Link href="/mypage/pntpayback">포인트 환급</Nav.Link>
                 </div>
               <Nav.Link className='disabled' id="mypage_sidenav_bigmenu">아이비 고객 센터</Nav.Link>
                 <div className="ml-5" id="mypage_sidenav_smenu" style={{ marginLeft:'20px'}}>
