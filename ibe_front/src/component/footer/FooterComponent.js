@@ -22,28 +22,18 @@ const FooterComponent = () => {
         <table className={styles.footer_table}>
           <tbody>
             <tr>
-              <td>공지사항</td>
               <td id="client_center">
-                <a
-                  href="https://www.example.com/customer-service"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  고객센터
-                </a>
+                <a href="/mypage/inquiry">고객센터</a>
               </td>
             </tr>
             <tr>
-              <td>회사소개</td>
-              <td>1800-1234(유료)</td>
+              <td>문의 전화: 1800-1234(유료)</td>
             </tr>
             <tr>
-              <td>이용약관</td>
-              <td>평일 오전 9시 - 오후 6시</td>
+              <td>&emsp;&emsp;&emsp;&emsp;&ensp;평일 오전 9시 - 오후 6시</td>
             </tr>
             <tr>
-              <td></td>
-              <td>(주말, 공휴일 휴무)</td>
+              <td>&emsp;&emsp;&emsp;&emsp;&ensp;(주말, 공휴일 휴무)</td>
             </tr>
           </tbody>
         </table>

@@ -20,6 +20,7 @@ import MypagePointChargePage from './component/layout/pages/MypagePointChargePag
 import MypagePointPaybackPage from './component/layout/pages/MypagePointPaybackPage';
 import MypagePointChargeCompletedComponent from './component/mypage/MypagePointChargeCompletedComponent';
 import MypagePointChargeResult from './component/mypage/MypagePointChargeResultComponent';
+import MypageInquiryPage from './component/layout/pages/MypageInquiryPage';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent/>} />
           <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult/>} />
           <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage/>} />
+          <Route path="/mypage/inquiry" element={<MypageInquiryPage/>} />
         </Routes>
       </BrowserRouter>
     </>

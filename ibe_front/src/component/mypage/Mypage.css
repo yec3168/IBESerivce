@@ -170,3 +170,28 @@
     align-items: flex-start;
     justify-content: start;
 }
+
+/* MypageInquiryComponent */
+
+.containerInq{
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+#div_inqInfo{
+    margin-top: 20px;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+#button_inqSubmit {
+    background-color: #FFD54F;
+    border: 2px solid #FFB800; 
+    color: #000435; 
+    border-radius: 20px; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+#button_inqSubmit:hover {
+    background-color: #FFC300;
+    color: white; 
+}
