@@ -1,17 +1,14 @@
 package com.project.ibe.services.product;
 
-import com.project.ibe.dto.product.ProductDetailResponse;
-import com.project.ibe.dto.product.ProductFormRequest;
-import com.project.ibe.dto.product.ProductFormResponse;
-import com.project.ibe.dto.product.ProductListResponse;
+import com.project.ibe.dto.product.*;
 import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.product.Product;
+import com.project.ibe.entity.product.ProductComment;
 import com.project.ibe.entity.product.ProductImg;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.product.ProductImgRepository;
 import com.project.ibe.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -38,7 +35,9 @@ public class ProductService {
     @Value("${imgSave.location}")
     private String saveImageURL; // C:/ibe/  : 폴더 생성용.
 
-
+    /**
+     * 물품 등록
+     */
     public ProductFormResponse createProduct(ProductFormRequest productFormRequest, List<MultipartFile> images) throws IOException {
         // 먼저 제품을 저장하여 생성된 ID를 가져옴
         if(!fileService.createDirectory(saveImageURL)){
@@ -99,10 +98,8 @@ public class ProductService {
      */
 
     public ProductDetailResponse getProductDeatail(Long id){
-        Product product = productRepository.findById(id)
-                .orElseThrow(
-                        () -> new BusinessException("등록된 물품이 없거나, 삭제된 게시물 입니다.", HttpStatus.NOT_FOUND)
-                );
+        Product product = findProductById(id);
+
         product.setProductHit(product.getProductHit() + 1);
         List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
 
@@ -119,7 +116,9 @@ public class ProductService {
         return productDetailResponse;
     }
 
-
+    /**
+     * 물품 목록 조회.
+     */
     public List<ProductListResponse> getProductList(){
         List<Product> productList = productRepository.findAll();
         String imagePath ="";
@@ -142,5 +141,25 @@ public class ProductService {
 
         return productListResponseList;
 
+    }
+
+    public ProductCommentResponse createProductComment(ProductCommentRequest productCommentRequest){
+        Product product = findProductById(productCommentRequest.getProductId());
+
+        ProductComment productComment =ProductComment.builder()
+                .productCommentContent(productCommentRequest.getProductCommentContent())
+                .product(product)
+                //.member() // 로그인한 회원으로.
+                .build();
+
+
+        return modelMapper.map(productComment, ProductCommentResponse.class);
+    }
+
+    private Product findProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(
+                        () -> new BusinessException("게시글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
+                );
     }
 }

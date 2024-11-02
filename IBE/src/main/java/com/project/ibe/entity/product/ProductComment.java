@@ -1,6 +1,7 @@
 package com.project.ibe.entity.product;
 
 import com.project.ibe.entity.member.Member;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -35,4 +36,11 @@ public class ProductComment {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Builder
+    public ProductComment(String productCommentContent, Product product, Member member){
+        this.productCommentContent = productCommentContent;
+        this.product = product;
+        this.member = member;
+    }
 }
