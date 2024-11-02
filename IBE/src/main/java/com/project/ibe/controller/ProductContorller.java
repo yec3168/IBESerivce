@@ -59,4 +59,14 @@ public class ProductContorller {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
+    @GetMapping("/comments")
+    public Response getProductCommentList(@RequestParam("productId") Long productId){
+        System.out.println(productId);
+        try{
+            return new Response(ResponseCode.SUCCESS, productService.getProductCommentList(productId), "200");
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
 }

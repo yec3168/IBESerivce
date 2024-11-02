@@ -159,6 +159,21 @@ public class ProductService {
         return modelMapper.map(productComment, ProductCommentResponse.class);
     }
 
+    /**
+     * 댓글 목록 조회.
+     */
+    public List<ProductCommentResponse> getProductCommentList(Long productId){
+        Product product = findProductById(productId);
+        List<ProductCommentResponse> productCommentResponseList = new ArrayList<>();
+
+        List<ProductComment> productCommentList = productCommentRepository.findAllByProduct(product);
+        for(ProductComment productComment : productCommentList){
+            productCommentResponseList.add(modelMapper.map(productComment, ProductCommentResponse.class));
+        }
+
+        return productCommentResponseList;
+    }
+
     private Product findProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(
