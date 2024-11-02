@@ -9,16 +9,8 @@ import MypageSalesListComponent from "./MypageSalesListComponent";
 const MypageComponent = () => {
     return (
         <>  
-            {/* 헤더 픽스된 위치만큼 div 설정 */}
-            <div id="div_headerHeight"/>
-            
             <Container fluid>
                 <Row>
-                    {/* 마이페이지 사이드메뉴 */}
-                    <Col md={1} className="p-3" id="mypage_col_001">
-                        <MypageSidenavComponent />
-                    </Col>
-                    {/* 마이페이지 바디 */}
                     <Col className="p-3" id="mypage_col_002">
                         <Row>
                             <Col className="p-2 d-flex justify-content-end">
