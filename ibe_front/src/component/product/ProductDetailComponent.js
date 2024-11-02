@@ -2,6 +2,8 @@ import product_stroller from "../assets/images/main/product/product_stroller.png
 import {Row, Col, Carousel, Breadcrumb, Badge, Button  } from "react-bootstrap";
 import TrendingProductsComponent from "../main/TrendingProductsComponent";
 import CommentCommponent from "../comment/CommentComponent";
+import { getProductList } from "../service/ProductService";
+
 
 import "./Product.css"
 
@@ -9,8 +11,9 @@ const ProductDetailComponent = () => {
     // 상품의 이미지 리스트 api를 받아서 등록할 예정 (useEffect 사용)
     let product_images =[product_stroller, product_stroller];
 
-
-
+    useEffect(() => {
+        setProducts();
+      }, []);
     return(
         <>
             <div>
