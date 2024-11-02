@@ -27,10 +27,9 @@ const MypagePointChargeComponent = () => {
     ];
     
     const charge = (price) =>{
-        let priceName = `${price}포인트`;
         let data ={
-            "priceName" : `${price}포인트`,
-            "totalPrice" : parseInt(price)
+            "priceName" : `${price.replace(",", '')/10}포인트`,
+            "totalPrice" : price.replace(",", '')
         }
         console.log(data);
         kakaoReady(data).then(
