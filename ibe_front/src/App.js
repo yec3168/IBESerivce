@@ -14,6 +14,8 @@ import AdminPage from './component/adminpage/AdminPage';
 import MypagePage from './component/layout/pages/MypagePage'
 import ProductCreatePage from './component/layout/pages/ProductCreatePage';
 import ProductListPage from './component/layout/pages/ProductListPage';
+import MypagePurchaseListPage from './component/layout/pages/MypagePurchaseListPage';
+import MypageSalesListPage from './component/layout/pages/MypageSalesListPage';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
         {/* 마이페이지 Router */}
         <Routes>
           <Route path="/mypage" element={<MypagePage/>} />
+          <Route path="/mypage/plist" element={<MypagePurchaseListPage/>} />
+          <Route path="/mypage/slist" element={<MypageSalesListPage/>} />
         </Routes>
       </BrowserRouter>
     </>

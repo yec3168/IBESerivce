@@ -1,12 +1,11 @@
-import LayoutComponent from "../LayoutComponent";
 import MypageComponent from "../../mypage/MypageComponent";
-import MypageSidenavComponent from "../../mypage/MypageSidenavComponent";
+import MypageLayoutComponent from "../MypageLayoutComponent";
 
 const MypagePage = () => {
     return (
-        <LayoutComponent>
+        <MypageLayoutComponent>
             <MypageComponent/>
-        </LayoutComponent>
+        </MypageLayoutComponent>
     );
 }
 
