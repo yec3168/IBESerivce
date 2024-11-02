@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { FaRegCommentDots } from "react-icons/fa6";
-// import { saveComment, saveReply } from "./api"; // API 경로에 맞춰 수정하세요.
-import "./Comment.css";
+import { saveProductComment } from "../service/ProductService";
+import {useParams} from "react-router-dom";
 
+import "./Comment.css";
 const CommentComponent = () => {
     const [comments, setComments] = useState([
         { id: 1, name: "익명", text: "비밀댓글입니다.", createAt: "2024-10-12", replies: [] },
@@ -15,40 +16,43 @@ const CommentComponent = () => {
     const [replyText, setReplyText] = useState({}); // 대댓글 내용
     const [showReplyForm, setShowReplyForm] = useState({}); // 대댓글 입력 폼 표시 여부
     const [isEmpty, setIsEmpty] = useState(false); // 오류 상태 관리
+    const {id} = useParams();
 
     // 댓글 제출 핸들러
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         if (newComment.trim()) {
             const newCommentData = {
-                content: newComment, // 댓글 내용
+                productId : id,
+                productCommentContent: newComment // 댓글 내용
             };
 
             // 댓글을 백엔드로 전송
-            // await saveComment(newCommentData)
-            //     .then(response => {
-            //         console.log(response.data);
-            //         if (response.data.code === "200") {
-            //             alert("댓글이 성공적으로 등록되었습니다!");
-            //             // 댓글 목록 업데이트
-            //             setComments([...comments, {
-            //                 id: Date.now(),
-            //                 name: "익명",
-            //                 text: newComment,
-            //                 createAt: new Date().toLocaleString(), // 현재 날짜
-            //                 replies: []
-            //             }]);
-            //             setNewComment(""); // 입력 필드 초기화
-            //             setIsEmpty(false); // 오류 상태 초기화
-            //         } else {
-            //             console.error("댓글 등록 실패");
-            //             setIsEmpty(true); // 오류 상태 업데이트
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error("댓글 등록 중 오류 발생:", error);
-            //         setIsEmpty(true); // 오류 상태 업데이트
-            //     });
+            await saveProductComment(newCommentData)
+                .then(response => {
+                    console.log(response.data);
+                    if (response.data.code === "200") {
+                        alert("댓글이 성공적으로 등록되었습니다!");
+                        // 댓글 목록 업데이트
+                        const data =response.data.data;
+                        setComments([...comments, {
+                            id: data.productCommentId,
+                            name: "익명", // 나중에 MemberNickName으로 수정.
+                            text: data.productCommentContent,
+                            createAt: data.productCommentCreatedAt, // 현재 날짜
+                            replies: []
+                        }]);
+                        setNewComment(""); // 입력 필드 초기화
+                        setIsEmpty(false); // 오류 상태 초기화
+                    } else {
+                        console.error("댓글 등록 실패");
+                        setIsEmpty(true); // 오류 상태 업데이트
+                    }
+                })
+                .catch(error => {
+                    console.error("댓글 등록 중 오류 발생:", error);
+                    setIsEmpty(true); // 오류 상태 업데이트
+                });
         }
     };
 

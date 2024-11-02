@@ -51,7 +51,7 @@ public class ProductContorller {
     /**
      *  댓글 등록.
      */
-    @PostMapping("/comment")
+    @PostMapping("/comments")
     public Response createProductComment(@Valid @RequestBody ProductCommentRequest productCommentRequest){
         try{
             return new Response(ResponseCode.SUCCESS, productService.createProductComment(productCommentRequest), "200");

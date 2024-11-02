@@ -6,6 +6,7 @@ import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductComment;
 import com.project.ibe.entity.product.ProductImg;
 import com.project.ibe.exception.BusinessException;
+import com.project.ibe.repository.product.ProductCommentRepository;
 import com.project.ibe.repository.product.ProductImgRepository;
 import com.project.ibe.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class ProductService {
     private final ModelMapper modelMapper;
     private final ProductRepository productRepository;
     private final ProductImgRepository productImgRepository;
+    private final ProductCommentRepository productCommentRepository;
 
     private final FileService fileService;
 
@@ -152,6 +154,7 @@ public class ProductService {
                 //.member() // 로그인한 회원으로.
                 .build();
 
+        productCommentRepository.save(productComment);
 
         return modelMapper.map(productComment, ProductCommentResponse.class);
     }

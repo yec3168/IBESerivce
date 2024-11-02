@@ -14,3 +14,7 @@ export const getProduct = (productId) => axios.get(`${REST_API_URL}/${productId}
 
 // 물품 목록 조회.
 export const getProductList = () => axios.get(`${REST_API_URL}`)
+
+
+// 댓글 등록.
+export const saveProductComment = (productCommentRequest) => axios.post(`${REST_API_URL}/comments`, productCommentRequest)
