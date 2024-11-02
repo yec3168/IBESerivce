@@ -28,7 +28,7 @@ const ProductDetailComponent = () => {
         getProduct(id)
         .then( (response) =>{
             console.log(response.data)
-            if(response.data.code === '202'){
+            if(response.data.code === '200'){
                 const data = response.data.data;
                     setProductCategory(data.productCategory);
                     setProductTitle(data.productTitle);
@@ -223,7 +223,7 @@ const ProductDetailComponent = () => {
                 </div>
 
 
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center " id="commnet_section">
                     <CommentCommponent />
                 </div>
             </div>  

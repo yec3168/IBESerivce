@@ -30,7 +30,7 @@ public class ProductContorller {
     @GetMapping("/{id}")
     public Response getProductDetail(@PathVariable("id") Long id){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.getProductDeatail(id), "202");
+            return new Response(ResponseCode.SUCCESS, productService.getProductDeatail(id), "200");
         }catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
@@ -39,7 +39,7 @@ public class ProductContorller {
     @GetMapping
     public Response getProductList(){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.getProductList(), "202");
+            return new Response(ResponseCode.SUCCESS, productService.getProductList(), "200");
         }catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }

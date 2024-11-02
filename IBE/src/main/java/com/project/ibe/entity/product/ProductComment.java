@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,6 +25,7 @@ public class ProductComment {
     private String productCommentContent;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime productCommentCreatedAt;
 
     @ManyToOne
