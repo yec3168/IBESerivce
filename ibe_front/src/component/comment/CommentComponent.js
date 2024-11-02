@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { FaRegCommentDots } from "react-icons/fa6";
-import { saveProductComment } from "../service/ProductService";
+import { saveProductComment, getProductCommentList } from "../service/ProductService";
 import {useParams} from "react-router-dom";
 
 import "./Comment.css";
@@ -18,17 +18,45 @@ const CommentComponent = () => {
     const [isEmpty, setIsEmpty] = useState(false); // 오류 상태 관리
     const {id} = useParams();
 
+    //댓글 목록 출력.
+    useEffect(() => {
+        getProductCommentList({ productId: id })
+            .then(response => {
+                console.log(response.data);
+                if (response.data.code === "200") {
+                    // 댓글 목록 업데이트
+                    const data = response.data.data;
+                    // comments에 필요한 형식으로 매핑
+                    const formattedComments = data.map(comment => ({
+                        id: comment.productCommentId,
+                        name: comment.member ? comment.member.memberNickName : "익명",
+                        text: comment.productCommentContent,
+                        createAt: comment.productCommentCreatedAt,
+                        replies: [] // 대댓글 부분은 필요에 따라 추가
+                    }));
+                setComments(formattedComments);
+                }
+            })
+            .catch(error => {
+                console.error("댓글 목록 조회 중 오류 발생:", error);
+            });
+    }, [id]);
+    
+
+
+
+
     // 댓글 제출 핸들러
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         if (newComment.trim()) {
-            const newCommentData = {
+            const productCommentFormRequest = {
                 productId : id,
                 productCommentContent: newComment // 댓글 내용
             };
 
             // 댓글을 백엔드로 전송
-            await saveProductComment(newCommentData)
+            await saveProductComment(productCommentFormRequest)
                 .then(response => {
                     console.log(response.data);
                     if (response.data.code === "200") {
