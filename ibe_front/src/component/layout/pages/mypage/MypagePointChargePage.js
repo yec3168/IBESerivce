@@ -1,5 +1,5 @@
-import MypagePointChargeComponent from "../../mypage/MypagePointChargeComponent";
-import MypageLayoutComponent from "../MypageLayoutComponent";
+import MypagePointChargeComponent from "../../../mypage/MypagePointChargeComponent";
+import MypageLayoutComponent from "../../MypageLayoutComponent";
 
 const MypagePointChargePage = () => {
     return(

@@ -1,5 +1,5 @@
-import MypageSlistPagingComponent from "../../mypage/MypageSlistPagingComponent";
-import MypageLayoutComponent from "../MypageLayoutComponent";
+import MypageSlistPagingComponent from "../../../mypage/MypageSlistPagingComponent";
+import MypageLayoutComponent from "../../MypageLayoutComponent";
 
 const MypageSalesListPage = () => {
     return (

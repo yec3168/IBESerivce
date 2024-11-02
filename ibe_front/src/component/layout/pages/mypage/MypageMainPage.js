@@ -1,5 +1,5 @@
-import MypageComponent from "../../mypage/MypageComponent";
-import MypageLayoutComponent from "../MypageLayoutComponent";
+import MypageComponent from "../../../mypage/MypageComponent";
+import MypageLayoutComponent from "../../MypageLayoutComponent";
 
 const MypageMainPage = () => {
     return (

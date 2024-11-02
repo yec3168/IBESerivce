@@ -1,5 +1,5 @@
-import MypagePlistPagingComponent from "../../mypage/MypagePlistPagingComponent";
-import MypageLayoutComponent from "../MypageLayoutComponent";
+import MypagePlistPagingComponent from "../../../mypage/MypagePlistPagingComponent";
+import MypageLayoutComponent from "../../MypageLayoutComponent";
 
 const MypagePurchaseListPage = () => {
     return (

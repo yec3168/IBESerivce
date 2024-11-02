@@ -195,3 +195,59 @@
     background-color: #FFC300;
     color: white; 
 }
+
+/* MypageInquiryListComponent */
+
+.containerInqList{
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+#h1_inqListTitle{
+    margin-bottom: 50px;
+}
+
+#button_inqSearchDate{
+    background-color: #FFD54F;
+    border: 2px solid #FFB800; 
+    color: #000435; 
+}
+
+.inqListTab {
+    background-color: transparent; 
+    color: inherit; 
+}
+
+.inqListTab:hover {
+    background-color: transparent; 
+    color: #FFB800; 
+}
+
+.inqListTab.active {
+    background-color: transparent; 
+    color: inherit; 
+}
+
+.badge_processing {
+    border-radius: 10px;
+    width: 80px;
+    height: 30px;
+    background-color: #ffd13bb6 !important;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge_complete{
+    border-radius: 10px;
+    width: 80px;
+    height: 30px;
+    background-color: #cff588 !important;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
