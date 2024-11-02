@@ -1,4 +1,4 @@
-package com.example.pay.dto;
+package com.project.ibe.dto.points;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.example.pay.dto;
+package com.project.ibe.dto.points;
 
 
 
@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.json.simple.JSONObject;
+
 
 
 @Getter
@@ -14,5 +14,5 @@ import org.json.simple.JSONObject;
 @ToString
 @Builder
 public class NhResponse {
-    JSONObject response;
+
 }
