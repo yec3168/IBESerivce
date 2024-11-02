@@ -1,5 +1,5 @@
-import MypagePointPaybackComponent from "../../mypage/MypagePointPaybackComponent";
-import MypageLayoutComponent from "../MypageLayoutComponent";
+import MypagePointPaybackComponent from "../../../mypage/MypagePointPaybackComponent";
+import MypageLayoutComponent from "../../MypageLayoutComponent";
 
 const MypagePointPaybackPage = () => {
     return (

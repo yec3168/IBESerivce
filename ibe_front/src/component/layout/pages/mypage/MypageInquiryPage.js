@@ -1,5 +1,5 @@
-import MypageInquiryComponent from "../../mypage/MypageInquiryComponent";
-import MypageLayoutComponent from "../MypageLayoutComponent";
+import MypageInquiryComponent from "../../../mypage/MypageInquiryComponent";
+import MypageLayoutComponent from "../../MypageLayoutComponent";
 
 const MypageInquiryPage = () => {
     return(

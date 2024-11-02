@@ -1,9 +1,8 @@
 package com.project.ibe.controller;
 
-import com.project.ibe.dto.points.ApproveResponse;
-import com.project.ibe.dto.points.KakaoReadyRequest;
-import com.project.ibe.dto.points.KakaoReadyResponse;
+import com.project.ibe.dto.points.*;
 import com.project.ibe.services.points.KakaoPayService;
+import com.project.ibe.services.points.NhService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class PointsController {
 
     private final KakaoPayService kakaoPayService;
-//    private final NhService nhService;
+    private final NhService nhService;
 
     @PostMapping("/kakao/ready")
     public KakaoReadyResponse kakaoReady(@RequestBody KakaoReadyRequest request) {
@@ -40,11 +39,11 @@ public class PointsController {
         return kakaoPayService.payApprove(tid, pgToken);
     }
 
-//    @PostMapping("/nh/transfer")
-//    public NhResponse NhTransfer(@RequestBody NhRequest nhRequest) {
-//        log.info("NhTestController 호출");
-//        log.info(nhRequest.toString());
-//        return nhService.nh(nhRequest);
-//
-//    }
+    @PostMapping("/nh/transfer")
+    public NhResponse NhTransfer(@RequestBody NhRequest nhRequest) {
+        log.info("NhTestController 호출");
+        log.info(nhRequest.toString());
+        return nhService.nh(nhRequest);
+
+    }
 }
