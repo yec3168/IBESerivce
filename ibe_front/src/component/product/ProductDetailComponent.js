@@ -1,16 +1,71 @@
-import product_stroller from "../assets/images/main/product/product_stroller.png";
+import thumbnaiil from "../assets/images/thumbnail.png"
 import {Row, Col, Carousel, Breadcrumb, Badge, Button  } from "react-bootstrap";
 import TrendingProductsComponent from "../main/TrendingProductsComponent";
 import CommentCommponent from "../comment/CommentComponent";
+import { getProduct } from "../service/ProductService";
+import React, {useEffect, useState} from "react"; 
+import {useParams} from "react-router-dom";
 
 import "./Product.css"
 
 const ProductDetailComponent = () => {
     // 상품의 이미지 리스트 api를 받아서 등록할 예정 (useEffect 사용)
-    let product_images =[product_stroller, product_stroller];
+    const [productCategory, setProductCategory] = useState("");
+    const [productTitle, setProductTitle] = useState("");
+    const [productPoint, setProductPoint] = useState("");
+    const [productTradeState, setPrdouctTradeState] = useState("");
+    const [productHit, setProductHit] = useState("");
+    //댓글 넣을 위치.
+    const [productConditionState, setProductConditionState] = useState("");
+    const [memberNickName, setMemberNickName] = useState("");
+    const [productCreatedAt, setProductCreatedAt] = useState("");
+    const [productContent, setProductContent] = useState("");
+    //이미지
+    const [productImages, setProductImages] = useState([]);
+    const {id} = useParams();
 
+    useEffect(() => {
+        getProduct(id)
+        .then( (response) =>{
+            console.log(response.data)
+            if(response.data.code === '202'){
+                const data = response.data.data;
+                    setProductCategory(data.productCategory);
+                    setProductTitle(data.productTitle);
+                    setProductPoint(addComma(data.productPoint));
+                    setPrdouctTradeState(data.productTradeState);
+                    setProductHit(data.productHit);
+                    //댓글 
+                    setProductConditionState(data.productConditionState);
+                    if(data.member !== null)
+                        setMemberNickName(data.member.memberNickName);
+                    setProductCreatedAt(data.productCreatedAt);
+                    setProductContent(data.productContent);
+                    setProductImages(data.imagePath); // Set images from response
+            }
+            else{
+                alert(response.data.message);
+               
+                window.location.href ="/products";
+            }
+        })
+        .catch(error =>{
+            console.log(error);
+            alert("정보를 가져올 수 없습니다.")
+            setProductImages(thumbnaiil); 
+            window.location.href ="/products";
+        })
+      }, []);
 
-
+     const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
+    }
+    
+    const getFullImageUrl = (imagePath) => {
+        const cleanPath = imagePath.replace(/\\/g, "/"); // 백슬래시를 슬래시로 변경
+        return cleanPath.startsWith("http") ? cleanPath : `http://localhost:8080${cleanPath}`;
+    };
     return(
         <>
             <div>
@@ -19,13 +74,29 @@ const ProductDetailComponent = () => {
                     <Row >
                         <Col className="col-6">
                             <Carousel>
-                                {product_images.map((item, idx) => {
+                                {/* {product_images.map((item, idx) => {
                                     return (
                                     <Carousel.Item interval={2500} style={{height:"500px"}}>
                                         <img id="product_img" src={item} alt="banner" />
                                     </Carousel.Item>
                                     );
-                                })}
+                                })} */}
+                                {productImages.length > 0 ? (
+                                    productImages.map((image, idx) => (
+                                        <Carousel.Item key={idx} interval={2500} style={{ height: "500px" }}>
+                                            <img
+                                                id="product_img"
+                                                src={getFullImageUrl(image)}
+                                                alt={`Product Image ${idx + 1}`}
+                                            />
+                                        </Carousel.Item>
+                                    ))
+                                ) : (
+                                    // Fallback in case images are not loaded
+                                    <Carousel.Item interval={2500} style={{ height: "500px" }}>
+                                        <img id="product_img" src={thumbnaiil} alt="Fallback Product" />
+                                    </Carousel.Item>
+                                )}
                             </Carousel>
                         </Col>
                         <Col className="col-6">
@@ -33,7 +104,7 @@ const ProductDetailComponent = () => {
                                     <Breadcrumb>
                                         <Breadcrumb.Item href="/" style={{color:"#666666", fontSize:'15px'}}>홈</Breadcrumb.Item>
                                         <Breadcrumb.Item href="#" style={{color:"#666666", fontSize:'15px'}}>
-                                            카테고리 이름
+                                            {productCategory !== "" ? productCategory : "카테고리"}
                                         </Breadcrumb.Item>
                                     </Breadcrumb>
                                 </div>
@@ -42,22 +113,25 @@ const ProductDetailComponent = () => {
                                 <div id="product_info">
                                     {/* 제목 */}
                                     <p id="product_title"className="h1 mx-2 my-2" >
-                                        오늘 바로 쿨 발송! 쿨거래시 7만 3천원!
+                                        {productTitle !== "" ? productTitle : "제목"}
                                     </p>
                                     
                                     <div id="product_price_deal" className="mx-4 my-3" >
                                         <span id="product_price">
-                                            70,000P
+                                        {productPoint !== "" ? productPoint+"P" : "0P"}
+                                            
                                         </span>
-                                        <Badge bg="secondary" className="mx-5">
-                                            거래가능
+                                        <Badge bg={productTradeState === "거래 가능" ? "success" : "secondary"}>
+                                            {productTradeState === "거래 가능" ? "거래가능" : "거래완료"}
                                         </Badge>
                                     </div>
                                     {/* 조회수 댓글 수 */}
                                     <div id="product_view_comment">
                                         <Row>
                                             <Col>
-                                                <span id="product_cnt">조회수 199</span>
+                                                <span id="product_cnt">조회수 
+                                                    {productHit !== "" ? " "+productHit : " 0"}
+                                                </span>
                                             </Col>
                                             <Col>
                                                 <span id="product_cnt">댓글 10</span>
@@ -71,7 +145,9 @@ const ProductDetailComponent = () => {
                                         <Row>
                                             <Col>
                                                 <p className="state_title">제품상태</p>
-                                                <p className="state_info">양호</p>
+                                                <p className="state_info">
+                                                    {productConditionState === "상" ? "양호" : productConditionState === "중" ? "보통" :"나쯤" }
+                                                </p>
                                             </Col>
                                             <Col>
                                                 <p className="state_title">거래방식</p>
@@ -90,10 +166,10 @@ const ProductDetailComponent = () => {
                                         <div id="seller_detail">
                                             <Row>
                                                 <Col>
-                                                    <span id="seller_nickname">방긋하얏</span>
+                                                    <span id="seller_nickname"> {memberNickName !== "" ? memberNickName: "이름"}</span>
                                                 </Col>
                                                 <Col>
-                                                    <span id="product_create_info">2024-11-01</span>
+                                                    <span id="product_create_info">{productCreatedAt !== "" ? productCreatedAt: "날짜"}</span>
                                                 </Col>
                                             </Row>
                                         </div>
@@ -129,13 +205,7 @@ const ProductDetailComponent = () => {
                     </div>
 
                     <div id="product_content_view" className="mx-5">
-                    아이가 다 커서 팔아요 ~<br />
-                    상태 아주 좋아요 <br />
-                    접이식이라 수납도 간편합니다 <br />
-                    크기는 200x100x100정도 됩니다 <br />
-                    편백나무 재질이구요 <br />
-                    정가는 50만원이에요 <br />
-                    *잔기스는 있을 수 있어요!! <br />
+                        {productContent !== "" ? productContent: "내용"}
                     </div>
 
 

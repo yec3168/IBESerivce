@@ -17,6 +17,7 @@ import ProductListPage from './component/layout/pages/ProductListPage';
 import MypagePurchaseListPage from './component/layout/pages/MypagePurchaseListPage';
 import MypageSalesListPage from './component/layout/pages/MypageSalesListPage';
 import MypagePointChargePage from './component/layout/pages/MypagePointChargePage';
+import MypagePointPaybackPage from './component/layout/pages/MypagePointPaybackPage';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/mypage/plist" element={<MypagePurchaseListPage/>} />
           <Route path="/mypage/slist" element={<MypageSalesListPage/>} />
           <Route path="/mypage/pntcharge" element={<MypagePointChargePage/>} />
+          <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage/>} />
         </Routes>
       </BrowserRouter>
     </>
