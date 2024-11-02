@@ -54,20 +54,26 @@ const ProductListComponent = () => {
     }
 
     if (sortOrder === "views") {
-      updatedProducts = [...updatedProducts].sort((a, b) => b.views - a.views);
+        updatedProducts = [...updatedProducts].sort((a, b) => b.views - a.views);
     } else if (sortOrder === "comments") {
-      updatedProducts = [...updatedProducts].sort((a, b) => b.comments - a.comments);
+        updatedProducts = [...updatedProducts].sort((a, b) => b.comments - a.comments);
     }
 
     setFilteredProducts(updatedProducts);
-  }, [products, selectedCategory, sortOrder]);
+    }, [products, selectedCategory, sortOrder]);
 
-  return (
+
+   const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
+    }
+
+    return (
     <div id="product_list">
-      <div id="product_container" className="mt-4">
+        <div id="product_container" className="mt-4">
         {/* Filter and sorting options */}
         <Row className="mb-3">
-          <Col md={2}>
+            <Col md={2}>
             <Form.Select
                 className="order_option"
                 value={selectedCategory}
@@ -111,17 +117,21 @@ const ProductListComponent = () => {
                       {product.status === "TRADING_AVAILABLE" ? "거래가능" : "거래완료"}
                     </Badge>
                     <Badge
-                      bg={
-                        product.condition === "HIGH"
-                          ? "primary"
-                          : product.condition === "MEDIUM"
-                          ? "warning"
-                          : "danger"
-                      }
-                      className="ms-2"
-                    >
-                      {product.condition === "HIGH" ? "상" : product.condition === "MEDIUM" ? "중" : "하"}
+                        bg={
+                          product.condition === "HIGH"
+                            ? "primary"
+                            : product.condition === "MEDIUM"
+                            ? "warning"
+                            : "danger"
+                        }
+                        className="ms-2"
+                      >
+                        {product.condition === "HIGH" ? "상" : product.condition === "MEDIUM" ? "중" : "하"}
                     </Badge>
+                    
+                    <span id="product_price" className="d-flex justify-content-end">
+                      10000
+                    </span>
                   </div>
                 </Card.Body>
               </Card>

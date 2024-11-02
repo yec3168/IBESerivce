@@ -3,6 +3,7 @@ package com.project.ibe.services.product;
 import com.project.ibe.dto.product.ProductDetailResponse;
 import com.project.ibe.dto.product.ProductFormRequest;
 import com.project.ibe.dto.product.ProductFormResponse;
+import com.project.ibe.dto.product.ProductListResponse;
 import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductImg;
@@ -116,5 +117,30 @@ public class ProductService {
         productDetailResponse.setProductTradeState(product.getProductTradeState().getDescription());
         productDetailResponse.setImagePath(images);
         return productDetailResponse;
+    }
+
+
+    public List<ProductListResponse> getProductList(){
+        List<Product> productList = productRepository.findAll();
+        String imagePath ="";
+
+
+        List<ProductListResponse> productListResponseList = new ArrayList<>();
+        for(Product product : productList){
+            List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
+
+            if(!productImgList.isEmpty()){
+                imagePath = productImgList.get(0).getImagePath();
+            }
+            ProductListResponse productListResponse = modelMapper.map(product, ProductListResponse.class);
+            productListResponse.setProductCategory(product.getProductCategory().getDescription());
+            productListResponse.setProductConditionState(product.getProductConditionState().getDescription());
+            productListResponse.setProductTradeState(product.getProductTradeState().getDescription());
+            productListResponse.setThumbnail(imagePath);
+            productListResponseList.add(productListResponse);
+        }
+
+        return productListResponseList;
+
     }
 }

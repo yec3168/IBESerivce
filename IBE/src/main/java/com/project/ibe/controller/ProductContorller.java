@@ -35,4 +35,13 @@ public class ProductContorller {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
+    @GetMapping
+    public Response getProductList(){
+        try{
+            return new Response(ResponseCode.SUCCESS, productService.getProductList(), "202");
+        }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
 }
