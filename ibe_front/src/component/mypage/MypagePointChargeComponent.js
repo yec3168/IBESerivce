@@ -1,6 +1,7 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_icon from '../assets/images/header/coin_purse_icon.png'
+import { kakaoReady } from "../service/PointService";
 
 const MypagePointChargeComponent = () => {
     const pointAmount = [
@@ -24,6 +25,23 @@ const MypagePointChargeComponent = () => {
         { amount: '200,000' },
         { amount: '500,000' }
     ];
+    
+    const charge = (price) =>{
+        let priceName = `${price}포인트`;
+        let data ={
+            "priceName" : `${price}포인트`,
+            "totalPrice" : parseInt(price)
+        }
+        console.log(data);
+        kakaoReady(data).then(
+            response =>{
+                console.log(response.data);
+                localStorage.setItem("tid", response.data.tid);
+                window.open(response.data.next_redirect_pc_url)
+            }
+            
+        )
+    }
 
     return(
         <>
@@ -44,11 +62,11 @@ const MypagePointChargeComponent = () => {
                 <hr />
 
                 {/* 포인트 충전 버튼 */}
-
+            
                 <Row className="text-center my-4"> 
                     {pointAmount.map((point, index) => (
                         <Col xs={6} md={3} className="mb-4" key={index}>
-                            <Button id="button_pointAmt" variant="outline-secondary" 
+                            <Button onClick={()=>charge(cashAmount[index].amount)} id="button_pointAmt" variant="outline-secondary" 
                                 className="w-100 p-3 rounded-3 d-flex align-items-center justify-content-center">
                                 <img src={point_icon} alt="point_icon" style={{ width: '40px', height: '40px', marginRight: '15px' }} />
                                 <div className="d-flex flex-column align-items-center" id="div_pNum">
