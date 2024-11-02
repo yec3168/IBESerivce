@@ -1,7 +1,7 @@
 import MypageComponent from "../../mypage/MypageComponent";
 import MypageLayoutComponent from "../MypageLayoutComponent";
 
-const MypagePage = () => {
+const MypageMainPage = () => {
     return (
         <MypageLayoutComponent>
             <MypageComponent/>
@@ -9,4 +9,4 @@ const MypagePage = () => {
     );
 }
 
-export default MypagePage;
+export default MypageMainPage;
