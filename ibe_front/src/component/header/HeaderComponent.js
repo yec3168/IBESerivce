@@ -35,7 +35,7 @@ const HeaderComponent = () => {
                   </a>
                 </li>
                 <li class="nav-item mx-1">
-                  <a class="nav-link active" href="/">
+                  <a class="nav-link active" href="/mypage/inquiry">
                     고객센터
                   </a>
                 </li>

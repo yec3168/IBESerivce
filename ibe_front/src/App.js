@@ -18,6 +18,7 @@ import MypagePurchaseListPage from './component/layout/pages/MypagePurchaseListP
 import MypageSalesListPage from './component/layout/pages/MypageSalesListPage';
 import MypagePointChargePage from './component/layout/pages/MypagePointChargePage';
 import MypagePointPaybackPage from './component/layout/pages/MypagePointPaybackPage';
+import MypageInquiryPage from './component/layout/pages/MypageInquiryPage';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/mypage/slist" element={<MypageSalesListPage/>} />
           <Route path="/mypage/pntcharge" element={<MypagePointChargePage/>} />
           <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage/>} />
+          <Route path="/mypage/inquiry" element={<MypageInquiryPage/>} />
         </Routes>
       </BrowserRouter>
     </>
