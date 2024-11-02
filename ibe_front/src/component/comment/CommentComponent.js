@@ -34,11 +34,15 @@ const CommentComponent = () => {
                         createAt: comment.productCommentCreatedAt,
                         replies: [] // 대댓글 부분은 필요에 따라 추가
                     }));
-                setComments(formattedComments);
+                    setComments(formattedComments);
+                }
+                else{
+                    setComments([]);
                 }
             })
             .catch(error => {
                 console.error("댓글 목록 조회 중 오류 발생:", error);
+                setComments([]);
             });
     }, [id]);
     
