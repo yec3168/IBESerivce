@@ -14,7 +14,7 @@ const ProductListComponent = () => {
 
   useEffect(() => {
     getProductList().then(response => {
-      if (response.data.code === '202') {
+      if (response.data.code === '200') {
         const data = response.data.data;
         const formattedData = data.map(item => ({
           id: item.productId,
