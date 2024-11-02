@@ -14,16 +14,15 @@ const AdminManagerListRole = ({
   const handleRoleChangeSave = async () => {
     try {
       // POST 요청을 보냅니다.
-      const response = await axios.post(
+      await axios.post(
         'http://localhost:8080/admin/member/adminlist/changerole',
         {
-          email: selectedManager.email, // 선택된 관리자의 이메일
+          memberEmail: selectedManager?.memberEmail, // 선택된 관리자의 이메일
           role: newRole, // 새 역할
         }
       );
 
-      // 요청이 성공하면 상위 컴포넌트에 역할 전달
-      onSave(newRole);
+      onSave(newRole); // 상위 컴포넌트로 역할 전달
       onClose(); // 모달 닫기
     } catch (error) {
       console.error('Error changing role:', error);
@@ -36,7 +35,10 @@ const AdminManagerListRole = ({
   return (
     <div className="modal">
       <div className="modal-content">
-        <h3>{selectedManager.id} 역할 변경</h3>
+        <h3>
+          {selectedManager?.memberName} 역할 변경 (현재: {currentRole})
+        </h3>
+        <p>이메일: {selectedManager?.memberEmail}</p>
         <label>역할 선택:</label>
         <select value={newRole} onChange={(e) => setNewRole(e.target.value)}>
           <option value="ROLE_SERVICE_MANAGER">문의 담당자</option>

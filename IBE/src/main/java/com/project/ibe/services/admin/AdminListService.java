@@ -21,15 +21,8 @@ public class AdminListService {
 
     @Transactional
     public void changeRole(MemberAdminRequest memberAdminRequest) {
-        System.out.println(memberAdminRequest.getMemberEmail()+ "email");
        Member existMember = memberRepository.findByMemberEmail(memberAdminRequest.getMemberEmail())
                .orElseThrow(() -> new BusinessException("Member Not Found", HttpStatus.NOT_FOUND));
-//       if(memberAdminRequest.getRole().equals("ROLE_SERVICE_MANAGER")) {
-//           existMember.setRole(Role.ROLE_SERVICE_MANAGER);
-//       } else {
-//           existMember.setRole(Role.ROLE_BOARD_MANAGER);
-//       }
         existMember.setRole(memberAdminRequest.getRole());
-
     }
 }
