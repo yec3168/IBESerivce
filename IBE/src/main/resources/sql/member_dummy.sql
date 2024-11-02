@@ -12,7 +12,9 @@ INSERT INTO `member` (
       (NOW(), '김하늘', 450, NOW(), '김닉2', '경기도 수원시', NULL, '123123', 'kim2@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-6677-8899', 'ROLE_DEFAULT'),
       (NOW(), '오민정', 500, NOW(), '오닉', '전라북도 전주', NULL, '456456', 'oh@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-7788-9900', 'ROLE_CLIENT'),
       (NOW(), '이동욱', 550, NOW(), '이닉3', '충청남도 천안', NULL, '789789', 'lee3@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-8899-0011', 'ROLE_CLIENT'),
-      (NOW(), '변서영', 550, NOW(), '서영', '충청남도 천안', NULL, '789789', 'fhbsy84@gmail.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9316-5134', 'ROLE_CLIENT');
+      (NOW(), '변서영', 550, NOW(), '서영', '충청남도 천안', NULL, '789789', 'fhbsy84@gmail.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9316-5134', 'ROLE_CLIENT'),
+      (NOW(), '직원1', 550, NOW(), '게시판', '충청남도 천안', NULL, '131313', 'board@manager.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9311-5134', 'ROLE_BOARD_MANAGER'),
+      (NOW(), '직원2', 550, NOW(), '문의', '충청남도 천안', NULL, '313131', 'service@manager.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9312-5134', 'ROLE_SERVICE_MANAGER');
 INSERT INTO member_bank (member_id, member_account_number, member_bank) VALUES
     (1, '123-456-7890', 'HANA'),
     (2, '234-567-8901', 'KAKAO'),
