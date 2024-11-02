@@ -68,7 +68,7 @@ const MypageInquiryListComponent = () => {
                                   {inquiry.status === 'processing' ? '답변 대기' : '답변 완료'}
                               </Badge>
                               {/* 문의 내용 */}
-                              <Link to={`/mypage/inqList/detail/${inquiry.id}`} className="text-decoration-none">
+                              <Link to={`/mypage/inquiry/answer/${inquiry.id}`} className="text-decoration-none">
                                   <span className="hover-highlight">{inquiry.title}</span>
                               </Link>
                           </div>
@@ -80,7 +80,7 @@ const MypageInquiryListComponent = () => {
                       {inquiries.filter(inquiry => inquiry.status === 'processing').map(inquiry => (
                           <div key={inquiry.id} className="p-3 border rounded d-flex align-items-center mb-2">
                               <Badge pill className="me-2 badge_processing">답변 대기</Badge>
-                              <Link to={`/mypage/inqList/detail/${inquiry.id}`} className="text-decoration-none">
+                              <Link to={`/mypage/inquiry/answer/${inquiry.id}`} className="text-decoration-none">
                                   <span className="hover-highlight">{inquiry.title}</span>
                               </Link>
                           </div>
@@ -92,7 +92,7 @@ const MypageInquiryListComponent = () => {
                       {inquiries.filter(inquiry => inquiry.status === 'complete').map(inquiry => (
                           <div key={inquiry.id} className="p-3 border rounded d-flex align-items-center mb-2">
                               <Badge pill className="me-2 badge_complete">답변 완료</Badge>
-                              <Link to={`/mypage/inqList/detail/${inquiry.id}`} className="text-decoration-none">
+                              <Link to={`/mypage/inquiry/answer/${inquiry.id}`} className="text-decoration-none">
                                   <span className="hover-highlight">{inquiry.title}</span>
                               </Link>
                           </div>
