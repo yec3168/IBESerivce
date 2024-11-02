@@ -20,11 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberListService {
 
-    @Autowired
-    MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public List<MemberListResponse> getMemberList() {
         List<Member> memberEntityList = memberRepository.findAll();

@@ -29,8 +29,8 @@ const AdminManagerList = () => {
               manager.role === 'ROLE_ADMIN'
                 ? '관리자'
                 : manager.role === 'ROLE_SERVICE_MANAGER'
-                ? '문의 관리자'
-                : '게시판 관리자',
+                ? '문의 담당자'
+                : '게시판 담당자',
             memberEmail: manager.memberEmail,
           }));
         setManagers(filteredManagers);
@@ -46,16 +46,32 @@ const AdminManagerList = () => {
     setIsRoleModalOpen(true);
   };
 
-  const handleRoleSave = (updatedRole, email) => {
-    setManagers((prevManagers) =>
-      prevManagers.map((manager) =>
-        manager.memberEmail === email
-          ? { ...manager, role: updatedRole }
-          : manager
-      )
-    );
-    setIsRoleModalOpen(false);
-    setSelectedManager(null);
+  const handleRoleSave = (updatedRole) => {
+    // 서버에 역할 변경 요청
+    axios.put(`http://localhost:8080/admin/member/updateRole`, {
+      email: selectedManager.memberEmail,
+      role: updatedRole,
+    })
+    .then(() => {
+      // 역할 업데이트 후 상태를 갱신
+      setManagers((prevManagers) =>
+        prevManagers.map((manager) =>
+          manager.memberEmail === selectedManager.memberEmail
+            ? { ...manager, role: updatedRole }
+            : manager
+        )
+      );
+      alert(`${selectedManager.memberName}의 역할이 변경되었습니다.`);
+      setIsRoleModalOpen(false);
+      setSelectedManager(null);
+    })
+    .catch((error) => {
+      console.error('Error updating role:', error);
+    });
+  };
+
+  const handleAddManagerClick = () => {
+    setIsAddModalOpen(true);
   };
 
   const handleAddManagerSave = (newManager) => {
@@ -87,7 +103,7 @@ const AdminManagerList = () => {
     <div className="manager-list-container">
       <h2>관리자 목록</h2>
       <div className="manager-list-box">
-        <button className="add-manager-button" onClick={() => setIsAddModalOpen(true)}>관리자 추가하기</button>
+        <button className="add-manager-button" onClick={handleAddManagerClick}>관리자 추가하기</button>
         <div className="manager-row header">
           <div className="column managerName">이름</div>
           <div className="column managerId">이메일</div>
@@ -128,6 +144,7 @@ const AdminManagerList = () => {
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onSave={handleAddManagerSave}
+        existingManagers={managers.map((manager) => manager.memberEmail)} // 이메일 목록 전달
       />
 
       {/* 비밀번호 변경 모달 */}
