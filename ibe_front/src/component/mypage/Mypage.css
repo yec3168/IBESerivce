@@ -24,6 +24,14 @@
     margin-left: '20px';
 }
 
+#mypage_sidenav .nav-link {
+    transition: color 0.3s ease; 
+}
+
+#mypage_sidenav .nav-link:hover {
+    color: #f4890a; 
+}
+
 /* MemberInfoCardComponent */
 
 #card_memberInfo{
