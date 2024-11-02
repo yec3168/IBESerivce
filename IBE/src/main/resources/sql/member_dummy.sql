@@ -14,7 +14,10 @@ INSERT INTO `member` (
       (NOW(), '이동욱', 550, NOW(), '이닉3', '충청남도 천안', NULL, '789789', 'lee3@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-8899-0011', 'ROLE_CLIENT'),
       (NOW(), '변서영', 550, NOW(), '서영', '충청남도 천안', NULL, '789789', 'fhbsy84@gmail.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9316-5134', 'ROLE_CLIENT'),
       (NOW(), '직원1', 550, NOW(), '게시판', '충청남도 천안', NULL, '131313', 'board@manager.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9311-5134', 'ROLE_BOARD_MANAGER'),
-      (NOW(), '직원2', 550, NOW(), '문의', '충청남도 천안', NULL, '313131', 'service@manager.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9312-5134', 'ROLE_SERVICE_MANAGER');
+      (NOW(), '직원2', 550, NOW(), '문의', '충청남도 천안', NULL, '313131', 'service@manager.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9312-5134', 'ROLE_SERVICE_MANAGER'),
+      (NOW(), '정지1', 550, NOW(), '도배', '충청남도 천안', NULL, '313131', 'spam@banned.user', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-3312-5134', 'ROLE_BANNED_CLIENT'),
+      (NOW(), '정지2', 550, NOW(), '욕설', '충청남도 천안', NULL, '313131', 'swear@banned.user', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1312-5134', 'ROLE_BANNED_CLIENT'),
+      (NOW(), '정지3', 550, NOW(), '사기', '충청남도 천안', NULL, '313131', 'fraud@banned.user', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-2312-5134', 'ROLE_BANNED_CLIENT');
 INSERT INTO member_bank (member_id, member_account_number, member_bank) VALUES
     (1, '123-456-7890', 'HANA'),
     (2, '234-567-8901', 'KAKAO'),
