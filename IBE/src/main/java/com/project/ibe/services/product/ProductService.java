@@ -118,6 +118,9 @@ public class ProductService {
         productDetailResponse.setProductCategory(product.getProductCategory().getDescription());
         productDetailResponse.setProductConditionState(product.getProductConditionState().getDescription());
         productDetailResponse.setProductTradeState(product.getProductTradeState().getDescription());
+
+        productDetailResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size()); // 댓글 수 추가.
+
         productDetailResponse.setImagePath(images);
         return productDetailResponse;
     }
@@ -169,38 +172,6 @@ public class ProductService {
     /**
      * 댓글 목록 조회.
      */
-//    public List<ProductCommentResponse> getProductCommentList(Long productId){
-//        Product product = findProductById(productId);
-//
-//        List<ProductCommentResponse> productCommentResponseList = new ArrayList<>();
-//
-//
-//        List<ProductComment> productCommentList = productCommentRepository.findAllByProduct(product);
-//
-//        for(ProductComment productComment : productCommentList){
-//            ProductCommentResponse commentResponse = modelMapper.map(productComment, ProductCommentResponse.class);
-//
-//
-//            List<ProductReplyResponse> productReplyResponseList = commentResponse.getProductReplyResponseList().stream()
-//                    .map(productReplyResponse -> {
-//                        ProductReplyResponse replyResponse = new ProductReplyResponse();
-//
-//                        replyResponse.setProductReplyId(productReplyResponse.getProductReplyId());
-//                        replyResponse.setProductReplyContent(productReplyResponse.getProductReplyContent());
-//                        replyResponse.setProductReplyCreatedAt(productReplyResponse.getProductReplyCreatedAt());
-//                        //replyResponse.setMember(productReplyResponse.getMember().getMemberNickName());
-//                        replyResponse.set(productComment.getId());
-//                        return replyResponse;
-//                    })
-//                    .collect(Collectors.toList());
-//
-//
-//            productCommentResponseList.add(commentResponse);
-//        }
-//
-//        return productCommentResponseList;
-//    }
-
     public List<ProductCommentResponse> getProductCommentList(Long productId) {
         Product product = findProductById(productId);
 
