@@ -286,11 +286,17 @@
     justify-content: start;
     padding-left: 50px;
     font-size: 15px;
+    overflow: hidden;
 }
 
-#purListPagingTitle{
+#purListPagingTitle {
     font-family: "CookieRun-Regular", sans-serif !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
 }
+
 
 #img_purListPagingThumbnail {
     width: 80px; 
