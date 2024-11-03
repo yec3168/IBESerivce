@@ -121,11 +121,11 @@
 }
 
 /* 제품 경고사항  */
-#product_content > #product_waring{
+.product_waring{
     margin-top: 80px;
 }
 
-#product_content > #product_waring .warning{
+.product_waring .warning{
     font-size: 12px;
     font-family: 'Jua', sans-serif;
     margin-bottom: 0;
@@ -297,5 +297,5 @@ form .form-label {
 
 
 #commnet_section{
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
