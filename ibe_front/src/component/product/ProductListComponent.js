@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getProductList } from "../service/ProductService";
 import thumbnaiil from "../assets/images/thumbnail.png";
 
+
 import "./ProductList.css";
 
 const ProductListComponent = () => {
@@ -11,30 +12,37 @@ const ProductListComponent = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortOrder, setSortOrder] = useState("views");
+  const [error, setError] = useState(""); // State for error message
 
   useEffect(() => {
-    getProductList().then(response => {
-      if (response.data.code === '200') {
-        const data = response.data.data;
-        const formattedData = data.map(item => ({
-          id: item.productId,
-          image: item.thumbnail !== "" ? getFullImageUrl(item.thumbnail) : thumbnaiil,
-          title: item.productTitle,
-          views: item.productHit,
-          comments: item.productCommentCnt,
-          status: item.productTradeState === "거래 가능" ? "TRADING_AVAILABLE" : "TRADE_COMPLETED",
-          condition: item.productConditionState === "상" ? "HIGH" : item.productConditionState === "중" ? "MEDIUM" : "LOW",
-          category: 
-            item.productCategory === "아동 의류" ? "KIDS_CLOTHING" :
-            item.productCategory === "아동 완구" ? "KIDS_TOYS" :
-            item.productCategory === "아동 도서" ? "KIDS_BOOKS" :
-            item.productCategory === "외출 용품" ? "OUTDOOR_SUPPLIES" : 
-            "MISC",
-          price: item.productPoint
-        }));
-        setProducts(formattedData);
-      }
-    });
+    getProductList()
+      .then(response => {
+        if (response.data.code === '200') {
+          const data = response.data.data;
+          const formattedData = data.map(item => ({
+            id: item.productId,
+            image: item.thumbnail !== "" ? getFullImageUrl(item.thumbnail) : thumbnaiil,
+            title: item.productTitle,
+            views: item.productHit,
+            comments: item.productCommentCnt,
+            status: item.productTradeState === "거래 가능" ? "TRADING_AVAILABLE" : "TRADE_COMPLETED",
+            condition: item.productConditionState === "상" ? "HIGH" : item.productConditionState === "중" ? "MEDIUM" : "LOW",
+            category: 
+              item.productCategory === "아동 의류" ? "KIDS_CLOTHING" :
+              item.productCategory === "아동 완구" ? "KIDS_TOYS" :
+              item.productCategory === "아동 도서" ? "KIDS_BOOKS" :
+              item.productCategory === "외출 용품" ? "OUTDOOR_SUPPLIES" : 
+              "MISC",
+            price: item.productPoint
+          }));
+          setProducts(formattedData);
+          setError(""); // Reset error message if products are fetched successfully
+        }
+      })
+      .catch(error => {
+        setError("현재 존재하는 물품이 없습니다"); // Set error message when fetch fails
+        setProducts([]); // Clear products if there's an error
+      });
   }, []);
 
   useEffect(() => {
@@ -63,6 +71,7 @@ const ProductListComponent = () => {
   return (
     <div id="product_list">
       <div id="product_container" className="mt-4">
+
         <Row className="mb-3">
           <Col md={2}>
             <Form.Select
@@ -90,6 +99,14 @@ const ProductListComponent = () => {
           </Col>
         </Row>
 
+        {((filteredProducts.length === 0 && !error) || error) && (
+           <div className="text-center mt-4">
+            <i className="bi bi-exclamation-circle" style={{ fontSize: '3rem', color: 'red' }}></i>
+            <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
+            <p>다른 키워드로 검색해 주세요.</p>
+         </div>
+        )}
+        
         <Row xs={1} md={2} lg={6} className="g-4">
           {filteredProducts.map((product) => (
             <Col key={product.id}>
