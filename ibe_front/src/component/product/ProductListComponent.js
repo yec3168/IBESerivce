@@ -21,7 +21,7 @@ const ProductListComponent = () => {
           image: item.thumbnail !== "" ? getFullImageUrl(item.thumbnail) : thumbnaiil,
           title: item.productTitle,
           views: item.productHit,
-          comments: 0,
+          comments: item.productCommentCnt,
           status: item.productTradeState === "거래 가능" ? "TRADING_AVAILABLE" : "TRADE_COMPLETED",
           condition: item.productConditionState === "상" ? "HIGH" : item.productConditionState === "중" ? "MEDIUM" : "LOW",
           category: 

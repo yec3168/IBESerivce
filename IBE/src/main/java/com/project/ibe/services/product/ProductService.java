@@ -144,6 +144,7 @@ public class ProductService {
             productListResponse.setProductCategory(product.getProductCategory().getDescription());
             productListResponse.setProductConditionState(product.getProductConditionState().getDescription());
             productListResponse.setProductTradeState(product.getProductTradeState().getDescription());
+            productListResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size());
             productListResponse.setThumbnail(imagePath);
             productListResponseList.add(productListResponse);
         }
