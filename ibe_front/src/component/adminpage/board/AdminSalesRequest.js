@@ -1,43 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './AdminSalesRequest.css';
 
 const AdminSalesRequest = () => {
   const [expandedId, setExpandedId] = useState(null);
+  const [salesRequests, setSalesRequests] = useState([]);
 
-  const salesRequests = [
-    {
-      id: 1,
-      category: '상품 A',
-      title: '판매신청 A',
-      nickname: '홍길동',
-      date: '2024-11-01',
-      content: '판매신청 A의 상세 내용입니다.',
-    },
-    {
-      id: 2,
-      category: '상품 B',
-      title: '판매신청 B',
-      nickname: '김철수',
-      date: '2024-11-02',
-      content: '판매신청 B의 상세 내용입니다.',
-    },
-    {
-      id: 3,
-      category: '상품 C',
-      title: '판매신청 C',
-      nickname: '이영희',
-      date: '2024-11-03',
-      content: '판매신청 C의 상세 내용입니다.',
-    },
-    {
-      id: 4,
-      category: '상품 D',
-      title: '판매신청 D',
-      nickname: '박민수',
-      date: '2024-11-04',
-      content: '판매신청 D의 상세 내용입니다.',
-    },
-  ];
+  useEffect(() => {
+    const fetchSalesRequests = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:8080/admin/board/salesrequest'
+        );
+        const requests = response.data.map((request) => ({
+          id: request.productId, // Assuming productId is unique
+          category: request.productCategory, // Adjust if needed
+          title: request.productTitle,
+          nickname: request.memberNickName,
+          date: request.productCreatedAt.split('T')[0], // Format date if necessary
+          content: request.productContent,
+        }));
+        setSalesRequests(requests);
+      } catch (error) {
+        console.error('Error fetching sales requests:', error);
+      }
+    };
+
+    fetchSalesRequests();
+  }, []);
 
   // 날짜 기준 내림차순 정렬
   const sortedRequests = [...salesRequests].sort(

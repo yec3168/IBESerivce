@@ -1,10 +1,11 @@
 package com.project.ibe.services.admin;
 
-import com.project.ibe.dto.admin.MemberListResponse;
+import com.project.ibe.dto.admin.SalesImgResponse;
 import com.project.ibe.dto.admin.SalesRequestResponse;
-import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.product.Product;
+import com.project.ibe.entity.product.ProductImg;
 import com.project.ibe.repository.member.MemberRepository;
+import com.project.ibe.repository.product.ProductImgRepository;
 import com.project.ibe.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,6 +20,7 @@ public class SalesRequestService {
     private final MemberRepository memberRepository;
 
     private final ProductRepository productRepository;
+    private final ProductImgRepository productImgRepository;
 
     private final ModelMapper modelMapper;
 
@@ -31,5 +33,10 @@ public class SalesRequestService {
                     return response;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public List<SalesImgResponse> getSalesImgList(Long productId) {
+        List<ProductImg> productImgList = productImgRepository.findByProductId(productId);
+
     }
 }

@@ -147,6 +147,11 @@
     font-size: 13px;
 }
 
+.reply-createdAt {
+    font-weight: bold;
+    font-size: 13px;
+}
+
 .comment-createdAt {
     font-weight: bold;
     font-size: 13px;
