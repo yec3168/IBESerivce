@@ -1,10 +1,12 @@
 package com.project.ibe.controller;
 
+import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.points.*;
 import com.project.ibe.services.points.KakaoPayService;
 import com.project.ibe.services.points.NhService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -17,14 +19,15 @@ public class PointsController {
     private final NhService nhService;
 
     @PostMapping("/kakao/ready")
-    public KakaoReadyResponse kakaoReady(@RequestBody KakaoReadyRequest request) {
+    public KakaoReadyResponse kakaoReady(@RequestBody KakaoReadyRequest request
+            ,@AuthenticationPrincipal PrincipalDTO principal) {
         log.info("kakaoController 호출");
         String name = request.getPriceName();
         int totalPrice = request.getTotalPrice();
         log.info("주문 상품 이름: " + name);
         log.info("주문 금액: " + totalPrice);
         // 카카오 결제 준비하기
-        KakaoReadyResponse readyResponse = kakaoPayService.payReady(name, totalPrice);
+        KakaoReadyResponse readyResponse = kakaoPayService.payReady(name, totalPrice,principal);
         // 세션에 결제 고유번호(tid) 저장
         log.info("결제 고유번호: " + readyResponse.getTid());
         return readyResponse;

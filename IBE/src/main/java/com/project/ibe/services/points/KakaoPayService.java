@@ -1,9 +1,12 @@
 package com.project.ibe.services.points;
 
+import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.points.ApproveResponse;
 import com.project.ibe.dto.points.KakaoReadyResponse;
 import com.project.ibe.entity.common.PayResult;
+import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.points.Pay;
+import com.project.ibe.repository.member.MemberRepository;
 import com.project.ibe.repository.points.PayRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -23,14 +27,19 @@ import java.util.Map;
 public class KakaoPayService {
 
     private final PayRepository payRepository;
+    private final MemberRepository memberRepository;
     // 카카오페이 결제창 연결
-    public KakaoReadyResponse payReady(String name, int totalPrice) {
+    public KakaoReadyResponse payReady(String name, int totalPrice, PrincipalDTO principal) {
         String frontUrl ="http://localhost:3000/mypage/pntcharge";
+        String partnerOrderId;
+        do {
+            partnerOrderId = UUID.randomUUID().toString().substring(0, 9); //주문번호
+        }while(payRepository.existsById(partnerOrderId));
         // 회원 아이디, 주문번호 받아오는 로직 필요  jwt 토큰 구현후 작업필요.
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                                    // 가맹점 코드(테스트용)
-        parameters.put("partner_order_id", "1234567890");                       // 주문번호
-        parameters.put("partner_user_id", "roommake");                          // 회원 아이디
+        parameters.put("partner_order_id", partnerOrderId);                       // 주문번호
+        parameters.put("partner_user_id", principal.getMemberName());           // 회원 아이디
         parameters.put("item_name", name);                                      // 상품명
         parameters.put("quantity", "1");                                        // 상품 수량
         parameters.put("total_amount", String.valueOf(totalPrice));             // 상품 총액
@@ -52,15 +61,17 @@ public class KakaoPayService {
         log.info("결제준비 응답객체: " + responseEntity.getBody());
         if(!(responseEntity.getBody().getTid()==null ||responseEntity.getBody().getTid().isEmpty())) {
             Pay pay = new Pay();
-            pay.setMemberEmail("구현필요");
+            pay.setPayId(partnerOrderId);
+            pay.setMemberName(principal.getMemberName());
+            pay.setMemberEmail(principal.getMemberEmail());
             pay.setPayName(name);
 //        pay.setPayPoint(); 승인후 세팅
             pay.setPay_price(totalPrice);
             pay.setTax_free_amount(0);
             pay.setPartnerOrderId(responseEntity.getBody().getTid());
+            pay.setPayResult(PayResult.FAIL);
             payRepository.save(pay);
         }
-
 
         return responseEntity.getBody();
     }
@@ -70,12 +81,13 @@ public class KakaoPayService {
     // 최종적으로 결제 완료 처리를 하는 단계
     @Transactional
     public ApproveResponse payApprove(String tid, String pgToken) {
+        Pay pay = payRepository.findByPartnerOrderId(tid).orElseThrow();
         Map<String, String> parameters = new HashMap<>();
         // 회원 아이디, 주문번호 받아오는 로직 필요  jwt 토큰 구현후 작업필요.
         parameters.put("cid", "TC0ONETIME");              // 가맹점 코드(테스트용)
         parameters.put("tid", tid);                       // 결제 고유번호
-        parameters.put("partner_order_id", "1234567890"); // 주문번호
-        parameters.put("partner_user_id", "roommake");    // 회원 아이디
+        parameters.put("partner_order_id", pay.getPayId()); // 주문번호
+        parameters.put("partner_user_id", pay.getMemberName());    // 회원 아이디
         parameters.put("pg_token", pgToken);              // 결제승인 요청을 인증하는 토큰
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -85,9 +97,11 @@ public class KakaoPayService {
         log.info("결제승인 전송 시작");
         ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
         log.info("결제승인 응답객체: " + approveResponse);
-        //  포인트 충전 로직 필요.
-        Pay pay = payRepository.findByPartnerOrderId(tid).orElseThrow();
-        pay.setPayPoint(3000L);
+        Member member = memberRepository.findByMemberEmail(pay.getMemberEmail()).orElseThrow();
+        long points = (long) approveResponse.getAmount().getTotal()/10;
+        member.setMemberPoint(member.getMemberPoint()+points);
+
+        pay.setPayPoint(points);
         pay.setPayResult(PayResult.SUCCESS);
         return approveResponse;
     }
