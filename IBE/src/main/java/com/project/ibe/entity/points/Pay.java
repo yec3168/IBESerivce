@@ -2,10 +2,8 @@ package com.project.ibe.entity.points;
 
 import com.project.ibe.entity.common.PayResult;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -16,9 +14,9 @@ import java.time.LocalDateTime;
 @Table(name = "pay")
 public class Pay {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long payId;
+    private String payId;
     private String memberEmail;             //회원 이메일
+    private String memberName;              //회원 이름
     private String payName;                 //상품명
     private Long payPoint;                //충전포인트
     private Integer pay_price;              //결제금액

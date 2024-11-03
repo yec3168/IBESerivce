@@ -14,6 +14,7 @@ public class PrincipalDTO implements UserDetails {
     private Long memberId;
     private String memberEmail;
     private String memberPassword;
+    private String memberName;
     private Role role;
     private Collection<? extends GrantedAuthority> authorities;
     @Override
