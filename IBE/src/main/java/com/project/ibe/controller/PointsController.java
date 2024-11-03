@@ -19,7 +19,7 @@ public class PointsController {
     @PostMapping("/kakao/ready")
     public KakaoReadyResponse kakaoReady(@RequestBody KakaoReadyRequest request) {
         log.info("kakaoController 호출");
-        String name = request.getMemberName();
+        String name = request.getPriceName();
         int totalPrice = request.getTotalPrice();
         log.info("주문 상품 이름: " + name);
         log.info("주문 금액: " + totalPrice);

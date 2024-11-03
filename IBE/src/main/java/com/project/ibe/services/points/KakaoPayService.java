@@ -25,7 +25,7 @@ public class KakaoPayService {
     private final PayRepository payRepository;
     // 카카오페이 결제창 연결
     public KakaoReadyResponse payReady(String name, int totalPrice) {
-        String frontUrl ="http://localhost:3000/point/charge";
+        String frontUrl ="http://localhost:3000/mypage/pntcharge";
         // 회원 아이디, 주문번호 받아오는 로직 필요  jwt 토큰 구현후 작업필요.
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                                    // 가맹점 코드(테스트용)

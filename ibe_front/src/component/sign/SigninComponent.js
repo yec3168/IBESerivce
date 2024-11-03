@@ -4,6 +4,7 @@ import Logo from '../assets/images/sign/ibe_logo1.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
 import {login } from '../service/MemberService';
 import './Sign.css'
+import axios from "axios";
 
 function SignInComponent(){
     const [memberEmail, setMemberEmail] = useState("");
@@ -32,6 +33,10 @@ function SignInComponent(){
             console.log(response.data);
             if (response.data.code === "200") {
                 alert("로그인 성공!");
+                console.log(response.data.message);
+                let accessToken = response.data.message;
+                localStorage.setItem('accessToken', accessToken);
+                // console.log(`${localStorage.getItem('accessToken')}`)
                 window.location.href = "/";
                 setIsEmpty(false);
             }   

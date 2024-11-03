@@ -8,6 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class KakaoReadyRequest {
-    private String memberName;
+    private String priceName;
     private int totalPrice;
 }
