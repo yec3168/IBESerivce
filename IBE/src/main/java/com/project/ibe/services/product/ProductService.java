@@ -5,9 +5,11 @@ import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductComment;
 import com.project.ibe.entity.product.ProductImg;
+import com.project.ibe.entity.product.ProductReply;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.product.ProductCommentRepository;
 import com.project.ibe.repository.product.ProductImgRepository;
+import com.project.ibe.repository.product.ProductReplyRepository;
 import com.project.ibe.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -31,6 +33,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductImgRepository productImgRepository;
     private final ProductCommentRepository productCommentRepository;
+    private final ProductReplyRepository productReplyRepository;
 
     private final FileService fileService;
 
@@ -145,6 +148,9 @@ public class ProductService {
 
     }
 
+    /**
+     * 댓글 등록.
+     */
     public ProductCommentResponse createProductComment(ProductCommentRequest productCommentRequest){
         Product product = findProductById(productCommentRequest.getProductId());
 
@@ -174,10 +180,34 @@ public class ProductService {
         return productCommentResponseList;
     }
 
+    /**
+     * 대댓글 등록.
+     */
+    public ProductReplyResponse createProductReply(ProductReplyRequest productReplyRequest){
+        Product product = findProductById(productReplyRequest.getProductId());
+        ProductComment productComment = findProductCommentById(productReplyRequest.getProductCommentId());
+
+        ProductReply productReply = ProductReply.builder()
+                .product(product)
+                .productComment(productComment)
+                //.member()
+                .productReplyContent(productReplyRequest.getProductReplyContent())
+                .build();
+
+        productReplyRepository.save(productReply);
+
+        return modelMapper.map(productReply, ProductReplyResponse.class);
+    }
     private Product findProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(
                         () -> new BusinessException("게시글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
+                );
+    }
+    private ProductComment findProductCommentById(Long id) {
+        return productCommentRepository.findById(id)
+                .orElseThrow(
+                        () -> new BusinessException("댓글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
                 );
     }
 }

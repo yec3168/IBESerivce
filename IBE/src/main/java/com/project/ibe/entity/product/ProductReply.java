@@ -3,8 +3,10 @@ package com.project.ibe.entity.product;
 import com.project.ibe.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.mapping.ToOne;
 
 import java.time.LocalDateTime;
@@ -25,6 +27,7 @@ public class ProductReply {
     private String productReplyContent;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime productReplyCreatedAt;
 
     @ManyToOne
@@ -38,4 +41,13 @@ public class ProductReply {
     @ManyToOne
     @JoinColumn(name = "product_comment_id")
     private ProductComment productComment;
+
+
+    @Builder
+    public ProductReply(Product product, ProductComment productComment, Member member, String productReplyContent){
+        this.product =product;
+        this.productComment =productComment;
+        this.member =member;
+        this.productReplyContent = productReplyContent;
+    }
 }

@@ -2,6 +2,7 @@ package com.project.ibe.controller;
 
 import com.project.ibe.dto.product.ProductCommentRequest;
 import com.project.ibe.dto.product.ProductFormRequest;
+import com.project.ibe.dto.product.ProductReplyRequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.product.ProductService;
@@ -60,12 +61,27 @@ public class ProductContorller {
         }
     }
 
+    /**
+     *  댓글 목록 조회.
+     */
     @GetMapping("/comments")
     public Response getProductCommentList(@RequestParam("productId") Long productId){
         System.out.println(productId);
         try{
             return new Response(ResponseCode.SUCCESS, productService.getProductCommentList(productId), "200");
         } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
+    /**
+     *  대댓글 등록.
+     */
+    @PostMapping("/reply")
+    public Response createProductReply(@Valid @RequestBody ProductReplyRequest productReplyRequest){
+        try{
+            return new Response(ResponseCode.SUCCESS, productService.createProductReply(productReplyRequest), "200");
+        }catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
