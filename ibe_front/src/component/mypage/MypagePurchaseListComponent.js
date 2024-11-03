@@ -51,8 +51,8 @@ const MypagePurchaseListComponent = () => {
                     </Col>
                     <Col xs={4} id="col_purList">
                         <div>
-                            <div>신청일자   2024-10-25 19:00</div>
-                            <div>배송도착   2024-10-25 19:00</div>
+                            <div>신청 일자:   2024-10-25 19:00</div>
+                            <div>배송 도착:   2024-10-25 19:00</div>
                         </div>
                     </Col>
                     <Col xs={2} id="col_purList">

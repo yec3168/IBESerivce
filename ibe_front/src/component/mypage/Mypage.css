@@ -260,3 +260,84 @@
     border: 2px solid lightgray;
     padding: 5px 5px 5px 10px;
 }
+
+/* MypagePlistPagingComponent */
+
+#container_purListPaging {
+    margin-bottom: 1rem;
+}
+
+#col_purListPaging {
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#col_purListPagingTitle{
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 50px;
+    font-size: 15px;
+}
+
+#purListPagingTitle{
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+#img_purListPagingThumbnail {
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 5px;
+    margin-left: 20px;
+}
+
+#img_purListPagingBadge{
+    width: 100px;
+}
+
+#btn_purListPagingConfirm {
+    font-family: "CookieRun-Regular", sans-serif !important;
+    font-size: 15px;
+}
+
+#pagination_purListPaging {
+    display: flex; 
+    justify-content: center; 
+    margin-top: 30px;
+    margin-right: 100px;
+    color: black !important;
+}
+
+#pagination_purListPaging .page-link {
+    color: #000; 
+    background-color: #fff;
+    border: 1px solid #ccc; 
+}
+
+#pagination_purListPaging .page-item.active .page-link {
+    z-index: 1;
+    color: #555;
+    font-weight: bold;
+    background-color: #fbf1a2;
+    border-color: #ccc;
+}
+
+#pagination_purListPaging .page-link:focus, 
+#pagination_purListPaging .page-link:hover {
+    color: #000;
+    background-color: #fafafa; 
+    border-color: #ccc;
+}
+
+
+
+
+
