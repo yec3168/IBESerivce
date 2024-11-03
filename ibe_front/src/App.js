@@ -26,11 +26,13 @@ import MypageInquiryListPage from './component/layout/pages/mypage/MypageInquiry
 import MypagePointChargeCompletedComponent from './component/point/MypagePointChargeCompletedComponent';
 import MypagePointChargeResult from './component/point/MypagePointChargeResultComponent';
 import MypageInquiryAnsPage from './component/layout/pages/mypage/MypageInquiryAnsPage';
+import OrderDetailPage from './component/layout/pages/order/OrderDetailPage';
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        {/* 로그인, 회원가입 */}
         <Routes>
           <Route path="/" element={<MainPage/>} />
           <Route path="/signin" element={<SignInComponent/>} />
@@ -38,11 +40,14 @@ function App() {
           <Route path="/searchEmail" element={<SigninEmailSearchComponent />}/>
           <Route path="/searchPassword" element={<SignPasswordSeacchComponent />}/>
         </Routes>
-        {/* 상품 Router */}
+        {/* 물품 관련 */}
         <Routes>
           <Route path="/products" element={<ProductListPage/>} />
           <Route path="/products/detail/:id" element={<ProductDetailPage />} />
           <Route path="/products/create" element={<ProductCreatePage />} />
+        </Routes>
+        <Routes>
+          <Route path="/orders/detail/:id" element={<OrderDetailPage/>} />
         </Routes>
         {/* 관리자페이지 Router */}
         <Routes>
