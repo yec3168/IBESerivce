@@ -14,7 +14,7 @@ const MypageSalesListComponent = () => {
                     <Col xs={1} id="col_salList">
                         <img src={product_stroller} alt="strollerImg" id="img_salListThumbnail" />
                     </Col>
-                    <Col xs={2} id="col_salList">
+                    <Col xs={2} id="col_salListTitle">
                         <div>
                             <div id="salListTitle">유모차 팝니다</div>
                             <div>판매자닉네임</div>
@@ -42,7 +42,7 @@ const MypageSalesListComponent = () => {
                     <Col xs={1} id="col_salList">
                         <img src={product_stroller} alt="strollerImg" id="img_salListThumbnail" />
                     </Col>
-                    <Col xs={2} id="col_salList">
+                    <Col xs={2} id="col_salListTitle">
                         <div>
                             <div id="salListTitle">유모차 팝니다</div>
                             <div>판매자닉네임</div>

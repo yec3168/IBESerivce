@@ -71,6 +71,18 @@
     justify-content: center;
 }
 
+#col_purListTitle{
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 80px;
+    font-size: 15px;
+    overflow: hidden;
+}
+
 #btn_purConfirm{
     font-family: "CookieRun-Regular", sans-serif !important;
     font-size: 15px;
@@ -112,6 +124,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#col_salListTitle{
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 80px;
+    font-size: 15px;
+    overflow: hidden;
 }
 
 #btn_salConfirm{
