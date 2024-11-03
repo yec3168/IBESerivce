@@ -144,11 +144,16 @@ const CommentComponent = () => {
         setShowReplyForm((prevState) => ({ ...prevState, [commentId]: !prevState[commentId] }));
     };
 
+     // Function to calculate total comment count including replies
+     const getTotalCommentsCount = () => {
+        return comments.length + comments.reduce((acc, comment) => acc + comment.replies.length, 0);
+    };
+
     return (
         <div id="comment">
             {/* 상단 댓글 수 및 신고 */}
             <div id="comment_info">
-                <span className="comment_top"><FaRegCommentDots /> 댓글 {comments.length}</span>
+                <span className="comment_top"><FaRegCommentDots /> 댓글 {getTotalCommentsCount()}</span>
             </div>
             
             {/* 댓글 입력 폼 */}
