@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './AdminMemberList.css'; // 스타일 시트 import
-import dummyMembers from './DummyMembers'; // 더미 회원 데이터 import
 import AdminMemberListDetails from './modal/AdminMemberListDetails'; // 모달 컴포넌트 import
 
 const AdminMemberList = () => {
+  const [members, setMembers] = useState([]); // 서버에서 가져올 회원 목록 상태
   const [selectedMember, setSelectedMember] = useState(null); // 선택된 회원 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
@@ -11,18 +12,36 @@ const AdminMemberList = () => {
   const [searchType, setSearchType] = useState('이메일'); // 검색 타입 상태
   const membersPerPage = 10; // 페이지당 회원 수
 
-  // 사용자 권한만 필터링
-  const usersOnly = dummyMembers.filter(member => member.role === '사용자');
+  // 서버에서 회원 목록을 가져오는 함수
+  const fetchMembers = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/admin/member/memberlist');
+      setMembers(response.data); // 데이터 상태 업데이트
+    } catch (error) {
+      console.error('Error fetching members:', error);
+      alert('회원 목록을 불러오는 데 실패했습니다.');
+    }
+  };
 
-  // 이메일 또는 닉네임으로 필터링
-  const filteredMembers = usersOnly.filter(member => {
+  // 컴포넌트가 마운트될 때 회원 목록을 가져옵니다.
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const filteredMembers = members
+  .filter(member => 
+    member.role === 'ROLE_CLIENT' || 
+    member.role === 'ROLE_BANNED_CLIENT' || 
+    member.role === 'ROLE_DEFAULT'
+  )
+  .filter(member => {
     const searchValue = searchEmail.toLowerCase();
     if (searchType === '이메일') {
-      return member.email.toLowerCase().includes(searchValue);
+      return member.memberEmail && member.memberEmail.toLowerCase().includes(searchValue);
     } else if (searchType === '닉네임') {
-      return member.nickname.toLowerCase().includes(searchValue);
+      return member.memberNickName && member.memberNickName.toLowerCase().includes(searchValue);
     }
-    return true; // 기본적으로 모든 회원을 보여줌
+    return true;
   });
 
   // 현재 페이지에 해당하는 회원 데이터
@@ -114,19 +133,24 @@ const AdminMemberList = () => {
           <div className="column modifiedDate">수정일</div>
         </div>
         {currentMembers.map((member, index) => (
-          <div
-            key={index}
-            className="member-row clickable" // 클릭 가능한 스타일 추가
-            onClick={() => handleMemberClick(member)} // 클릭 핸들러
-          >
-            <div className="column nickname">{member.nickname}</div>
-            <div className="column email">{member.email}</div>
-            <div className="column role">{member.role}</div>
-            <div className="column phone">{member.phone}</div>
-            <div className="column joinedDate">{member.joinedDate}</div>
-            <div className="column modifiedDate">{member.modifiedDate}</div>
-          </div>
-        ))}
+  <div
+    key={index}
+    className="member-row clickable"
+    onClick={() => handleMemberClick(member)}
+  >
+    <div className="column nickname">{member.memberNickName}</div>
+    <div className="column email">{member.memberEmail}</div>
+    <div className="column role">
+      {member.role === 'ROLE_CLIENT' ? '회원' : 
+       member.role === 'ROLE_DEFAULT' ? '회원(탈퇴)' : 
+       member.role === 'ROLE_BANNED_CLIENT' ? '회원(정지됨)' : ''}
+    </div>
+    <div className="column phone">{member.memberPhone}</div>
+    <div className="column joinedDate">{member.entryDate}</div>
+    <div className="column modifiedDate">{member.UpdateDate}</div>
+  </div>
+))}
+
       </div>
 
       {/* 페이지 네비게이션 */}
@@ -161,7 +185,8 @@ const AdminMemberList = () => {
       {isModalOpen && selectedMember && (
         <AdminMemberListDetails
           member={selectedMember}
-          closeModal={closeModal}
+          onClose={closeModal}
+          fetchMembers={fetchMembers} // 목록 갱신을 위해 전달
         />
       )}
     </div>

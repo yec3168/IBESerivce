@@ -21,7 +21,11 @@ const AdminManagerList = () => {
         // ROLE_ADMIN, ROLE_SERVICE_MANAGER, ROLE_BOARD_MANAGER만 필터링하고 역할명 변경
         const filteredManagers = response.data
           .filter((manager) =>
-            ['ROLE_ADMIN', 'ROLE_SERVICE_MANAGER', 'ROLE_BOARD_MANAGER'].includes(manager.role)
+            [
+              'ROLE_ADMIN',
+              'ROLE_SERVICE_MANAGER',
+              'ROLE_BOARD_MANAGER',
+            ].includes(manager.role)
           )
           .map((manager) => ({
             memberName: manager.memberName,
@@ -46,45 +50,60 @@ const AdminManagerList = () => {
     setIsRoleModalOpen(true);
   };
 
-  const handleRoleSave = (updatedRole) => {
-    // 서버에 역할 변경 요청
-    axios.put(`http://localhost:8080/admin/member/updateRole`, {
-      email: selectedManager.memberEmail,
-      role: updatedRole,
-    })
-    .then(() => {
-      // 역할 업데이트 후 상태를 갱신
-      setManagers((prevManagers) =>
-        prevManagers.map((manager) =>
-          manager.memberEmail === selectedManager.memberEmail
-            ? { ...manager, role: updatedRole }
-            : manager
-        )
-      );
-      alert(`${selectedManager.memberName}의 역할이 변경되었습니다.`);
-      setIsRoleModalOpen(false);
-      setSelectedManager(null);
-    })
-    .catch((error) => {
-      console.error('Error updating role:', error);
-    });
-  };
-
   const handleAddManagerClick = () => {
     setIsAddModalOpen(true);
   };
 
   const handleAddManagerSave = (newManager) => {
-    setManagers((prevManagers) => [...prevManagers, newManager]);
-    setIsAddModalOpen(false);
+    // 새로운 관리자가 추가되었음을 서버에 알린 후 목록을 새로 고침
+    axios
+      .get('http://localhost:8080/admin/member/memberlist')
+      .then((response) => {
+        const filteredManagers = response.data
+          .filter((manager) =>
+            [
+              'ROLE_ADMIN',
+              'ROLE_SERVICE_MANAGER',
+              'ROLE_BOARD_MANAGER',
+            ].includes(manager.role)
+          )
+          .map((manager) => ({
+            memberName: manager.memberName,
+            role:
+              manager.role === 'ROLE_ADMIN'
+                ? '관리자'
+                : manager.role === 'ROLE_SERVICE_MANAGER'
+                ? '문의 담당자'
+                : '게시판 담당자',
+            memberEmail: manager.memberEmail,
+          }));
+        setManagers(filteredManagers); // 최신 목록으로 갱신
+        setIsAddModalOpen(false); // 모달 닫기
+      })
+      .catch((error) => {
+        console.error('Error fetching updated managers:', error);
+      });
   };
 
   const handleDeleteManager = (managerEmail) => {
     const confirmed = window.confirm('정말로 이 관리자를 삭제하시겠습니까?');
     if (confirmed) {
-      setManagers((prevManagers) =>
-        prevManagers.filter((manager) => manager.memberEmail !== managerEmail)
-      );
+      axios
+        .delete(`http://localhost:8080/admin/member/adminlist/deletemanager`, {
+          data: { memberEmail: managerEmail },
+        })
+        .then(() => {
+          setManagers((prevManagers) =>
+            prevManagers.filter(
+              (manager) => manager.memberEmail !== managerEmail
+            )
+          );
+          alert('관리자가 성공적으로 삭제되었습니다.');
+        })
+        .catch((error) => {
+          console.error('Error deleting manager:', error);
+          alert('관리자 삭제 중 오류가 발생했습니다.');
+        });
     }
   };
 
@@ -94,7 +113,6 @@ const AdminManagerList = () => {
   };
 
   const handlePasswordChangeSave = (newPassword) => {
-    alert(`${selectedManager.memberName}의 비밀번호가 변경되었습니다.`);
     setIsPasswordModalOpen(false);
     setSelectedManager(null);
   };
@@ -103,7 +121,9 @@ const AdminManagerList = () => {
     <div className="manager-list-container">
       <h2>관리자 목록</h2>
       <div className="manager-list-box">
-        <button className="add-manager-button" onClick={handleAddManagerClick}>관리자 추가하기</button>
+        <button className="add-manager-button" onClick={handleAddManagerClick}>
+          관리자 추가하기
+        </button>
         <div className="manager-row header">
           <div className="column managerName">이름</div>
           <div className="column managerId">이메일</div>
@@ -118,13 +138,19 @@ const AdminManagerList = () => {
             <div className="column managerId">{manager.memberEmail}</div>
             <div className="column role">{manager.role}</div>
             <div className="column role-change">
-              <button onClick={() => handleRoleChangeClick(manager)}>역할 변경</button>
+              <button onClick={() => handleRoleChangeClick(manager)}>
+                역할 변경
+              </button>
             </div>
             <div className="column actions">
-              <button onClick={() => handlePasswordChangeClick(manager)}>비밀번호 변경</button>
+              <button onClick={() => handlePasswordChangeClick(manager)}>
+                비밀번호 변경
+              </button>
             </div>
             <div className="column actions">
-              <button onClick={() => handleDeleteManager(manager.memberEmail)}>삭제</button>
+              <button onClick={() => handleDeleteManager(manager.memberEmail)}>
+                삭제
+              </button>
             </div>
           </div>
         ))}
@@ -134,7 +160,35 @@ const AdminManagerList = () => {
       <AdminManagerListRole
         isOpen={isRoleModalOpen}
         onClose={() => setIsRoleModalOpen(false)}
-        onSave={handleRoleSave}
+        onSave={(updatedRole) => {
+          // 역할이 변경된 후 목록을 새로 고침
+          axios
+            .get('http://localhost:8080/admin/member/memberlist')
+            .then((response) => {
+              const filteredManagers = response.data
+                .filter((manager) =>
+                  [
+                    'ROLE_ADMIN',
+                    'ROLE_SERVICE_MANAGER',
+                    'ROLE_BOARD_MANAGER',
+                  ].includes(manager.role)
+                )
+                .map((manager) => ({
+                  memberName: manager.memberName,
+                  role:
+                    manager.role === 'ROLE_ADMIN'
+                      ? '관리자'
+                      : manager.role === 'ROLE_SERVICE_MANAGER'
+                      ? '문의 담당자'
+                      : '게시판 담당자',
+                  memberEmail: manager.memberEmail,
+                }));
+              setManagers(filteredManagers);
+            })
+            .catch((error) => {
+              console.error('Error fetching updated managers:', error);
+            });
+        }}
         selectedManager={selectedManager}
         currentRole={newRole}
       />

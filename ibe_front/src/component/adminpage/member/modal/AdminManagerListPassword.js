@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminManagerModal.css';
 
@@ -9,9 +9,17 @@ const AdminManagerListPassword = ({
   selectedManager,
 }) => {
   const [newManagerPassword, setNewManagerPassword] = useState('');
-  const [newManagerConfirmPassword, setNewManagerConfirmPassword] =
-    useState('');
+  const [newManagerConfirmPassword, setNewManagerConfirmPassword] = useState('');
   const [updatePasswordError, setUpdatePasswordError] = useState('');
+
+  // 모달이 열릴 때마다 입력 필드를 초기화
+  useEffect(() => {
+    if (isOpen) {
+      setNewManagerPassword('');
+      setNewManagerConfirmPassword('');
+      setUpdatePasswordError(''); // 에러 메시지도 초기화
+    }
+  }, [isOpen]);
 
   const handlePasswordChangeSave = () => {
     if (newManagerPassword !== newManagerConfirmPassword) {
@@ -26,7 +34,6 @@ const AdminManagerListPassword = ({
         memberPassword: newManagerPassword, // 새 비밀번호
       })
       .then((response) => {
-        // 비밀번호 변경 성공 시 처리
         alert('비밀번호가 성공적으로 변경되었습니다.');
         onSave(newManagerPassword); // 비밀번호 변경 완료 후 상위 컴포넌트에 알림
         onClose(); // 모달 닫기

@@ -9,7 +9,7 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
   const handleBanAccount = async () => {
     try {
       await axios.post('http://localhost:8080/admin/member/memberlist/ban', {
-        email: member.memberEmail, // 이메일을 payload로 전송
+        memberEmail: member.memberEmail, // 이메일을 payload로 전송
       });
       alert('계정이 정지되었습니다.'); // 사용자에게 알림
       fetchMembers(); // 회원 목록 갱신
@@ -24,7 +24,7 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
   const handleCancelBan = async () => {
     try {
       await axios.post('http://localhost:8080/admin/member/memberlist/unban', {
-        email: member.memberEmail, // 이메일을 payload로 전송
+        memberEmail: member.memberEmail, // 이메일을 payload로 전송
       });
       alert('계정이 정지가 취소되었습니다.'); // 사용자에게 알림
       fetchMembers(); // 회원 목록 갱신

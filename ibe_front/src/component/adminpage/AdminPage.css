@@ -101,6 +101,7 @@
   padding: 0.5rem; /* 패딩 추가 */
   background-color: #ffcb8b; /* 상단바 색상 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  margin-bottom: 1rem;
 }
 
 .account-info {
@@ -134,4 +135,3 @@
 /* AdminPage.css */
 
 /* AdminPage.css */
-

@@ -34,12 +34,45 @@
   border-bottom: 2px solid #ddd;
 }
 
+.manager-row.header div {
+  text-align: center;
+}
+
 .manager-row:last-child {
   border-bottom: none;
 }
 
 .column {
-  flex: 1;
+  text-align: center;
+}
+
+.column.managerName {
+  flex: 1; /* 1 */
+  text-align: center;
+}
+
+.column.managerId {
+  flex: 4; /* 4 */
+  text-align: center;
+}
+
+.column.role {
+  flex: 2; /* 1 */
+  text-align: center;
+}
+
+.column.role-change {
+  flex: 2; /* 1 */
+  text-align: center;
+}
+
+.column.actions {
+  flex: 2; /* 2 */
+  text-align: center;
+}
+
+.column.actions:last-child {
+  flex: 1; /* 1 */
   text-align: center;
 }
 
@@ -58,6 +91,7 @@
 .role-change button:hover {
   background-color: #45a049;
 }
+
 .modal {
   position: fixed;
   top: 0;

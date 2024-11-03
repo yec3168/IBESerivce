@@ -3,6 +3,7 @@ package com.project.ibe.repository.member;
 import com.project.ibe.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Integer> {
@@ -10,4 +11,5 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     Optional<Member> findByMemberEmail(String memberEmail);
     boolean existsByMemberPhone (String memberPhone);
     Optional<Member> findByMemberNameAndMemberPhone(String memberName, String memberPhone);
+    Optional<Member> findByMemberId(Long memberId);
 }

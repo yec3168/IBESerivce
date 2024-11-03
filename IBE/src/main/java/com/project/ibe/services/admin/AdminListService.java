@@ -28,8 +28,6 @@ public class AdminListService {
        Member existMember = memberRepository.findByMemberEmail(memberAdminRequest.getMemberEmail())
                .orElseThrow(() -> new BusinessException("Member Not Found", HttpStatus.NOT_FOUND));
         existMember.setRole(memberAdminRequest.getRole());
-<<<<<<< HEAD
-=======
     }
 
     public void changePassword(MemberAdminRequest memberAdminRequest) {
@@ -55,6 +53,5 @@ public class AdminListService {
         Member existMember = memberRepository.findByMemberEmail(singleEmailRequest.getMemberEmail())
                 .orElseThrow(() -> new BusinessException("Member Not Found", HttpStatus.NOT_FOUND));
         memberRepository.delete(existMember);
->>>>>>> Kang
     }
 }

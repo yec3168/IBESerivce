@@ -57,4 +57,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Column(nullable = false)
+    private int productUploadStatus;
 }
