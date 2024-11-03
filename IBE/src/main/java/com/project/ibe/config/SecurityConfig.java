@@ -35,10 +35,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return  http.csrf(csrf -> csrf.disable())
+        return  http
+                .cors()
+                .and()
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/api/members/signin","/api/members/signup").permitAll() //모두에게 요청 허용
-//                        .requestMatchers("/").hasAnyRole("ADMIN","DEFAULT","CLIENT") //로그인시 허용
+                        .requestMatchers("/api/members/points/kakao/ready",
+                        "/api/members/points/kakao/completed").hasAnyRole("ADMIN","DEFAULT","CLIENT") //로그인시 허용
 //                        .requestMatchers("/").hasRole("ADMIN") //ADMIN권한에게만 허용
                         .anyRequest().authenticated()
                 )
@@ -79,7 +83,8 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         log.info("web ignore");
         return (web)->web.ignoring().requestMatchers(
-                "/**"
+//                "/**"
+                "/asd"
         );
     }
 }
