@@ -1,12 +1,11 @@
 package com.project.ibe.controller.admin;
 
+import com.project.ibe.dto.admin.ProductIdRequest;
+import com.project.ibe.dto.admin.SalesNoRequest;
 import com.project.ibe.dto.admin.SalesRequestResponse;
 import com.project.ibe.services.admin.SalesRequestService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,19 @@ public class SalesRequestController {
     @GetMapping
     public List<SalesRequestResponse> getSalesRequestList() {
         return salesRequestService.getSalesRequestList();
+    }
+
+//    @PostMapping("/img")
+//    public List<SalesImgResponse> getSalesImgList(@RequestBody ProductIdRequest productIdRequest) {
+//        return salesRequestService.getSalesImgList(productIdRequest);
+//    }
+    @PostMapping("/yes")
+    public void SalesRequestOK(@RequestBody ProductIdRequest productIdRequest) {
+        salesRequestService.salesRequestYes(productIdRequest);
+    }
+
+    @PostMapping("/no")
+    public void SalesRequestNO(@RequestBody SalesNoRequest salesNoRequest) {
+        salesRequestService.salesRequestNO(salesNoRequest);
     }
 }

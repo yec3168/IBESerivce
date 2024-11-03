@@ -3,6 +3,7 @@ package com.project.ibe.entity.product;
 import com.project.ibe.entity.common.Category;
 import com.project.ibe.entity.common.ProductConditionState;
 import com.project.ibe.entity.common.ProductTradeState;
+import com.project.ibe.entity.common.ProductUploadStatus;
 import com.project.ibe.entity.member.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -59,5 +60,9 @@ public class Product {
     private Member member;
 
     @Column(nullable = false)
-    private int productUploadStatus;
+    @Enumerated(EnumType.STRING)
+    private ProductUploadStatus productUploadStatus;        //판매물품 등록상태 1:등록중 2:등록됨 3:거절됨 4:삭제됨
+
+    @Column
+    private String rejectionText;
 }
