@@ -94,7 +94,7 @@ const ProductListComponent = () => {
           {filteredProducts.map((product) => (
             <Col key={product.id}>
               <Link to={`/products/detail/${product.id}`} className="text-decoration-none text-dark">
-                <Card className="h-100">
+                <Card id="product_card" className="h-100">
                   <Card.Img variant="top" src={product.image} alt={product.title} className="product-image" />
                   <Card.Body>
                     <Card.Title>{product.title}</Card.Title>
@@ -103,7 +103,7 @@ const ProductListComponent = () => {
                       <small className="text-muted">댓글수: {product.comments}</small>
                     </div>
                     <div className="mt-2">
-                      <Badge bg={product.status === "TRADING_AVAILABLE" ? "success" : "secondary"}>
+                      <Badge className="product_badge" bg={product.status === "TRADING_AVAILABLE" ? "success" : "secondary"}>
                         {product.status === "TRADING_AVAILABLE" ? "거래가능" : "거래완료"}
                       </Badge>
                       <Badge
@@ -114,7 +114,7 @@ const ProductListComponent = () => {
                             ? "warning"
                             : "danger"
                         }
-                        className="ms-2"
+                        className="product_badge ms-2"
                       >
                         {product.condition === "HIGH" ? "상" : product.condition === "MEDIUM" ? "중" : "하"}
                       </Badge>
