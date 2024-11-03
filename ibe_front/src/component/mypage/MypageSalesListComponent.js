@@ -12,7 +12,7 @@ const MypageSalesListComponent = () => {
             <Container className="mb-3">
                 <Row className="my-5">
                     <Col xs={1} id="col_salList">
-                        <img src={product_stroller} alt="strollerImg" width="100px" height="100px" />
+                        <img src={product_stroller} alt="strollerImg" id="img_salListThumbnail" />
                     </Col>
                     <Col xs={2} id="col_salList">
                         <div>
@@ -40,7 +40,7 @@ const MypageSalesListComponent = () => {
                 </Row>
                 <Row className="my-5">
                     <Col xs={1} id="col_salList">
-                        <img src={product_stroller} alt="strollerImg" width="100px" height="100px" />
+                        <img src={product_stroller} alt="strollerImg" id="img_salListThumbnail" />
                     </Col>
                     <Col xs={2} id="col_salList">
                         <div>

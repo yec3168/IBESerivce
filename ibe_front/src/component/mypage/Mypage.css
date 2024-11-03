@@ -52,7 +52,7 @@
 
 #h3_purListTitle{
     font-family: "CookieRun-Regular", sans-serif !important;
-    background-color: lightgray;
+    background-color: #f6c3b23f;
     height: 50px;
     width: 90%;
     margin-top: 20px;
@@ -61,10 +61,11 @@
     align-items: center;
 }
 
-#col_purList{
-    padding-bottom: 10px;
-    border-bottom: 2px solid gray;
-    font-family: 'Noto Sans KR', sans-serif;
+#col_purList {
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,18 +73,29 @@
 
 #btn_purConfirm{
     font-family: "CookieRun-Regular", sans-serif !important;
+    font-size: 15px;
 }
 
 #purListTitle {
     font-family: "CookieRun-Regular", sans-serif !important;
-    font-size: large
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+#img_purListThumbnail {
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 5px;
+    margin-left: 20px;
 }
 
 /* MypageSalesListComponent */
 
 #h3_salListTitle{
     font-family: "CookieRun-Regular", sans-serif !important;
-    background-color: lightgray;
+    background-color: #f6c3b23f;;
     height: 50px;
     width: 90%;
     margin-top: 20px;
@@ -93,9 +105,10 @@
 }
 
 #col_salList{
-    padding-bottom: 10px;
-    border-bottom: 2px solid gray;
-    font-family: 'Noto Sans KR', sans-serif;
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,11 +116,22 @@
 
 #btn_salConfirm{
     font-family: "CookieRun-Regular", sans-serif !important;
+    font-size: 15px;
 }
 
 #salListTitle {
     font-family: "CookieRun-Regular", sans-serif !important;
-    font-size: large
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+#img_salListThumbnail {
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 5px;
+    margin-left: 20px;
 }
 
 /* MypagePointChargeComponent */

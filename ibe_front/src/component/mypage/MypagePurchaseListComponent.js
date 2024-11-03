@@ -12,7 +12,7 @@ const MypagePurchaseListComponent = () => {
             <Container className="mb-3">
                 <Row className="my-5">
                     <Col xs={1} id="col_purList">
-                        <img src={product_stroller} alt="strollerImg" width="100px" height="100px" />
+                        <img src={product_stroller} alt="strollerImg" id="img_purListThumbnail" />
                     </Col>
                     <Col xs={2} id="col_purList">
                         <div>
@@ -40,7 +40,7 @@ const MypagePurchaseListComponent = () => {
                 </Row>
                 <Row className="my-5">
                     <Col xs={1} id="col_purList">
-                        <img src={product_stroller} alt="strollerImg" width="100px" height="100px" />
+                        <img src={product_stroller} alt="strollerImg" id="img_purListThumbnail" />
                     </Col>
                     <Col xs={2} id="col_purList">
                         <div>
@@ -51,8 +51,8 @@ const MypagePurchaseListComponent = () => {
                     </Col>
                     <Col xs={4} id="col_purList">
                         <div>
-                            <div>신청 일자:   2024-10-25 19:00</div>
-                            <div>배송 도착:   2024-10-25 19:00</div>
+                            <div>신청일자   2024-10-25 19:00</div>
+                            <div>배송도착   2024-10-25 19:00</div>
                         </div>
                     </Col>
                     <Col xs={2} id="col_purList">
