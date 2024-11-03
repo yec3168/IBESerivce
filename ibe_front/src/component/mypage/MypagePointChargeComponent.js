@@ -2,6 +2,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_icon from '../assets/images/header/coin_purse_icon.png'
 import { kakaoReady } from "../service/PointService";
+import axios from "axios";
 
 const MypagePointChargeComponent = () => {
     const pointAmount = [
@@ -29,7 +30,7 @@ const MypagePointChargeComponent = () => {
     const charge = (price) =>{
         let data ={
             "priceName" : `${price.replace(",", '')/10}포인트`,
-            "totalPrice" : price.replace(",", '')
+            "totalPrice" : parseInt(price.replace(",", ''))
         }
         console.log(data);
         kakaoReady(data).then(
