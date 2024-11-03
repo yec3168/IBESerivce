@@ -1,0 +1,117 @@
+.sales-request-container {
+  padding: 1rem;
+}
+
+.sales-request-list {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.sales-request-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.sales-request-column {
+  display: flex;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.sales-request-header {
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.sales-request-content {
+  padding: 10px;
+  background-color: #f1f1f1;
+  transition: max-height 0.3s ease;
+}
+.column {
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+.column.id {
+  flex: 1;
+}
+
+.column.category {
+  flex: 1;
+}
+
+.column.title {
+  flex: 16;
+}
+
+.column.nickname {
+  flex: 2;
+}
+
+.column.date {
+  flex: 2;
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+.action-button {
+  padding: 8px 12px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+.sales-request-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.sales-request-list {
+  margin-top: 10px;
+}
+
+.sales-request-header {
+  display: flex;
+  background-color: #e9ecef;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.sales-request-item {
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+.sales-request-content {
+  padding: 10px;
+  background-color: #fff;
+}
+
+.column {
+  flex: 1;
+  padding: 5px;
+  text-align: center; /* 가운데 정렬 */
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+.action-button {
+  margin-right: 10px;
+}

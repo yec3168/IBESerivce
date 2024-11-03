@@ -26,7 +26,10 @@ const MainComponent = () => {
       <div>
         <AllProductsComponent />
       </div>
-      {/* 인기 상품 */}
+
+      <div id="div_spacing"/>
+
+      {/* 이런 상품 어떠세요? */}
       <div>
         <TrendingProductsComponent />
       </div>
@@ -36,11 +39,14 @@ const MainComponent = () => {
         <AdComponent image={{ src: banner_trust3 }} />
       </div>
 
-      <div id="div_endOfMainBody" />
-      {/* 인기 상품 */}
+      {/* <div id="div_spacing"/> */}
+
+      {/* 이런 상품 어떠세요? */}
       <div>
         <TrendingProductsComponent />
       </div>
+
+      {/* body와 footer 사이 공간 */}
       <div id="div_endOfMainBody" />
     </>
   );

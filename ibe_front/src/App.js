@@ -10,6 +10,23 @@ import SigninEmailSearchComponent from "./component/sign/SigninEmailSearchCompon
 import SignPasswordSeacchComponent from "./component/sign/SignPasswordSearchComponent";
 
 import AdminPage from './component/adminpage/AdminPage';
+
+import MypageMainPage from './component/layout/pages/mypage/MypageMainPage'
+import ProductCreatePage from './component/layout/pages/ProductCreatePage';
+import ProductListPage from './component/layout/pages/ProductListPage'
+
+import MypagePurchaseListPage from './component/layout/pages/mypage/MypagePurchaseListPage';
+import MypageSalesListPage from './component/layout/pages/mypage/MypageSalesListPage';
+import MypagePointChargePage from './component/layout/pages/mypage/MypagePointChargePage';
+import MypagePointPaybackPage from './component/layout/pages/mypage/MypagePointPaybackPage';
+import MypageInquiryPage from './component/layout/pages/mypage/MypageInquiryPage';
+import MypageInquiryListPage from './component/layout/pages/mypage/MypageInquiryListPage';
+
+
+import MypagePointChargeCompletedComponent from './component/point/MypagePointChargeCompletedComponent';
+import MypagePointChargeResult from './component/point/MypagePointChargeResultComponent';
+import MypageInquiryAnsPage from './component/layout/pages/mypage/MypageInquiryAnsPage';
+
 function App() {
   return (
     <>
@@ -23,11 +40,29 @@ function App() {
         </Routes>
         {/* 상품 Router */}
         <Routes>
+          <Route path="/products" element={<ProductListPage/>} />
           <Route path="/products/detail/:id" element={<ProductDetailPage />} />
+          <Route path="/products/create" element={<ProductCreatePage />} />
         </Routes>
         {/* 관리자페이지 Router */}
         <Routes>
           <Route path="/admin" element={<AdminPage />} />
+        </Routes>
+        {/* 마이페이지 Router */}
+        <Routes>
+          <Route path="/mypage" element={<MypageMainPage/>} />
+          <Route path="/mypage/plist" element={<MypagePurchaseListPage/>} />
+          <Route path="/mypage/slist" element={<MypageSalesListPage/>} />
+          <Route path="/mypage/pntcharge" element={<MypagePointChargePage/>} />
+          <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage/>} />
+          <Route path="/mypage/inquiry" element={<MypageInquiryPage/>} />
+          <Route path="/mypage/inqList" element={<MypageInquiryListPage/>} />
+          <Route path="/mypage/inquiry/answer/:id" element={<MypageInquiryAnsPage/>} />
+        </Routes>
+        {/* 포인트 처리 라우터 */}
+        <Routes>
+          <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent/>} />
+          <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult/>} />
         </Routes>
       </BrowserRouter>
     </>

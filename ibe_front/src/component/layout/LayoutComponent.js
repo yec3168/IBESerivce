@@ -3,11 +3,11 @@ import HeaderComponent from "../header/HeaderComponent";
 
 const LayoutComponent = (props) => {
   return (
-    <div>
+    <>
       <HeaderComponent />
-      <main>{props.children}</main>
+        <main>{props.children}</main>
       <FooterComponent />
-    </div>
+    </>
   );
 };
 

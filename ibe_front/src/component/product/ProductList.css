@@ -1,0 +1,76 @@
+/* 상품 카드 전체 리스트 정렬 */
+#product_list{
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+#product_list #product_container {
+    padding-top: 20px;
+    margin: auto;
+    width: 90%;
+}
+.order_option{
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+  
+  /* 카드 스타일 */
+  #product_card {
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  #product_card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 카드 이미지 스타일 */
+  .card-img-top {
+    height: 280px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  /* 카드 제목 */
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* 조회수와 댓글수 */
+  .card-body .text-muted {
+    font-size: 0.85rem;
+  }
+  
+  /* 거래 상태 및 물품 상태 배지 */
+  .product_badge {
+    font-size: 0.75rem;
+    padding: 0.3em 0.6em;
+  }
+  
+  .badge-success {
+    background-color: #FFD97A;
+  }
+  
+  .badge-secondary {
+    background-color: #6c757d;
+  }
+  
+  .badge-info {
+    background-color: #17a2b8;
+  }
+  
+  .badge-warning {
+    background-color: #ffc107;
+  }
+  
+  #product_price{
+    font-family: "CookieRun-Regular", sans-serif !important;
+  }

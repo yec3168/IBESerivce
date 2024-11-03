@@ -6,10 +6,8 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
 
   const toggleMenu = (menuName) => {
     if (openMenu === menuName) {
-      // 이미 열려 있는 메뉴를 클릭하면 닫음
       setOpenMenu(null);
     } else {
-      // 다른 메뉴를 클릭하면 해당 메뉴를 열음
       setOpenMenu(menuName);
     }
   };
@@ -60,7 +58,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                   }}
                   className={activeMenu === 'deletedPost' ? 'active' : ''}
                 >
-                  - 삭제된 게시글 조회
+                  - 게시글 조회
                 </a>
               </li>
             </ul>
@@ -135,6 +133,33 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                   className={activeMenu === 'inquiryList' ? 'active' : ''}
                 >
                   - 처리된 문의 조회
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className="main-li">
+            <a
+              href="#point"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleMenu('point');
+              }}
+            >
+              포인트 관리
+            </a>
+            <ul className={`sub-menu ${openMenu === 'point' ? 'open' : ''}`}>
+              <li>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleMenuClick('pointExchangeDetails');
+                  }}
+                  className={
+                    activeMenu === 'pointExchangeDetails' ? 'active' : ''
+                  }
+                >
+                  - 포인트 환전 내역
                 </a>
               </li>
             </ul>

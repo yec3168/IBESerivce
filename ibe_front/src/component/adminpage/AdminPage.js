@@ -3,12 +3,13 @@ import './AdminPage.css';
 import AdminSidebar from './AdminSidebar';
 import Header from './Header';
 import AdminMainboard from './AdminMainboard'; // 대시보드 컴포넌트
-import AdminSalesRequest from './AdminSalesRequest';
-import AdminDeletedPost from './AdminDeletedPost';
-import AdminMemberList from './AdminMemberList';
-import AdminManagerList from './AdminManagerList';
-import AdminInquiryOrder from './AdminInquiryOrder';
-import AdminInquiryList from './AdminInquiryList';
+import AdminSalesRequest from './board/AdminSalesRequest';
+import AdminDeletedPost from './board/AdminViewPost';
+import AdminMemberList from './member/AdminMemberList';
+import AdminManagerList from './member/AdminManagerList';
+import AdminInquiryOrder from './inquiry/AdminInquiryOrder';
+import AdminInquiryList from './inquiry/AdminInquiryList';
+import AdminPointExchangeDetails from './point/AdminPointExchangeDetails';
 
 const AdminPage = () => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
@@ -36,9 +37,12 @@ const AdminPage = () => {
       case 'inquiryOrder':
         setCurrentComponent(<AdminInquiryOrder />);
         break;
-      case 'inquiryList':
-        setCurrentComponent(<AdminInquiryList />);
-        break;
+        case 'inquiryList':
+          setCurrentComponent(<AdminInquiryList />);
+          break;
+          case 'pointExchangeDetails':
+            setCurrentComponent(<AdminPointExchangeDetails/>);
+            break;
       default:
         setCurrentComponent(<AdminMainboard />); // 기본 컴포넌트 설정
     }
