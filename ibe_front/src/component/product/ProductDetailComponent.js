@@ -15,7 +15,7 @@ const ProductDetailComponent = () => {
     const [productPoint, setProductPoint] = useState("");
     const [productTradeState, setPrdouctTradeState] = useState("");
     const [productHit, setProductHit] = useState("");
-    //댓글 넣을 위치.
+    const [productCommentCnt, setProductCommentCnt] = useState(0);//댓글 넣을 위치.
     const [productConditionState, setProductConditionState] = useState("");
     const [memberNickName, setMemberNickName] = useState("");
     const [productCreatedAt, setProductCreatedAt] = useState("");
@@ -35,7 +35,9 @@ const ProductDetailComponent = () => {
                     setProductPoint(addComma(data.productPoint));
                     setPrdouctTradeState(data.productTradeState);
                     setProductHit(data.productHit);
-                    //댓글 
+
+                    setProductCommentCnt(data.productCommentCnt);//댓글 
+
                     setProductConditionState(data.productConditionState);
                     if(data.member !== null)
                         setMemberNickName(data.member.memberNickName);
@@ -134,7 +136,9 @@ const ProductDetailComponent = () => {
                                                 </span>
                                             </Col>
                                             <Col>
-                                                <span id="product_cnt">댓글 10</span>
+                                                <span id="product_cnt">댓글 
+                                                {productCommentCnt !== 0 ? " "+productCommentCnt : 0}
+                                                </span>
                                             </Col>
                                         </Row>
                                     </div>

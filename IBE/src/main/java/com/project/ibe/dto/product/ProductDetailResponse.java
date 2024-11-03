@@ -20,7 +20,9 @@ public class ProductDetailResponse {
     private String productTradeState; // 거래상태
     private int productHit; // 조회수
     private String productContent;
-                                //댓글수 예정
+
+    private int productCommentCnt;//댓글수 예정
+
     private String productConditionState;
 
     private Member member; // 판매자 정보 ( 닉네임 만 front에서 바꿈.)

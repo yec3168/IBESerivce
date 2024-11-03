@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import './Mypage.css'
 
 const MypageInquiryComponent = () => {
     const inquiryCategory = ["배송 지연 / 누락", "물품 하자", "포인트 결제", "포인트 환급",  "기타"];
@@ -20,19 +21,16 @@ const MypageInquiryComponent = () => {
                         <Form.Select style={{ borderRadius: '20px', borderColor: '#ddd', padding: '10px 15px' }}>
                             <option value="">문의 유형</option>
                             {inquiryCategory.map((category, index) => (
-                            <option key={index} value={category}>
-                                {category}
-                            </option>
+                                <option key={index} value={category}>
+                                    {category}
+                                </option>
                             ))}
                         </Form.Select>
                     </Form.Group>
                     {/* 문의 제목 */}
                     <Form.Group controlId="inqTitle">
-                        <Form.Control 
-                            type="text" 
-                            placeholder="제목" 
-                            style={{ borderRadius: '20px', borderColor: '#ddd', padding: '10px 15px' }}
-                        />
+                        <Form.Control type="text" placeholder="제목" 
+                            style={{ borderRadius: '20px', borderColor: '#ddd', padding: '10px 15px' }} />
                     </Form.Group>
                     {/* 문의 내용 */}
                     <Form.Group controlId="inqContent" className="mt-3">

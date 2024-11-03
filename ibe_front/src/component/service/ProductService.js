@@ -26,3 +26,7 @@ export const getProductCommentList = (productCommentRequest) => {
         params: { productId } // 쿼리 파라미터로 전달
     });
 };
+
+
+// 대댓글 등록.
+export const saveProductReply = (productReplyReqeust) => axios.post(`${REST_API_URL}/reply`, productReplyReqeust);

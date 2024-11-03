@@ -5,9 +5,11 @@ import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductComment;
 import com.project.ibe.entity.product.ProductImg;
+import com.project.ibe.entity.product.ProductReply;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.product.ProductCommentRepository;
 import com.project.ibe.repository.product.ProductImgRepository;
+import com.project.ibe.repository.product.ProductReplyRepository;
 import com.project.ibe.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +34,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductImgRepository productImgRepository;
     private final ProductCommentRepository productCommentRepository;
+    private final ProductReplyRepository productReplyRepository;
 
     private final FileService fileService;
 
@@ -114,6 +118,9 @@ public class ProductService {
         productDetailResponse.setProductCategory(product.getProductCategory().getDescription());
         productDetailResponse.setProductConditionState(product.getProductConditionState().getDescription());
         productDetailResponse.setProductTradeState(product.getProductTradeState().getDescription());
+
+        productDetailResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size()); // 댓글 수 추가.
+
         productDetailResponse.setImagePath(images);
         return productDetailResponse;
     }
@@ -137,6 +144,7 @@ public class ProductService {
             productListResponse.setProductCategory(product.getProductCategory().getDescription());
             productListResponse.setProductConditionState(product.getProductConditionState().getDescription());
             productListResponse.setProductTradeState(product.getProductTradeState().getDescription());
+            productListResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size());
             productListResponse.setThumbnail(imagePath);
             productListResponseList.add(productListResponse);
         }
@@ -145,6 +153,9 @@ public class ProductService {
 
     }
 
+    /**
+     * 댓글 등록.
+     */
     public ProductCommentResponse createProductComment(ProductCommentRequest productCommentRequest){
         Product product = findProductById(productCommentRequest.getProductId());
 
@@ -162,22 +173,55 @@ public class ProductService {
     /**
      * 댓글 목록 조회.
      */
-    public List<ProductCommentResponse> getProductCommentList(Long productId){
+    public List<ProductCommentResponse> getProductCommentList(Long productId) {
         Product product = findProductById(productId);
-        List<ProductCommentResponse> productCommentResponseList = new ArrayList<>();
 
+        List<ProductCommentResponse> productCommentResponseList = new ArrayList<>();
         List<ProductComment> productCommentList = productCommentRepository.findAllByProduct(product);
-        for(ProductComment productComment : productCommentList){
-            productCommentResponseList.add(modelMapper.map(productComment, ProductCommentResponse.class));
+
+        for (ProductComment productComment : productCommentList) {
+            ProductCommentResponse commentResponse = modelMapper.map(productComment, ProductCommentResponse.class);
+
+            // 대댓글 목록 조회
+            List<ProductReplyResponse> productReplyResponseList = productReplyRepository.findAllByProductComment(productComment).stream()
+                    .map(productReply -> modelMapper.map(productReply, ProductReplyResponse.class))
+                    .collect(Collectors.toList());
+
+            commentResponse.setProductReplyResponseList(productReplyResponseList);
+            productCommentResponseList.add(commentResponse);
         }
 
         return productCommentResponseList;
     }
 
+    /**
+     * 대댓글 등록.
+     */
+    public ProductReplyResponse createProductReply(ProductReplyRequest productReplyRequest){
+        Product product = findProductById(productReplyRequest.getProductId());
+        ProductComment productComment = findProductCommentById(productReplyRequest.getProductCommentId());
+
+        ProductReply productReply = ProductReply.builder()
+                .product(product)
+                .productComment(productComment)
+                //.member()
+                .productReplyContent(productReplyRequest.getProductReplyContent())
+                .build();
+
+        productReplyRepository.save(productReply);
+
+        return modelMapper.map(productReply, ProductReplyResponse.class);
+    }
     private Product findProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(
                         () -> new BusinessException("게시글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
+                );
+    }
+    private ProductComment findProductCommentById(Long id) {
+        return productCommentRepository.findById(id)
+                .orElseThrow(
+                        () -> new BusinessException("댓글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
                 );
     }
 }
