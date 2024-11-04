@@ -117,7 +117,9 @@
 /* 상품 상세정보 */
 #product_content > #product_content_view{
     margin-top: 40px;
-    font-size: 20px;
+    font-size: 15px;
+    margin-bottom: 100px;
+    
 }
 
 /* 제품 경고사항  */
@@ -131,6 +133,44 @@
     margin-bottom: 0;
 }
 
+.btn-custom {
+    background-color: #FFD774;
+    color: #333;
+    font-weight: bold;
+    font-family: "CookieRun-Regular", sans-serif !important;
+    border: 1px solid #FFD774;
+    border-radius: 8px;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover effect for buttons */
+.btn-custom:hover {
+    background-color: #FFC847; /* Slightly darker yellow on hover */
+    border-color: #FFC847;
+    color: #333;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+/* Optional darker outline button */
+.btn-outline-dark {
+    background-color: white;
+    color: #333;
+    font-weight: bold;
+    font-family: "CookieRun-Regular", sans-serif;
+    border: 1px solid #666666;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for outline button */
+.btn-outline-dark:hover {
+    background-color: #e6e6e6; /* Light gray background on hover */
+    border-color: #666666;
+    color: #333;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
 
 #md_recommand{
     margin-top: 100px;
