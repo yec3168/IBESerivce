@@ -10,10 +10,11 @@ import java.time.LocalDateTime;
 
 @Data
 public class AdminInquiryResponse {
+    private Long inquiryId;
     private InquiryCategory inquiryCategory;
     private String inquiryTitle;
     private String inquiryContent;
     private LocalDateTime inquiryCreatedAt;
-    private Long member;
+    private Long memberId;
     private String memberNickName;
 }
