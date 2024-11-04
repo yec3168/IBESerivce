@@ -41,6 +41,7 @@
 
 /* 등록 버튼 스타일 */
 #comment_inputs .submit-btn {
+    font-family: "CookieRun-Regular", sans-serif !important;
     font-size: 14px;
     color: black;
     background-color: #FFD97A;
@@ -91,6 +92,7 @@
 
 /* 답글 버튼 스타일 */
 .reply-btn {
+    font-family: "CookieRun-Regular", sans-serif !important;
     font-size: 13px;
     color: black;
     background-color: #FFD97A;
