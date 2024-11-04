@@ -4,8 +4,9 @@ import './AdminViewPost.css';
 
 const AdminViewPostSale = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchType, setSearchType] = useState('title');
+  const [searchTerm, setSearchTerm] = useState(''); // 검색어 입력 상태
+  const [filteredSearchTerm, setFilteredSearchTerm] = useState(''); // 필터링에 사용할 검색어
+  const [searchCategory, setSearchCategory] = useState('title'); // 검색 카테고리 상태
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedNotes, setSelectedNotes] = useState('');
   const [salesData, setSalesData] = useState([]); // 판매 데이터 상태
@@ -43,17 +44,27 @@ const AdminViewPostSale = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const filteredItems = salesData.filter((item) => {
-    const valueToSearch = item[searchType]?.toLowerCase() || ''; // Null 체크 추가
-    const matchesSearchTerm = valueToSearch.includes(searchTerm.toLowerCase());
+    const matchesSearchTerm = () => {
+      const lowerSearchTerm = filteredSearchTerm.toLowerCase();
+      if (searchCategory === 'title') {
+        return item.productTitle.toLowerCase().includes(lowerSearchTerm);
+      } else if (searchCategory === 'buyer') {
+        return item.memberNickName.toLowerCase().includes(lowerSearchTerm);
+      } else if (searchCategory === 'seller') {
+        return item.memberNickName.toLowerCase().includes(lowerSearchTerm);
+      }
+      return true;
+    };
+
     const matchesStatus = selectedStatus
       ? item.productTradeState === selectedStatus
       : true; // 거래상태 필터
     const matchesNotes = selectedNotes
       ? item.productUploadStatus === selectedNotes
       : true; // 비고 필터
-    return matchesSearchTerm && matchesStatus && matchesNotes;
+    return matchesSearchTerm() && matchesStatus && matchesNotes;
   });
-  
+
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const pageNumbers = [...Array(totalPages)].map((_, i) => i + 1);
@@ -89,35 +100,28 @@ const AdminViewPostSale = () => {
     setCurrentPage(totalPages);
   };
 
+  const handleSearch = () => {
+    setFilteredSearchTerm(searchTerm); // 검색어를 필터링에 사용할 상태로 설정
+    setCurrentPage(1); // 페이지 초기화
+  };
+
   return (
     <div className="sale-list">
       <h3>판매 게시글 목록</h3>
       <div className="search-container">
         <select
-          value={searchType}
-          onChange={(e) => {
-            setSearchType(e.target.value);
-            setSearchTerm(''); // 검색어 초기화
-            setCurrentPage(1); // 페이지 초기화
-          }}
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
         >
           <option value="title">제목</option>
-          <option value="memberNickName">구매자</option>
-          {/* 다른 검색 타입 추가 */}
+          <option value="seller">판매자</option>
+          <option value="buyer">구매자</option>
         </select>
         <input
           type="text"
           placeholder="검색어 입력"
           value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1); // 페이지 초기화
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              setCurrentPage(1); // 페이지 초기화
-            }
-          }}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
           value={selectedStatus}
@@ -143,7 +147,7 @@ const AdminViewPostSale = () => {
           <option value="STATUS_REJECT">반려됨</option>
           <option value="STATUS_DELETE">삭제됨</option>
         </select>
-        <button onClick={() => setCurrentPage(1)}>조회</button>
+        <button onClick={handleSearch}>조회</button>
       </div>
       <div className="sale-table">
         <div className="sale-row header">

@@ -1,64 +1,8 @@
-.sales-request-container {
-  padding: 1rem;
-}
-
-.sales-request-list {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.sales-request-item {
-  border-bottom: 1px solid #ddd;
-}
-
-.sales-request-column {
-  display: flex;
-  padding: 10px;
-  background-color: #f9f9f9;
-}
-
-.sales-request-header {
-  display: flex;
-  padding: 10px;
-  cursor: pointer;
-  background-color: #f9f9f9;
-}
-
-.sales-request-content {
-  padding: 10px;
-  background-color: #f1f1f1;
-  transition: max-height 0.3s ease;
-}
-.column {
-  font-weight: bold;
-  padding-right: 10px;
-}
-
-.column.id {
-  flex: 1;
-}
-
-.column.category {
-  flex: 1;
-}
-
-.column.title {
-  flex: 16;
-}
-
-.column.nickname {
-  flex: 2;
-}
-
-.column.date {
-  flex: 2;
-}
-
-.button-container {
+.admin-sr-button-container {
   margin-top: 10px;
 }
 
-.action-button {
+.admin-sr-action-button {
   padding: 8px 12px;
   margin-right: 10px;
   background-color: #007bff;
@@ -69,49 +13,64 @@
   transition: background-color 0.3s;
 }
 
-.action-button:hover {
+.admin-sr-action-button:hover {
   background-color: #0056b3;
 }
 
-.sales-request-container {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.sales-request-list {
-  margin-top: 10px;
-}
-
-.sales-request-header {
+.admin-sr-sales-request-column {
   display: flex;
-  background-color: #e9ecef;
+  background-color: rgb(202, 202, 202);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-sr-sales-request-container {
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.admin-sr-sales-request-header {
+  display: flex;
   font-weight: bold;
   padding: 10px;
+  cursor: pointer;
+  background-color: #eaeaea;
 }
 
-.sales-request-item {
-  border: 1px solid #ddd;
+.admin-sr-sales-request-item {
+  border: 1px solid #f1f1f1;
   margin-top: 5px;
-  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.sales-request-content {
+.admin-sr-sales-request-content {
   padding: 10px;
-  background-color: #fff;
+  
 }
 
-.column {
-  flex: 1;
-  padding: 5px;
-  text-align: center; /* 가운데 정렬 */
-}
-
-.button-container {
+.admin-sr-button-container {
   margin-top: 10px;
 }
 
-.action-button {
+.admin-sr-action-button {
   margin-right: 10px;
 }
+
+.admin-sr-column {
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+  
+}
+
+.admin-sr-column.admin-sr-id {  flex: 1;}
+
+.admin-sr-column.admin-sr-category {  flex: 2;}
+
+.admin-sr-column.admin-sr-title {  flex: 12;}
+
+.admin-sr-column.admin-sr-nickname {  flex: 2;}
+
+.admin-sr-column.admin-sr-date {  flex: 4;}
