@@ -1,5 +1,5 @@
-import ProductCreateComponent from "../../product/ProductCreateComponent";
-import LayoutComponent from "../LayoutComponent";
+import ProductCreateComponent from "../../../product/ProductCreateComponent";
+import LayoutComponent from "../../LayoutComponent";
 
 const ProductCreatePage = () =>{
     return (

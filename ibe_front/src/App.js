@@ -5,15 +5,15 @@ import SignInComponent from './component/sign/SigninComponent';
 import SignupComponent from './component/sign/SignupComponent';
 
 import MainPage from "./component/layout/pages/MainPage";
-import ProductDetailPage from "./component/layout/pages/ProductDetailPage";
 import SigninEmailSearchComponent from "./component/sign/SigninEmailSearchComponent"; 
 import SignPasswordSeacchComponent from "./component/sign/SignPasswordSearchComponent";
 
 import AdminPage from './component/adminpage/AdminPage';
 
 import MypageMainPage from './component/layout/pages/mypage/MypageMainPage'
-import ProductCreatePage from './component/layout/pages/ProductCreatePage';
-import ProductListPage from './component/layout/pages/ProductListPage'
+import ProductCreatePage from './component/layout/pages/product/ProductCreatePage';
+import ProductListPage from './component/layout/pages/product/ProductListPage'
+import ProductDetailPage from "./component/layout/pages/product/ProductDetailPage";
 
 import MypagePurchaseListPage from './component/layout/pages/mypage/MypagePurchaseListPage';
 import MypageSalesListPage from './component/layout/pages/mypage/MypageSalesListPage';

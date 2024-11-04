@@ -1,5 +1,5 @@
-import ProductListComponent from "../../product/ProductListComponent";
-import LayoutComponent from "../LayoutComponent";
+import ProductListComponent from "../../../product/ProductListComponent";
+import LayoutComponent from "../../LayoutComponent";
 
 const ProductListPage = () => {
     return (
