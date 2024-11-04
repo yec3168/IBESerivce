@@ -96,7 +96,7 @@ const ProductCreateComponent = () => {
             setErrors({});
 
             alert("등록에 성공하였습니다.\n 잠시만 기다려주세요.")
-            // window.location.href ="/products"
+            window.location.href ="/products"
         })
         .catch(errors =>{
             console.log(errors)
