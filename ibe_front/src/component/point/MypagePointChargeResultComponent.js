@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 const MypagePointChargeResult = (Props)=>{
     const location = useLocation();
     console.log(location.state);
-    let name = location.state.partner_user_id;
-    let points = location.state.item_name;
+    let name = location.state.data.partner_user_id;
+    let points = location.state.data.item_name;
     return(
         <>
         {name}님  <br/>
