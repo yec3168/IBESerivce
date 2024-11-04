@@ -75,7 +75,7 @@ const OrderDetailComponent = () => {
                 <Row>
                     <Col md={4} className="text-center">
                         <img
-                            id="product_img"
+                            id="product_order_img"
                             src={getFullImageUrl(productImage)}
                             alt="productImg"
                             className="img-fluid rounded bg-white"
