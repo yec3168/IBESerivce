@@ -4,9 +4,9 @@ import Logo from '../assets/images/sign/ibe_logo1.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
 import {login } from '../service/MemberService';
 import './Sign.css'
-import axios from "axios";
 
 function SignInComponent(){
+
     const [memberEmail, setMemberEmail] = useState("");
     const [memberPassword, setMemberPassword] = useState("");
   
@@ -36,7 +36,8 @@ function SignInComponent(){
                 console.log(response.data.message);
                 let accessToken = response.data.message;
                 localStorage.setItem('accessToken', accessToken);
-                // console.log(`${localStorage.getItem('accessToken')}`)
+                // console.log(`${localStorage.getItem('accessToken')}`)  
+                
                 window.location.href = "/";
                 setIsEmpty(false);
             }   
