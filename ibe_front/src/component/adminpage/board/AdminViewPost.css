@@ -1,3 +1,7 @@
+.admin-vp-h2 {
+  text-align: center;
+}
+
 .admin-vp-post-box {
   border: 1px solid #ffffff;
   margin: 1rem;
@@ -113,10 +117,6 @@
   flex-direction: column;
 }
 
-.admin-vp-button-group {
-  margin-bottom: 20px;
-}
-
 .admin-vp-sale-button,
 .admin-vp-info-button {
   padding: 10px 20px;
@@ -169,7 +169,7 @@
   border-radius: 4px;
   font-size: 14px;
   transition: background-color 0.3s, transform 0.3s;
-  padding: 10px 15px;
+  padding: 9px 15px;
 }
 
 .admin-vp-search-container button:hover {

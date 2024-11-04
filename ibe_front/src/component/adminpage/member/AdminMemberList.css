@@ -1,12 +1,14 @@
-.admin-member-member-list {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+.admin-member-h2 {
+  text-align: center;
+  margin: 1rem;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.admin-member-member-list {
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  margin: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .admin-member-search-container {
@@ -31,8 +33,8 @@ h2 {
 .admin-member-member-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 0.4rem;
+  border-bottom: 1px solid #ddd;
 }
 
 .admin-member-header {
@@ -55,29 +57,30 @@ h2 {
 }
 
 .admin-member-pagination {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center;
 }
 
 .admin-member-pagination button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
   margin: 0 5px;
-  transition: background-color 0.3s;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
 }
 
-.admin-member-pagination button:hover {
-  background-color: #0056b3; /* 버튼 호버 색상 변화 */
+.admin-member-pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
 }
 
 .admin-member-pagination button:disabled {
-  background-color: #ccc; /* 비활성화된 버튼 색상 */
-  cursor: not-allowed; /* 비활성화된 버튼 커서 변경 */
+  background-color: #e9e9e9;
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 /* 모달 스타일 */
@@ -94,6 +97,7 @@ h2 {
 }
 
 .admin-member-modal-content {
+  text-align: center;
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -113,4 +117,36 @@ h2 {
 .admin-member-modal-close {
   cursor: pointer;
   color: #007bff;
+}
+
+.admin-member-search-button {
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s;
+  padding: 9px 15px;
+}
+
+.admin-member-search-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.admin-member-modal-button-group {
+  text-align: center;
+}
+
+.admin-member-modal-action-button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  background-color: #28a745;
+  color: white;
 }

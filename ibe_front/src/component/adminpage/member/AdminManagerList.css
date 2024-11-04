@@ -1,6 +1,20 @@
-.admin-manager-manager-list-container .admin-manager-add-manager-button {
-  margin: 10px 0;
-  padding: 8px 12px;
+.admin-manager-h2 {
+  text-align: center;
+  margin: 1rem;
+}
+
+.admin-manager-add-manager-button-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.admin-manager-add-manager-button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -8,16 +22,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
 }
 
 .admin-manager-manager-list-box {
   width: 100%;
   max-width: 900px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  background-color: #f9f9f9;
+  border: none;
+  padding: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .admin-manager-manager-row {
@@ -71,7 +84,7 @@
   text-align: center;
 }
 
-.admin-manager-column.admin-manager-actions:last-child {
+.admin-manager-column.admin-manager-actions-delete {
   flex: 1;
   text-align: center;
 }
@@ -124,7 +137,16 @@
   width: 100%;
 }
 
-button {
-  padding: 8px 12px;
+.admin-manager-actions-delete button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+  background-color: rgb(168, 0, 0);
+}
+
+.admin-manager-actions-delete button:hover {
+  background-color: red;
 }

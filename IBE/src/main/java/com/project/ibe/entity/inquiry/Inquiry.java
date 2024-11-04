@@ -39,4 +39,7 @@ public class Inquiry {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Column(nullable = false, columnDefinition = "boolean default false") //false: 응답대기, true: 응답완료
+    private boolean inquiry_status;
 }
