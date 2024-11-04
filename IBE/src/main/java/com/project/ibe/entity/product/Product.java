@@ -64,5 +64,5 @@ public class Product {
     private ProductUploadStatus productUploadStatus;        //판매물품 등록상태 1:등록중 2:등록됨 3:거절됨 4:삭제됨
 
     @Column
-    private String rejectionText;
+    private String rejectionText; // 거부사유.
 }
