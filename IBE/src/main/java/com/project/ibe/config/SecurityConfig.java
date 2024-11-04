@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/members/points/kakao/ready",
                         "/api/members/points/kakao/completed").hasAnyRole("ADMIN","DEFAULT","CLIENT") //로그인시 허용
 //                        .requestMatchers("/").hasRole("ADMIN") //ADMIN권한에게만 허용
+                        .requestMatchers("/admin/members/memberlist").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
