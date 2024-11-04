@@ -64,5 +64,5 @@ public class Product {
     private ProductUploadStatus productUploadStatus;        //판매물품 등록상태 WAIT, APPROVE, REJECT, DELETE
 
     @Column
-    private String rejectionText;
+    private String rejectionText; // 거부사유.
 }

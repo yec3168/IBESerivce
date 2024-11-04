@@ -34,7 +34,7 @@ const MainComponent = () => {
 
       {/* 이런 상품 어떠세요? */}
       <div>
-        <TrendingProductsComponent />
+        <TrendingProductsComponent selectedCategory={selectedCategory}/>
       </div>
 
       {/* 광고 컴포넌트 */}

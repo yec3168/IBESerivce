@@ -25,7 +25,7 @@ public class ProductContorller {
      */
     @PostMapping
     public Response saveProduct(@RequestPart("productFormRequest")ProductFormRequest productFormRequest,
-                                @RequestPart("images")List<MultipartFile> images){
+                                @RequestPart("images")List<MultipartFile> images ){
         try{
             return  new Response(ResponseCode.SUCCESS, productService.createProduct(productFormRequest, images), "200");
         }catch (Exception e){

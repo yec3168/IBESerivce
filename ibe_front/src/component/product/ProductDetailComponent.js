@@ -25,6 +25,7 @@ const ProductDetailComponent = () => {
     const {id} = useParams();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getProduct(id)
         .then( (response) =>{
             console.log(response.data)

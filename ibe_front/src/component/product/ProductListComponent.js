@@ -15,6 +15,7 @@ const ProductListComponent = () => {
   const [error, setError] = useState(""); // State for error message
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getProductList()
       .then(response => {
         if (response.data.code === '200') {
