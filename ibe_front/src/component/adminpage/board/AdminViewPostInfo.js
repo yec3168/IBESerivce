@@ -74,9 +74,9 @@ const AdminViewPostInfo = () => {
   }, [selectedNotes]);
 
   return (
-    <div className="info-list">
+    <div className="admin-vp-info-list">
       <h3>정보 게시글 목록</h3>
-      <div className="search-container">
+      <div className="admin-vp-search-container">
         <select
           value={searchType}
           onChange={(e) => {
@@ -108,27 +108,27 @@ const AdminViewPostInfo = () => {
         </select>
         <button onClick={handleSearch}>조회</button>
       </div>
-      <div className="info-table">
-        <div className="info-row header">
-          <div className="column id">ID</div>
-          <div className="column category">카테고리</div>
-          <div className="column title">제목</div>
-          <div className="column author">작성자</div>
-          <div className="column notes">비고</div>
-          <div className="column uploadDate">업로드 날짜</div>
+      <div className="admin-vp-info-table">
+        <div className="admin-vp-info-row header">
+          <div className="admin-vp-column id">ID</div>
+          <div className="admin-vp-column category">카테고리</div>
+          <div className="admin-vp-column title">제목</div>
+          <div className="admin-vp-column author">작성자</div>
+          <div className="admin-vp-column notes">비고</div>
+          <div className="admin-vp-column uploadDate">업로드 날짜</div>
         </div>
         {currentItems.map((item) => (
-          <div className="info-row" key={item.id}>
-            <div className="column id">{item.id}</div>
-            <div className="column category">{item.category}</div> {/* 카테고리 추가 */}
-            <div className="column title">{item.title}</div>
-            <div className="column author">{item.author}</div>
-            <div className="column notes">{item.notes}</div>
-            <div className="column uploadDate">{item.uploadDate}</div>
+          <div className="admin-vp-info-row" key={item.id}>
+            <div className="admin-vp-column id">{item.id}</div>
+            <div className="admin-vp-column category">{item.category}</div>
+            <div className="admin-vp-column title">{item.title}</div>
+            <div className="admin-vp-column author">{item.author}</div>
+            <div className="admin-vp-column notes">{item.notes}</div>
+            <div className="admin-vp-column uploadDate">{item.uploadDate}</div>
           </div>
         ))}
       </div>
-      <div className="pagination">
+      <div className="admin-vp-pagination">
         <button 
           onClick={goToFirstPage} 
           disabled={currentPage === 1}
