@@ -28,6 +28,7 @@ import MypagePointChargeResult from './component/point/MypagePointChargeResultCo
 import MypageInquiryAnsPage from './component/layout/pages/mypage/MypageInquiryAnsPage';
 import OrderDetailPage from './component/layout/pages/order/OrderDetailPage';
 import MypageMemberInfoChangePage from './component/layout/pages/mypage/MypageMemberInfoChangePage';
+import MypagePwChangePage from './component/layout/pages/mypage/MypagePwChangePage';
 
 function App() {
   return (
@@ -63,9 +64,10 @@ function App() {
           <Route path="/mypage/pntcharge" element={<MypagePointChargePage/>} />
           <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage/>} />
           <Route path="/mypage/inquiry" element={<MypageInquiryPage/>} />
-          <Route path="/mypage/inqList" element={<MypageInquiryListPage/>} />
+          <Route path="/mypage/inqlist" element={<MypageInquiryListPage/>} />
           <Route path="/mypage/inquiry/answer/:id" element={<MypageInquiryAnsPage/>} />
           <Route path="/mypage/info" element={<MypageMemberInfoChangePage/>} />
+          <Route path="/mypage/pw" element={<MypagePwChangePage/>} />
         </Routes>
         {/* 포인트 처리 라우터 */}
         <Routes>
