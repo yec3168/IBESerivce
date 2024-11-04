@@ -39,7 +39,7 @@ const TrendingProductsComponent=()=>{
                         .sort((a, b) => (b.views + b.comments) - (a.views + a.comments))  // 인기도 점수 정렬
                         .slice(0, 4);  // 상위 4개만 선택
                     
-                        console.log(trendingProducts)
+                    
                     setProducts(trendingProducts);
 
                 }

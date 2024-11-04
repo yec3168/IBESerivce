@@ -112,7 +112,7 @@ const ProductListComponent = () => {
             <Col key={product.id}>
               <Link to={`/products/detail/${product.id}`} className="text-decoration-none text-dark">
                 <Card id="product_card" className="h-100">
-                  <Card.Img variant="top" src={product.image} alt={product.title} className="product-image" />
+                  <Card.Img variant="top" src={product.image} alt={product.title} className="product-image"  onError={(e) => e.target.src = thumbnaiil} />
                   <Card.Body>
                     <Card.Title>{product.title}</Card.Title>
                     <div className="d-flex justify-content-between">
