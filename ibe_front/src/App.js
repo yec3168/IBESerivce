@@ -27,6 +27,7 @@ import MypagePointChargeCompletedComponent from './component/point/MypagePointCh
 import MypagePointChargeResult from './component/point/MypagePointChargeResultComponent';
 import MypageInquiryAnsPage from './component/layout/pages/mypage/MypageInquiryAnsPage';
 import OrderDetailPage from './component/layout/pages/order/OrderDetailPage';
+import MypageMemberInfoChangePage from './component/layout/pages/mypage/MypageMemberInfoChangePage';
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
           <Route path="/mypage/inquiry" element={<MypageInquiryPage/>} />
           <Route path="/mypage/inqList" element={<MypageInquiryListPage/>} />
           <Route path="/mypage/inquiry/answer/:id" element={<MypageInquiryAnsPage/>} />
+          <Route path="/mypage/info" element={<MypageMemberInfoChangePage/>} />
         </Routes>
         {/* 포인트 처리 라우터 */}
         <Routes>
