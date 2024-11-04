@@ -152,6 +152,25 @@ public class ProductService {
         return productListResponseList;
 
     }
+    /**
+     * 물품 id로 한개만 조회.
+     */
+    public ProductOrderResponse getProductOrderResponse(Long productId){
+        Product product = findProductById(productId);
+        List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
+
+        ProductOrderResponse productOrderResponse = modelMapper.map(product, ProductOrderResponse.class);
+        if(!productImgList.isEmpty()){
+            productOrderResponse.setThumbnail(productImgList.get(0).getImagePath());
+        }
+
+        // 로그인한 사용자의 회원정보를 넣음
+//        productOrderResponse.setMember();
+
+
+        return productOrderResponse;
+    }
+
 
     /**
      * 댓글 등록.

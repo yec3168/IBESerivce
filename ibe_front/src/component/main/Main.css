@@ -25,7 +25,7 @@
 
 #div_endOfMainBody {
   width: 100%;
-  height: 300px;
+  height: 150px;
   background-color: white;
 }
 
@@ -98,6 +98,7 @@
 
 #img_product{
   width: 300px;
+  height: 250px;
   border-radius: 5%;
   margin-top: 30px;
 }
@@ -136,4 +137,44 @@
   height: 300px;
   margin:auto;
   
+}
+
+
+
+
+
+
+/* 이후에 추가 */
+/* 카테고리 아이콘에 마우스 오버 효과 */
+#div_iconCol {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+#div_iconCol:hover {
+  transform: scale(1.1); /* 아이콘 확대 효과 */
+  /* background-color: #f0f4f8; 배경 색상 변화 */
+}
+
+#img_categoryIcons {
+  width: 80%; /* 아이콘 크기 조정 */
+  transition: transform 0.3s ease;
+}
+
+#img_categoryIcons:hover {
+  transform: scale(1.2); /* 아이콘을 조금 더 확대 */
+}
+
+/* 카테고리 이름에 마우스 오버 효과 */
+#div_nameTxt {
+  font-size: 0.9rem;
+  color: #333;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+#div_nameCol:hover #div_nameTxt {
+  color: #007bff; /* 텍스트 색상 변화 */
+  font-weight: bold;
 }

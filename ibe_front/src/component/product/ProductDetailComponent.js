@@ -90,6 +90,7 @@ const ProductDetailComponent = () => {
                                                 id="product_img"
                                                 src={getFullImageUrl(image)}
                                                 alt={`Product Image ${idx + 1}`}
+                                                onError={(e) => e.target.src = thumbnaiil}
                                             />
                                         </Carousel.Item>
                                     ))

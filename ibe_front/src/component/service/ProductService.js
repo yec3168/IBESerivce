@@ -30,3 +30,7 @@ export const getProductCommentList = (productCommentRequest) => {
 
 // 대댓글 등록.
 export const saveProductReply = (productReplyReqeust) => axios.post(`${REST_API_URL}/reply`, productReplyReqeust);
+
+
+// 주문시 필요정보 조회
+export const getProductOrderResponse = (productId) => axios.get(`${REST_API_URL}/orders/${productId}`);
