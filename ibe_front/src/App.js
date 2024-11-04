@@ -29,6 +29,7 @@ import MypageInquiryAnsPage from './component/layout/pages/mypage/MypageInquiryA
 import OrderDetailPage from './component/layout/pages/order/OrderDetailPage';
 import MypageMemberInfoChangePage from './component/layout/pages/mypage/MypageMemberInfoChangePage';
 import MypagePwChangePage from './component/layout/pages/mypage/MypagePwChangePage';
+import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDeleteAccountPage';
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
           <Route path="/mypage/inquiry/answer/:id" element={<MypageInquiryAnsPage/>} />
           <Route path="/mypage/info" element={<MypageMemberInfoChangePage/>} />
           <Route path="/mypage/pw" element={<MypagePwChangePage/>} />
+          <Route path="/mypage/delete" element={<MypageDeleteAccountPage/>} />
         </Routes>
         {/* 포인트 처리 라우터 */}
         <Routes>
