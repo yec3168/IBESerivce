@@ -4,16 +4,13 @@ const MemberInfoCardComponent = () => {
   return (
     <Card id="card_memberInfo">
       <Card.Body>
-        <Card.Title>홍길동 님</Card.Title>
+        <Card.Title>홍길동닉네임 님</Card.Title>
         <Card.Text/> 
         <Card.Text>
-          이름: 홍길동
+          구매 <strong>12 건</strong>
         </Card.Text>
         <Card.Text>
-          이메일: hong@example.com
-        </Card.Text>
-        <Card.Text>
-          포인트: 1,500 P
+          판매 <strong>5 건</strong>
         </Card.Text>
       </Card.Body>
     </Card>
