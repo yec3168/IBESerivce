@@ -39,16 +39,19 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/","/api/members/signin","/api/members/signup/**", "/api/products",
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(
+                                "/**"
+//                                "/","/api/members/signin","/api/members/signup/**", "/api/products",
 //                                "/api/members/mail/**", "/api/members/emailAuth",
-//                                "/api/products/{id}", "/images/**", "/api/products/**").permitAll() //모두에게 요청 허용
-//
-//                        .requestMatchers("/api/members/points/kakao/ready",
-//                        "/api/members/points/kakao/completed").hasAnyRole("ADMIN","DEFAULT","CLIENT") //로그인시 허용
-////                        .requestMatchers("/").hasRole("ADMIN") //ADMIN권한에게만 허용
-//                        .anyRequest().authenticated()
-//                )
+//                                "/api/products/{id}", "/images/**", "/api/products/**"
+                        ).permitAll() //모두에게 요청 허용
+
+                        .requestMatchers("/api/members/points/kakao/ready",
+                        "/api/members/points/kakao/completed").hasAnyRole("ADMIN","DEFAULT","CLIENT") //로그인시 허용
+//                        .requestMatchers("/").hasRole("ADMIN") //ADMIN권한에게만 허용
+                        .anyRequest().authenticated()
+                )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
