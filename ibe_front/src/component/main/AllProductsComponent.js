@@ -60,10 +60,12 @@ const AllProductsComponent = () => {
                         <Link to={`/products/detail/${product.id}`} className="text-decoration-none text-dark" key={product.id}>
                             <div className="col">
                                 {/* 상품 이미지 */}
-                                <div id="div_imgCol">
-                                    <img id="img_product" src={product.image} alt="product" />
-                                </div>
-                                
+                               <img 
+                                    id="img_product" 
+                                    src={product.image} 
+                                    alt="product" 
+                                    onError={(e) => e.target.src = thumbnaiil}  // 이미지 오류 시 기본 썸네일로 대체
+                                />
                                 {/* 상품 상태 */}
                                 <div id="div_proStateCol">
                                     <div id="div_proState">
