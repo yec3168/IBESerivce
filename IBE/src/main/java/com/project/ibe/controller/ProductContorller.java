@@ -99,8 +99,8 @@ public class ProductContorller {
     /**
      * 물품 주문시 필요 정보 조회.
      */
-    @GetMapping("/orders/{id}")
-    public Response getProductOrderResponse(@PathVariable("id")Long productId){
+    @GetMapping("/orders/{productId}")
+    public Response getProductOrderResponse(@PathVariable("productId")Long productId){
         try{
             return new Response(ResponseCode.SUCCESS, productService.getProductOrderResponse(productId), "200");
         } catch (Exception e){

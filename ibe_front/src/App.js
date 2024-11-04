@@ -47,8 +47,9 @@ function App() {
           <Route path="/products/detail/:id" element={<ProductDetailPage />} />
           <Route path="/products/create" element={<ProductCreatePage />} />
         </Routes>
+        {/* 주문 관련 */}
         <Routes>
-          <Route path="/orders/detail/:id" element={<OrderDetailPage/>} />
+          <Route path="/orders/order/:id" element={<OrderDetailPage/>} />
         </Routes>
         {/* 관리자페이지 Router */}
         <Routes>
