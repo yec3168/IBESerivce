@@ -16,21 +16,21 @@ const AdminViewPost = () => {
 
   return (
     <>
-      <h2>게시판 관리 - 게시글 조회</h2>
-        <div className="post-box">
-          <div className="button-group">
-            <button className="sale-button" onClick={handleSaleClick}>
-              판매 게시글 조회
-            </button>
-            <button className="info-button" onClick={handleInfoClick}>
-              정보 게시글 조회
-            </button>
-          </div>
-
-          {/* 기본적으로 Sale 컴포넌트를 출력 */}
-          {view === 'sale' && <AdminViewPostSale />}
-          {view === 'info' && <AdminViewPostInfo />}
+      <h2 className="admin-vp-h2">게시판 관리 - 게시글 조회</h2>
+      <div className="admin-vp-post-box">
+        <div className="admin-vp-button-group">
+          <button className="admin-vp-sale-button" onClick={handleSaleClick}>
+            판매 게시글 조회
+          </button>
+          <button className="admin-vp-info-button" onClick={handleInfoClick}>
+            정보 게시글 조회
+          </button>
         </div>
+
+        {/* 기본적으로 Sale 컴포넌트를 출력 */}
+        {view === 'sale' && <AdminViewPostSale />}
+        {view === 'info' && <AdminViewPostInfo />}
+      </div>
     </>
   );
 };

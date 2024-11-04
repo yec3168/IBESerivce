@@ -106,23 +106,10 @@ const AdminViewPostSale = () => {
   };
 
   return (
-    <div className="sale-list">
+    <>
+
       <h3>판매 게시글 목록</h3>
-      <div className="search-container">
-        <select
-          value={searchCategory}
-          onChange={(e) => setSearchCategory(e.target.value)}
-        >
-          <option value="title">제목</option>
-          <option value="seller">판매자</option>
-          <option value="buyer">구매자</option>
-        </select>
-        <input
-          type="text"
-          placeholder="검색어 입력"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+      <div className="admin-vp-search-container">
         <select
           value={selectedStatus}
           onChange={(e) => {
@@ -141,36 +128,54 @@ const AdminViewPostSale = () => {
             setCurrentPage(1); // 페이지 초기화
           }}
         >
-          <option value="">비고 선택</option>
+          <option value="">등록상태 선택</option>
           <option value="STATUS_WAIT">등록중</option>
           <option value="STATUS_APPROVE">등록됨</option>
           <option value="STATUS_REJECT">반려됨</option>
           <option value="STATUS_DELETE">삭제됨</option>
         </select>
+        <select
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+        >
+          <option value="title">제목</option>
+          <option value="seller">판매자</option>
+          <option value="buyer">구매자</option>
+        </select>
+        <input
+          type="text"
+          placeholder="검색어 입력"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSearch();
+          }}
+        />
         <button onClick={handleSearch}>조회</button>
       </div>
-      <div className="sale-table">
-        <div className="sale-row header">
-          <div className="column id">ID</div>
-          <div className="column title">제목</div>
-          <div className="column status">거래상태</div>
-          <div className="column buyer">구매자</div>
-          <div className="column seller">판매자</div>
-          <div className="column notes">비고</div>
-          <div className="column uploadDate">업로드 날짜</div>
+      <div className="admin-vp-sale-table">
+        <div className="admin-vp-sale-row admin-vp-header">
+          <div className="admin-vp-column id">ID</div>
+          <div className="admin-vp-column title">제목</div>
+          <div className="admin-vp-column status">거래상태</div>
+          <div className="admin-vp-column buyer">구매자</div>
+          <div className="admin-vp-column seller">판매자</div>
+          <div className="admin-vp-column notes">등록상태</div>
+          <div className="admin-vp-column uploadDate">업로드 날짜</div>
         </div>
         {currentItems.map((item) => (
-          <div className="sale-row" key={item.productId}>
-            <div className="column id">{item.productId}</div>
-            <div className="column title">{item.productTitle}</div>
-            <div className="column status">
+          <div className="admin-vp-sale-row" key={item.productId}>
+            <div className="admin-vp-column id">{item.productId}</div>
+            <div className="admin-vp-column title">{item.productTitle}</div>
+            <div className="admin-vp-column status">
               {tradeStateMap[item.productTradeState]}
             </div>
-            <div className="column buyer">{item.memberNickName}</div>
-            <div className="column notes">
+            <div className="admin-vp-column buyer">{item.memberNickName}</div>
+            <div className="admin-vp-column seller">{item.memberNickName}</div>
+            <div className="admin-vp-column notes">
               {statusMap[item.productUploadStatus]}
             </div>
-            <div className="column uploadDate">
+            <div className="admin-vp-column uploadDate">
               {new Date(item.productListedAt).toLocaleString('ko-KR', {
                 year: 'numeric',
                 month: '2-digit',
@@ -183,7 +188,7 @@ const AdminViewPostSale = () => {
           </div>
         ))}
       </div>
-      <div className="pagination">
+      <div className="admin-vp-pagination">
         <button onClick={goToFirstPage} disabled={currentPage === 1}>
           맨 처음
         </button>
@@ -206,7 +211,8 @@ const AdminViewPostSale = () => {
           맨 끝
         </button>
       </div>
-    </div>
+
+    </>
   );
 };
 
