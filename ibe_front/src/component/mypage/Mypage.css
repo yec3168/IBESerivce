@@ -433,3 +433,11 @@
 #button_infoFindAddr:hover {
     background-color: #FFB800; 
 }
+
+/* MypageDeleteAccountComponent */
+
+#button_accDelete{
+    background-color: rgba(255, 75, 75, 0.849);
+    border: none;
+    color: #333; 
+}
