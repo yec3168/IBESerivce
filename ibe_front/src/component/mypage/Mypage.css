@@ -52,7 +52,7 @@
 
 #h3_purListTitle{
     font-family: "CookieRun-Regular", sans-serif !important;
-    background-color: lightgray;
+    background-color: #f6c3b23f;
     height: 50px;
     width: 90%;
     margin-top: 20px;
@@ -61,29 +61,53 @@
     align-items: center;
 }
 
-#col_purList{
-    padding-bottom: 10px;
-    border-bottom: 2px solid gray;
-    font-family: 'Noto Sans KR', sans-serif;
+#col_purList {
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+#col_purListTitle{
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 80px;
+    font-size: 15px;
+    overflow: hidden;
+}
+
 #btn_purConfirm{
     font-family: "CookieRun-Regular", sans-serif !important;
+    font-size: 15px;
 }
 
 #purListTitle {
     font-family: "CookieRun-Regular", sans-serif !important;
-    font-size: large
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+#img_purListThumbnail {
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 5px;
+    margin-left: 20px;
 }
 
 /* MypageSalesListComponent */
 
 #h3_salListTitle{
     font-family: "CookieRun-Regular", sans-serif !important;
-    background-color: lightgray;
+    background-color: #f6c3b23f;;
     height: 50px;
     width: 90%;
     margin-top: 20px;
@@ -93,21 +117,45 @@
 }
 
 #col_salList{
-    padding-bottom: 10px;
-    border-bottom: 2px solid gray;
-    font-family: 'Noto Sans KR', sans-serif;
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+#col_salListTitle{
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 80px;
+    font-size: 15px;
+    overflow: hidden;
+}
+
 #btn_salConfirm{
     font-family: "CookieRun-Regular", sans-serif !important;
+    font-size: 15px;
 }
 
 #salListTitle {
     font-family: "CookieRun-Regular", sans-serif !important;
-    font-size: large
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+#img_salListThumbnail {
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 5px;
+    margin-left: 20px;
 }
 
 /* MypagePointChargeComponent */
@@ -260,3 +308,118 @@
     border: 2px solid lightgray;
     padding: 5px 5px 5px 10px;
 }
+
+/* MypagePlistPagingComponent */
+
+#container_purListPaging {
+    margin-bottom: 1rem;
+}
+
+#col_purListPaging {
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#col_purListPagingTitle{
+    padding: 5px; 
+    border-bottom: 1px solid gray;
+    font-family: 'Noto Sans KR', sans-serif; 
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 50px;
+    font-size: 15px;
+    overflow: hidden;
+}
+
+#purListPagingTitle {
+    font-family: "CookieRun-Regular", sans-serif !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+
+#img_purListPagingThumbnail {
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 5px;
+    margin-left: 20px;
+}
+
+#img_purListPagingBadge{
+    width: 100px;
+}
+
+#btn_purListPagingConfirm {
+    font-family: "CookieRun-Regular", sans-serif !important;
+    font-size: 15px;
+}
+
+#pagination_purListPaging {
+    display: flex; 
+    justify-content: center; 
+    margin-top: 30px;
+    margin-right: 100px;
+    color: black !important;
+}
+
+#pagination_purListPaging .page-link {
+    color: #000; 
+    background-color: #fff;
+    border: 1px solid #ccc; 
+}
+
+#pagination_purListPaging .page-item.active .page-link {
+    z-index: 1;
+    color: #555;
+    font-weight: bold;
+    background-color: #fbf1a2;
+    border-color: #ccc;
+}
+
+#pagination_purListPaging .page-link:focus, 
+#pagination_purListPaging .page-link:hover {
+    color: #000;
+    background-color: #fafafa; 
+    border-color: #ccc;
+}
+
+/* MypageMemberInfoChangeComponent */
+
+#container_info{
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+#h1_infoTitle{
+    margin-bottom: 50px;
+}
+
+#button_infoCheckPw {
+    background-color: #ffe135; 
+    border: none;
+    color: #333; 
+    transition: background-color 0.3s ease; 
+}
+
+#button_infoCheckPw:hover {
+    background-color: #FFB800; 
+}
+
+#button_infoSubmit {
+    background-color: #ffe135; 
+    border: none;
+    color: #333; 
+    transition: background-color 0.3s ease; 
+}
+
+#button_infoSubmit:hover {
+    background-color: #FFB800; 
+}
+

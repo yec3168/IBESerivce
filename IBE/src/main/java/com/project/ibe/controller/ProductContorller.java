@@ -20,6 +20,9 @@ public class ProductContorller {
 
     private final ProductService productService;
 
+    /**
+     * 판매 물품 등록.
+     */
     @PostMapping
     public Response saveProduct(@RequestPart("productFormRequest")ProductFormRequest productFormRequest,
                                 @RequestPart("images")List<MultipartFile> images){
@@ -30,6 +33,9 @@ public class ProductContorller {
         }
     }
 
+    /**
+     * 물품 상세정보 조회
+     */
     @GetMapping("/{id}")
     public Response getProductDetail(@PathVariable("id") Long id){
         try{
@@ -39,6 +45,10 @@ public class ProductContorller {
         }
     }
 
+    /**
+     * 물품 목록 조회.
+     * @return
+     */
     @GetMapping
     public Response getProductList(){
         try{
@@ -47,7 +57,6 @@ public class ProductContorller {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
-
 
     /**
      *  댓글 등록.
@@ -82,6 +91,19 @@ public class ProductContorller {
         try{
             return new Response(ResponseCode.SUCCESS, productService.createProductReply(productReplyRequest), "200");
         }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
+
+    /**
+     * 물품 주문시 필요 정보 조회.
+     */
+    @GetMapping("/orders/{id}")
+    public Response getProductOrderResponse(@PathVariable("id")Long productId){
+        try{
+            return new Response(ResponseCode.SUCCESS, productService.getProductOrderResponse(productId), "200");
+        } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }

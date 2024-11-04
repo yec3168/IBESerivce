@@ -14,35 +14,34 @@ const categoryNames = [
     "전체", "아동 의류", "아동 완구", "아동 도서", "외출 용품", "기타"
 ];
 
-const CategoryIconsComponent = () => {
+const CategoryIconsComponent = ({ setSelectedCategory }) => {
+    const categoryIcons = [icon_all, icon_clothes, icon_toys, icon_books, icon_outdoor, icon_etc];
+    const categoryNames = ["전체", "아동 의류", "아동 완구", "아동 도서", "외출 용품", "기타"];
+
     return (
         <>
-            {/* 배너와 아이콘 사이 공간 */}
             <div id='div_categoryMarginTop'/>
-
-            {/* 카테고리 icon 메뉴바 */}
-            <div class="container" id="div_allIcons">
-                <div class="row row-cols-6" id="div_categoryIcons">
-                    {categoryIcons.map((item, idx) => { 
-                        return (
-                            <div class="col" id="div_iconCol">
-                                <img id="img_categoryIcons" src={item} alt="categoryIcon" />
-                            </div>
-                        )
-                    })}
+            <div className="container" id="div_allIcons">
+                <div className="row row-cols-6" id="div_categoryIcons">
+                    {categoryIcons.map((item, idx) => (
+                        <div 
+                            className="col" 
+                            id="div_iconCol" 
+                            key={idx} 
+                            onClick={() => setSelectedCategory(categoryNames[idx])}
+                        >
+                            <img id="img_categoryIcons" src={item} alt="categoryIcon" />
+                        </div>
+                    ))}
                 </div>
             </div>
-
-            {/* 카테고리 이름 메뉴바 */}
-            <div class="container" id="div_allIcons">
-                <div class="row row-cols-6" id="div_categoryName">
-                    {categoryNames.map((item, idx) => { 
-                        return (
-                            <div class="col" id="div_nameCol">
-                                <div id="div_nameTxt">{item}</div>
-                            </div>
-                        )
-                    })}
+            <div className="container" id="div_allIcons">
+                <div className="row row-cols-6" id="div_categoryName">
+                    {categoryNames.map((item, idx) => (
+                        <div className="col" id="div_nameCol" key={idx}>
+                            <div id="div_nameTxt">{item}</div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

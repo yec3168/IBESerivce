@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import AllProductsComponent from './AllProductsComponent';
 import BannerComponent from './BannerComponent';
 import CategoryIconsComponent from './CategoryIconsComponent';
@@ -7,6 +8,8 @@ import AdComponent from './AdComponent';
 
 import banner_trust3 from '../assets/images/main/banner/banner_trust3.png';
 const MainComponent = () => {
+  const [selectedCategory, setSelectedCategory] = useState("전체");
+
   return (
     <>
       {/* 헤더 픽스된 위치만큼 div 설정 */}
@@ -19,12 +22,12 @@ const MainComponent = () => {
 
       {/* icon 카테고리 메뉴바 */}
       <div id="div_bgCategory">
-        <CategoryIconsComponent />
+        <CategoryIconsComponent setSelectedCategory={setSelectedCategory} />
       </div>
 
       {/* 전체 상품 */}
       <div>
-        <AllProductsComponent />
+      <AllProductsComponent selectedCategory={selectedCategory} />
       </div>
 
       <div id="div_spacing"/>

@@ -64,6 +64,10 @@ const SignupComponent = () => {
                 }
             }
         }) 
+        .catch(error =>{
+            console.log("서버 에러", error);
+            alert("서버 오류입니다. 잠시 후 다시 시도해주세요.")
+        })
     }
 
     /**

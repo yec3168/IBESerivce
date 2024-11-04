@@ -12,9 +12,9 @@ const MypagePurchaseListComponent = () => {
             <Container className="mb-3">
                 <Row className="my-5">
                     <Col xs={1} id="col_purList">
-                        <img src={product_stroller} alt="strollerImg" width="100px" height="100px" />
+                        <img src={product_stroller} alt="strollerImg" id="img_purListThumbnail" />
                     </Col>
-                    <Col xs={2} id="col_purList">
+                    <Col xs={2} id="col_purListTitle">
                         <div>
                             <div id="purListTitle">유모차 팝니다</div>
                             <div>판매자닉네임</div>
@@ -40,9 +40,9 @@ const MypagePurchaseListComponent = () => {
                 </Row>
                 <Row className="my-5">
                     <Col xs={1} id="col_purList">
-                        <img src={product_stroller} alt="strollerImg" width="100px" height="100px" />
+                        <img src={product_stroller} alt="strollerImg" id="img_purListThumbnail" />
                     </Col>
-                    <Col xs={2} id="col_purList">
+                    <Col xs={2} id="col_purListTitle">
                         <div>
                             <div id="purListTitle">유모차 팝니다</div>
                             <div>판매자닉네임</div>

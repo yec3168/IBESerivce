@@ -213,7 +213,7 @@ const ProductDetailComponent = () => {
                     </div>
 
 
-                    <div id="product_waring" className="mx-5">
+                    <div  className="product_waring mx-5">
                         <p className="warning">※ 상품 게시글은 자동으로 사이트에 노출합니다. 노출을 원하지 않으실 경우 고객센터로 문의 바랍니다.</p>
                         <p className="warning">※ 등록한 게시글이 회원의 신고를 받거나 이상거래로 모니터링 될 경우 사기통합조회 DB로 수집/활용될 수 있습니다.</p>
                     </div>
@@ -230,6 +230,11 @@ const ProductDetailComponent = () => {
                 <div className="d-flex justify-content-center " id="commnet_section">
                     <CommentCommponent />
                 </div>
+
+                <div className="product_waring mx-5 mb-5">
+                        <p className="warning">※ 아이-비는 거래에 등록된 게시물의 거래 당사자가 아니며, 판매자가 등록한 상품정보 및 거래 등에 대해서는 책임지지 않습니다.</p>
+                </div>
+
             </div>  
         </>
     );
