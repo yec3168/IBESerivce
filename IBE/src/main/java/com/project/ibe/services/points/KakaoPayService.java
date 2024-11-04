@@ -65,7 +65,7 @@ public class KakaoPayService {
             pay.setMemberName(principal.getMemberName());
             pay.setMemberEmail(principal.getMemberEmail());
             pay.setPayName(name);
-//        pay.setPayPoint(); 승인후 세팅
+            pay.setPayPoint((long)totalPrice/10);
             pay.setPay_price(totalPrice);
             pay.setTax_free_amount(0);
             pay.setPartnerOrderId(responseEntity.getBody().getTid());
@@ -100,8 +100,6 @@ public class KakaoPayService {
         Member member = memberRepository.findByMemberEmail(pay.getMemberEmail()).orElseThrow();
         long points = (long) approveResponse.getAmount().getTotal()/10;
         member.setMemberPoint(member.getMemberPoint()+points);
-
-        pay.setPayPoint(points);
         pay.setPayResult(PayResult.SUCCESS);
         return approveResponse;
     }
