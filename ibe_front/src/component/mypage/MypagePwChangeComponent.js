@@ -29,7 +29,7 @@ const MypagePwChangeComponent = () => {
         }
 
         if (newPassword === currentPassword) {
-            errors.newPasswordError = "비밀번호가 동일합니다."; // 새로운 에러 메시지 추가
+            errors.newPasswordError = "비밀번호가 동일합니다.";
         }
 
         if (newPassword !== confirmPassword) {
