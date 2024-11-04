@@ -2,7 +2,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_icon from '../assets/images/header/coin_purse_icon.png'
 import { kakaoReady } from "../service/PointService";
-import axios from "axios";
+import { useState } from "react";
 
 const MypagePointChargeComponent = () => {
     const pointAmount = [
@@ -26,8 +26,11 @@ const MypagePointChargeComponent = () => {
         { amount: '200,000' },
         { amount: '500,000' }
     ];
+    const [isClicked, setIsClicked] = useState(false);
+
     
     const charge = (price) =>{
+        setIsClicked(true);
         let data ={
             "priceName" : `${price.replace(",", '')/10}포인트`,
             "totalPrice" : parseInt(price.replace(",", ''))
@@ -35,12 +38,17 @@ const MypagePointChargeComponent = () => {
         console.log(data);
         kakaoReady(data).then(
             response =>{
-                console.log(response.data);
-                localStorage.setItem("tid", response.data.tid);
-                window.open(response.data.next_redirect_pc_url,'_blank','width=900,height=1000');
+                if (!isClicked) {
+                    // 로직 실행
+                    console.log(response.data);
+                    localStorage.setItem("tid", response.data.tid);
+                    window.open(response.data.next_redirect_pc_url,'_blank','width=900,height=1000');   
+                  }
+                
             }
             
         )
+        setTimeout(() => setIsClicked(false), 3000); // 3000ms 후에 다시 클릭 가능하게 함
     }
 
     return(
