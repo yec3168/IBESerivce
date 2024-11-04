@@ -163,6 +163,11 @@ public class ProductService {
         if(!productImgList.isEmpty()){
             productOrderResponse.setThumbnail(productImgList.get(0).getImagePath());
         }
+
+        // 로그인한 사용자의 회원정보를 넣음
+//        productOrderResponse.setMember();
+
+
         return productOrderResponse;
     }
 

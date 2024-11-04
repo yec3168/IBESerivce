@@ -49,7 +49,7 @@
   background: #ffcb6a; /* 선택된 메뉴 항목 색상 */
   color: #d27a00; /* 텍스트 색상 */
 }
-z .sub-menu a.active {
+.sub-menu a.active {
   background: #ffcb6a; /* 선택된 서브메뉴 항목 색상 */
   color: #d27a00; /* 텍스트 색상 */
 }

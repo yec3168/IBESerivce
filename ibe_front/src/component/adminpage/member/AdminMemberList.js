@@ -29,28 +29,25 @@ const AdminMemberList = () => {
   }, []);
 
   const filteredMembers = members
-  .filter(member => 
-    member.role === 'ROLE_CLIENT' || 
-    member.role === 'ROLE_BANNED_CLIENT' || 
-    member.role === 'ROLE_DEFAULT'
-  )
-  .filter(member => {
-    const searchValue = searchEmail.toLowerCase();
-    if (searchType === '이메일') {
-      return member.memberEmail && member.memberEmail.toLowerCase().includes(searchValue);
-    } else if (searchType === '닉네임') {
-      return member.memberNickName && member.memberNickName.toLowerCase().includes(searchValue);
-    }
-    return true;
-  });
+    .filter(member => 
+      member.role === 'ROLE_CLIENT' || 
+      member.role === 'ROLE_BANNED_CLIENT' || 
+      member.role === 'ROLE_DEFAULT'
+    )
+    .filter(member => {
+      const searchValue = searchEmail.toLowerCase();
+      if (searchType === '이메일') {
+        return member.memberEmail && member.memberEmail.toLowerCase().includes(searchValue);
+      } else if (searchType === '닉네임') {
+        return member.memberNickName && member.memberNickName.toLowerCase().includes(searchValue);
+      }
+      return true;
+    });
 
   // 현재 페이지에 해당하는 회원 데이터
   const indexOfLastMember = currentPage * membersPerPage;
   const indexOfFirstMember = indexOfLastMember - membersPerPage;
-  const currentMembers = filteredMembers.slice(
-    indexOfFirstMember,
-    indexOfLastMember
-  );
+  const currentMembers = filteredMembers.slice(indexOfFirstMember, indexOfLastMember);
 
   // 페이지 변경 핸들러
   const handlePageChange = (pageNumber) => {
@@ -103,11 +100,11 @@ const AdminMemberList = () => {
   };
 
   return (
-    <div className="member-list">
+    <div className="admin-member-member-list">
       <h2>회원 목록</h2>
 
       {/* 검색 옵션 및 검색 입력 필드 추가 */}
-      <div className="search-container">
+      <div className="admin-member-search-container">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)} // 검색 타입 업데이트
@@ -123,38 +120,37 @@ const AdminMemberList = () => {
         />
       </div>
 
-      <div className="member-table">
-        <div className="member-row header">
-          <div className="column nickname">닉네임</div>
-          <div className="column email">이메일</div>
-          <div className="column role">권한</div>
-          <div className="column phone">전화번호</div>
-          <div className="column joinedDate">가입일</div>
-          <div className="column modifiedDate">수정일</div>
+      <div className="admin-member-member-table">
+        <div className="admin-member-member-row admin-member-header">
+          <div className="admin-member-column admin-member-nickname">닉네임</div>
+          <div className="admin-member-column admin-member-email">이메일</div>
+          <div className="admin-member-column admin-member-role">권한</div>
+          <div className="admin-member-column admin-member-phone">전화번호</div>
+          <div className="admin-member-column admin-member-joinedDate">가입일</div>
+          <div className="admin-member-column admin-member-modifiedDate">수정일</div>
         </div>
         {currentMembers.map((member, index) => (
-  <div
-    key={index}
-    className="member-row clickable"
-    onClick={() => handleMemberClick(member)}
-  >
-    <div className="column nickname">{member.memberNickName}</div>
-    <div className="column email">{member.memberEmail}</div>
-    <div className="column role">
-      {member.role === 'ROLE_CLIENT' ? '회원' : 
-       member.role === 'ROLE_DEFAULT' ? '회원(탈퇴)' : 
-       member.role === 'ROLE_BANNED_CLIENT' ? '회원(정지됨)' : ''}
-    </div>
-    <div className="column phone">{member.memberPhone}</div>
-    <div className="column joinedDate">{member.entryDate}</div>
-    <div className="column modifiedDate">{member.UpdateDate}</div>
-  </div>
-))}
-
+          <div
+            key={index}
+            className="admin-member-member-row admin-member-clickable"
+            onClick={() => handleMemberClick(member)}
+          >
+            <div className="admin-member-column admin-member-nickname">{member.memberNickName}</div>
+            <div className="admin-member-column admin-member-email">{member.memberEmail}</div>
+            <div className="admin-member-column admin-member-role">
+              {member.role === 'ROLE_CLIENT' ? '회원' : 
+               member.role === 'ROLE_DEFAULT' ? '회원(탈퇴)' : 
+               member.role === 'ROLE_BANNED_CLIENT' ? '회원(정지됨)' : ''}
+            </div>
+            <div className="admin-member-column admin-member-phone">{member.memberPhone}</div>
+            <div className="admin-member-column admin-member-joinedDate">{member.entryDate}</div>
+            <div className="admin-member-column admin-member-modifiedDate">{member.UpdateDate}</div>
+          </div>
+        ))}
       </div>
 
       {/* 페이지 네비게이션 */}
-      <div className="pagination">
+      <div className="admin-member-pagination">
         <button onClick={handleFirstPage} disabled={currentPage === 1}>
           처음 페이지
         </button>

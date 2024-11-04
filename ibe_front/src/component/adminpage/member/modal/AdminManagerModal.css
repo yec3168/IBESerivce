@@ -1,7 +1,7 @@
 /* AdminManagerModal.css */
 
 /* 모달 오버레이 스타일 */
-.modal {
+.admin-manager-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +15,7 @@
 }
 
 /* 모달 콘텐츠 스타일 */
-.modal-content {
+.admin-manager-modal-content {
   background-color: white;
   padding: 20px;
   border-radius: 5px;
@@ -25,20 +25,20 @@
 }
 
 /* 제목 스타일 */
-.modal-content h3 {
+.admin-manager-modal-content h3 {
   margin: 0;
   margin-bottom: 15px;
 }
 
 /* 레이블 스타일 */
-.modal-content label {
+.admin-manager-modal-content label {
   display: block;
   margin-bottom: 5px;
 }
 
 /* 입력 필드 스타일 */
-.modal-content input,
-.modal-content select {
+.admin-manager-modal-content input,
+.admin-manager-modal-content select {
   width: 100%;
   padding: 8px;
   margin-bottom: 15px;
@@ -47,12 +47,12 @@
 }
 
 /* 버튼 스타일 */
-.modal-actions {
+.admin-manager-modal-actions {
   display: flex;
   justify-content: flex-end;
 }
 
-.modal-actions button {
+.admin-manager-modal-actions button {
   margin-left: 10px;
   padding: 10px 15px;
   border: none;
@@ -60,12 +60,12 @@
   cursor: pointer;
 }
 
-.modal-actions button:hover {
+.admin-manager-modal-actions button:hover {
   background-color: #f0f0f0; /* 버튼 호버 스타일 */
 }
 
 /* 오류 메시지 스타일 */
-.error {
+.admin-manager-modal-error {
   color: red;
   font-size: 14px;
   margin-top: -10px;

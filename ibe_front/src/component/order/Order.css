@@ -1,21 +1,36 @@
+#content_title{
+    font-family: "CookieRun-Regular", sans-serif !important;
+}
+
+.product_info{
+    height: 200px;
+}
+.product_info #product_img{
+    height: 200px;
+    width: 200px;
+    border-radius: 12px;
+}
+
 .order-detail {
     padding: 20px;
     margin-top: 150px;
     margin-bottom: 150px;
 }
 
-.order-info {
+.user-info {
+    width: 40%;
     margin-bottom: 20px;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    /* border: 1px solid #ccc; */
+    border-bottom: 1px solid #666666;
+    /* border-radius: 5px; */
+    /* background-color: #f9f9f9; */
 }
 
-.order-info h4 {
+.user-info h4 {
     margin-bottom: 10px;
 }
 
-.order-info p {
+.user-info p {
     margin: 5px 0;
 }

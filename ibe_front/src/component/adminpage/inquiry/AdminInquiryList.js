@@ -63,33 +63,33 @@ const AdminInquiryList = () => {
   return (
     <>
       <h2>처리된 문의 목록</h2>
-      <div className="inquiry-list-container">
-        <div className="inquiry-list-column">
-          <div className="column id">ID</div>
-          <div className="column category">카테고리</div>
-          <div className="column title">제목</div>
-          <div className="column nickname">닉네임</div>
-          <div className="column date">신청일</div>
-          <div className="column responder">답변자</div>
-          <div className="column responseDate">답변일</div>
+      <div className="admin-il-inquiry-list-container">
+        <div className="admin-il-inquiry-list-column">
+          <div className="admin-il-column admin-il-id">ID</div>
+          <div className="admin-il-column admin-il-category">카테고리</div>
+          <div className="admin-il-column admin-il-title">제목</div>
+          <div className="admin-il-column admin-il-nickname">닉네임</div>
+          <div className="admin-il-column admin-il-date">신청일</div>
+          <div className="admin-il-column admin-il-responder">답변자</div>
+          <div className="admin-il-column admin-il-responseDate">답변일</div>
         </div>
-        <div className="inquiry-list">
+        <div className="admin-il-inquiry-list">
           {sortedInquiries.map((inquiry) => (
-            <div key={inquiry.id} className="inquiry-list-item">
+            <div key={inquiry.id} className="admin-il-inquiry-list-item">
               <div
-                className="inquiry-list-header"
+                className="admin-il-inquiry-list-header"
                 onClick={() => toggleExpand(inquiry.id)}
               >
-                <div className="column id">{inquiry.id}</div>
-                <div className="column category">{inquiry.category}</div>
-                <div className="column title">{inquiry.title}</div>
-                <div className="column nickname">{inquiry.nickname}</div>
-                <div className="column date">{inquiry.date}</div>
-                <div className="column responder">{inquiry.responder}</div>
-                <div className="column responseDate">{inquiry.responseDate}</div>
+                <div className="admin-il-column admin-il-id">{inquiry.id}</div>
+                <div className="admin-il-column admin-il-category">{inquiry.category}</div>
+                <div className="admin-il-column admin-il-title">{inquiry.title}</div>
+                <div className="admin-il-column admin-il-nickname">{inquiry.nickname}</div>
+                <div className="admin-il-column admin-il-date">{inquiry.date}</div>
+                <div className="admin-il-column admin-il-responder">{inquiry.responder}</div>
+                <div className="admin-il-column admin-il-responseDate">{inquiry.responseDate}</div>
               </div>
               {expandedId === inquiry.id && (
-                <div className="inquiry-list-content">
+                <div className="admin-il-inquiry-list-content">
                   <p>{inquiry.content}</p>
                   <p><strong>답변 내용:</strong> {inquiry.responseContent}</p>
                 </div>

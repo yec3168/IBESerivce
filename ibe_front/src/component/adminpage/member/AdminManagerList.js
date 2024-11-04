@@ -14,11 +14,9 @@ const AdminManagerList = () => {
   const [newRole, setNewRole] = useState('');
 
   useEffect(() => {
-    // 관리자 목록을 가져오는 GET 요청
     axios
       .get('http://localhost:8080/admin/member/memberlist')
       .then((response) => {
-        // ROLE_ADMIN, ROLE_SERVICE_MANAGER, ROLE_BOARD_MANAGER만 필터링하고 역할명 변경
         const filteredManagers = response.data
           .filter((manager) =>
             [
@@ -55,7 +53,6 @@ const AdminManagerList = () => {
   };
 
   const handleAddManagerSave = (newManager) => {
-    // 새로운 관리자가 추가되었음을 서버에 알린 후 목록을 새로 고침
     axios
       .get('http://localhost:8080/admin/member/memberlist')
       .then((response) => {
@@ -77,8 +74,8 @@ const AdminManagerList = () => {
                 : '게시판 담당자',
             memberEmail: manager.memberEmail,
           }));
-        setManagers(filteredManagers); // 최신 목록으로 갱신
-        setIsAddModalOpen(false); // 모달 닫기
+        setManagers(filteredManagers);
+        setIsAddModalOpen(false);
       })
       .catch((error) => {
         console.error('Error fetching updated managers:', error);
@@ -118,36 +115,56 @@ const AdminManagerList = () => {
   };
 
   return (
-    <div className="manager-list-container">
+    <div className="admin-manager-manager-list-container">
       <h2>관리자 목록</h2>
-      <div className="manager-list-box">
-        <button className="add-manager-button" onClick={handleAddManagerClick}>
+      <div className="admin-manager-manager-list-box">
+        <button
+          className="admin-manager-add-manager-button"
+          onClick={handleAddManagerClick}
+        >
           관리자 추가하기
         </button>
-        <div className="manager-row header">
-          <div className="column managerName">이름</div>
-          <div className="column managerId">이메일</div>
-          <div className="column role">역할</div>
-          <div className="column role-change">역할 변경</div>
-          <div className="column actions">비밀번호 변경</div>
-          <div className="column actions">삭제</div>
+        <div className="admin-manager-manager-row admin-manager-header">
+          <div className="admin-manager-column admin-manager-managerName">
+            이름
+          </div>
+          <div className="admin-manager-column admin-manager-managerId">
+            이메일
+          </div>
+          <div className="admin-manager-column admin-manager-role">역할</div>
+          <div className="admin-manager-column admin-manager-role-change">
+            역할 변경
+          </div>
+          <div className="admin-manager-column admin-manager-actions">
+            비밀번호 변경
+          </div>
+          <div className="admin-manager-column admin-manager-actions">삭제</div>
         </div>
         {managers.map((manager) => (
-          <div key={manager.memberEmail} className="manager-row">
-            <div className="column managerName">{manager.memberName}</div>
-            <div className="column managerId">{manager.memberEmail}</div>
-            <div className="column role">{manager.role}</div>
-            <div className="column role-change">
+          <div
+            key={manager.memberEmail}
+            className="admin-manager-manager-row"
+          >
+            <div className="admin-manager-column admin-manager-managerName">
+              {manager.memberName}
+            </div>
+            <div className="admin-manager-column admin-manager-managerId">
+              {manager.memberEmail}
+            </div>
+            <div className="admin-manager-column admin-manager-role">
+              {manager.role}
+            </div>
+            <div className="admin-manager-column admin-manager-role-change">
               <button onClick={() => handleRoleChangeClick(manager)}>
                 역할 변경
               </button>
             </div>
-            <div className="column actions">
+            <div className="admin-manager-column admin-manager-actions">
               <button onClick={() => handlePasswordChangeClick(manager)}>
                 비밀번호 변경
               </button>
             </div>
-            <div className="column actions">
+            <div className="admin-manager-column admin-manager-actions">
               <button onClick={() => handleDeleteManager(manager.memberEmail)}>
                 삭제
               </button>
@@ -161,7 +178,6 @@ const AdminManagerList = () => {
         isOpen={isRoleModalOpen}
         onClose={() => setIsRoleModalOpen(false)}
         onSave={(updatedRole) => {
-          // 역할이 변경된 후 목록을 새로 고침
           axios
             .get('http://localhost:8080/admin/member/memberlist')
             .then((response) => {
@@ -198,7 +214,7 @@ const AdminManagerList = () => {
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onSave={handleAddManagerSave}
-        existingManagers={managers.map((manager) => manager.memberEmail)} // 이메일 목록 전달
+        existingManagers={managers.map((manager) => manager.memberEmail)}
       />
 
       {/* 비밀번호 변경 모달 */}

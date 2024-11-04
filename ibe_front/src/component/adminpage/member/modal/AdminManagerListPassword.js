@@ -47,8 +47,8 @@ const AdminManagerListPassword = ({
   if (!isOpen) return null; // 모달이 열리지 않으면 null 반환
 
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className="admin-manager-modal">
+      <div className="admin-manager-modal-content">
         <h3>{selectedManager.memberName} 비밀번호 변경</h3>
         <label>새 비밀번호 입력:</label>
         <input
@@ -64,8 +64,8 @@ const AdminManagerListPassword = ({
           onChange={(e) => setNewManagerConfirmPassword(e.target.value)}
           placeholder="비밀번호를 다시 입력하세요"
         />
-        {updatePasswordError && <p className="error">{updatePasswordError}</p>}
-        <div className="modal-actions">
+        {updatePasswordError && <p className="admin-manager-modal-error">{updatePasswordError}</p>}
+        <div className="admin-manager-modal-actions">
           <button onClick={handlePasswordChangeSave}>변경</button>
           <button onClick={onClose}>취소</button>
         </div>

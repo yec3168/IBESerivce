@@ -33,8 +33,8 @@ const AdminManagerListRole = ({
   if (!isOpen) return null; // 모달이 열리지 않으면 null 반환
 
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className="admin-manager-modal">
+      <div className="admin-manager-modal-content">
         <h3>
           {selectedManager?.memberName} 역할 변경 (현재: {currentRole})
         </h3>
@@ -44,7 +44,7 @@ const AdminManagerListRole = ({
           <option value="ROLE_SERVICE_MANAGER">문의 담당자</option>
           <option value="ROLE_BOARD_MANAGER">게시판 담당자</option>
         </select>
-        <div className="modal-actions">
+        <div className="admin-manager-modal-actions">
           <button onClick={handleRoleChangeSave}>변경</button>
           <button onClick={onClose}>취소</button>
         </div>

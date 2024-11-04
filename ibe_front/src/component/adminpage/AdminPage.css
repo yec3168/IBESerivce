@@ -1,11 +1,9 @@
-/* src/AdminPage.css */
-
-.admin-container {
+.admin-main-container {
   display: flex; /* Flexbox를 사용하여 나란히 배치 */
   height: 100vh; /* 전체 화면 높이 */
 }
 
-.content {
+.admin-main-content {
   margin-left: 250px; /* 사이드바 너비만큼 여백 추가 */
   background: #fffaed;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -13,7 +11,7 @@
   overflow-y: auto; /* 콘텐츠 영역에서도 스크롤 가능 */
 }
 
-.admin-button {
+.admin-main-button {
   padding: 0.5rem 1rem;
   background: #fffaed; /* 버튼 색상 */
   margin: 0.5rem;
@@ -25,22 +23,22 @@
   font-weight: bold;
 }
 
-.admin-button:hover {
+.admin-main-button:hover {
   background: #fee019; /* 버튼 호버 색상 */
 }
 
-.stats-container {
+.admin-main-stats-container {
   display: flex;
   justify-content: space-between; /* 좌우 공간을 균등하게 배분 */
 }
 
-.stat-item {
+.admin-main-stat-item {
   text-align: center; /* 중앙 정렬 */
   color: #333; /* 텍스트 색상 */
   font-weight: bold; /* 강조 */
 }
 
-.stat-box {
+.admin-main-stat-box {
   flex: 1; /* 각 박스가 균등하게 배치 */
   margin: 0 1rem; /* 좌우 여백 */
   padding: 1rem;
@@ -49,53 +47,53 @@
   border-bottom: 4px solid #d27a00; /* 하단 테두리 색상 */
 }
 
-.box-1 {
+.admin-main-box-1 {
   border-bottom: 4px solid #788eff; /* 하단 테두리 색상 */
   margin-right: 0.5rem;
 }
 
-.box-2 {
+.admin-main-box-2 {
   border-bottom: 4px solid #ffd063; /* 하단 테두리 색상 */
   margin-right: 0.5rem;
 }
 
-.box-3 {
+.admin-main-box-3 {
   border-bottom: 4px solid #78ff91; /* 하단 테두리 색상 */
   margin-right: 0.5rem;
 }
 
-.box-4 {
+.admin-main-box-4 {
   border-bottom: 4px solid #ff8888; /* 하단 테두리 색상 */
 }
 
-.dashboard-container {
+.admin-main-dashboard-container {
   display: flex; /* Flexbox를 사용하여 나란히 배치 */
   justify-content: space-between; /* 두 그래프 사이 공간 분배 */
   margin: 1rem; /* 상하 여백 */
 }
 
-.chart-box {
+.admin-main-chart-box {
   flex: 1; /* 기본적으로 균등하게 배치 */
   padding: 1rem; /* 내부 여백 */
   background: #fff; /* 배경색 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
-.bar-chart {
+.admin-main-bar-chart {
   flex: 2; /* 막대 그래프 박스의 너비를 늘림 */
   margin-right: 1rem;
 }
 
-.pie-chart {
+.admin-main-pie-chart {
   flex: 1; /* 원형 그래프 박스의 기본 너비 */
 }
 
-.chart-box h3 {
+.admin-main-chart-box h3 {
   text-align: center; /* 제목 중앙 정렬 */
   color: #333; /* 제목 색상 */
 }
 
-.admin-header {
+.admin-main-header {
   display: flex;
   justify-content: flex-end; /* 오른쪽 정렬 */
   padding: 0.5rem; /* 패딩 추가 */
@@ -104,23 +102,23 @@
   margin-bottom: 1rem;
 }
 
-.account-info {
+.admin-main-account-info {
   display: flex;
   align-items: center; /* 수직 중앙 정렬 */
 }
 
-.content-h2 {
+.admin-main-content-h2 {
   margin: 1rem; /* 좌우 여백 */
 }
 
-.stats-summary {
+.admin-main-stats-summary {
   background: #fff; /* 배경색 */
   margin: 1rem; /* 좌우 여백 */
   padding: 1rem; /* 여백 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
-.summary-item {
+.admin-main-summary-item {
   display: flex; /* Flexbox 사용 */
   justify-content: space-between; /* 좌우 공간을 균등하게 분배 */
   margin: 1rem; /* 좌우 여백 */ /* 각 항목 간의 여백 */
@@ -128,10 +126,6 @@
   color: #333; /* 텍스트 색상 */
 }
 
-.content-h2 {
+.admin-main-content-h2 {
   margin: 1rem; /* 좌우 여백 */
 }
-
-/* AdminPage.css */
-
-/* AdminPage.css */
