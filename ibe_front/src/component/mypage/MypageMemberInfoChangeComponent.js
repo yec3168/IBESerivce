@@ -1,5 +1,6 @@
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useState } from "react";
+import DaumPostcode from 'react-daum-postcode';
 
 const MemberInfoChangeComponent = () => {
     const [password, setPassword] = useState('');
@@ -66,19 +67,34 @@ const MemberInfoChangeComponent = () => {
         }
     };
 
-    // Form submit
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        // validation
+     // 이름, 닉네임 정규식 확인
+     const validateNameAndNickname = () => {
         const newErrors = {};
-        if (!name) newErrors.name = "성명을 입력하세요.";
-        if (!nickname) newErrors.nickname = "닉네임을 입력하세요.";
+        const nameRegex = /^[가-힣]{2,11}$/; // 한글 2~11자
+        const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,11}$/; // 한글, 영문, 숫자 2~11자
+
+        if (!nameRegex.test(name)) {
+            newErrors.name = "이름은 한글 2~11자로 입력해 주세요.";
+        }
+        if (!nicknameRegex.test(nickname)) {
+            newErrors.nickname = "닉네임은 한글, 영문, 숫자 포함 2~11자로 입력해 주세요.";
+        }
+        return newErrors;
+    };
+
+     // Form submit
+     const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Validation
+        const newErrors = {
+            ...validateNameAndNickname(),
+        };
         if (!phoneNumber) newErrors.phoneNumber = "전화번호를 입력하세요.";
         if (!accountNumber) newErrors.accountNumber = "계좌 번호를 입력하세요.";
         if (!address) newErrors.address = "주소를 입력하세요.";
         if (!addressDetail) newErrors.detailAddress = "상세주소를 입력하세요.";
-        
+
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             return;
@@ -88,6 +104,20 @@ const MemberInfoChangeComponent = () => {
 
         alert('정보가 수정되었습니다.');
         setErrors({}); 
+    };
+
+    /**
+     * 주소 관련 daum Post api 
+     */
+    const [showPostcode, setShowPostcode] = useState(false); // 주소 검색창 표시 상태
+    const handleCompletePostcode = (data) => {
+        // 주소 선택 시 실행될 함수
+        setAddress(data.address);
+        setShowPostcode(false); // 모달 창 닫기
+    };
+
+    const handlePostcodeButtonClick = () => {
+        setShowPostcode(true); // 주소 검색 모달 창 열기
     };
 
     return (
@@ -203,17 +233,30 @@ const MemberInfoChangeComponent = () => {
                             {/* 주소 */}
                             <Form.Group as={Row} className="mb-3">
                                 <Form.Label column sm={2}>주소</Form.Label>
-                                <Col sm={8}>
+                                <Col sm={4}>
                                     <Form.Control type="text" value={address} 
                                         onChange={(e) => setAddress(e.target.value)} 
-                                        placeholder="서울특별시 강서구 양천로 560" />
+                                        placeholder="주소" />
                                     {errors.address && 
                                         <small className="text-danger" 
                                                style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }}>
                                             {errors.address}
                                         </small>}
                                 </Col>
+                                <Col sm={1}>
+                                    <Button id="button_infoFindAddr" onClick={handlePostcodeButtonClick}>
+                                        주소찾기
+                                    </Button>
+                                </Col>
                             </Form.Group>
+                            <Modal show={showPostcode} onHide={() => setShowPostcode(false)} centered>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>주소 검색</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <DaumPostcode onComplete={handleCompletePostcode} />
+                                </Modal.Body>
+                            </Modal>
 
                             {/* 상세 주소 */}
                             <Form.Group as={Row} className="mb-3">
