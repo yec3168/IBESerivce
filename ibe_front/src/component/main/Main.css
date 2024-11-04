@@ -154,7 +154,7 @@
 }
 
 #div_iconCol:hover {
-  transform: scale(1.1); /* 아이콘 확대 효과 */
+  transform: scale(0.9); /* 아이콘 확대 효과 */
   /* background-color: #f0f4f8; 배경 색상 변화 */
 }
 

@@ -29,6 +29,7 @@ import MypageInquiryAnsPage from './component/layout/pages/mypage/MypageInquiryA
 import OrderDetailPage from './component/layout/pages/order/OrderDetailPage';
 import MypageMemberInfoChangePage from './component/layout/pages/mypage/MypageMemberInfoChangePage';
 import MypagePwChangePage from './component/layout/pages/mypage/MypagePwChangePage';
+import IbeBoardListPage from './component/layout/pages/IbeBoard/IbeBoardListPage';
 
 function App() {
   return (
@@ -74,6 +75,11 @@ function App() {
           <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent/>} />
           <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult/>} />
         </Routes>
+        {/* 아이비 게시판 */}
+        <Routes>
+          <Route path="/boards" element={<IbeBoardListPage/>} />
+        </Routes>
+
       </BrowserRouter>
     </>
   );
