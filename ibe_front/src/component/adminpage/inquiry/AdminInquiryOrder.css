@@ -1,30 +1,30 @@
-.inquiry-order-container {
+.admin-io-inquiry-order-container {
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
 }
 
-.inquiry-order-list {
+.admin-io-inquiry-order-list {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-top: 10px;
 }
 
-.inquiry-order-item {
+.admin-io-inquiry-order-item {
   border-bottom: 1px solid #ddd;
   border: 1px solid #ddd;
   margin-top: 5px;
   border-radius: 4px;
 }
 
-.inquiry-order-column {
+.admin-io-inquiry-order-column {
   display: flex;
   padding: 10px;
   background-color: #f9f9f9;
 }
 
-.inquiry-order-header {
+.admin-io-inquiry-order-header {
   display: flex;
   padding: 10px;
   cursor: pointer;
@@ -32,44 +32,44 @@
   font-weight: bold;
 }
 
-.inquiry-order-content {
+.admin-io-inquiry-order-content {
   padding: 10px;
   background-color: #fff;
   transition: max-height 0.3s ease;
 }
 
-.column {
+.admin-io-column {
   font-weight: bold;
   flex: 1;
   padding: 5px;
   text-align: center; /* 가운데 정렬 */
 }
 
-.column.id {
+.admin-io-column.admin-io-id {
   flex: 1;
 }
 
-.column.category {
+.admin-io-column.admin-io-category {
   flex: 1;
 }
 
-.column.title {
+.admin-io-column.admin-io-title {
   flex: 16;
 }
 
-.column.nickname {
+.admin-io-column.admin-io-nickname {
   flex: 2;
 }
 
-.column.date {
+.admin-io-column.admin-io-date {
   flex: 2;
 }
 
-.button-container {
+.admin-io-button-container {
   margin-top: 10px;
 }
 
-.action-button {
+.admin-io-action-button {
   padding: 8px 12px;
   margin-right: 10px;
   background-color: #007bff;
@@ -80,6 +80,6 @@
   transition: background-color 0.3s;
 }
 
-.action-button:hover {
+.admin-io-action-button:hover {
   background-color: #0056b3;
 }

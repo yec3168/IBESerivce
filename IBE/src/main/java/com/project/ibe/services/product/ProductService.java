@@ -2,6 +2,7 @@ package com.project.ibe.services.product;
 
 import com.project.ibe.dto.product.*;
 import com.project.ibe.entity.common.ProductTradeState;
+import com.project.ibe.entity.common.ProductUploadStatus;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductComment;
 import com.project.ibe.entity.product.ProductImg;
@@ -52,6 +53,7 @@ public class ProductService {
 
         // 물품 저장.
         Product product =modelMapper.map(productFormRequest, Product.class);
+        product.setProductUploadStatus(ProductUploadStatus.STATUS_WAIT);
         product.setProductHit(0);
         product.setProductTradeState(ProductTradeState.TRADING_AVAILABLE);
         /**

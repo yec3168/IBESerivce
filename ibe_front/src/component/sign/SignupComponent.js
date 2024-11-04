@@ -239,10 +239,10 @@ const SignupComponent = () => {
                         </Button>
                         </Col>
                         {useEmail && (
-                            <p style={{color:"red"}}>{emailMessage}</p>
+                            <p style={{color:"red", fontSize:"12px"}}>{emailMessage}</p>
                         ) }
                         {!useEmail &&(
-                            <p style={{color:"blue"}}>{emailMessage}</p>
+                            <p style={{color:"blue", fontSize:"12px"}}>{emailMessage}</p>
                         )}
                     </Row>
                 </Form.Group>

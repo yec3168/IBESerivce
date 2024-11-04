@@ -37,21 +37,21 @@ const AdminPage = () => {
       case 'inquiryOrder':
         setCurrentComponent(<AdminInquiryOrder />);
         break;
-        case 'inquiryList':
-          setCurrentComponent(<AdminInquiryList />);
-          break;
-          case 'pointExchangeDetails':
-            setCurrentComponent(<AdminPointExchangeDetails/>);
-            break;
+      case 'inquiryList':
+        setCurrentComponent(<AdminInquiryList />);
+        break;
+      case 'pointExchangeDetails':
+        setCurrentComponent(<AdminPointExchangeDetails />);
+        break;
       default:
         setCurrentComponent(<AdminMainboard />); // 기본 컴포넌트 설정
     }
   };
 
   return (
-    <div className="admin-container">
+    <div className="admin-main-container">
       <AdminSidebar activeMenu={activeMenu} handleMenuClick={handleMenuClick} />
-      <main className="content">
+      <main className="admin-main-content">
         <Header />
         {currentComponent} {/* 현재 선택된 컴포넌트를 렌더링 */}
       </main>

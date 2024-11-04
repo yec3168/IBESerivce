@@ -59,29 +59,29 @@ const AdminInquiryOrder = () => {
   return (
     <>
       <h2>처리해야할 문의 목록</h2>
-      <div className="inquiry-order-container">
-        <div className="inquiry-order-column">
-          <div className="column id">ID</div>
-          <div className="column category">카테고리</div>
-          <div className="column title">제목</div>
-          <div className="column nickname">닉네임</div>
-          <div className="column date">신청일</div>
+      <div className="admin-io-inquiry-order-container">
+        <div className="admin-io-inquiry-order-column">
+          <div className="admin-io-column admin-io-id">ID</div>
+          <div className="admin-io-column admin-io-category">카테고리</div>
+          <div className="admin-io-column admin-io-title">제목</div>
+          <div className="admin-io-column admin-io-nickname">닉네임</div>
+          <div className="admin-io-column admin-io-date">신청일</div>
         </div>
-        <div className="inquiry-order-list">
+        <div className="admin-io-inquiry-order-list">
           {sortedInquiries.map((inquiry) => (
-            <div key={inquiry.id} className="inquiry-order-item">
+            <div key={inquiry.id} className="admin-io-inquiry-order-item">
               <div
-                className="inquiry-order-header"
+                className="admin-io-inquiry-order-header"
                 onClick={() => toggleExpand(inquiry.id)}
               >
-                <div className="column id">{inquiry.id}</div>
-                <div className="column category">{inquiry.category}</div>
-                <div className="column title">{inquiry.title}</div>
-                <div className="column nickname">{inquiry.nickname}</div>
-                <div className="column date">{inquiry.date}</div>
+                <div className="admin-io-column admin-io-id">{inquiry.id}</div>
+                <div className="admin-io-column admin-io-category">{inquiry.category}</div>
+                <div className="admin-io-column admin-io-title">{inquiry.title}</div>
+                <div className="admin-io-column admin-io-nickname">{inquiry.nickname}</div>
+                <div className="admin-io-column admin-io-date">{inquiry.date}</div>
               </div>
               {expandedId === inquiry.id && (
-                <div className="inquiry-order-content">
+                <div className="admin-io-inquiry-order-content">
                   {inquiry.content}
                   <textarea
                     placeholder="답변을 입력하세요..."
@@ -92,8 +92,8 @@ const AdminInquiryOrder = () => {
                     rows="4"
                     style={{ width: '100%', marginTop: '10px' }}
                   />
-                  <div className="button-container">
-                    <button className="action-button">답변</button>
+                  <div className="admin-io-button-container">
+                    <button className="admin-io-action-button">답변</button>
                   </div>
                 </div>
               )}

@@ -1,159 +1,116 @@
-.member-list-container {
+.admin-member-member-list {
   padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
 }
 
-.member-list-title {
-  font-size: 30px;
+h2 {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.member-list-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.member-list-header {
-  background-color: #f4f4f4;
-}
-
-.member-list-header-item {
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-
-.member-list-row {
-  background-color: #fff;
-}
-
-.member-list-cell {
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-
-/* .pagination {
-  margin-top: 20px;
+.admin-member-search-container {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
-.pagination-button {
-  margin: 0 5px;
-  padding: 5px 10px;
+.admin-member-search-container select,
+.admin-member-search-container input {
+  padding: 10px;
+  margin-right: 10px;
   border: 1px solid #ccc;
-  background-color: #f4f4f4;
-  cursor: pointer;
+  border-radius: 4px;
 }
 
-.pagination-button.active {
-  background-color: #007bff;
-  color: white;
-}
-
-.pagination-button:hover:not(:disabled) {
-  background-color: #e7e7e7;
-}
-
-.pagination-button:disabled {
-  cursor: not-allowed;
-  background-color: #ddd; 
-  color: #aaa;
-} */
-
-.member-list-box {
-  border: 1px solid #ccc; /* 박스 테두리 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  padding: 20px; /* 내부 여백 */
-  margin: 20px; /* 외부 여백 */
-  background-color: #fff; /* 배경색 */
-}
-
-.member-list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 중앙 정렬 */
-}
-
-.member-list-title {
-  margin-bottom: 20px; /* 제목 아래 여백 */
-}
-
-.member-list-row:hover {
-  background-color: #f0f0f0; /* 배경색을 밝은 회색으로 변경 */
-  cursor: pointer; /* 마우스 포인터가 손가락 모양으로 변경 */
-}
-
-/* 선택된 회원에 대한 스타일 */
-.member-list-row.selected {
-  background-color: #d0e0ff; /* 선택된 행의 배경색 */
-}
-
-.member-list-container {
-  padding: 20px;
-}
-
-.member-list-box {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: 10px;
-}
-
-.search-container {
-  display: flex; /* Flexbox로 한 줄에 표시 */
-  align-items: center; /* 세로 정렬 */
-  margin-bottom: 15px; /* 아래 여백 */
-}
-
-.search-type,
-.email-search,
-.role-filter {
-  margin-right: 10px; /* 각 요소 간격 */
-  padding: 8px; /* 패딩 추가 */
-  border: 1px solid #ddd;
-  border-radius: 4px; /* 테두리 둥글게 */
-}
-
-.member-list-table {
+.admin-member-member-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.member-list-header {
-  background-color: #f7f7f7;
-}
-
-.member-list-header-item {
+.admin-member-member-row {
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
-  text-align: left;
-}
-
-.member-list-row {
-  cursor: pointer; /* 포인터 효과 */
-}
-
-.member-list-cell {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-/* .pagination {
-  margin-top: 15px; 
-}
-
-.pagination-button {
-  margin: 0 5px; 
-  padding: 8px 12px; 
   border: 1px solid #ddd;
+}
+
+.admin-member-header {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.admin-member-column {
+  flex: 1; /* 각 열이 동일한 너비를 가지도록 설정 */
+  text-align: center;
+}
+
+.admin-member-clickable {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admin-member-clickable:hover {
+  background-color: #eaeaea; /* 마우스 오버 시 배경색 변화 */
+}
+
+.admin-member-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.admin-member-pagination button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
   border-radius: 4px;
-  background-color: #fff;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: background-color 0.3s;
 }
 
-.pagination-button.active {
-  background-color: #007bff; 
-  color: white; 
+.admin-member-pagination button:hover {
+  background-color: #0056b3; /* 버튼 호버 색상 변화 */
 }
 
-.pagination-button:disabled {
-  background-color: #f7f7f7;
-  cursor: not-allowed; 
-} */
+.admin-member-pagination button:disabled {
+  background-color: #ccc; /* 비활성화된 버튼 색상 */
+  cursor: not-allowed; /* 비활성화된 버튼 커서 변경 */
+}
+
+/* 모달 스타일 */
+.admin-member-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-member-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px; /* 모달 너비 설정 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.admin-member-modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-member-modal-header h3 {
+  margin: 0;
+}
+
+.admin-member-modal-close {
+  cursor: pointer;
+  color: #007bff;
+}

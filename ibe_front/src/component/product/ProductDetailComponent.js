@@ -25,6 +25,7 @@ const ProductDetailComponent = () => {
     const {id} = useParams();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getProduct(id)
         .then( (response) =>{
             console.log(response.data)
@@ -57,7 +58,14 @@ const ProductDetailComponent = () => {
             setProductImages(thumbnaiil); 
             window.location.href ="/products";
         })
-      }, []);
+    }, []);
+    
+    const backHandler = () =>{
+        window.location.href ="/products"
+    }
+    const purchaseHandler  = () =>{
+        window.location.href =" /orders/order/" + id;
+    }
 
      const addComma = (price) => {
         let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -184,12 +192,16 @@ const ProductDetailComponent = () => {
                                     <div id="product_buttons">
                                         <Row>
                                             <Col>
-                                                <Button className="w-75 h-100 mb-3" variant="default" type="button"  style={{backgroundColor:'white', color:'black', border:"1px solid #666666"}}>
+                                                <Button className="w-75 h-100 mb-3 btn-custom" variant="default" type="button"  
+                                                 onClick={backHandler}
+                                                style={{backgroundColor:'white', color:'black', border:"1px solid #666666"}}>   
                                                     돌아가기
                                                 </Button>
                                             </Col>
                                             <Col>
-                                                <Button className="w-75 h-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFD774', color:'black', border:"1px solid #FFD774"}}>
+                                                <Button className="w-75 h-100 mb-3 btn-custom" variant="default" type="button"  
+                                                    onClick={purchaseHandler}
+                                                    style={{backgroundColor:'#FFD774', color:'black', border:"1px solid #FFD774"}}>
                                                     구매하기
                                                 </Button>
                                             </Col>

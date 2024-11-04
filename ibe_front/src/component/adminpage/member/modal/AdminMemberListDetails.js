@@ -9,7 +9,7 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
   const handleBanAccount = async () => {
     try {
       await axios.post('http://localhost:8080/admin/member/memberlist/ban', {
-        email: member.memberEmail, // 이메일을 payload로 전송
+        memberEmail: member.memberEmail, // 이메일을 payload로 전송
       });
       alert('계정이 정지되었습니다.'); // 사용자에게 알림
       fetchMembers(); // 회원 목록 갱신
@@ -24,7 +24,7 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
   const handleCancelBan = async () => {
     try {
       await axios.post('http://localhost:8080/admin/member/memberlist/unban', {
-        email: member.memberEmail, // 이메일을 payload로 전송
+        memberEmail: member.memberEmail, // 이메일을 payload로 전송
       });
       alert('계정이 정지가 취소되었습니다.'); // 사용자에게 알림
       fetchMembers(); // 회원 목록 갱신
@@ -36,9 +36,9 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onClose}>
+    <div className="admin-member-modal">
+      <div className="admin-member-modal-content">
+        <span className="admin-member-modal-close" onClick={onClose}>
           &times;
         </span>
         <h2>회원 상세 정보</h2>
@@ -50,20 +50,20 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
         <p>수정일: {new Date(member.UpdateDate).toLocaleDateString()}</p>
 
         {/* 버튼 그룹 */}
-        <div className="button-group">
+        <div className="admin-member-modal-button-group">
           {/* 조건에 따라 버튼 표시 */}
           {member.role === 'ROLE_CLIENT' && (
-            <button className="action-button" onClick={handleBanAccount}>
+            <button className="admin-member-modal-action-button" onClick={handleBanAccount}>
               계정 정지
             </button>
           )}
           {member.role === 'ROLE_BANNED_CLIENT' && (
-            <button className="action-button" onClick={handleCancelBan}>
+            <button className="admin-member-modal-action-button" onClick={handleCancelBan}>
               정지 취소
             </button>
           )}
           {/* 닫기 버튼 추가 */}
-          <button className="action-button" onClick={onClose}>
+          <button className="admin-member-modal-action-button" onClick={onClose}>
             닫기
           </button>
         </div>

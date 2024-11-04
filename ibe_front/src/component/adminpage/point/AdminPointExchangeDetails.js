@@ -66,10 +66,10 @@ const AdminPointExchangeDetails = () => {
   };
 
   return (
-    <div className="point-exchange-list">
+    <div className="admin-ped-point-exchange-list">
       <h3>포인트 환전 내역</h3>
-      <div className="content-box">
-        <div className="search-container">
+      <div className="admin-ped-content-box">
+        <div className="admin-ped-search-container">
           <select
             value={searchType}
             onChange={(e) => {
@@ -97,27 +97,27 @@ const AdminPointExchangeDetails = () => {
           />
           <button onClick={() => setCurrentPage(1)}>조회</button>
         </div>
-        <div className="point-exchange-table">
-          <div className="point-exchange-row header">
-            <div className="column id">아이디</div>
-            <div className="column nickname">닉네임</div>
-            <div className="column email">이메일</div>
-            <div className="column exchangePoints">환전포인트</div>
-            <div className="column paymentAmount">지급금액</div>
-            <div className="column paymentDate">지급일</div>
+        <div className="admin-ped-point-exchange-table">
+          <div className="admin-ped-point-exchange-row header">
+            <div className="admin-ped-column id">아이디</div>
+            <div className="admin-ped-column nickname">닉네임</div>
+            <div className="admin-ped-column email">이메일</div>
+            <div className="admin-ped-column exchangePoints">환전포인트</div>
+            <div className="admin-ped-column paymentAmount">지급금액</div>
+            <div className="admin-ped-column paymentDate">지급일</div>
           </div>
           {currentItems.map((item) => (
-            <div className="point-exchange-row" key={item.id}>
-              <div className="column id">{item.id}</div>
-              <div className="column nickname">{item.nickname}</div>
-              <div className="column email">{item.email}</div>
-              <div className="column exchangePoints">{item.exchangePoints}</div>
-              <div className="column paymentAmount">{item.paymentAmount}</div>
-              <div className="column paymentDate">{item.paymentDate}</div>
+            <div className="admin-ped-point-exchange-row" key={item.id}>
+              <div className="admin-ped-column id">{item.id}</div>
+              <div className="admin-ped-column nickname">{item.nickname}</div>
+              <div className="admin-ped-column email">{item.email}</div>
+              <div className="admin-ped-column exchangePoints">{item.exchangePoints}</div>
+              <div className="admin-ped-column paymentAmount">{item.paymentAmount}</div>
+              <div className="admin-ped-column paymentDate">{item.paymentDate}</div>
             </div>
           ))}
         </div>
-        <div className="pagination">
+        <div className="admin-ped-pagination">
           <button 
             onClick={goToFirstPage} 
             disabled={currentPage === 1}

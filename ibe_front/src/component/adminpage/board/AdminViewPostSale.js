@@ -1,43 +1,81 @@
-import React, { useState } from 'react';
-import './AdminViewPost.css'; // CSS 파일 경로를 확인하세요
-import dummyData from './DummyData'; // 더미 데이터 import
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './AdminViewPost.css';
 
 const AdminViewPostSale = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchType, setSearchType] = useState('title'); // 기본 검색 타입 설정
-  const [selectedStatus, setSelectedStatus] = useState(''); // 거래상태 선택
-  const [selectedNotes, setSelectedNotes] = useState(''); // 비고 선택
+  const [searchTerm, setSearchTerm] = useState(''); // 검색어 입력 상태
+  const [filteredSearchTerm, setFilteredSearchTerm] = useState(''); // 필터링에 사용할 검색어
+  const [searchCategory, setSearchCategory] = useState('title'); // 검색 카테고리 상태
+  const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedNotes, setSelectedNotes] = useState('');
+  const [salesData, setSalesData] = useState([]); // 판매 데이터 상태
   const itemsPerPage = 10;
 
-  // 현재 페이지에 해당하는 데이터 계산
+  // 거래 상태와 비고 상태 매핑
+  const tradeStateMap = {
+    TRADING_AVAILABLE: '거래 가능',
+    TRADE_COMPLETED: '거래 완료',
+  };
+
+  const statusMap = {
+    STATUS_WAIT: '등록중',
+    STATUS_APPROVE: '등록됨',
+    STATUS_REJECT: '반려됨',
+    STATUS_DELETE: '삭제됨',
+  };
+
+  useEffect(() => {
+    const fetchSalesData = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:8080/admin/board/viewpost/sale'
+        );
+        setSalesData(response.data); // 가져온 데이터로 상태 업데이트
+      } catch (error) {
+        console.error('Error fetching sales data:', error);
+      }
+    };
+
+    fetchSalesData();
+  }, []);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  // 검색 조건에 따른 필터링
-  const filteredItems = dummyData.filter(item => {
-    const valueToSearch = item[searchType].toLowerCase();
-    const matchesSearchTerm = valueToSearch.includes(searchTerm.toLowerCase());
-    const matchesStatus = selectedStatus ? item.status === selectedStatus : true; // 거래상태 필터
-    const matchesNotes = selectedNotes ? item.notes === selectedNotes : true; // 비고 필터
-    return matchesSearchTerm && matchesStatus && matchesNotes;
+  const filteredItems = salesData.filter((item) => {
+    const matchesSearchTerm = () => {
+      const lowerSearchTerm = filteredSearchTerm.toLowerCase();
+      if (searchCategory === 'title') {
+        return item.productTitle.toLowerCase().includes(lowerSearchTerm);
+      } else if (searchCategory === 'buyer') {
+        return item.memberNickName.toLowerCase().includes(lowerSearchTerm);
+      } else if (searchCategory === 'seller') {
+        return item.memberNickName.toLowerCase().includes(lowerSearchTerm);
+      }
+      return true;
+    };
+
+    const matchesStatus = selectedStatus
+      ? item.productTradeState === selectedStatus
+      : true; // 거래상태 필터
+    const matchesNotes = selectedNotes
+      ? item.productUploadStatus === selectedNotes
+      : true; // 비고 필터
+    return matchesSearchTerm() && matchesStatus && matchesNotes;
   });
 
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
-
-  // 페이지 버튼 생성
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const pageNumbers = [...Array(totalPages)].map((_, i) => i + 1);
 
-  // 현재 페이지의 인덱스를 계산하여 페이지 버튼 범위를 결정합니다.
-  const pageLimit = 10; // 최대 페이지 버튼 개수
+  const pageLimit = 10;
   const startIndex = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
   const endIndex = Math.min(startIndex + pageLimit, totalPages);
   const visiblePageNumbers = pageNumbers.slice(startIndex, endIndex);
 
-  // 다음 페이지로 이동
   const goToNextPage = () => {
-    const newPage = startIndex + pageLimit + 1; // 다음 페이지 그룹의 첫 페이지
+    const newPage = startIndex + pageLimit + 1;
     if (newPage <= totalPages) {
       setCurrentPage(newPage);
     } else {
@@ -45,138 +83,136 @@ const AdminViewPostSale = () => {
     }
   };
 
-  // 이전 페이지로 이동
   const goToPreviousPage = () => {
-    const newPage = startIndex - pageLimit + pageLimit; // 이전 페이지 그룹의 마지막 페이지
+    const newPage = startIndex - pageLimit + pageLimit;
     if (newPage >= 1) {
       setCurrentPage(newPage);
     } else {
-      setCurrentPage(1); // 첫 페이지 그룹이라면 첫 번째 페이지로 이동
+      setCurrentPage(1);
     }
   };
 
-  // 맨 처음 페이지로 이동
   const goToFirstPage = () => {
     setCurrentPage(1);
   };
 
-  // 맨 끝 페이지로 이동
   const goToLastPage = () => {
     setCurrentPage(totalPages);
   };
 
+  const handleSearch = () => {
+    setFilteredSearchTerm(searchTerm); // 검색어를 필터링에 사용할 상태로 설정
+    setCurrentPage(1); // 페이지 초기화
+  };
+
   return (
-    <div className="sale-list">
+    <>
+
       <h3>판매 게시글 목록</h3>
-      <div className="search-container">
-        <select
-          value={searchType}
-          onChange={(e) => {
-            setSearchType(e.target.value);
-            setSearchTerm(''); // 검색 타입이 변경될 때는 검색어 초기화
-            setCurrentPage(1); // 페이지를 1로 리셋
-          }}
-        >
-          <option value="title">제목</option>
-          <option value="buyer">구매자</option>
-          <option value="seller">판매자</option>
-        </select>
-        <input
-          type="text"
-          placeholder="검색어 입력"
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1); // 검색할 때는 첫 페이지로 리셋
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              setCurrentPage(1); // 검색할 때는 첫 페이지로 리셋
-            }
-          }}
-        />
+      <div className="admin-vp-search-container">
         <select
           value={selectedStatus}
           onChange={(e) => {
             setSelectedStatus(e.target.value);
-            setCurrentPage(1); // 페이지를 1로 리셋
+            setCurrentPage(1); // 페이지 초기화
           }}
         >
           <option value="">거래상태 선택</option>
-          <option value="판매 중">판매 중</option>
-          <option value="판매 완료">판매 완료</option>
+          <option value="TRADING_AVAILABLE">거래 가능</option>
+          <option value="TRADE_COMPLETED">거래 완료</option>
         </select>
         <select
           value={selectedNotes}
           onChange={(e) => {
             setSelectedNotes(e.target.value);
-            setCurrentPage(1); // 페이지를 1로 리셋
+            setCurrentPage(1); // 페이지 초기화
           }}
         >
-          <option value="">비고 선택</option>
-          <option value="삭제되지 않음">삭제되지 않음</option>
-          <option value="삭제됨">삭제됨</option>
+          <option value="">등록상태 선택</option>
+          <option value="STATUS_WAIT">등록중</option>
+          <option value="STATUS_APPROVE">등록됨</option>
+          <option value="STATUS_REJECT">반려됨</option>
+          <option value="STATUS_DELETE">삭제됨</option>
         </select>
-        <button onClick={() => setCurrentPage(1)}>조회</button>
+        <select
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+        >
+          <option value="title">제목</option>
+          <option value="seller">판매자</option>
+          <option value="buyer">구매자</option>
+        </select>
+        <input
+          type="text"
+          placeholder="검색어 입력"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSearch();
+          }}
+        />
+        <button onClick={handleSearch}>조회</button>
       </div>
-      <div className="sale-table">
-        <div className="sale-row header">
-          <div className="column id">ID</div>
-          <div className="column title">제목</div>
-          <div className="column status">거래상태</div>
-          <div className="column buyer">구매자</div>
-          <div className="column seller">판매자</div>
-          <div className="column notes">비고</div>
-          <div className="column uploadDate">업로드 날짜</div>
+      <div className="admin-vp-sale-table">
+        <div className="admin-vp-sale-row admin-vp-header">
+          <div className="admin-vp-column id">ID</div>
+          <div className="admin-vp-column title">제목</div>
+          <div className="admin-vp-column status">거래상태</div>
+          <div className="admin-vp-column buyer">구매자</div>
+          <div className="admin-vp-column seller">판매자</div>
+          <div className="admin-vp-column notes">등록상태</div>
+          <div className="admin-vp-column uploadDate">업로드 날짜</div>
         </div>
         {currentItems.map((item) => (
-          <div className="sale-row" key={item.id}>
-            <div className="column id">{item.id}</div>
-            <div className="column title">{item.title}</div>
-            <div className="column status">{item.status}</div>
-            <div className="column buyer">{item.buyer}</div>
-            <div className="column seller">{item.seller}</div>
-            <div className="column notes">{item.notes}</div>
-            <div className="column uploadDate">{item.uploadDate}</div>
+          <div className="admin-vp-sale-row" key={item.productId}>
+            <div className="admin-vp-column id">{item.productId}</div>
+            <div className="admin-vp-column title">{item.productTitle}</div>
+            <div className="admin-vp-column status">
+              {tradeStateMap[item.productTradeState]}
+            </div>
+            <div className="admin-vp-column buyer">{item.memberNickName}</div>
+            <div className="admin-vp-column seller">{item.memberNickName}</div>
+            <div className="admin-vp-column notes">
+              {statusMap[item.productUploadStatus]}
+            </div>
+            <div className="admin-vp-column uploadDate">
+              {new Date(item.productListedAt).toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+              })}
+            </div>
           </div>
         ))}
       </div>
-      <div className="pagination">
-        <button 
-          onClick={goToFirstPage} 
-          disabled={currentPage === 1}
-        >
+      <div className="admin-vp-pagination">
+        <button onClick={goToFirstPage} disabled={currentPage === 1}>
           맨 처음
         </button>
-        <button 
-          onClick={goToPreviousPage} 
-          disabled={currentPage === 1}
-        >
+        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
           &lt; 이전
         </button>
         {visiblePageNumbers.map((number) => (
-          <button 
-            key={number} 
-            onClick={() => setCurrentPage(number)} 
+          <button
+            key={number}
+            onClick={() => setCurrentPage(number)}
             className={currentPage === number ? 'active' : ''}
           >
             {number}
           </button>
         ))}
-        <button 
-          onClick={goToNextPage} 
-          disabled={currentPage >= totalPages}
-        >
+        <button onClick={goToNextPage} disabled={currentPage >= totalPages}>
           다음 &gt;
         </button>
-        <button 
-          onClick={goToLastPage} 
-          disabled={currentPage === totalPages}
-        >
+        <button onClick={goToLastPage} disabled={currentPage === totalPages}>
           맨 끝
         </button>
       </div>
-    </div>
+
+    </>
   );
 };
 

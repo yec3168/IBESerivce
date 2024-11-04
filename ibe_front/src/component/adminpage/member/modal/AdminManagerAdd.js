@@ -126,8 +126,8 @@ const AdminManagerAdd = ({
   if (!isOpen) return null;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className="admin-manager-modal">
+      <div className="admin-manager-modal-content">
         <h3>관리자 추가</h3>
         <label>이름 입력:</label>
         <input
@@ -136,7 +136,7 @@ const AdminManagerAdd = ({
           onChange={handleChangeName} // 수정된 핸들러
           placeholder="이름을 입력하세요"
         />
-        {nameError && <p className="error">{nameError}</p>}{' '}
+        {nameError && <p className="admin-manager-modal-error">{nameError}</p>}{' '}
         {/* 이름 에러 메시지 표시 */}
         <label>아이디 입력:</label>
         <input
@@ -145,7 +145,7 @@ const AdminManagerAdd = ({
           onChange={handleChangeId} // 수정된 핸들러
           placeholder="아이디를 입력하세요"
         />
-        {isIdDuplicate && <p className="error">중복된 아이디입니다.</p>}
+        {isIdDuplicate && <p className="admin-manager-modal-error">중복된 아이디입니다.</p>}
         <label>역할 선택:</label>
         <select
           value={newManagerRole}
@@ -168,8 +168,8 @@ const AdminManagerAdd = ({
           onChange={handleChangeConfirmPassword} // 수정된 핸들러
           placeholder="비밀번호를 다시 입력하세요"
         />
-        {passwordError && <p className="error">{passwordError}</p>}
-        <div className="modal-actions">
+        {passwordError && <p className="admin-manager-modal-error">{passwordError}</p>}
+        <div className="admin-manager-modal-actions">
           <button
             onClick={handleAddManagerSave}
             disabled={

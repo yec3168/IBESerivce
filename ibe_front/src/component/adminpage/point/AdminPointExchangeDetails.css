@@ -1,33 +1,28 @@
 /* AdminPointExchangeDetails.css */
 
-.point-exchange-list {
+.admin-ped-point-exchange-list {
   padding: 20px;
   background-color: #fffaed; /* 배경색 */
   border-radius: 8px; /* 모서리 둥글게 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
-h3 {
-  text-align: center; /* 제목 중앙 정렬 */
-  margin-bottom: 20px; /* 제목과 내용 간격 */
-}
-
-.content-box {
+.admin-ped-content-box {
   padding: 20px; /* 내용 패딩 */
   background-color: white; /* 내용 박스 배경색 */
   border-radius: 8px; /* 모서리 둥글게 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 박스 그림자 효과 */
 }
 
-.search-container {
+.admin-ped-search-container {
   display: flex;
   justify-content: space-between; /* 요소 사이 간격 조정 */
   align-items: center; /* 세로 가운데 정렬 */
   margin-bottom: 20px; /* 검색창과 테이블 간격 */
 }
 
-.search-container select,
-.search-container input[type='text'] {
+.admin-ped-search-container select,
+.admin-ped-search-container input[type='text'] {
   padding: 8px;
   margin-right: 10px; /* 오른쪽 여백 */
   border: 1px solid #ccc; /* 테두리 */
@@ -35,7 +30,7 @@ h3 {
   font-size: 14px; /* 글자 크기 */
 }
 
-.search-container button {
+.admin-ped-search-container button {
   padding: 10px 15px; /* 버튼 안쪽 여백 */
   border: none; /* 테두리 제거 */
   border-radius: 4px; /* 모서리 둥글게 */
@@ -45,56 +40,56 @@ h3 {
   transition: background-color 0.3s; /* 배경색 변화 효과 */
 }
 
-.search-container button:hover {
+.admin-ped-search-container button:hover {
   background-color: #0056b3; /* 버튼 hover 시 색상 */
 }
 
-.point-exchange-table {
+.admin-ped-point-exchange-table {
   width: 100%; /* 전체 너비 사용 */
   border-collapse: collapse; /* 테두리 간격 제거 */
 }
 
-.point-exchange-row {
+.admin-ped-point-exchange-row {
   display: flex; /* 가로 방향으로 나열 */
   padding: 10px; /* 패딩 추가 */
   border-bottom: 1px solid #ddd; /* 구분선 추가 */
 }
 
-.point-exchange-row.header {
+.admin-ped-point-exchange-row.header {
   background-color: #f1f1f1; /* 헤더 배경색 */
   font-weight: bold; /* 글자 두껍게 */
 }
 
-.column {
+.admin-ped-column {
   flex: 1; /* 모든 컬럼에 동일한 비율 부여 */
   font-size: 14px; /* 글자 크기 */
   text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
-.column.id {
+.admin-ped-column.id {
   flex: 2; /* ID 비율 */
 }
 
-.column.title {
+.admin-ped-column.title {
   flex: 5; /* 제목 비율 */
 }
 
-.column.status,
-.column.buyer,
-.column.seller,
-.column.notes,
-.column.uploadDate {
+.admin-ped-column.status,
+.admin-ped-column.buyer,
+.admin-ped-column.seller,
+.admin-ped-column.notes,
+.admin-ped-column.uploadDate {
   flex: 3; /* 나머지 컬럼 비율 */
 }
 
-/* .pagination {
+.admin-ped-pagination {
   display: flex;
   justify-content: center; 
   align-items: center;
   margin-top: 20px; 
 }
 
-.pagination button {
+.admin-ped-pagination button {
   margin: 0 5px;
   padding: 5px 10px; 
   border: 1px solid #ccc;
@@ -103,18 +98,18 @@ h3 {
   transition: background-color 0.3s; 
 }
 
-.pagination button:hover {
+.admin-ped-pagination button:hover {
   background-color: #e9e9e9; 
 }
 
-.pagination button.active {
+.admin-ped-pagination button.active {
   background-color: #007bff; 
   color: white; 
   border-color: #007bff; 
 }
 
-.pagination button:disabled {
+.admin-ped-pagination button:disabled {
   background-color: #e9e9e9; 
   color: #ccc; 
   cursor: not-allowed; 
-} */
+}

@@ -26,7 +26,6 @@ public class MemberListService {
 
     public List<MemberListResponse> getMemberList() {
         List<Member> memberEntityList = memberRepository.findAll();
-        System.out.println(memberEntityList + "member");
         return memberEntityList.stream()
                 .map(entity -> modelMapper.map(entity, MemberListResponse.class))
                 .toList(); //List<UserResDTO>

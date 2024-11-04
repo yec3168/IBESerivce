@@ -5,15 +5,15 @@ import SignInComponent from './component/sign/SigninComponent';
 import SignupComponent from './component/sign/SignupComponent';
 
 import MainPage from "./component/layout/pages/MainPage";
-import ProductDetailPage from "./component/layout/pages/ProductDetailPage";
 import SigninEmailSearchComponent from "./component/sign/SigninEmailSearchComponent"; 
 import SignPasswordSeacchComponent from "./component/sign/SignPasswordSearchComponent";
 
 import AdminPage from './component/adminpage/AdminPage';
 
 import MypageMainPage from './component/layout/pages/mypage/MypageMainPage'
-import ProductCreatePage from './component/layout/pages/ProductCreatePage';
-import ProductListPage from './component/layout/pages/ProductListPage'
+import ProductCreatePage from './component/layout/pages/product/ProductCreatePage';
+import ProductListPage from './component/layout/pages/product/ProductListPage'
+import ProductDetailPage from "./component/layout/pages/product/ProductDetailPage";
 
 import MypagePurchaseListPage from './component/layout/pages/mypage/MypagePurchaseListPage';
 import MypageSalesListPage from './component/layout/pages/mypage/MypageSalesListPage';
@@ -28,6 +28,11 @@ import MypagePointChargeResult from './component/point/MypagePointChargeResultCo
 import MypageInquiryAnsPage from './component/layout/pages/mypage/MypageInquiryAnsPage';
 import OrderDetailPage from './component/layout/pages/order/OrderDetailPage';
 import MypageMemberInfoChangePage from './component/layout/pages/mypage/MypageMemberInfoChangePage';
+import MypagePwChangePage from './component/layout/pages/mypage/MypagePwChangePage';
+
+import IbeBoardListPage from './component/layout/pages/IbeBoard/IbeBoardListPage';
+
+import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDeleteAccountPage';
 
 function App() {
   return (
@@ -63,15 +68,22 @@ function App() {
           <Route path="/mypage/pntcharge" element={<MypagePointChargePage/>} />
           <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage/>} />
           <Route path="/mypage/inquiry" element={<MypageInquiryPage/>} />
-          <Route path="/mypage/inqList" element={<MypageInquiryListPage/>} />
+          <Route path="/mypage/inqlist" element={<MypageInquiryListPage/>} />
           <Route path="/mypage/inquiry/answer/:id" element={<MypageInquiryAnsPage/>} />
           <Route path="/mypage/info" element={<MypageMemberInfoChangePage/>} />
+          <Route path="/mypage/pw" element={<MypagePwChangePage/>} />
+          <Route path="/mypage/delete" element={<MypageDeleteAccountPage/>} />
         </Routes>
         {/* 포인트 처리 라우터 */}
         <Routes>
           <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent/>} />
           <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult/>} />
         </Routes>
+        {/* 아이비 게시판 */}
+        <Routes>
+          <Route path="/boards" element={<IbeBoardListPage/>} />
+        </Routes>
+
       </BrowserRouter>
     </>
   );
