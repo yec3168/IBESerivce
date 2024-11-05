@@ -50,7 +50,7 @@ const AdminMemberList = () => {
           member.memberEmail &&
           member.memberEmail.toLowerCase().includes(searchValue)
         );
-      } else if (searchType === '닉네임') {
+      } else if (searchType === '닉네임으') {
         return (
           member.memberNickName &&
           member.memberNickName.toLowerCase().includes(searchValue)

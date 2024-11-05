@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './AdminSalesRequest.css';
 
@@ -21,9 +21,7 @@ const AdminSalesRequest = () => {
   useEffect(() => {
     const fetchSalesRequests = async () => {
       try {
-        const response = await axios.get(
-          'http://localhost:8080/admin/board/salesrequest'
-        );
+        const response = await axios.get('http://localhost:8080/admin/board/salesrequest');
         const requests = response.data.map((request) => ({
           id: request.productId,
           category: mapCategory(request.productCategory),
@@ -41,9 +39,7 @@ const AdminSalesRequest = () => {
     fetchSalesRequests();
   }, []);
 
-  const sortedRequests = [...salesRequests].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
+  const sortedRequests = [...salesRequests].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const toggleExpand = (id) => {
     setExpandedId(expandedId === id ? null : id);
@@ -51,13 +47,11 @@ const AdminSalesRequest = () => {
 
   const handleApproval = async (productId) => {
     try {
-      await axios.post(`http://localhost:8080/admin/board/salesrequest/yes`, {
-        productId,
-      });
+      await axios.post(`http://localhost:8080/admin/board/salesrequest/yes`, { productId });
       setSalesRequests((prevRequests) =>
         prevRequests.filter((request) => request.id !== productId)
       );
-      alert('판매 요청이 승인되었습니다.'); // 알림창 추가
+      alert('판매 요청이 승인되었습니다.');
     } catch (error) {
       console.error('Error approving sales request:', error);
     }
@@ -82,10 +76,20 @@ const AdminSalesRequest = () => {
         prevRequests.filter((request) => request.id !== productId)
       );
       setErrorMessage({ ...errorMessage, [productId]: '' });
-      alert('판매 요청이 거절되었습니다.'); // 알림창 추가
+      alert('판매 요청이 거절되었습니다.');
     } catch (error) {
       console.error('Error rejecting sales request:', error);
     }
+  };
+
+  // 텍스트박스 자동 리사이징 함수
+  const handleInputResize = (e, productId) => {
+    e.target.style.height = 'auto'; // 높이 초기화
+    e.target.style.height = `${e.target.scrollHeight}px`; // 내용에 맞춰 높이 재설정
+    setRejectionReason({
+      ...rejectionReason,
+      [productId]: e.target.value,
+    });
   };
 
   return (
@@ -101,20 +105,11 @@ const AdminSalesRequest = () => {
         </div>
         {sortedRequests.map((request) => (
           <div key={request.id} className="admin-sr-sales-request-item">
-            <div
-              className="admin-sr-sales-request-header"
-              onClick={() => toggleExpand(request.id)}
-            >
+            <div className="admin-sr-sales-request-header" onClick={() => toggleExpand(request.id)}>
               <div className="admin-sr-column admin-sr-id">{request.id}</div>
-              <div className="admin-sr-column admin-sr-category">
-                {request.category}
-              </div>
-              <div className="admin-sr-column admin-sr-title">
-                {request.title}
-              </div>
-              <div className="admin-sr-column admin-sr-nickname">
-                {request.nickname}
-              </div>
+              <div className="admin-sr-column admin-sr-category">{request.category}</div>
+              <div className="admin-sr-column admin-sr-title">{request.title}</div>
+              <div className="admin-sr-column admin-sr-nickname">{request.nickname}</div>
               <div className="admin-sr-column admin-sr-date">
                 {new Date(request.date).toLocaleString('ko-KR', {
                   year: 'numeric',
@@ -149,19 +144,13 @@ const AdminSalesRequest = () => {
                     placeholder="거절 사유 입력"
                     className="admin-sr-textarea"
                     value={rejectionReason[request.id] || ''}
-                    onChange={(e) =>
-                      setRejectionReason({
-                        ...rejectionReason,
-                        [request.id]: e.target.value,
-                      })
-                    }
+                    onChange={(e) => handleInputResize(e, request.id)}
+                    style={{ overflowY: 'hidden' }}
                   />
                 </div>
                 {errorMessage[request.id] && (
                   <div className="admin-sr-error-message-container">
-                    <span className="admin-sr-error-message">
-                      {errorMessage[request.id]}
-                    </span>
+                    <span className="admin-sr-error-message">{errorMessage[request.id]}</span>
                   </div>
                 )}
               </div>

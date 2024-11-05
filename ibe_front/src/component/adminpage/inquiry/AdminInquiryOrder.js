@@ -97,7 +97,7 @@ const AdminInquiryOrder = () => {
 
   return (
     <>
-      <h2 className="admin-io-h2">처리해야할 문의 목록</h2>
+      <h2 className="admin-io-h2">문의 관리 - 처리해야할 문의 목록</h2>
       <div className="admin-io-inquiry-order-container">
         <div className="admin-io-inquiry-order-column">
           <div className="admin-io-column admin-io-id">ID</div>
