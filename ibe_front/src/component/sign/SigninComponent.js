@@ -3,14 +3,16 @@ import { Form, Button, FloatingLabel , Row, Col, Alert } from "react-bootstrap";
 import Logo from '../assets/images/sign/ibe_logo1.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
 import {login } from '../service/MemberService';
+import {getKaKaoLoginLink} from "../service/KakaoService";
 import './Sign.css'
 
 function SignInComponent(){
 
     const [memberEmail, setMemberEmail] = useState("");
     const [memberPassword, setMemberPassword] = useState("");
-  
     const [isEmpty, setIsEmpty] = useState(false);
+    
+  
 
     const onSubmitHandler =  (event) => {
         // 버튼만 누르면 리프레시 되는것을 막아줌
@@ -51,6 +53,9 @@ function SignInComponent(){
             setIsEmpty(true);
         });
 
+    }
+    const kakaoHandler = () =>{
+        window.location.href = getKaKaoLoginLink()
     }
 
     return(
@@ -125,9 +130,11 @@ function SignInComponent(){
                     </Row>
 
 
-                    <Button className="w-100 mb-3" variant="default" type="button"  style={{backgroundColor:'#FFE337', color:'black'}}>
-                        <RiKakaoTalkFill s/>
-                        카톡으로 쉽게 시작하기
+                    <Button className="w-100 mb-3" variant="default" type="button"  
+                        onClick={kakaoHandler}
+                        style={{backgroundColor:'#FFE337', color:'black'}}>
+                            <RiKakaoTalkFill s/>
+                            카톡으로 쉽게 시작하기
                     </Button>
 
 
