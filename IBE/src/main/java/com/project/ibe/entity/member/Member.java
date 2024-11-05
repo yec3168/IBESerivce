@@ -79,6 +79,6 @@ public class Member extends  AuditingFields{
     @Enumerated(EnumType.STRING)
     private SocialType memberSocialType;      // 회원가입 경로.
 
-    @Column(nullable = true)
+    @Column(nullable = true, unique = true)
     private String memberSocialId;            // 소셜 아이디.
 }

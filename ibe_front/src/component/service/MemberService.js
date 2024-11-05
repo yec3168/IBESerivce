@@ -26,3 +26,7 @@ export const searchEmail = (memberSnsRequest) => axios.post(`${REST_API_URL}/mai
 
 // 메일전송
 export const sendMail = (mailRequest) => axios.post(`${REST_API_URL}/emailAuth`, mailRequest)
+
+
+// 카카오 회원가입
+export const kakaoSignup = (kakaoSignupRequest) => axios.post(`${REST_API_URL}/kakao/oauth/signup`, kakaoSignupRequest);

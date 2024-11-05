@@ -1,5 +1,6 @@
 package com.project.ibe.controller;
 
+import com.project.ibe.dto.member.KakaoSignupRequest;
 import com.project.ibe.services.member.KakaoService;
 import com.project.ibe.services.member.MemberService;
 import com.project.ibe.dto.member.MailRequest;
@@ -10,7 +11,6 @@ import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.member.MailService;
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -108,15 +108,26 @@ public class MemberController {
 
 
     /**
-     * 카카오 로그인
+     * 카카오 회원가입 여부 확인( 이미 아이디가 있으면 true, 없으면 dto)
      */
     @GetMapping("/kakao/oauth")
-    public Response kakaoSigninRestAPI(@RequestParam("code") String code){
-        kakaoService.kakaoSignin(code);
+    public Response kakaoSignupCheckRestAPI(@RequestParam("code") String code){
+//        System.out.println(code);
+        Object object = kakaoService.checkKakaoSignup(code);
+        if(object.getClass().getName().contains("String")){
+            // 로그인해야함.
+            return new Response(ResponseCode.SUCCESS, object, "200");
+        }
+        else{
+            // 회원가입 해야함.
+            return  new Response(ResponseCode.FAIL, object, "404");
+        }
+    }
 
+    @PostMapping("/kakao/oauth/signup")
+    public Response kakaoSignup(@RequestBody KakaoSignupRequest kakaoSignupRequest){
         try{
-            return null;
-            //return  new Response(ResponseCode.SUCCESS, kakaoService.kakaoSignin(code, request.getServerName()), "200");
+            return new Response(ResponseCode.SUCCESS, memberService.kakaoSignup(kakaoSignupRequest), "200");
         }catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
