@@ -14,7 +14,7 @@ const AdminViewPostInfo = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   // 검색 조건에 따른 필터링
-  const filteredItems = dummyData.filter(item => {
+  const filteredItems = dummyData.filter((item) => {
     const valueToSearch = item[searchType]?.toLowerCase() || '';
     const matchesSearchTerm = valueToSearch.includes(searchTerm.toLowerCase());
     const matchesNotes = selectedNotes ? item.notes === selectedNotes : true; // 비고 필터
@@ -75,7 +75,7 @@ const AdminViewPostInfo = () => {
 
   return (
     <div className="admin-vp-info-list">
-      <h3>정보 게시글 목록</h3>
+      <h3 className="admin-vp-h2">정보 게시글 목록</h3>
       <div className="admin-vp-search-container">
         <select
           value={searchType}
@@ -129,37 +129,25 @@ const AdminViewPostInfo = () => {
         ))}
       </div>
       <div className="admin-vp-pagination">
-        <button 
-          onClick={goToFirstPage} 
-          disabled={currentPage === 1}
-        >
+        <button onClick={goToFirstPage} disabled={currentPage === 1}>
           맨 처음
         </button>
-        <button 
-          onClick={goToPreviousPage} 
-          disabled={currentPage === 1}
-        >
+        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
           &lt; 이전
         </button>
         {visiblePageNumbers.map((number) => (
-          <button 
-            key={number} 
-            onClick={() => setCurrentPage(number)} 
+          <button
+            key={number}
+            onClick={() => setCurrentPage(number)}
             className={currentPage === number ? 'active' : ''}
           >
             {number}
           </button>
         ))}
-        <button 
-          onClick={goToNextPage} 
-          disabled={currentPage >= totalPages}
-        >
+        <button onClick={goToNextPage} disabled={currentPage >= totalPages}>
           다음 &gt;
         </button>
-        <button 
-          onClick={goToLastPage} 
-          disabled={currentPage === totalPages}
-        >
+        <button onClick={goToLastPage} disabled={currentPage === totalPages}>
           맨 끝
         </button>
       </div>

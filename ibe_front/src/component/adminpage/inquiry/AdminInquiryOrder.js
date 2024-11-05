@@ -1,60 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './AdminInquiryOrder.css';
 
 const AdminInquiryOrder = () => {
+  const [inquiries, setInquiries] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
-  const [responses, setResponses] = useState({}); // 응답 저장을 위한 상태
+  const [responses, setResponses] = useState({});
+  const [errors, setErrors] = useState({});
 
-  const inquiries = [
-    {
-      id: 1,
-      category: '상품 A',
-      title: '문의 A',
-      nickname: '홍길동',
-      date: '2024-11-01',
-      content: '문의 A의 상세 내용입니다.',
-    },
-    {
-      id: 2,
-      category: '상품 B',
-      title: '문의 B',
-      nickname: '김철수',
-      date: '2024-11-02',
-      content: '문의 B의 상세 내용입니다.',
-    },
-    {
-      id: 3,
-      category: '상품 C',
-      title: '문의 C',
-      nickname: '이영희',
-      date: '2024-11-03',
-      content: '문의 C의 상세 내용입니다.',
-    },
-    {
-      id: 4,
-      category: '상품 D',
-      title: '문의 D',
-      nickname: '박민수',
-      date: '2024-11-04',
-      content: '문의 D의 상세 내용입니다.',
-    },
-  ];
+  // 카테고리 맵핑 객체
+  const categoryMap = {
+    POINT_CHARGE: '포인트 결제',
+    POINT_PAYBACK: '포인트 환급',
+    DELIVERY: '배송 지연/누락',
+    PRODUCT_DEFECT: '물품 하자',
+    INQ_MISC: '기타',
+  };
 
-  // 날짜 기준 내림차순 정렬
+  const fetchInquiries = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/admin/inquiry');
+      const fetchedInquiries = response.data.map((inquiry) => ({
+        inquiryId: inquiry.inquiryId,
+        category: categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
+        title: inquiry.inquiryTitle,
+        nickname: inquiry.memberNickName,
+        date: new Date(inquiry.inquiryCreatedAt).toLocaleDateString(),
+        content: inquiry.inquiryContent,
+        memberId: inquiry.memberId,
+      }));
+      setInquiries(fetchedInquiries);
+    } catch (error) {
+      console.error('Error fetching inquiries:', error);
+      alert('문의 목록을 불러오는 데 실패했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    fetchInquiries();
+  }, []);
+
+  const toggleExpand = (inquiryId) => {
+    setExpandedId(expandedId === inquiryId ? null : inquiryId);
+    setErrors({});
+  };
+
+  const handleResponseChange = (inquiryId, value) => {
+    setResponses((prevResponses) => ({
+      ...prevResponses,
+      [inquiryId]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [inquiryId]: '',
+    }));
+  };
+
+  const handleResponseSubmit = async (inquiryId, memberId) => {
+    const inquiryAnswerContent = responses[inquiryId];
+    if (!inquiryAnswerContent) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [inquiryId]: '값을 입력해 주세요',
+      }));
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:8080/admin/inquiry/answer', {
+        inquiryId,
+        memberId,
+        inquiryAnswerContent,
+      });
+
+      alert('답변이 제출되었습니다.');
+      setResponses((prevResponses) => ({
+        ...prevResponses,
+        [inquiryId]: '',
+      }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [inquiryId]: '',
+      }));
+      
+      // 리스트 갱신
+      fetchInquiries();
+    } catch (error) {
+      console.error('Error submitting answer:', error);
+      alert('답변 제출에 실패했습니다.');
+    }
+  };
+
   const sortedInquiries = [...inquiries].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
-
-  const toggleExpand = (id) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
-
-  const handleResponseChange = (id, value) => {
-    setResponses((prevResponses) => ({
-      ...prevResponses,
-      [id]: value,
-    }));
-  };
 
   return (
     <>
@@ -69,31 +108,54 @@ const AdminInquiryOrder = () => {
         </div>
         <div className="admin-io-inquiry-order-list">
           {sortedInquiries.map((inquiry) => (
-            <div key={inquiry.id} className="admin-io-inquiry-order-item">
+            <div
+              key={inquiry.inquiryId}
+              className="admin-io-inquiry-order-item"
+            >
               <div
                 className="admin-io-inquiry-order-header"
-                onClick={() => toggleExpand(inquiry.id)}
+                onClick={() => toggleExpand(inquiry.inquiryId)}
               >
-                <div className="admin-io-column admin-io-id">{inquiry.id}</div>
-                <div className="admin-io-column admin-io-category">{inquiry.category}</div>
-                <div className="admin-io-column admin-io-title">{inquiry.title}</div>
-                <div className="admin-io-column admin-io-nickname">{inquiry.nickname}</div>
-                <div className="admin-io-column admin-io-date">{inquiry.date}</div>
+                <div className="admin-io-column admin-io-id">
+                  {inquiry.inquiryId}
+                </div>
+                <div className="admin-io-column admin-io-category">
+                  {inquiry.category}
+                </div>
+                <div className="admin-io-column admin-io-title">
+                  {inquiry.title}
+                </div>
+                <div className="admin-io-column admin-io-nickname">
+                  {inquiry.nickname}
+                </div>
+                <div className="admin-io-column admin-io-date">
+                  {inquiry.date}
+                </div>
               </div>
-              {expandedId === inquiry.id && (
+              {expandedId === inquiry.inquiryId && (
                 <div className="admin-io-inquiry-order-content">
-                  {inquiry.content}
+                  <p>{inquiry.content}</p>
                   <textarea
                     placeholder="답변을 입력하세요..."
-                    value={responses[inquiry.id] || ''}
+                    value={responses[inquiry.inquiryId] || ''}
                     onChange={(e) =>
-                      handleResponseChange(inquiry.id, e.target.value)
+                      handleResponseChange(inquiry.inquiryId, e.target.value)
                     }
                     rows="4"
                     style={{ width: '100%', marginTop: '10px' }}
                   />
+                  {errors[inquiry.inquiryId] && (
+                    <p style={{ color: 'red' }}>{errors[inquiry.inquiryId]}</p>
+                  )}
                   <div className="admin-io-button-container">
-                    <button className="admin-io-action-button">답변</button>
+                    <button
+                      className="admin-io-action-button"
+                      onClick={() =>
+                        handleResponseSubmit(inquiry.inquiryId, inquiry.memberId)
+                      }
+                    >
+                      답변
+                    </button>
                   </div>
                 </div>
               )}

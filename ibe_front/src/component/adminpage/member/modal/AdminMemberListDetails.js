@@ -35,17 +35,28 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
     }
   };
 
+  // 권한을 표시하는 함수
+  const getRoleDisplay = (role) => {
+    switch (role) {
+      case 'ROLE_CLIENT':
+        return '회원';
+      case 'ROLE_BANNED_CLIENT':
+        return '회원(정지됨)';
+      case 'ROLE_DEFAULT':
+        return '회원(탈퇴)';
+      default:
+        return '알 수 없음'; // 기본값
+    }
+  };
+
   return (
     <div className="admin-member-modal">
       <div className="admin-member-modal-content">
-        <span className="admin-member-modal-close" onClick={onClose}>
-          &times;
-        </span>
         <h2>회원 상세 정보</h2>
         <p>닉네임: {member.memberNickName}</p>
         <p>휴대폰번호: {member.memberPhone}</p>
         <p>이메일: {member.memberEmail}</p>
-        <p>권한: {member.role}</p>
+        <p>권한: {getRoleDisplay(member.role)}</p> {/* 권한 표시 */}
         <p>가입일: {new Date(member.entryDate).toLocaleDateString()}</p>
         <p>수정일: {new Date(member.UpdateDate).toLocaleDateString()}</p>
 
@@ -53,17 +64,26 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
         <div className="admin-member-modal-button-group">
           {/* 조건에 따라 버튼 표시 */}
           {member.role === 'ROLE_CLIENT' && (
-            <button className="admin-member-modal-action-button" onClick={handleBanAccount}>
+            <button
+              className="admin-member-modal-action-button"
+              onClick={handleBanAccount}
+            >
               계정 정지
             </button>
           )}
           {member.role === 'ROLE_BANNED_CLIENT' && (
-            <button className="admin-member-modal-action-button" onClick={handleCancelBan}>
+            <button
+              className="admin-member-modal-action-button"
+              onClick={handleCancelBan}
+            >
               정지 취소
             </button>
           )}
           {/* 닫기 버튼 추가 */}
-          <button className="admin-member-modal-action-button" onClick={onClose}>
+          <button
+            className="admin-member-modal-action-button"
+            onClick={onClose}
+          >
             닫기
           </button>
         </div>

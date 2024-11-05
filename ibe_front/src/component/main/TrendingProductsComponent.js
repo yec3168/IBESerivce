@@ -9,10 +9,12 @@ import React, { useEffect, useState } from "react";
 import thumbnaiil from "../assets/images/thumbnail.png";
 import { Link } from "react-router-dom";
 
-const TrendingProductsComponent=()=>{
+const TrendingProductsComponent=({ selectedCategory })=>{
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        console.log("Selected Category:", selectedCategory);  // selectedCategory 값 확인
+    
         getProductList()
             .then(response => {
                 if (response.data.code === '200') {
@@ -25,29 +27,49 @@ const TrendingProductsComponent=()=>{
                         comments: item.productCommentCnt,
                         status: item.productTradeState === "거래 가능" ? "TRADING_AVAILABLE" : "TRADE_COMPLETED",
                         condition: item.productConditionState === "상" ? "HIGH" : item.productConditionState === "중" ? "MEDIUM" : "LOW",
-                        category: 
-                            item.productCategory === "아동 의류" ? "KIDS_CLOTHING" :
-                            item.productCategory === "아동 완구" ? "KIDS_TOYS" :
-                            item.productCategory === "아동 도서" ? "KIDS_BOOKS" :
-                            item.productCategory === "외출 용품" ? "OUTDOOR_SUPPLIES" : 
-                            "MISC",
+                        category: item.productCategory,  // 카테고리 값 그대로 사용
                         price: item.productPoint
                     }));
-
-                    const trendingProducts = formattedData
-                        .filter(product => product.status === "TRADING_AVAILABLE")  // 거래 가능한 상품만 필터링
-                        .sort((a, b) => (b.views + b.comments) - (a.views + a.comments))  // 인기도 점수 정렬
-                        .slice(0, 4);  // 상위 4개만 선택
-                    
-                    
-                    setProducts(trendingProducts);
-
+    
+                    // 선택된 카테고리가 전체이면 모든 상품을, 아니면 특정 카테고리만 필터링
+                    const filteredProducts = selectedCategory === "전체" 
+                        ? formattedData.filter(product => product.status === "TRADING_AVAILABLE")
+                        : formattedData.filter(
+                            product => product.status === "TRADING_AVAILABLE" && product.category === selectedCategory
+                        );
+    
+                    console.log("Filtered Products:", filteredProducts); // 필터링된 결과 확인
+    
+                    // 상태별로 정렬 ('상' -> '중' -> '하')
+                    const sortedProducts = filteredProducts.sort((a, b) => {
+                        const conditionOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
+                        return conditionOrder[a.condition] - conditionOrder[b.condition];
+                    });
+    
+                    // 상위 4개의 상품 선택
+                    let topProducts = sortedProducts.slice(0, 4);
+    
+                    // 필터링된 상품이 4개 미만일 경우, HIGH 상태의 추가 상품을 추가
+                    if (topProducts.length < 4) {
+                        const remainingCount = 4 - topProducts.length;
+    
+                        // 다른 카테고리의 HIGH 상태 상품 중에서 추가할 상품 선택
+                        const additionalHighProducts = formattedData.filter(
+                            product => product.condition === "HIGH" && product.status === "TRADING_AVAILABLE" && 
+                            !topProducts.includes(product)  // 중복 방지
+                        ).slice(0, remainingCount);
+    
+                        topProducts = [...topProducts, ...additionalHighProducts];
+                    }
+    
+                    setProducts(topProducts);
                 }
             })
             .catch(error => {
-                setProducts([]); // Clear products if there's an error
+                setProducts([]);  // 에러 발생 시 빈 배열로 설정
             });
-    }, []);
+    }, [selectedCategory]);
+    
     const addComma = (price) => price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     const getFullImageUrl = (imagePath) => {
