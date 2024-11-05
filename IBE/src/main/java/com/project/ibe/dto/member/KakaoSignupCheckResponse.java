@@ -5,14 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class KakaoSingupResponse {
+public class KakaoSignupCheckResponse {
     private String memberEmail;
     private String memberNickName;
     private String memberSocialId;
     private SocialType memberSocialType;
 
     @Builder
-    public KakaoSingupResponse(String memberEmail, String memberNickName, String memberSocialId, SocialType memberSocialType){
+    public KakaoSignupCheckResponse(String memberEmail, String memberNickName, String memberSocialId, SocialType memberSocialType){
         this.memberEmail =memberEmail;
         this.memberNickName = memberNickName;
         this.memberSocialId = memberSocialId;

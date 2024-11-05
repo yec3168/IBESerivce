@@ -3,7 +3,7 @@ package com.project.ibe.services.member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.ibe.dto.member.KakaoSingupResponse;
+import com.project.ibe.dto.member.KakaoSignupCheckResponse;
 import com.project.ibe.entity.common.SocialType;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
 
 
 @Service
@@ -35,12 +33,15 @@ public class KakaoService {
     @Value("${kakao.redirect.uri}")
     private String redirectUri;
 
+    @Value("${kakao.redirect.uri.backend}")
+    private String redirectUriBack;
+
     private final RestTemplate restTemplate;
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     public Object checkKakaoSignup(String code){
-        System.out.println(redirectUri);
+//        System.out.println(redirectUri);
 
         // 1. "인가 코드"로 "액세스 토큰" 생성
         String accessToken = getKakaoToken(code);
@@ -116,13 +117,13 @@ public class KakaoService {
 
         }catch (Exception e){
             //회원이 존재하지 않으면 회원가입.
-            KakaoSingupResponse kakaoSingupResponse = KakaoSingupResponse.builder()
+            KakaoSignupCheckResponse kakaoLoginCheckResponse = KakaoSignupCheckResponse.builder()
                     .memberEmail(email)
                     .memberNickName(nickname)
                     .memberSocialId(id)
                     .memberSocialType(SocialType.KAKAO)
                     .build();
-            return kakaoSingupResponse;
+            return kakaoLoginCheckResponse;
         }
 
     }
