@@ -14,5 +14,10 @@ import org.json.simple.JSONObject;
 @ToString
 @Builder
 public class NhResponse {
-    JSONObject response;
+    String msg;
+    String memberName;
+    String bankName;
+    String account;
+    Long payBackPoint;
+    Long memberPoint;
 }

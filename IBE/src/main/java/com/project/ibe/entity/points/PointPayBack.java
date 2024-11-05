@@ -24,7 +24,8 @@ public class PointPayBack {
     private Integer pointPayBackPrice;      //환급금액
     @Enumerated(EnumType.STRING)
     private PayResult pointPayBackResult;   //환급결과
-    private String bank;                      //은행코드
+    private String bank;                    //은행코드
+    private String bankName;                //은행이름
     private String bankAccountNumber;       //계좌
     @Column(updatable = false)
     @CreationTimestamp

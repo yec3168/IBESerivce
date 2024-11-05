@@ -36,13 +36,14 @@ public class NhService {
         Member member = memberRepository.findByMemberEmail(principal.getMemberEmail()).orElseThrow();
         //보유 포인트와 환급 신청 포인트 비교
         if(Long.parseLong(nhRequest.getMemberPoint())>member.getMemberPoint()){
-            return null; // 작업하기
+            return NhResponse.builder()
+                    .msg("보유 포인트가 부족합니다.").build();
         }
         // 계좌이체 준비
         RestTemplate template = new RestTemplate();
         String url;
         // 농협(011,012)과 타행은 다른 OpenApi를 사용
-        if(nhRequest.getBankName().equals("011")||nhRequest.getBankName().equals("012")) {
+        if(nhRequest.getBank().equals("011")||nhRequest.getBank().equals("012")) {
             url = "https://developers.nonghyup.com/ReceivedTransferAccountNumber.nh";
         }else {
             url = "https://developers.nonghyup.com/ReceivedTransferOtherBank.nh";
@@ -57,9 +58,9 @@ public class NhService {
         while (true) {
             //농협의 OpenApi가 요구한 데이터 세팅
             JSONObject json = new JSONObject();
-            Map<String, String> header = getNhHeader(nhRequest.getBankName());
+            Map<String, String> header = getNhHeader(nhRequest.getBank());
             json.put("Header", header);                                         //OpenApi가 요구한 Header 이름과 데이터.
-            json.put("Bncd", nhRequest.getBankName());                          //수취인 은행코드
+            json.put("Bncd", nhRequest.getBank());                              //수취인 은행코드
             json.put("Acno", nhRequest.getBankAccountNumber());                 //수취인 계좌
             json.put("Tram", price);                                            //송금액
             json.put("DractOtlt", "아이비");                                     //송금자
@@ -77,20 +78,33 @@ public class NhService {
         // response 의 데이터 추출
         Map<String, String> responseHeader = (Map<String, String>) response.get("Header");
         log.info(pointPayBackId);
-        log.info("응답 msg : "+responseHeader.get("Rsms"));
+        String msg = responseHeader.get("Rsms");
+        log.info("응답 msg : "+msg);
         PointPayBack pointPayBack = new PointPayBack();
         pointPayBack.setPointPayBackId(pointPayBackId);
         pointPayBack.setMemberEmail(member.getMemberEmail());
         pointPayBack.setMemberName(member.getMemberName());
         pointPayBack.setPointPayBackPoint(Long.parseLong(nhRequest.getMemberPoint()));
         pointPayBack.setPointPayBackPrice(Integer.parseInt(nhRequest.getMemberPoint())*10);
-        pointPayBack.setPointPayBackResult(PayResult.SUCCESS);
-        pointPayBack.setBank(nhRequest.getBankName());
+        if(msg.equals("정상처리 되었습니다.")){
+            pointPayBack.setPointPayBackResult(PayResult.SUCCESS);
+        }else {
+            pointPayBack.setPointPayBackResult(PayResult.FAIL);
+        }
+        pointPayBack.setBank(nhRequest.getBank());
+        pointPayBack.setBankName(nhRequest.getBankName());
         pointPayBack.setBankAccountNumber(nhRequest.getBankAccountNumber());
         pointPayBackRepository.save(pointPayBack);
         member.setMemberPoint(member.getMemberPoint()-pointPayBack.getPointPayBackPoint());
 
-        return NhResponse.builder().response(response).build();
+        return NhResponse.builder()
+                .msg(msg)
+                .memberName(pointPayBack.getMemberName())
+                .bankName(pointPayBack.getBankName())
+                .account(pointPayBack.getBankAccountNumber())
+                .payBackPoint(pointPayBack.getPointPayBackPoint())
+                .memberPoint(member.getMemberPoint())
+                .build();
 
     }
 
