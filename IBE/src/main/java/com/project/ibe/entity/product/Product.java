@@ -61,7 +61,7 @@ public class Product {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ProductUploadStatus productUploadStatus;        //판매물품 등록상태 1:등록중 2:등록됨 3:거절됨 4:삭제됨
+    private ProductUploadStatus productUploadStatus;        //판매물품 등록상태 WAIT, APPROVE, REJECT, DELETE
 
     @Column
     private String rejectionText; // 거부사유.

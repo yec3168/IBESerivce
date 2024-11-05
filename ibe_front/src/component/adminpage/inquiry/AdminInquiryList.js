@@ -1,63 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './AdminInquiryList.css';
 
 const AdminInquiryList = () => {
+  const [inquiries, setInquiries] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
+  const [answers, setAnswers] = useState({}); // 각 문의의 답변을 저장할 상태
 
-  const inquiries = [
-    {
-      id: 1,
-      category: '상품 A',
-      title: '문의 A',
-      nickname: '홍길동',
-      date: '2024-11-01',
-      content: '문의 A의 상세 내용입니다.',
-      responder: '관리자 A',
-      responseDate: '2024-11-02',
-      responseContent: '문의에 대한 답변 A입니다.',
-    },
-    {
-      id: 2,
-      category: '상품 B',
-      title: '문의 B',
-      nickname: '김철수',
-      date: '2024-11-02',
-      content: '문의 B의 상세 내용입니다.',
-      responder: '관리자 B',
-      responseDate: '2024-11-03',
-      responseContent: '문의에 대한 답변 B입니다.',
-    },
-    {
-      id: 3,
-      category: '상품 C',
-      title: '문의 C',
-      nickname: '이영희',
-      date: '2024-11-03',
-      content: '문의 C의 상세 내용입니다.',
-      responder: '관리자 C',
-      responseDate: '2024-11-04',
-      responseContent: '문의에 대한 답변 C입니다.',
-    },
-    {
-      id: 4,
-      category: '상품 D',
-      title: '문의 D',
-      nickname: '박민수',
-      date: '2024-11-04',
-      content: '문의 D의 상세 내용입니다.',
-      responder: '관리자 D',
-      responseDate: '2024-11-05',
-      responseContent: '문의에 대한 답변 D입니다.',
-    },
-  ];
+  const fetchInquiries = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:8080/admin/inquiry/answeredlist'
+      );
+      const fetchedInquiries = response.data.map((inquiry) => ({
+        id: inquiry.inquiryId,
+        category: inquiry.inquiryCategory,
+        title: inquiry.inquiryTitle,
+        content: inquiry.inquiryContent,
+        nickname: inquiry.memberNickName,
+        date: new Date(inquiry.inquiryCreatedAt).toLocaleDateString(),
+      }));
+      setInquiries(fetchedInquiries);
+    } catch (error) {
+      console.error('Error fetching inquiries:', error);
+      alert('문의 목록을 불러오는 데 실패했습니다.');
+    }
+  };
 
-  // 날짜 기준 내림차순 정렬
+  const fetchAnswer = async (inquiryId) => {
+    try {
+      const response = await axios.post('http://localhost:8080/admin/inquiry/getinquiryanswer', {
+        inquiryId: inquiryId,
+      });
+      const { inquiryAnswerContent, inquiryAnswerCreatedAt } = response.data;
+      setAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [inquiryId]: {
+          responseContent: inquiryAnswerContent,
+          responseDate: new Date(inquiryAnswerCreatedAt).toLocaleDateString(),
+        },
+      }));
+    } catch (error) {
+      console.error('Error fetching answer:', error);
+      alert('답변을 불러오는 데 실패했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    fetchInquiries();
+  }, []);
+
   const sortedInquiries = [...inquiries].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   const toggleExpand = (id) => {
-    setExpandedId(expandedId === id ? null : id);
+    if (expandedId === id) {
+      setExpandedId(null);
+    } else {
+      setExpandedId(id);
+      if (!answers[id]) {
+        fetchAnswer(id); // 답변이 아직 로드되지 않은 경우에만 fetchAnswer 호출
+      }
+    }
   };
 
   return (
@@ -70,8 +75,6 @@ const AdminInquiryList = () => {
           <div className="admin-il-column admin-il-title">제목</div>
           <div className="admin-il-column admin-il-nickname">닉네임</div>
           <div className="admin-il-column admin-il-date">신청일</div>
-          <div className="admin-il-column admin-il-responder">답변자</div>
-          <div className="admin-il-column admin-il-responseDate">답변일</div>
         </div>
         <div className="admin-il-inquiry-list">
           {sortedInquiries.map((inquiry) => (
@@ -81,17 +84,34 @@ const AdminInquiryList = () => {
                 onClick={() => toggleExpand(inquiry.id)}
               >
                 <div className="admin-il-column admin-il-id">{inquiry.id}</div>
-                <div className="admin-il-column admin-il-category">{inquiry.category}</div>
-                <div className="admin-il-column admin-il-title">{inquiry.title}</div>
-                <div className="admin-il-column admin-il-nickname">{inquiry.nickname}</div>
-                <div className="admin-il-column admin-il-date">{inquiry.date}</div>
-                <div className="admin-il-column admin-il-responder">{inquiry.responder}</div>
-                <div className="admin-il-column admin-il-responseDate">{inquiry.responseDate}</div>
+                <div className="admin-il-column admin-il-category">
+                  {inquiry.category}
+                </div>
+                <div className="admin-il-column admin-il-title">
+                  {inquiry.title}
+                </div>
+                <div className="admin-il-column admin-il-nickname">
+                  {inquiry.nickname}
+                </div>
+                <div className="admin-il-column admin-il-date">
+                  {inquiry.date}
+                </div>
               </div>
               {expandedId === inquiry.id && (
                 <div className="admin-il-inquiry-list-content">
                   <p>{inquiry.content}</p>
-                  <p><strong>답변 내용:</strong> {inquiry.responseContent}</p>
+                  {answers[inquiry.id] ? (
+                    <>
+                      <p>
+                        <strong>답변일:</strong> {answers[inquiry.id].responseDate}
+                      </p>
+                      <p>
+                        <strong>답변 내용:</strong> {answers[inquiry.id].responseContent}
+                      </p>
+                    </>
+                  ) : (
+                    <p>답변을 불러오는 중입니다...</p>
+                  )}
                 </div>
               )}
             </div>

@@ -33,6 +33,7 @@ import MypagePwChangePage from './component/layout/pages/mypage/MypagePwChangePa
 import IbeBoardListPage from './component/layout/pages/IbeBoard/IbeBoardListPage';
 
 import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDeleteAccountPage';
+import NotFound from './component/NotFound/NotFound';
 
 function App() {
   return (
@@ -83,7 +84,10 @@ function App() {
         <Routes>
           <Route path="/boards" element={<IbeBoardListPage/>} />
         </Routes>
-
+        {/* 404 에러페이지 - 위치 바꾸지 말것, 항상 마지막 Route여야 함. */}
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </>
   );

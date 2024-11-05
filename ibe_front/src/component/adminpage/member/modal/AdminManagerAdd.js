@@ -129,7 +129,7 @@ const AdminManagerAdd = ({
     <div className="admin-manager-modal">
       <div className="admin-manager-modal-content">
         <h3>관리자 추가</h3>
-        <label>이름 입력:</label>
+        <label>이름 입력</label>
         <input
           type="text"
           value={newManagerName}
@@ -138,7 +138,7 @@ const AdminManagerAdd = ({
         />
         {nameError && <p className="admin-manager-modal-error">{nameError}</p>}{' '}
         {/* 이름 에러 메시지 표시 */}
-        <label>아이디 입력:</label>
+        <label>아이디 입력</label>
         <input
           type="text"
           value={newManagerId}
@@ -146,7 +146,7 @@ const AdminManagerAdd = ({
           placeholder="아이디를 입력하세요"
         />
         {isIdDuplicate && <p className="admin-manager-modal-error">중복된 아이디입니다.</p>}
-        <label>역할 선택:</label>
+        <label>역할 선택</label>
         <select
           value={newManagerRole}
           onChange={(e) => setNewManagerRole(e.target.value)}
@@ -154,14 +154,14 @@ const AdminManagerAdd = ({
           <option value="ROLE_SERVICE_MANAGER">문의 담당자</option>
           <option value="ROLE_BOARD_MANAGER">게시판 담당자</option>
         </select>
-        <label>비밀번호 입력:</label>
+        <label>비밀번호 입력</label>
         <input
           type="password"
           value={newPassword}
           onChange={handleChangePassword} // 수정된 핸들러
           placeholder="비밀번호를 입력하세요"
         />
-        <label>비밀번호 확인:</label>
+        <label>비밀번호 확인</label>
         <input
           type="password"
           value={confirmPassword}

@@ -33,7 +33,7 @@ public class InquiryAnswer {
     @JoinColumn(name = "inquiry_id")
     private Inquiry inquiry;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 }
