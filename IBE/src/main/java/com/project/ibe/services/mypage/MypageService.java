@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MyPageService {
+public class MypageService {
     private final MemberRepository memberRepository;
 
 
-    public MemberInfoResponse getMyInfo(PrincipalDTO principal) {
+    public MemberInfoResponse getMemberInfo(PrincipalDTO principal) {
         Member member = memberRepository.findByMemberEmail(principal.getMemberEmail()).orElseThrow();
         MemberInfoResponse response = new MemberInfoResponse();
         response.setMemberEmail(member.getMemberEmail());

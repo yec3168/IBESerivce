@@ -33,60 +33,56 @@ import MypagePwChangePage from './component/layout/pages/mypage/MypagePwChangePa
 import IbeBoardListPage from './component/layout/pages/IbeBoard/IbeBoardListPage';
 
 import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDeleteAccountPage';
+import NotFound from './component/NotFound/NotFound';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Routes>
         {/* 로그인, 회원가입 */}
-        <Routes>
-          <Route path="/" element={<MainPage/>} />
-          <Route path="/signin" element={<SignInComponent/>} />
-          <Route path="/signup" element={<SignupComponent/>} />
-          <Route path="/searchEmail" element={<SigninEmailSearchComponent />}/>
-          <Route path="/searchPassword" element={<SignPasswordSeacchComponent />}/>
-        </Routes>
-        {/* 물품 관련 */}
-        <Routes>
-          <Route path="/products" element={<ProductListPage/>} />
-          <Route path="/products/detail/:id" element={<ProductDetailPage />} />
-          <Route path="/products/create" element={<ProductCreatePage />} />
-        </Routes>
-        {/* 주문 관련 */}
-        <Routes>
-          <Route path="/orders/order/:id" element={<OrderDetailPage/>} />
-        </Routes>
-        {/* 관리자페이지 Router */}
-        <Routes>
-          <Route path="/admin" element={<AdminPage />} />
-        </Routes>
-        {/* 마이페이지 Router */}
-        <Routes>
-          <Route path="/mypage" element={<MypageMainPage/>} />
-          <Route path="/mypage/plist" element={<MypagePurchaseListPage/>} />
-          <Route path="/mypage/slist" element={<MypageSalesListPage/>} />
-          <Route path="/mypage/pntcharge" element={<MypagePointChargePage/>} />
-          <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage/>} />
-          <Route path="/mypage/inquiry" element={<MypageInquiryPage/>} />
-          <Route path="/mypage/inqlist" element={<MypageInquiryListPage/>} />
-          <Route path="/mypage/inquiry/answer/:id" element={<MypageInquiryAnsPage/>} />
-          <Route path="/mypage/info" element={<MypageMemberInfoChangePage/>} />
-          <Route path="/mypage/pw" element={<MypagePwChangePage/>} />
-          <Route path="/mypage/delete" element={<MypageDeleteAccountPage/>} />
-        </Routes>
-        {/* 포인트 처리 라우터 */}
-        <Routes>
-          <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent/>} />
-          <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult/>} />
-        </Routes>
-        {/* 아이비 게시판 */}
-        <Routes>
-          <Route path="/boards" element={<IbeBoardListPage/>} />
-        </Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/signin" element={<SignInComponent />} />
+        <Route path="/signup" element={<SignupComponent />} />
+        <Route path="/searchEmail" element={<SigninEmailSearchComponent />} />
+        <Route path="/searchPassword" element={<SignPasswordSeacchComponent />} />
 
-      </BrowserRouter>
-    </>
+        {/* 물품 관련 */}
+        <Route path="/products" element={<ProductListPage />} />
+        <Route path="/products/detail/:id" element={<ProductDetailPage />} />
+        <Route path="/products/create" element={<ProductCreatePage />} />
+
+        {/* 주문 관련 */}
+        <Route path="/orders/order/:id" element={<OrderDetailPage />} />
+
+        {/* 관리자페이지 Router */}
+        <Route path="/admin" element={<AdminPage />} />
+
+        {/* 마이페이지 Router */}
+        <Route path="/mypage" element={<MypageMainPage />} />
+        <Route path="/mypage/plist" element={<MypagePurchaseListPage />} />
+        <Route path="/mypage/slist" element={<MypageSalesListPage />} />
+        <Route path="/mypage/pntcharge" element={<MypagePointChargePage />} />
+        <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage />} />
+        <Route path="/mypage/inquiry" element={<MypageInquiryPage />} />
+        <Route path="/mypage/inqlist" element={<MypageInquiryListPage />} />
+        <Route path="/mypage/inquiry/answer/:id" element={<MypageInquiryAnsPage />} />
+        <Route path="/mypage/info" element={<MypageMemberInfoChangePage />} />
+        <Route path="/mypage/pw" element={<MypagePwChangePage />} />
+        <Route path="/mypage/delete" element={<MypageDeleteAccountPage />} />
+
+        {/* 포인트 처리 라우터 */}
+        <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent />} />
+        <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult />} />
+
+        {/* 아이비 게시판 */}
+        <Route path="/boards" element={<IbeBoardListPage />} />
+
+        {/* 404 에러페이지 - 위치 바꾸지 말것, 항상 마지막 Route여야 함. */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
 
 export default App;

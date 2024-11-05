@@ -1,0 +1,72 @@
+#container_notFound {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    font-family: "CookieRun-Regular", sans-serif !important;
+    padding: 20px; 
+}
+
+#h1_notFoundTitle {
+    font-size: 50px;
+    color: #f39c12; 
+    margin-bottom: 20px; 
+}
+
+#container_notFound div {
+    font-size: 20px;
+    padding-left: 12px;
+    color: #2c3e50; 
+}
+
+#container_notFound button {
+    text-decoration: none;
+    font-size: 20px;
+    color: #2c3e50; 
+    border: none; 
+    background: none; 
+    cursor: pointer; 
+}
+
+#span_notFoundHome {
+    text-decoration: none;
+    font-size: 20px;
+    color: #FFB800;
+}
+
+#container_notFound .btn-link {
+    color: #2c3e50; 
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#container_notFound .btn-link:hover {
+    color: #f4890a;
+}
+
+#container_notFound img {
+    margin-left: 20px;
+    transition: transform 0.3s ease;
+}
+
+#container_notFound img:hover {
+    animation: zoomInOut 1s forwards;
+}
+
+.zoomNotFound {
+    animation: zoomInOut 1s forwards;
+}
+
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
