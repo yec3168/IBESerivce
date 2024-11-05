@@ -69,21 +69,12 @@ public class AdminInquiryService {
     }
 
     public AdminAnsweredInquiryResponse AnsweredInquiryInfo(AdminInquiryAnswerRequest adminInquiryAnswerRequest) {
-        Inquiry existInquiry =  inquiryRepository.findByInquiryId(adminInquiryAnswerRequest.getInquiryId())
-                .orElseThrow(() -> new BusinessException("Inquiry Not Found", HttpStatus.NOT_FOUND));
-        InquiryAnswer existInquiryAnswer = inquiryAnswerRepository.findByInquiry(existInquiry)
-
+        InquiryAnswer existInquiryAnswer = inquiryAnswerRepository
+                .findByInquiry_InquiryId(adminInquiryAnswerRequest.getInquiryId())
                 .orElseThrow(() -> new BusinessException("Inquiry Not Found", HttpStatus.NOT_FOUND));
         AdminAnsweredInquiryResponse response = new AdminAnsweredInquiryResponse();
         response.setInquiryAnswerContent(existInquiryAnswer.getInquiryAnswerContent());
         response.setInquiryAnswerCreatedAt(existInquiryAnswer.getInquiryAnswerCreatedAt());
         return response;
-//        return inquiryAnswerRepository.findByInquiry(existInquiry)
-//                .map(entity -> modelMapper.map(entity, AdminAnsweredInquiryResponse.class))
-//                .orElseThrow(() -> new BusinessException("Inquiry Not Found", HttpStatus.NOT_FOUND));
-
-//       return inquiryAnswerRepository.findByInquiry_InquiryId(adminInquiryAnswerRequest.getInquiryId())
-//                .map(entity -> modelMapper.map(entity, AdminAnsweredInquiryResponse.class))
-//                .orElseThrow(() -> new BusinessException("Inquiry Not Found", HttpStatus.NOT_FOUND));
     }
 }

@@ -128,32 +128,6 @@ public class KakaoService {
 
     }
 
-
-
-
-//    //3. 카카오ID로 회원가입 & 로그인 처리
-//    private boolean kakaoUserLogin(HashMap<String, Object> userInfo){
-//        String uid= userInfo.get("id").toString();
-//        String kakaoEmail = userInfo.get("email").toString();
-//        String nickName = userInfo.get("nickname").toString();
-//
-//        try{
-//
-//            Member kakaoMember = memberRepository.findByMemberEmail(kakaoEmail)
-//                    .orElseThrow(
-//                            () -> new BusinessException("가입되지 않은 소셜아이디입니다.", HttpStatus.NOT_FOUND)
-//                    );
-//            // 존재한다면 로그인.
-//
-//        }catch (Exception e){
-//            //회원이 존재하지 않으면 회원가입.
-//        }
-//
-//
-//        return false;
-//    }
-
-
     // responseBody에 있는 정보를 꺼냄
     private static JsonNode getJsonNode(ResponseEntity<String> response) {
         String responseBody = response.getBody();

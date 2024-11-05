@@ -20,8 +20,8 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 400px; /* 모달의 너비 */
-  max-width: 90%; /* 화면이 작을 때 너비 조정 */
+  width: 500px; /* 모달의 너비 */
+  max-width: 100%; /* 화면이 작을 때 너비 조정 */
 }
 
 /* 제목 스타일 */

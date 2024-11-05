@@ -5,7 +5,18 @@ import './AdminInquiryList.css';
 const AdminInquiryList = () => {
   const [inquiries, setInquiries] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
-  const [answers, setAnswers] = useState({}); // 각 문의의 답변을 저장할 상태
+  const [answers, setAnswers] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // 페이지당 항목 수
+
+  // 카테고리 맵핑 객체
+  const categoryMap = {
+    POINT_CHARGE: '포인트 결제',
+    POINT_PAYBACK: '포인트 환급',
+    DELIVERY: '배송 지연/누락',
+    PRODUCT_DEFECT: '물품 하자',
+    INQ_MISC: '기타',
+  };
 
   const fetchInquiries = async () => {
     try {
@@ -14,7 +25,7 @@ const AdminInquiryList = () => {
       );
       const fetchedInquiries = response.data.map((inquiry) => ({
         id: inquiry.inquiryId,
-        category: inquiry.inquiryCategory,
+        category: categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
         title: inquiry.inquiryTitle,
         content: inquiry.inquiryContent,
         nickname: inquiry.memberNickName,
@@ -29,14 +40,17 @@ const AdminInquiryList = () => {
 
   const fetchAnswer = async (inquiryId) => {
     try {
-      const response = await axios.post('http://localhost:8080/admin/inquiry/getinquiryanswer', {
-        inquiryId: inquiryId,
-      });
+      const response = await axios.post(
+        'http://localhost:8080/admin/inquiry/getinquiryanswer',
+        {
+          inquiryId: inquiryId,
+        }
+      );
       const { inquiryAnswerContent, inquiryAnswerCreatedAt } = response.data;
       setAnswers((prevAnswers) => ({
         ...prevAnswers,
         [inquiryId]: {
-          responseContent: inquiryAnswerContent,
+          responseContent: inquiryAnswerContent.replace(/\n/g, '<br />'),
           responseDate: new Date(inquiryAnswerCreatedAt).toLocaleDateString(),
         },
       }));
@@ -50,9 +64,14 @@ const AdminInquiryList = () => {
     fetchInquiries();
   }, []);
 
-  const sortedInquiries = [...inquiries].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
+  const sortedInquiries = [...inquiries].sort((a, b) => b.id - a.id);
+
+  // 현재 페이지에 해당하는 항목들만 보여주기
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sortedInquiries.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(sortedInquiries.length / itemsPerPage);
 
   const toggleExpand = (id) => {
     if (expandedId === id) {
@@ -60,14 +79,26 @@ const AdminInquiryList = () => {
     } else {
       setExpandedId(id);
       if (!answers[id]) {
-        fetchAnswer(id); // 답변이 아직 로드되지 않은 경우에만 fetchAnswer 호출
+        fetchAnswer(id);
       }
     }
   };
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleNextPageSet = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 10, totalPages));
+  };
+
+  const handlePreviousPageSet = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 10, 1));
+  };
+
   return (
     <>
-      <h2>처리된 문의 목록</h2>
+      <h2 className="admin-il-h2">문의 관리 - 처리된 문의 목록</h2>
       <div className="admin-il-inquiry-list-container">
         <div className="admin-il-inquiry-list-column">
           <div className="admin-il-column admin-il-id">ID</div>
@@ -77,7 +108,7 @@ const AdminInquiryList = () => {
           <div className="admin-il-column admin-il-date">신청일</div>
         </div>
         <div className="admin-il-inquiry-list">
-          {sortedInquiries.map((inquiry) => (
+          {currentItems.map((inquiry) => (
             <div key={inquiry.id} className="admin-il-inquiry-list-item">
               <div
                 className="admin-il-inquiry-list-header"
@@ -106,7 +137,13 @@ const AdminInquiryList = () => {
                         <strong>답변일:</strong> {answers[inquiry.id].responseDate}
                       </p>
                       <p>
-                        <strong>답변 내용:</strong> {answers[inquiry.id].responseContent}
+                        <strong>답변 내용</strong>
+                        <br />
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: answers[inquiry.id].responseContent,
+                          }}
+                        />
                       </p>
                     </>
                   ) : (
@@ -116,6 +153,50 @@ const AdminInquiryList = () => {
               )}
             </div>
           ))}
+        </div>
+
+        {/* 페이지네이션 */}
+        <div className="admin-il-pagination">
+          <button
+            onClick={() => handlePageChange(1)}
+            disabled={currentPage === 1}
+            className="admin-il-pagination-button"
+          >
+            맨 처음
+          </button>
+          <button
+            onClick={handlePreviousPageSet}
+            disabled={currentPage <= 10}
+            className="admin-il-pagination-button"
+          >
+            이전
+          </button>
+          {Array.from({ length: Math.min(10, totalPages - Math.floor((currentPage - 1) / 10) * 10) }, (_, i) => {
+            const pageNumber = Math.floor((currentPage - 1) / 10) * 10 + i + 1;
+            return (
+              <button
+                key={pageNumber}
+                onClick={() => handlePageChange(pageNumber)}
+                className={`admin-il-pagination-button ${currentPage === pageNumber ? 'active' : ''}`}
+              >
+                {pageNumber}
+              </button>
+            );
+          })}
+          <button
+            onClick={handleNextPageSet}
+            disabled={currentPage + 10 > totalPages}
+            className="admin-il-pagination-button"
+          >
+            다음
+          </button>
+          <button
+            onClick={() => handlePageChange(totalPages)}
+            disabled={currentPage === totalPages}
+            className="admin-il-pagination-button"
+          >
+            맨 끝
+          </button>
         </div>
       </div>
     </>
