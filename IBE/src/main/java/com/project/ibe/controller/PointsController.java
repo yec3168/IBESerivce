@@ -52,11 +52,11 @@ public class PointsController {
     }
 
     @PostMapping("/nh/transfer")
-    public Response NhTransfer(@RequestBody NhRequest nhRequest) {
+    public Response NhTransfer(@RequestBody NhRequest nhRequest ,@AuthenticationPrincipal PrincipalDTO principal) {
         log.info("NhTestController 호출");
         log.info(nhRequest.toString());
         try{
-            return  new Response(ResponseCode.SUCCESS,nhService.nh(nhRequest), "200");
+            return  new Response(ResponseCode.SUCCESS,nhService.nh(nhRequest,principal), "200");
         }catch (Exception e){
             return  new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
