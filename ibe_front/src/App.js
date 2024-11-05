@@ -35,6 +35,7 @@ import IbeBoardListPage from './component/layout/pages/IbeBoard/IbeBoardListPage
 import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDeleteAccountPage';
 import NotFound from './component/NotFound/NotFound';
 import KakaoOauthCallback from './component/sign/KakaoOauthCallback';
+import MypagePointPaybackResultPage from './component/layout/pages/mypage/MypagePointPaybackResultPage';
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
         {/* 포인트 처리 라우터 */}
         <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent />} />
         <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult />} />
+        <Route path="/mypage/pntPayBack/result" element={<MypagePointPaybackResultPage/>}/>
 
         {/* 아이비 게시판 */}
         <Route path="/boards" element={<IbeBoardListPage />} />

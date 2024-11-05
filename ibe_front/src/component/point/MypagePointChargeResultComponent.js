@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-const MypagePointChargeResult = (Props)=>{
+const MypagePointChargeResult = ()=>{
     const location = useLocation();
     console.log(location.state);
     let name = location.state.data.partner_user_id;
