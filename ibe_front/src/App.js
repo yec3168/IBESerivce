@@ -34,6 +34,7 @@ import IbeBoardListPage from './component/layout/pages/IbeBoard/IbeBoardListPage
 
 import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDeleteAccountPage';
 import NotFound from './component/NotFound/NotFound';
+import KakaoOauthCallback from './component/sign/KakaoOauthCallback';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/signup" element={<SignupComponent />} />
         <Route path="/searchEmail" element={<SigninEmailSearchComponent />} />
         <Route path="/searchPassword" element={<SignPasswordSeacchComponent />} />
+        <Route path="/api/members/kakao/oauth" element={<KakaoOauthCallback />} />
 
         {/* 물품 관련 */}
         <Route path="/products" element={<ProductListPage />} />

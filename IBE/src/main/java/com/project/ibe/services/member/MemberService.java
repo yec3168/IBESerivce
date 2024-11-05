@@ -2,6 +2,7 @@ package com.project.ibe.services.member;
 
 
 import com.project.ibe.config.SmsUtil;
+import com.project.ibe.dto.member.KakaoSignupRequest;
 import com.project.ibe.dto.member.MemberSignupResponse;
 import com.project.ibe.dto.member.MemberSignInRequest;
 import com.project.ibe.dto.member.MemberSignUpRequest;
@@ -131,6 +132,30 @@ public class MemberService {
 
         return true;
     }
+
+
+    /**
+     * 카카오 회원가입
+     */
+    public Member kakaoSignup(KakaoSignupRequest kakaoSignupRequest){
+        if(memberRepository.existsByMemberEmail(kakaoSignupRequest.getMemberEmail())) {
+            throw new BusinessException("중복된 이메일 입니다.", HttpStatus.BAD_REQUEST);
+        }
+        // 패스워드 암호화
+        kakaoSignupRequest.setMemberPassword(bCryptPasswordEncoder.encode(kakaoSignupRequest.getMemberPassword()));
+
+        // 회원 정보 생성.
+        Member member =  modelMapper.map(kakaoSignupRequest, Member.class);
+        member.setMemberPoint(0L);
+        member.setRole(Role.ROLE_CLIENT);
+        return memberRepository.save(member);
+
+//        return modelMapper.map(member, MemberSignupResponse.class);
+    }
+
+
+
+
 
     private Member getMemberByEmail(String memberEmail) {
         Member member = memberRepository.findByMemberEmail(memberEmail)

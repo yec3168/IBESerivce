@@ -6,12 +6,13 @@ import {login } from '../service/MemberService';
 import {getKaKaoLoginLink} from "../service/KakaoService";
 import './Sign.css'
 
+
 function SignInComponent(){
 
     const [memberEmail, setMemberEmail] = useState("");
     const [memberPassword, setMemberPassword] = useState("");
     const [isEmpty, setIsEmpty] = useState(false);
-    
+   
   
 
     const onSubmitHandler =  (event) => {
@@ -56,6 +57,7 @@ function SignInComponent(){
     }
     const kakaoHandler = () =>{
         window.location.href = getKaKaoLoginLink()
+      
     }
 
     return(
