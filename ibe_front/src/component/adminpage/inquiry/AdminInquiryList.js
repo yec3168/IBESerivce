@@ -29,14 +29,17 @@ const AdminInquiryList = () => {
 
   const fetchAnswer = async (inquiryId) => {
     try {
-      const response = await axios.post('http://localhost:8080/admin/inquiry/getinquiryanswer', {
-        inquiryId: inquiryId,
-      });
+      const response = await axios.post(
+        'http://localhost:8080/admin/inquiry/getinquiryanswer',
+        {
+          inquiryId: inquiryId,
+        }
+      );
       const { inquiryAnswerContent, inquiryAnswerCreatedAt } = response.data;
       setAnswers((prevAnswers) => ({
         ...prevAnswers,
         [inquiryId]: {
-          responseContent: inquiryAnswerContent,
+          responseContent: inquiryAnswerContent.replace(/\n/g, '<br />'), // 개행문자 변환
           responseDate: new Date(inquiryAnswerCreatedAt).toLocaleDateString(),
         },
       }));
@@ -103,10 +106,17 @@ const AdminInquiryList = () => {
                   {answers[inquiry.id] ? (
                     <>
                       <p>
-                        <strong>답변일:</strong> {answers[inquiry.id].responseDate}
+                        <strong>답변일:</strong>{' '}
+                        {answers[inquiry.id].responseDate}
                       </p>
                       <p>
-                        <strong>답변 내용:</strong> {answers[inquiry.id].responseContent}
+                        <strong>답변 내용</strong>
+                        <br />{' '}
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: answers[inquiry.id].responseContent,
+                          }}
+                        />
                       </p>
                     </>
                   ) : (
