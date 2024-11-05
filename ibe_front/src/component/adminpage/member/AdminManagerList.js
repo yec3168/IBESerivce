@@ -160,9 +160,11 @@ const AdminManagerList = () => {
                 {manager.role}
               </div>
               <div className="admin-manager-column admin-manager-role-change">
-                <button onClick={() => handleRoleChangeClick(manager)}>
-                  역할 변경
-                </button>
+                {manager.role !== '관리자' && (
+                  <button onClick={() => handleRoleChangeClick(manager)}>
+                    역할 변경
+                  </button>
+                )}
               </div>
               <div className="admin-manager-column admin-manager-actions">
                 <button onClick={() => handlePasswordChangeClick(manager)}>
@@ -170,12 +172,14 @@ const AdminManagerList = () => {
                 </button>
               </div>
               <div className="admin-manager-column admin-manager-actions-delete">
-                <button
-                  className="admin-manager-delete"
-                  onClick={() => handleDeleteManager(manager.memberEmail)}
-                >
-                  삭제
-                </button>
+                {manager.role !== '관리자' && (
+                  <button
+                    className="admin-manager-delete"
+                    onClick={() => handleDeleteManager(manager.memberEmail)}
+                  >
+                    삭제
+                  </button>
+                )}
               </div>
             </div>
           ))}

@@ -3,6 +3,7 @@ package com.project.ibe.services.admin;
 import com.project.ibe.dto.admin.MemberAdminRequest;
 import com.project.ibe.dto.admin.SingleEmailRequest;
 import com.project.ibe.entity.common.Role;
+import com.project.ibe.entity.common.SocialType;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.member.MemberRepository;
@@ -46,6 +47,7 @@ public class AdminListService {
         manager.setMemberName(memberAdminRequest.getMemberName());
         manager.setMemberNickName(memberAdminRequest.getMemberEmail().substring(1,8));
         manager.setMemberPoint(100L);
+        manager.setMemberSocialType(SocialType.LOCAL);
         memberRepository.save(manager);
     }
 
