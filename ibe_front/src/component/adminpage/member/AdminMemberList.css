@@ -19,7 +19,8 @@
 
 .admin-member-search-container select,
 .admin-member-search-container input {
-  padding: 10px;
+  /* padding: 10px; */
+  padding-left: 10px;
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

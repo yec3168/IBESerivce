@@ -1,0 +1,26 @@
+.admin-piechart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 중앙 정렬 */
+  background-color: white; /* 배경색 */
+  height: 100px;
+}
+
+.admin-piechart-control {
+  display: flex; /* Flexbox를 사용하여 한 줄에 배치 */
+  align-items: center; /* 세로 정렬 */
+}
+
+.admin-piechart-label {
+  margin-right: 10px; /* 라벨과 콤보박스 사이의 간격 */
+}
+
+.admin-piechart-legend .recharts-legend-item {
+  display: flex; /* 수평 정렬 */
+  align-items: center; /* 수직 정렬 */
+}
+
+.admin-piechart-legend .recharts-legend-item text {
+  font-size: 14px; /* 범례 텍스트 폰트 크기 */
+  fill: #666; /* 텍스트 색상 */
+}

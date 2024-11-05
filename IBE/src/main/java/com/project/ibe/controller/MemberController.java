@@ -23,7 +23,7 @@ public class MemberController {
 
     private final MailService mailService;
     private final MemberService memberService;
-    private final KakaoService kakaoService;
+//    private final KakaoService kakaoService;
 
     /**
      * 회원가입 등록.
@@ -110,15 +110,15 @@ public class MemberController {
     /**
      * 카카오 로그인
      */
-    @GetMapping("/kakao/oauth")
-    public Response kakaoSigninRestAPI(@RequestParam("code") String code){
-        kakaoService.kakaoSignin(code);
-
-        try{
-            return null;
-            //return  new Response(ResponseCode.SUCCESS, kakaoService.kakaoSignin(code, request.getServerName()), "200");
-        }catch (Exception e){
-            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
-        }
-    }
+//    @GetMapping("/kakao/oauth")
+//    public Response kakaoSigninRestAPI(@RequestParam("code") String code){
+//        kakaoService.kakaoSignin(code);
+//
+//        try{
+//            return null;
+//            //return  new Response(ResponseCode.SUCCESS, kakaoService.kakaoSignin(code, request.getServerName()), "200");
+//        }catch (Exception e){
+//            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+//        }
+//    }
 }
