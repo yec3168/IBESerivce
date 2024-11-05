@@ -13,3 +13,5 @@ const headers = {
 export const kakaoReady = (data) => axios.post(`${REST_API_URL}/kakao/ready`, data,headers )
 
 export const kakaoCompleted = (pg_token,tid) => axios.get(`${REST_API_URL}/kakao/completed?${pg_token}&tid=${tid}`,headers)
+
+export const nhTransfer = (data) => axios.post(`${REST_API_URL}/nh/transfer`,data,headers)

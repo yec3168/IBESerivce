@@ -2,16 +2,65 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_to_cash_icon from '../assets/images/mypage/point_to_cash_icon.png'
+import { nhTransfer } from '../service/PointService';
 
 const MypagePointPaybackComponent = () => {
     const [inputValue, setInputValue] = useState('');
+    const [accountNumber, setAccountNumber] = useState('1000003188002'); //정보 받아와서 초기값에 넣어주고 싶음.
+    const [isClicked, setIsClicked] = useState(false);
+    const [isFail, setIsFail] = useState(false);
+    const [warningMsg,setWarningMsg]= useState('');
 
     const handleInputChange = (event) => {
-        setInputValue(event.target.value);
+        setInputValue(event.target.value.replace(/[^0-9]/g, ''));
+    };
+    const handleAccountNumberChange = (event) => {
+        setAccountNumber(event.target.value);
     };
 
     const expectedPayback = inputValue ? (parseInt(inputValue) * 10).toLocaleString() : '0';
+    
 
+    const pointButtonEvent = ()=>{
+        //포인트 비교(구현필요) 후 밑에 은행, 계좌 받는 곳 보이게하기
+
+        if(!inputValue){
+            return
+        }
+        document.getElementById('point-back-put-bank').style.display='inline';
+        document.getElementById('point_input_button').style.display='none';
+        document.getElementById('point_input').setAttribute('disabled',true);
+    }
+    const pointCancleButtonEvent =()=>{
+        setIsFail(false);
+        document.getElementById('point-back-put-bank').style.display='none';
+        document.getElementById('point_input_button').style.display='inline';
+        document.getElementById('point_input').removeAttribute('disabled');
+
+    }
+    const pointPayBackButtonEvent=()=>{
+        setIsClicked(true);
+        let bank = document.getElementById('bank').value;
+        let data ={
+            "bankName" : `${bank}`,
+            "bankAccountNumber" : `${accountNumber}`,
+            "memberPoint" : `${inputValue}`
+        }
+        console.log(data);
+        if(!isClicked){
+            nhTransfer(data)
+            .then(response =>{
+                console.log(response);
+                let msg = response.data.data.response.Header.Rsms
+                console.log(msg)
+                if(msg !=='정상처리 되었습니다.'){
+                    setIsFail(true);
+                }
+            })
+            .catch(e=>{console.log(e)})
+        }
+        setTimeout(() => setIsClicked(false), 3000);
+    }
     return (
         <>
             <Container className="text-center my-5 containerPCharge">
@@ -41,6 +90,7 @@ const MypagePointPaybackComponent = () => {
                             <Form inline className="d-flex align-items-center">
                                 <Form.Group controlId="formPointInput">
                                     <Form.Control 
+                                        id ='point_input'
                                         type="text" 
                                         placeholder="환급 받을 포인트를 입력해주세요." 
                                         style={{ borderColor:'#FFB800', width:'500px', height:'50px'}} 
@@ -48,7 +98,7 @@ const MypagePointPaybackComponent = () => {
                                         onChange={handleInputChange} 
                                     />
                                 </Form.Group>
-                                <Button 
+                                <Button onClick={()=>pointButtonEvent()} id="point_input_button"
                                     style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
                                     입력
                                 </Button>
@@ -62,6 +112,50 @@ const MypagePointPaybackComponent = () => {
                     </div>
                 </Container>
 
+                
+                
+                <Container className="my-5" id='point-back-put-bank' style={{display: 'none'}}>
+                    <Row className="justify-content-center align-items-center">
+                    <Form inline className="d-flex align-items-center" >
+                    <div className="mt-3">
+                        <strong>{inputValue}포인트</strong>를 환급 원하십니까?
+                    </div>
+                                <Form.Group controlId="formPointInput">
+                                    <Form.Select id='bank'
+                                        style={{ borderColor:'#FFB800', width:'150px', height:'50px'}}
+                                        >
+                                        <option value="011">농협은행</option>
+                                        <option value="002">산업은행</option>
+                                        <option value="3">은행3</option>
+                                    </Form.Select>   
+                                    
+                                    <Form.Control 
+                                        type="text" 
+                                        placeholder="계좌번호" 
+                                        style={{ borderColor:'#FFB800', width:'500px', height:'50px'}} 
+                                        value={accountNumber} 
+                                        onChange={handleAccountNumberChange} 
+                                    />
+                                    {
+                                        isFail ? (
+                                            <span onClose={() => setIsFail(false)}>"계좌번호를 확인해 주세요."</span>
+                                        ) : (
+                                            <span/>
+                                        )
+                                    }
+                                </Form.Group>
+                                <Button onClick={()=>pointCancleButtonEvent()}
+                                    style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
+                                    취소
+                                </Button>
+                                <br/>
+                                <Button onClick={()=>pointPayBackButtonEvent()}
+                                    style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
+                                    입력
+                                </Button>
+                            </Form>
+                    </Row>
+                </Container>
                 <div id="div_spacing"/>
 
                 {/* 포인트 약관 */}

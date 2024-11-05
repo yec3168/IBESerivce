@@ -40,9 +40,9 @@ const MypagePointChargeComponent = () => {
             response =>{
                 if (!isClicked) {
                     // 로직 실행
-                    console.log(response.data);
-                    localStorage.setItem("tid", response.data.tid);
-                    window.open(response.data.next_redirect_pc_url,'_blank','width=900,height=1000');   
+                    console.log(response.data.data);
+                    localStorage.setItem("tid", response.data.data.tid);
+                    window.open(response.data.data.next_redirect_pc_url,'_blank','width=900,height=1000');   
                   }
                 
             }
