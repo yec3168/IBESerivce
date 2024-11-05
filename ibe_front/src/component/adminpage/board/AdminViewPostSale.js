@@ -31,7 +31,9 @@ const AdminViewPostSale = () => {
         const response = await axios.get(
           'http://localhost:8080/admin/board/viewpost/sale'
         );
-        setSalesData(response.data); // 가져온 데이터로 상태 업데이트
+        // ID 기준으로 내림차순 정렬
+        const sortedData = response.data.sort((a, b) => b.productId - a.productId);
+        setSalesData(sortedData); // 정렬된 데이터로 상태 업데이트
       } catch (error) {
         console.error('Error fetching sales data:', error);
       }

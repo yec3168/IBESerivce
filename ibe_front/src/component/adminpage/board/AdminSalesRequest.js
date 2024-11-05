@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminSalesRequest.css';
 
@@ -7,6 +7,7 @@ const AdminSalesRequest = () => {
   const [salesRequests, setSalesRequests] = useState([]);
   const [rejectionReason, setRejectionReason] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
+  const [images, setImages] = useState({}); // 이미지 URL을 저장할 상태
 
   const categoryMapping = {
     KIDS_CLOTHING: '아동 의류',
@@ -29,6 +30,7 @@ const AdminSalesRequest = () => {
           nickname: request.memberNickName,
           date: request.productCreatedAt.split('T')[0],
           content: request.productContent,
+          // images: request.productImages || [], // 이미지는 나중에 가져옴
         }));
         setSalesRequests(requests);
       } catch (error) {
@@ -41,8 +43,27 @@ const AdminSalesRequest = () => {
 
   const sortedRequests = [...salesRequests].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  const toggleExpand = (id) => {
-    setExpandedId(expandedId === id ? null : id);
+  const toggleExpand = async (id) => {
+    if (expandedId === id) {
+      setExpandedId(null);
+      return;
+    }
+
+    // 새로운 요청에 대해 이미지 URL을 요청
+    const request = salesRequests.find((request) => request.id === id);
+    if (request) {
+      try {
+        const response = await axios.post('http://localhost:8080/admin/board/salesrequest/img', { productId: request.id });
+        setImages((prevImages) => ({
+          ...prevImages,
+          [id]: response.data.imagePath, // 받아온 이미지 경로 저장
+        }));
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    }
+
+    setExpandedId(id);
   };
 
   const handleApproval = async (productId) => {
@@ -124,6 +145,13 @@ const AdminSalesRequest = () => {
             {expandedId === request.id && (
               <div className="admin-sr-sales-request-content">
                 {request.content}
+                <div className="admin-sr-images-container">
+                  {images[request.id] ? (
+                    <img src={images[request.id]} alt={`상품 이미지 ${request.id}`} className="admin-sr-image" />
+                  ) : (
+                    <p>이미지가 없습니다.</p>
+                  )}
+                </div>
                 <div className="admin-sr-button-container">
                   <button
                     className="admin-sr-action-button-yes"
