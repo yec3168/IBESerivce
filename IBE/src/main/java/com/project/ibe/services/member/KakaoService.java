@@ -3,11 +3,15 @@ package com.project.ibe.services.member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.ibe.dto.member.KakaoSingupResponse;
+import com.project.ibe.entity.common.SocialType;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
+import com.project.ibe.jwt.JwtTokenProvider;
 import com.project.ibe.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,6 +23,7 @@ import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:application-api.properties")
 public class KakaoService {
 
     @Value("${kakao.client.id}")
@@ -32,21 +37,22 @@ public class KakaoService {
 
     private final RestTemplate restTemplate;
     private final MemberRepository memberRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public boolean kakaoSignin(String code){
+    public Object checkKakaoSignup(String code){
+        System.out.println(redirectUri);
+
         // 1. "인가 코드"로 "액세스 토큰" 생성
         String accessToken = getKakaoToken(code);
+        System.out.println("accessToken " + accessToken);
 
-        // 2. 생성된 "액세스 토큰"으로 카카오 API 호출. User의 정보를 가져옴.
-        HashMap<String, Object> userInfo = getString(accessToken);
-
-        // 3. 유저 정보로 회원가입 & 로그인 처리
-
-
-        return true;
+        // 2. 생성된 "액세스 토큰"으로 카카오 API 호출.
+        // 이미 존재하는 회원이면 null
+        // 회원가입이 필요하면 데이터 넣음.
+        return getString(accessToken);
     }
 
-    //1. "인가 코드"로 "액세스 토큰" 요청 => 액세스 토큰 파싱
+    //1. "인가 코드"로 "액세스 토큰" 요청 => 액세스 토큰 파싱  (통과)
     public String getKakaoToken(String code){
         String tokenUrl = "https://kauth.kakao.com/oauth/token";
 
@@ -73,9 +79,9 @@ public class KakaoService {
     }
 
 
-    //유저 정보 가져오기.
     //2. 토큰으로 카카오 API 호출
-    private HashMap<String, Object> getString(String accessToken){
+    // 로그인 or 회원가입 여부 확인.
+    private Object getString(String accessToken){
         String url = "https://kapi.kakao.com/v2/user/me";
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -86,41 +92,65 @@ public class KakaoService {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
 
         JsonNode jsonNode = getJsonNode(response);
+        System.out.println(jsonNode.toString());
 
-        // 회원정보 가져와서 넣기.
-        HashMap<String, Object> userInfo= new HashMap<String,Object>();
-        Long id = jsonNode.get("id").asLong();
+        String id = jsonNode.get("id").asText();
         String email = jsonNode.get("kakao_account").get("email").asText();
         String nickname = jsonNode.get("properties").get("nickname").asText();
 
-        userInfo.put("id",id);
-        userInfo.put("email",email);
-        userInfo.put("nickname",nickname);
 
-        return userInfo;
-    }
-
-    //3. 카카오ID로 회원가입 & 로그인 처리
-    private boolean kakaoUserLogin(HashMap<String, Object> userInfo){
-        Long uid= Long.valueOf(userInfo.get("id").toString());
-        String kakaoEmail = userInfo.get("email").toString();
-        String nickName = userInfo.get("nickname").toString();
+        // 회원정보 가져와서 넣기.
+//        HashMap<String, Object> userInfo= new HashMap<String,Object>();
+//        userInfo.put("id",id);
+//        userInfo.put("email", email);
+//        userInfo.put("nickname",nickname);
 
         try{
 
-            Member kakaoMember = memberRepository.findByMemberEmail(kakaoEmail)
+            Member kakaoMember = memberRepository.findByMemberEmail(email)
                     .orElseThrow(
-                            () -> new BusinessException("Member not Found", HttpStatus.NOT_FOUND)
+                            () -> new BusinessException("가입되지 않은 소셜아이디입니다.", HttpStatus.NOT_FOUND)
                     );
-            // 존재한다면 로그인.
+            // 존재한다면 로그인. -> 토큰 생성.
+            return jwtTokenProvider.createToken(kakaoMember.getMemberEmail());
 
         }catch (Exception e){
             //회원이 존재하지 않으면 회원가입.
+            KakaoSingupResponse kakaoSingupResponse = KakaoSingupResponse.builder()
+                    .memberEmail(email)
+                    .memberNickName(nickname)
+                    .memberSocialId(id)
+                    .memberSocialType(SocialType.KAKAO)
+                    .build();
+            return kakaoSingupResponse;
         }
 
-
-        return false;
     }
+
+
+
+
+//    //3. 카카오ID로 회원가입 & 로그인 처리
+//    private boolean kakaoUserLogin(HashMap<String, Object> userInfo){
+//        String uid= userInfo.get("id").toString();
+//        String kakaoEmail = userInfo.get("email").toString();
+//        String nickName = userInfo.get("nickname").toString();
+//
+//        try{
+//
+//            Member kakaoMember = memberRepository.findByMemberEmail(kakaoEmail)
+//                    .orElseThrow(
+//                            () -> new BusinessException("가입되지 않은 소셜아이디입니다.", HttpStatus.NOT_FOUND)
+//                    );
+//            // 존재한다면 로그인.
+//
+//        }catch (Exception e){
+//            //회원이 존재하지 않으면 회원가입.
+//        }
+//
+//
+//        return false;
+//    }
 
 
     // responseBody에 있는 정보를 꺼냄
