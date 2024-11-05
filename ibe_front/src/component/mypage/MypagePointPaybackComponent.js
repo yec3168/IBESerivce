@@ -25,7 +25,7 @@ const MypagePointPaybackComponent = () => {
     const pointButtonEvent = ()=>{
         //포인트 비교(구현필요) 후 밑에 은행, 계좌 받는 곳 보이게하기
 
-        if(!inputValue){
+        if(!inputValue || inputValue==0){
             return
         }
         document.getElementById('point-back-put-bank').style.display='inline';
@@ -50,7 +50,6 @@ const MypagePointPaybackComponent = () => {
         }
         console.log(data);
         if(!isClicked){
-            //확인 메세지필요
             let confirmMsg = `${inputValue}포인트 ${bank.options[bank.selectedIndex].text} ${accountNumber}에 환급 받으시겠습니까?`;
             let check=window.confirm(confirmMsg);
             if(!check){
@@ -64,7 +63,7 @@ const MypagePointPaybackComponent = () => {
                 if(msg !=='정상처리 되었습니다.'){
                     setIsFail(true);
                 }else{
-                    navigate("/mypage/pntPayBack/result",);
+                    navigate("/mypage/pntPayBack/result",{ state: response.data });
                 }
             })
             .catch(e=>{console.log(e)})
@@ -126,6 +125,7 @@ const MypagePointPaybackComponent = () => {
                 
                 <Container className="my-5" id='point-back-put-bank' style={{display: 'none'}}>
                     <Row className="justify-content-center align-items-center">
+                    <Col xs='auto'>
                     <Form inline className="d-flex align-items-center" >
                     
                                 <Form.Group controlId="formPointInput">
@@ -167,6 +167,7 @@ const MypagePointPaybackComponent = () => {
                                 </Form.Group>
                                 
                             </Form>
+                            </Col>
                     </Row>
                 </Container>
                 <div id="div_spacing"/>

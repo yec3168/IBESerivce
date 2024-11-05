@@ -2,12 +2,13 @@ package com.project.ibe.services.points;
 
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.points.ApproveResponse;
+import com.project.ibe.dto.points.KakaoPayResponse;
 import com.project.ibe.dto.points.KakaoReadyResponse;
 import com.project.ibe.entity.common.PayResult;
 import com.project.ibe.entity.member.Member;
-import com.project.ibe.entity.points.Pay;
+import com.project.ibe.entity.points.PointCharge;
 import com.project.ibe.repository.member.MemberRepository;
-import com.project.ibe.repository.points.PayRepository;
+import com.project.ibe.repository.points.PointChargeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -26,7 +27,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class KakaoPayService {
 
-    private final PayRepository payRepository;
+    private final PointChargeRepository payRepository;
     private final MemberRepository memberRepository;
     // 카카오페이 결제창 연결
     public KakaoReadyResponse payReady(String name, int totalPrice, PrincipalDTO principal) {
@@ -60,16 +61,16 @@ public class KakaoPayService {
         ResponseEntity<KakaoReadyResponse> responseEntity = template.postForEntity(url, requestEntity, KakaoReadyResponse.class);
         log.info("결제준비 응답객체: " + responseEntity.getBody());
         if(!(responseEntity.getBody().getTid()==null ||responseEntity.getBody().getTid().isEmpty())) {
-            Pay pay = new Pay();
-            pay.setPayId(partnerOrderId);
+            PointCharge pay = new PointCharge();
+            pay.setPointChargeId(partnerOrderId);
             pay.setMemberName(principal.getMemberName());
             pay.setMemberEmail(principal.getMemberEmail());
-            pay.setPayName(name);
-            pay.setPayPoint((long)totalPrice/10);
-            pay.setPay_price(totalPrice);
+            pay.setPointChargeName(name);
+            pay.setPointChargePoint((long)totalPrice/10);
+            pay.setPointChargePrice(totalPrice);
             pay.setTax_free_amount(0);
             pay.setPartnerOrderId(responseEntity.getBody().getTid());
-            pay.setPayResult(PayResult.FAIL);
+            pay.setPointChargeResult(PayResult.FAIL);
             payRepository.save(pay);
         }
 
@@ -80,13 +81,13 @@ public class KakaoPayService {
     // 사용자가 결제 수단을 선택하고 비밀번호를 입력해 결제 인증을 완료한 뒤,
     // 최종적으로 결제 완료 처리를 하는 단계
     @Transactional
-    public ApproveResponse payApprove(String tid, String pgToken) {
-        Pay pay = payRepository.findByPartnerOrderId(tid).orElseThrow();
+    public KakaoPayResponse payApprove(String tid, String pgToken) {
+        PointCharge pay = payRepository.findByPartnerOrderId(tid).orElseThrow();
         Map<String, String> parameters = new HashMap<>();
         // 회원 아이디, 주문번호 받아오는 로직 필요  jwt 토큰 구현후 작업필요.
         parameters.put("cid", "TC0ONETIME");              // 가맹점 코드(테스트용)
         parameters.put("tid", tid);                       // 결제 고유번호
-        parameters.put("partner_order_id", pay.getPayId()); // 주문번호
+        parameters.put("partner_order_id", pay.getPointChargeId()); // 주문번호
         parameters.put("partner_user_id", pay.getMemberName());    // 회원 아이디
         parameters.put("pg_token", pgToken);              // 결제승인 요청을 인증하는 토큰
 
@@ -100,8 +101,14 @@ public class KakaoPayService {
         Member member = memberRepository.findByMemberEmail(pay.getMemberEmail()).orElseThrow();
         long points = (long) approveResponse.getAmount().getTotal()/10;
         member.setMemberPoint(member.getMemberPoint()+points);
-        pay.setPayResult(PayResult.SUCCESS);
-        return approveResponse;
+        pay.setPointChargeResult(PayResult.SUCCESS);
+
+        return KakaoPayResponse.builder()
+                .memberName(approveResponse.getPartner_user_id())
+                .memberPoint(member.getMemberPoint())
+                .chargePoint(points)
+                .amount((long) approveResponse.getAmount().getTotal())
+                .build();
     }
 
     // 카카오페이 측에 요청 시 헤더부에 필요한 값
