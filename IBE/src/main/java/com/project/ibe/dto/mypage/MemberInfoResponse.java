@@ -12,6 +12,6 @@ public class MemberInfoResponse {
     private String memberName;
     private String memberEmail;
     private String memberNickName;
-    private Long points;
+    private Long memberPoint;
 
 }
