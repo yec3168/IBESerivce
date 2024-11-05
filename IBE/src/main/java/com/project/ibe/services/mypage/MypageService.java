@@ -19,7 +19,7 @@ public class MypageService {
         Member member = memberRepository.findByMemberEmail(principal.getMemberEmail()).orElseThrow();
         MemberInfoResponse response = new MemberInfoResponse();
         response.setMemberEmail(member.getMemberEmail());
-        response.setPoints(member.getMemberPoint());
+        response.setMemberPoint(member.getMemberPoint());
         response.setMemberNickName(member.getMemberNickName());
         response.setMemberName(member.getMemberName());
 
