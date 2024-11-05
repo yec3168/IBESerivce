@@ -2,6 +2,7 @@ package com.project.ibe.entity.member;
 
 import com.project.ibe.entity.common.AuditingFields;
 import com.project.ibe.entity.common.Role;
+import com.project.ibe.entity.common.SocialType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -73,4 +74,11 @@ public class Member extends  AuditingFields{
 
     @Column(nullable = true)
     private String memberAuthNumber;     // 인증번호
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private SocialType memberSocialType;      // 회원가입 경로.
+
+    @Column(nullable = true)
+    private String memberSocialId;            // 소셜 아이디.
 }

@@ -1,5 +1,6 @@
 package com.project.ibe.controller;
 
+import com.project.ibe.services.member.KakaoService;
 import com.project.ibe.services.member.MemberService;
 import com.project.ibe.dto.member.MailRequest;
 import com.project.ibe.dto.member.MemberSignInRequest;
@@ -9,6 +10,7 @@ import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.member.MailService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ public class MemberController {
 
     private final MailService mailService;
     private final MemberService memberService;
+    private final KakaoService kakaoService;
 
     /**
      * 회원가입 등록.
@@ -87,6 +90,9 @@ public class MemberController {
         }
     }
 
+    /**
+     * 아이디 찾기.
+     */
     @PostMapping("/mail/send")
     public Response sendSms(@RequestBody MemberSmsReqequest memberSmsReqequest) {
         try {
@@ -94,6 +100,25 @@ public class MemberController {
         } catch (Exception e) {
 
             return new Response(ResponseCode.FAIL, e.getMessage(), "400");
+        }
+    }
+
+
+
+
+
+    /**
+     * 카카오 로그인
+     */
+    @GetMapping("/kakao/oauth")
+    public Response kakaoSigninRestAPI(@RequestParam("code") String code){
+        kakaoService.kakaoSignin(code);
+
+        try{
+            return null;
+            //return  new Response(ResponseCode.SUCCESS, kakaoService.kakaoSignin(code, request.getServerName()), "200");
+        }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
 }

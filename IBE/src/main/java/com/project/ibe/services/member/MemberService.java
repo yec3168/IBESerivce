@@ -8,6 +8,7 @@ import com.project.ibe.dto.member.MemberSignUpRequest;
 import com.project.ibe.dto.member.sms.MemberSmsReqequest;
 import com.project.ibe.dto.member.sms.MemberSmsResponse;
 import com.project.ibe.entity.common.Role;
+import com.project.ibe.entity.common.SocialType;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
 import com.project.ibe.exception.BusinessException;
@@ -55,6 +56,7 @@ public class MemberService {
         Member member =  modelMapper.map(memberSignUpRequest, Member.class);
         member.setMemberPoint(0L);
         member.setRole(Role.ROLE_ADMIN);
+        member.setMemberSocialType(SocialType.LOCAL); // 일반 사용자는 LOCAL
         memberRepository.save(member);
 
 
