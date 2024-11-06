@@ -13,6 +13,12 @@ const IbeBoardDetailsComponent = () => {
 
   // 게시물 데이터 가져오기
   useEffect(() => {
+    fetchPostData();
+    fetchCommentsData();
+  }, [boardId]);
+
+  // 게시물 데이터 가져오기
+  const fetchPostData = () => {
     fetch(`http://localhost:8080/api/boards/${boardId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -27,13 +33,34 @@ const IbeBoardDetailsComponent = () => {
             commentCount: data.data.boardCommentCnt,
           };
           setPost(postData);
-
-          // 댓글 데이터를 받아오는 로직 추가 (예시)
-          setComments([]); // 예시로 댓글은 빈 배열로 설정
         }
       })
       .catch((error) => console.error('Error fetching post data:', error));
-  }, [boardId]);
+  };
+
+  // 댓글 데이터 가져오기
+  const fetchCommentsData = () => {
+    fetch(`http://localhost:8080/api/boards/comments/${boardId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.responseCode === 'SUCCESS') {
+          const fetchedComments = data.data.map((comment) => ({
+            id: comment.boardCommentId,
+            content: comment.boardCommentContent,
+            createdAt: comment.boardCommentCreatedAt,
+            nickname: comment.member.memberNickName,
+            replies: comment.boardReplyResponseList.map((reply) => ({
+              id: reply.boardReplyId,
+              content: reply.boardReplyContent,
+              createdAt: reply.boardReplyCreatedAt,
+              nickname: reply.member.memberNickName,
+            })),
+          }));
+          setComments(fetchedComments);
+        }
+      })
+      .catch((error) => console.error('Error fetching comments:', error));
+  };
 
   // 댓글 입력 처리
   const handleCommentSubmit = () => {
@@ -42,31 +69,21 @@ const IbeBoardDetailsComponent = () => {
         boardId,
         boardCommentContent: newComment,
       };
-      // JWT 토큰 가져오기
-      const token = localStorage.getItem('accessToken'); // localStorage에서 JWT 토큰 가져오기
+      const token = localStorage.getItem('accessToken'); // JWT 토큰 가져오기
 
       // 서버에 댓글 전송
       fetch('http://localhost:8080/api/boards/comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 포함
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newCommentData),
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.responseCode === 'SUCCESS') {
-            // 댓글이 성공적으로 추가되면, 댓글 목록에 추가
-            setComments([
-              ...comments,
-              {
-                id: comments.length + 1,
-                nickname: '나',
-                content: newComment,
-                replies: [],
-              },
-            ]);
+            fetchCommentsData(); // 댓글 등록 후 최신 댓글 데이터를 가져오기
             setNewComment(''); // 입력 필드 비우기
           } else {
             console.error('댓글 추가 실패:', data.message);
@@ -88,22 +105,33 @@ const IbeBoardDetailsComponent = () => {
   const handleReplySubmit = (commentId) => {
     if (!replyContent.trim()) return;
 
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment.id === commentId
-          ? {
-              ...comment,
-              replies: [
-                ...comment.replies,
-                { id: Date.now(), content: replyContent },
-              ],
-            }
-          : comment
-      )
-    );
+    const replyData = {
+      boardId,
+      boardCommentId: commentId,
+      boardReplyContent: replyContent,
+    };
+    const token = localStorage.getItem('accessToken'); // JWT 토큰 가져오기
 
-    setReplyContent(''); // Clear the input
-    setShowReplyInput((prev) => ({ ...prev, [commentId]: false })); // Hide input after submitting
+    // 서버에 답글 전송
+    fetch('http://localhost:8080/api/boards/reply', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(replyData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.responseCode === 'SUCCESS') {
+          fetchCommentsData(); // 답글 등록 후 최신 댓글 데이터를 가져오기
+          setReplyContent(''); // 입력 필드 비우기
+          setShowReplyInput((prev) => ({ ...prev, [commentId]: false })); // 답글 입력창 숨기기
+        } else {
+          console.error('답글 추가 실패:', data.message);
+        }
+      })
+      .catch((error) => console.error('Error posting reply:', error));
   };
 
   return (
@@ -181,7 +209,9 @@ const IbeBoardDetailsComponent = () => {
                           key={reply.id}
                           className="reply ml-4 pl-3 border-left"
                         >
-                          <small>{reply.content}</small>
+                          <small>{reply.nickname}: {reply.content}</small>
+                          <br />
+                          <small>{reply.createdAt}</small>
                         </div>
                       ))}
                     </div>
