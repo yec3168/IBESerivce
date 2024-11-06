@@ -53,6 +53,7 @@ public class BoardController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
     /**
      * 댓글 등록.
      */
@@ -65,6 +66,20 @@ public class BoardController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
 
+    }
+
+
+    /**
+     * 댓글 목록 조회.
+     */
+
+    @GetMapping("/comments/{id}")
+    public Response getBoardCommentList(@PathVariable("id")Long boardId){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.getBoardCommentList(boardId), "200");
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
     }
 
     /**
@@ -81,4 +96,5 @@ public class BoardController {
         }
 
     }
+
 }

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +85,32 @@ public class BoardService {
         return boardListResponseList;
     }
 
+    /**
+     * 댓글 목록 조회.
+     */
+    public List<BoardCommentResponse> getBoardCommentList(Long boardId){
+        Board board = findBoardById(boardId);
+        // 결과를 저장할 리스트
+        List<BoardCommentResponse> boardCommentResponseList = new ArrayList<>();
+
+        // 댓글의 리스트를 가져옴.
+        List<BoardComment> boardCommentList = boardCommentRepository.findAllByBoard(board);
+        for(BoardComment boardComment : boardCommentList){
+            // add할 변수.
+            BoardCommentResponse boardCommentResponse = modelMapper.map(boardComment, BoardCommentResponse.class);
+
+            // 댓글의 대댓글 리스트를 가져옴.
+            List<BoardReplyResponse> boardReplyList = boardReplyRepository.findAllByBoardComment(boardComment)
+                    .stream()
+                    .map(boardReply -> modelMapper.map(boardReply, BoardReplyResponse.class))
+                    .toList();
+            boardCommentResponse.setBoardReplyResponseList(boardReplyList);
+
+            boardCommentResponseList.add(boardCommentResponse);
+        }
+
+        return boardCommentResponseList;
+    }
     /**
      * 댓글 등록.
      */
