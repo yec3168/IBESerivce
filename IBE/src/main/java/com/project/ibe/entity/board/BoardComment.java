@@ -2,10 +2,8 @@ package com.project.ibe.entity.board;
 
 import com.project.ibe.entity.member.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +22,7 @@ public class BoardComment {
     private String boardCommentContent;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime boardCommentCreatedAt;
 
     @ManyToOne
@@ -33,4 +32,11 @@ public class BoardComment {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Builder
+    public BoardComment(String boardCommentContent, Board board, Member member){
+        this.board = board;
+        this.boardCommentContent = boardCommentContent;
+        this.member = member;
+    }
 }

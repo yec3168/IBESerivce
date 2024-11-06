@@ -1,11 +1,11 @@
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DaumPostcode from 'react-daum-postcode';
-import axios from "axios";
+import { getMemberInfo, updateMemberInfo, checkMemberPw  } from '../service/MypageService'; 
 
 const MemberInfoChangeComponent = () => {
     // 데이터 상태 관리
-    const [info, setInfo] = useState(null);
+    const [memberInfo, setMemberInfo] = useState(null);
     const [error, setError] = useState(null);
 
     const [password, setPassword] = useState('');
@@ -20,32 +20,45 @@ const MemberInfoChangeComponent = () => {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        // Bearer Token
-        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmaGJzeTg0QGdtYWlsLmNvbSIsImlhdCI6MTczMDc3MDY5NywiZXhwIjoxNzMwODU3MDk3fQ.IdaZJ1ilvWTjboYWZ6ZcDjf0i83z2KRUQ0cwCWkSVBc';
-    
-        // API 호출
-        // GET
-        axios.get('http://localhost:8080/api/members/mypage', {
-          headers: {
-            'Authorization': `Bearer ${token}`
+        // 멤버 정보 조회 API 호출
+        const fetchMemberInfo = async () => {
+          try {
+            const response = await getMemberInfo(); 
+            if (response.data && response.data.data) {
+              setMemberInfo(response.data.data); 
+            }
+          } catch (error) {
+            console.error('멤버 정보 조회 실패:', error);
           }
-        })
-          .then(response => {
-            setInfo(response.data.data);
-            setBank(response.data.data.memberBank); 
-          })
-          .catch(err => {
-            setError('데이터를 가져오는데 실패했습니다.');
-          });
-    }, []);
+        };
+    
+        fetchMemberInfo(); 
+    }, []);    
 
-    // 비밀번호 확인
-    const handleConfirmClick = () => {
-        if (password === "123123") {
-            setIsConfirmed(true);
-        } else {
-            alert('비밀번호가 일치하지 않습니다.');
-            setIsConfirmed(false);
+    // 비밀번호 확인 API 호출
+    const handleConfirmClick = async () => {
+        // 요청 DTO 만들기
+        const requestData = {
+            memberPassword: password
+        };
+    
+        try {
+            const response = await checkMemberPw(requestData);
+            if (response.data.code === "200") {
+                setIsConfirmed(true); 
+                setErrors((prev) => {
+                    const { passwordMismatch, ...rest } = prev; // 비밀번호 불일치 에러 제거
+                    return rest;
+                });
+            } else {
+                setIsConfirmed(false);  
+                setErrors((prev) => ({
+                    ...prev,
+                    passwordMismatch: "비밀번호가 다릅니다."  // 비밀번호 불일치 메시지 설정
+                }));
+            }
+        } catch (error) {
+            console.error('비밀번호 확인 오류:', error);
         }
     };
 
@@ -112,7 +125,7 @@ const MemberInfoChangeComponent = () => {
     };
 
      // Form submit
-     const handleSubmit = (e) => {
+     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validation
@@ -132,13 +145,13 @@ const MemberInfoChangeComponent = () => {
         }
 
         // 사용자가 값을 입력하지 않았으면 info에서 기본값을 사용
-        const nameToSubmit = name || info.memberName;
-        const nicknameToSubmit = nickname || info.memberNickName;
-        const phoneNumberToSubmit = phoneNumber || info.memberPhone;
-        const accountNumberToSubmit = accountNumber || info.memberAccountNumber;
-        const bankToSubmit = bank || info.memberBank;
-        const addressToSubmit = address || info.memberAddr;
-        const addressDetailToSubmit = addressDetail || info.memberAddrDetail;
+        const nameToSubmit = name || memberInfo.memberName;
+        const nicknameToSubmit = nickname || memberInfo.memberNickName;
+        const phoneNumberToSubmit = phoneNumber || memberInfo.memberPhone;
+        const accountNumberToSubmit = accountNumber || memberInfo.memberAccountNumber;
+        const bankToSubmit = bank || memberInfo.memberBank;
+        const addressToSubmit = address || memberInfo.memberAddr;
+        const addressDetailToSubmit = addressDetail || memberInfo.memberAddrDetail;
 
         // 요청 DTO 만들기
         const requestData = {
@@ -151,25 +164,18 @@ const MemberInfoChangeComponent = () => {
             memberBank: bankToSubmit
         };
 
-        // 여기서 api 호출, 위의 값을 전송
-        // PUT
-        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmaGJzeTg0QGdtYWlsLmNvbSIsImlhdCI6MTczMDc3MDY5NywiZXhwIjoxNzMwODU3MDk3fQ.IdaZJ1ilvWTjboYWZ6ZcDjf0i83z2KRUQ0cwCWkSVBc';
-        axios.put('http://localhost:8080/api/members/updateinfo', requestData, {
-            headers: {
-                'Authorization': `Bearer ${token}`
+        try {
+            // 멤버 정보 변경 API 호출
+            const response = await updateMemberInfo(requestData);
+            if (response.data.code === "200") {
+              alert("회원 정보가 성공적으로 변경되었습니다.");
+            } else {
+              alert("회원 정보 변경에 실패했습니다.");
             }
-        })
-        .then(response => {
-            alert('정보가 수정되었습니다.');
-            setErrors({});
-        })
-        .catch(err => {
-            alert('정보 수정에 실패했습니다.');
-            console.log(requestData);
-            console.error(err);
-        });
-
-        setErrors({}); 
+          } catch (error) {
+            console.error('회원 정보 변경 실패:', error);
+            alert('회원 정보 변경에 실패했습니다.');
+          }
     };
 
     /**
@@ -186,7 +192,7 @@ const MemberInfoChangeComponent = () => {
         setShowPostcode(true); // 주소 검색 모달 창 열기
     };
 
-    if (info === null) {
+    if (memberInfo === null) {
         return <div>로딩 중...</div>; // info가 null이면 로딩 표시(필수)
     }
 
@@ -201,7 +207,7 @@ const MemberInfoChangeComponent = () => {
                     <Form.Group as={Row} className="mb-4 mt-5">
                         <Form.Label column sm={2}>아이디</Form.Label>
                         <Col sm={8}>
-                            <Form.Control plaintext readOnly defaultValue={info.memberEmail} />
+                            <Form.Control plaintext readOnly defaultValue={memberInfo.memberEmail} />
                         </Col>
                     </Form.Group>
 
@@ -215,6 +221,11 @@ const MemberInfoChangeComponent = () => {
                                 onChange={(e) => setPassword(e.target.value)} 
                                 readOnly={isConfirmed} // 비밀번호 확인 후 비활성화
                             />
+                            {errors.passwordMismatch && 
+                                <small className="text-danger" 
+                                    style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
+                                    {errors.passwordMismatch}
+                                </small>}
                         </Col>
                         <Col sm={2}>
                             {!isConfirmed && (
@@ -232,7 +243,7 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={8}>
                                     <Form.Control type="text" value={name} 
                                         onChange={(e) => setName(e.target.value)} 
-                                        placeholder={info.memberName} />
+                                        placeholder={memberInfo.memberName} />
                                     {errors.name && 
                                         <small className="text-danger" 
                                                style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
@@ -247,7 +258,7 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={8}>
                                     <Form.Control type="text" value={nickname} 
                                         onChange={(e) => setNickname(e.target.value)} 
-                                        placeholder={info.memberNickName} />
+                                        placeholder={memberInfo.memberNickName} />
                                     {errors.nickname && 
                                         <small className="text-danger" 
                                                style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
@@ -263,7 +274,7 @@ const MemberInfoChangeComponent = () => {
                                     <Form.Control 
                                         type="text" value={phoneNumber}
                                         onChange={handlePhoneNumberChange}
-                                        placeholder={info.memberPhone}
+                                        placeholder={memberInfo.memberPhone}
                                     />
                                     {errors.phoneNumber && 
                                         <small className="text-danger" 
@@ -294,7 +305,7 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={6}>
                                     <Form.Control type="text" value={accountNumber} 
                                         onChange={handleAccountNumberChange} 
-                                        placeholder={info.memberAccountNumber} />
+                                        placeholder={memberInfo.memberAccountNumber} />
                                     {errors.accountNumber && 
                                         <small className="text-danger" 
                                                style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
@@ -309,7 +320,7 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={4}>
                                     <Form.Control type="text" value={address} 
                                         onChange={(e) => setAddress(e.target.value)} 
-                                        placeholder={info.memberAddr} />
+                                        placeholder={memberInfo.memberAddr} />
                                     {errors.address && 
                                         <small className="text-danger" 
                                                style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
@@ -317,7 +328,8 @@ const MemberInfoChangeComponent = () => {
                                         </small>}
                                 </Col>
                                 <Col sm={1}>
-                                    <Button id="button_infoFindAddr" onClick={handlePostcodeButtonClick}>
+                                    <Button id="button_infoFindAddr" onClick={handlePostcodeButtonClick}
+                                            style={{whiteSpace: "nowrap"}}>
                                         주소찾기
                                     </Button>
                                 </Col>
@@ -337,7 +349,7 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={8}>
                                     <Form.Control type="text" value={addressDetail} 
                                         onChange={(e) => setAddressDetail(e.target.value)} 
-                                        placeholder={info.memberAddrDetail} />
+                                        placeholder={memberInfo.memberAddrDetail} />
                                     {errors.detailAddress && 
                                         <small className="text-danger" 
                                                style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >

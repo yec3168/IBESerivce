@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class BoardFormResponse {
-
+    private Long boardId;
+    private String boardTitle;
 }

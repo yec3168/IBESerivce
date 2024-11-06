@@ -1,0 +1,88 @@
+/* ---------- TERMS AGREEMENT ---------- */
+.terms__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f8f9fa;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.terms__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* 배경 반투명 효과 */
+}
+
+.terms__content {
+    position: relative;
+    z-index: 1;
+    width: 32rem;
+    max-width: 90%;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.terms__content h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.terms__content p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.terms__content .form-check {
+    margin-bottom: 0.75rem;
+}
+
+.terms__content .form-check-label {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.terms__content .btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.terms-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .terms-content {
+    max-height: 150px;
+    overflow-y: scroll;
+    padding: 5px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .highlight-warning {
+    border: 2px solid #ff6666;
+    background-color: #fff3f3;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  .highlight-warning label {
+    color: #ff3333;
+    font-weight: bold;
+  }

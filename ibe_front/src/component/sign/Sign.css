@@ -1,5 +1,6 @@
 /* ---------- SIGN IN ---------- */
 .sign-in__wrapper {
+    font-family: "CookieRun-Regular", sans-serif; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -84,6 +85,7 @@
 
   /*---------------sign up-------------*/
   .sign-up__wrapper {
+    font-family: "CookieRun-Regular", sans-serif; 
     display: flex;
     flex-direction: column;
     justify-content: center;

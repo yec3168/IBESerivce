@@ -37,7 +37,6 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     ObjectMapper objectMapper = new ObjectMapper();
     String result = objectMapper.writeValueAsString(error);
     response.getWriter().write(result);
-
     //위코드를 단순히 아래와 같이 해도 됨
 //    response.sendError(HttpServletResponse.SC_FORBIDDEN);
 

@@ -1,6 +1,5 @@
 package com.project.ibe.entity.board;
 
-import com.project.ibe.entity.common.AuditingFields;
 import com.project.ibe.entity.common.BoardCategory;
 import com.project.ibe.entity.member.Member;
 import jakarta.persistence.*;
@@ -9,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+
 
 
 @Entity
@@ -34,7 +36,10 @@ public class Board {
 
     @Column(nullable = false)
     @CreationTimestamp
-    private String boardCreatedAt;
+    private LocalDateTime boardCreatedAt;
+
+    @Column(nullable = false)
+    private int boardHit;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

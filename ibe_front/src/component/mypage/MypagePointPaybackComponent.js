@@ -1,13 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_to_cash_icon from '../assets/images/mypage/point_to_cash_icon.png'
 import { useNavigate } from 'react-router-dom';
+import { getMemberPoint } from '../service/MypageService'; 
 
 const MypagePointPaybackComponent = () => {
     const [inputValue, setInputValue] = useState('');
     const [accountNumber, setAccountNumber] = useState('1000003188002'); //정보 받아와서 초기값에 넣어주고 싶음.
     const [isFail, setIsFail] = useState(false);
+    const [memberPoint, setMemberPoint] = useState(null);
+    
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // 포인트 조회 API 호출
+        const fetchMemberPoint = async () => {
+          try {
+            const response = await getMemberPoint(); 
+            if (response.data && response.data.data.memberPoint) {
+              setMemberPoint(response.data.data.memberPoint); 
+            }
+          } catch (error) {
+            console.error('포인트 조회 실패:', error);
+          }
+        };
+    
+        fetchMemberPoint(); 
+    }, []);
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value.replace(/[^0-9]/g, ''));
@@ -17,7 +37,6 @@ const MypagePointPaybackComponent = () => {
     };
 
     const expectedPayback = inputValue ? (parseInt(inputValue) * 10).toLocaleString() : '0';
-    
 
     const pointButtonEvent = ()=>{
         //포인트 비교(구현필요) 후 밑에 은행, 계좌 받는 곳 보이게하기
@@ -60,9 +79,9 @@ const MypagePointPaybackComponent = () => {
 
                 {/* 보유 포인트 */}
                 <div id="div_pointData">
-                    보유 포인트 : 
-                    <span id="span_point">&nbsp;10,000&nbsp;</span>
-                    <span id="span_p">P</span>
+                    보유 포인트&nbsp;:&nbsp;
+                    <span id="span_point">{memberPoint !== null ? `${memberPoint}` : '로딩중'} </span>
+                    <span id="span_p">&nbsp;P</span>
                 </div>
 
                 {/* 구분선 */}

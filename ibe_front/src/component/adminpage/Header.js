@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './AdminPage.css'; // 헤더 스타일 추가
 import { jwtDecode } from 'jwt-decode';
 
@@ -16,6 +16,7 @@ const Header = () => {
     }
   }
 
+  // 로그아웃 처리 함수
   const handleLogout = () => {
     // 로컬스토리지에서 accessToken 삭제
     localStorage.removeItem('accessToken');
@@ -30,6 +31,25 @@ const Header = () => {
   const goToHomePage = () => {
     window.location.href = 'http://localhost:3000/';
   };
+
+  useEffect(() => {
+    // storage 이벤트 리스너 등록
+    const handleStorageChange = (event) => {
+      if (event.key === 'accessToken' && !event.newValue) {
+        // accessToken이 삭제되었을 때, 다른 탭에서 로그아웃 처리
+        alert('다른 탭에서 로그아웃되었습니다.');
+        window.location.href = 'http://localhost:3000/';
+      }
+    };
+
+    // 이벤트 리스너 등록
+    window.addEventListener('storage', handleStorageChange);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   return (
     <header className="admin-main-header">
