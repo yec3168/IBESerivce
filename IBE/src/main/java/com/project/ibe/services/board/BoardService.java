@@ -125,7 +125,7 @@ public class BoardService {
 
         //등록.
         BoardReply boardReply = BoardReply.builder()
-                .boardReplyContent(boardReplyRequest.getProductReplyContent())
+                .boardReplyContent(boardReplyRequest.getBoardReplyContent())
                 .board(board)
                 .member(member)
                 .boardComment(boardComment)

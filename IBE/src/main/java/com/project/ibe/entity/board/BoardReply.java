@@ -3,6 +3,7 @@ package com.project.ibe.entity.board;
 import com.project.ibe.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ public class BoardReply {
     private String boardReplyContent;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime boardReplyCreatedAt;
 
     @ManyToOne

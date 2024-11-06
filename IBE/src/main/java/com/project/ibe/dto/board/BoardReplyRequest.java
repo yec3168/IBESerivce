@@ -6,5 +6,5 @@ import lombok.Data;
 public class BoardReplyRequest {
     private Long boardId;
     private Long boardCommentId;
-    private String productReplyContent;
+    private String boardReplyContent;
 }
