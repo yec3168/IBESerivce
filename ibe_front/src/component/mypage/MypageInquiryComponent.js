@@ -9,7 +9,7 @@ const MypageInquiryComponent = () => {
         <>
             <Container className="text-center my-5 containerInq" style={{ maxWidth: '600px' }}>
                 {/* 1:1문의 타이틀*/}
-                <h1 id="h1_inqTitle">1:1 문의</h1>
+                <h1 id="h1_inqTitle">1&nbsp;:&nbsp;1 &nbsp;문의</h1>
                 <div id="div_inqInfo">아이비를 사용하면서 생긴 문제를 문의하세요.</div>
 
                 {/* 구분선 */}

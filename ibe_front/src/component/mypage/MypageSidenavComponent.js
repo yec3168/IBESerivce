@@ -22,7 +22,7 @@ const MypageSidenavComponent = () => {
                 </div>
               <Nav.Link className='disabled' id="mypage_sidenav_bigmenu">아이비 고객 센터</Nav.Link>
                 <div className="ml-5" id="mypage_sidenav_smenu" style={{ marginLeft:'20px'}}>
-                  <Nav.Link href="/mypage/inquiry">1:1 문의하기</Nav.Link>
+                  <Nav.Link href="/mypage/inquiry">1&nbsp;:&nbsp;1 &nbsp;문의하기</Nav.Link>
                   <Nav.Link href="/mypage/inqlist">문의 내역</Nav.Link>
                 </div>
               <Nav.Link className='disabled' id="mypage_sidenav_bigmenu">마이 아이비</Nav.Link>
