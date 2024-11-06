@@ -99,7 +99,7 @@ const HeaderComponent = () => {
                 </li>
                 <div className="vr"></div>
                 <li className="nav-item ms-3">
-                  <a className="nav-link active" href="/signup">
+                  <a className="nav-link active" href="/terms">
                     회원가입
                   </a>
                 </li>

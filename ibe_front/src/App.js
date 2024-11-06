@@ -38,6 +38,7 @@ import KakaoOauthCallback from './component/sign/KakaoOauthCallback';
 import MypagePointPaybackResultPage from './component/layout/pages/mypage/MypagePointPaybackResultPage';
 import AdminPrivateRoute from './component/adminpage/AdminPrivateRoute';
 import IbeBoardDetailsPage from './component/layout/pages/IbeBoard/IbeBoardDetailsPage';
+import TermsAgreementComponent from './component/sign/TermsAgreementComponent';
 
 function App() {
   return (
@@ -48,14 +49,9 @@ function App() {
         <Route path="/signin" element={<SignInComponent />} />
         <Route path="/signup" element={<SignupComponent />} />
         <Route path="/searchEmail" element={<SigninEmailSearchComponent />} />
-        <Route
-          path="/searchPassword"
-          element={<SignPasswordSeacchComponent />}
-        />
-        <Route
-          path="/api/members/kakao/oauth"
-          element={<KakaoOauthCallback />}
-        />
+        <Route path="/searchPassword" element={<SignPasswordSeacchComponent />}/>
+        <Route path="/api/members/kakao/oauth" element={<KakaoOauthCallback />}/>
+        <Route path="/terms" element={<TermsAgreementComponent />} />
 
         {/* 물품 관련 */}
         <Route path="/products" element={<ProductListPage />} />
