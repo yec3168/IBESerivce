@@ -2,6 +2,7 @@ package com.project.ibe.controller;
 
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.mypage.MemberInfoUpdateRequest;
+import com.project.ibe.dto.mypage.MemberPwCheckRequest;
 import com.project.ibe.dto.mypage.MemberPwUpdateRequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
@@ -70,6 +71,16 @@ public class MypageController {
     public Response updateMemberPw(@AuthenticationPrincipal PrincipalDTO principal) {
         try {
             return new Response(ResponseCode.SUCCESS, myPageService.updateMemberDel(principal), "200");
+        } catch (Exception e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
+    @PostMapping("/checkpw")
+    public Response checkMemberPw(@AuthenticationPrincipal PrincipalDTO principal,
+                                   @RequestBody @Valid MemberPwCheckRequest request) {
+        try {
+            return new Response(ResponseCode.SUCCESS, myPageService.checkMemberPw(principal, request), "200");
         } catch (Exception e) {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
