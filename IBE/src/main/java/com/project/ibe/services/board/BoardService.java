@@ -1,6 +1,7 @@
 package com.project.ibe.services.board;
 
 import com.project.ibe.dto.board.BoardFormRequest;
+import com.project.ibe.dto.board.BoardFormResponse;
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.entity.board.Board;
 import com.project.ibe.entity.member.Member;
@@ -23,14 +24,18 @@ public class BoardService {
 
     private final ModelMapper modelMapper;
 
-
-    public Boolean saveBoard(BoardFormRequest boardFormRequest, PrincipalDTO principalDTO){
+    /**
+     * 게시판 등록.
+     */
+    public BoardFormResponse saveBoard(BoardFormRequest boardFormRequest, PrincipalDTO principalDTO){
         // 로그인한 회원 찾기.
         Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
 
         Board board = modelMapper.map(boardFormRequest, Board.class);
         board.setMember(member); // 작성자.
 
-        return null;
+        Board savedBoard = boardRepository.save(board);
+
+        return modelMapper.map(savedBoard, BoardFormResponse.class);
     }
 }
