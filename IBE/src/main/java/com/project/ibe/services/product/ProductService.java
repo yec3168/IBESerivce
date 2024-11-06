@@ -159,7 +159,7 @@ public class ProductService {
     /**
      * 물품 id로 한개만 조회.
      */
-    public ProductOrderResponse getProductOrderResponse(Long productId){
+    public ProductOrderResponse getProductOrderResponse(Long productId, PrincipalDTO principalDTO){
         Product product = findProductById(productId);
         List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
 
@@ -169,7 +169,7 @@ public class ProductService {
         }
 
         // 로그인한 사용자의 회원정보를 넣음
-//        productOrderResponse.setMember();
+        productOrderResponse.setMember(memberService.getMemberByEmail(principalDTO.getMemberEmail()));
 
 
         return productOrderResponse;
@@ -179,13 +179,13 @@ public class ProductService {
     /**
      * 댓글 등록.
      */
-    public ProductCommentResponse createProductComment(ProductCommentRequest productCommentRequest){
+    public ProductCommentResponse createProductComment(ProductCommentRequest productCommentRequest, PrincipalDTO principalDTO){
         Product product = findProductById(productCommentRequest.getProductId());
 
         ProductComment productComment =ProductComment.builder()
                 .productCommentContent(productCommentRequest.getProductCommentContent())
                 .product(product)
-                //.member() // 로그인한 회원으로.
+                .member(memberService.getMemberByEmail(principalDTO.getMemberEmail())) // 로그인한 회원으로.
                 .build();
 
         productCommentRepository.save(productComment);
@@ -220,14 +220,14 @@ public class ProductService {
     /**
      * 대댓글 등록.
      */
-    public ProductReplyResponse createProductReply(ProductReplyRequest productReplyRequest){
+    public ProductReplyResponse createProductReply(ProductReplyRequest productReplyRequest, PrincipalDTO principalDTO){
         Product product = findProductById(productReplyRequest.getProductId());
         ProductComment productComment = findProductCommentById(productReplyRequest.getProductCommentId());
 
         ProductReply productReply = ProductReply.builder()
                 .product(product)
                 .productComment(productComment)
-                //.member()
+                .member(memberService.getMemberByEmail(principalDTO.getMemberEmail()))
                 .productReplyContent(productReplyRequest.getProductReplyContent())
                 .build();
 

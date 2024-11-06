@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode'; // jwtDecode를 중괄호로 가져옵니다.
+import { jwtDecode } from 'jwt-decode';
 import ibe_logo from '../assets/images/header/ibe_logo.png';
 import coin_purse_icon from '../assets/images/header/coin_purse_icon.png';
 import './HeaderComponent.css';
+import { getMemberPoint } from '../service/MypageService'; 
 
 const HeaderComponent = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [memberPoint, setMemberPoint] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken'); // 토큰을 localStorage에서 가져옵니다.
+    const token = localStorage.getItem('accessToken'); 
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
@@ -26,6 +28,22 @@ const HeaderComponent = () => {
         console.error('토큰 디코딩 에러:', error);
       }
     }
+  }, []);
+
+  useEffect(() => {
+    // 포인트 조회 API 호출
+    const fetchMemberPoint = async () => {
+      try {
+        const response = await getMemberPoint(); 
+        if (response.data && response.data.data.memberPoint) {
+          setMemberPoint(response.data.data.memberPoint); 
+        }
+      } catch (error) {
+        console.error('포인트 조회 실패:', error);
+      }
+    };
+
+    fetchMemberPoint(); 
   }, []);
 
   return (
@@ -46,9 +64,11 @@ const HeaderComponent = () => {
                     id="coin_purse_icon"
                   />
                   <li className="nav-item">
-                    <a className="nav-link active4" href="/" id="amt">
-                      <span id="span_amt">10,000&nbsp;</span>
-                      <span id="span_won">P</span>
+                    <a className="nav-link active4" href="/" id="amt" style={{ whiteSpace: 'nowrap' }}>
+                      <span id="span_amt" style={{ whiteSpace: 'nowrap', display: 'inline-block' }}>
+                        {memberPoint !== null ? `${memberPoint}` : '로딩중'} 
+                      </span>
+                      <span id="span_won" style={{ display: 'inline-block' }}>&nbsp;P</span>
                     </a>
                   </li>
                 </span>

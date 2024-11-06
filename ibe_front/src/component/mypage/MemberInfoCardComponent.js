@@ -1,31 +1,28 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Card, Container, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; 
+import { getMemberInfo } from '../service/MypageService'; 
 
 const MemberInfoCardComponent = () => {
-  // 데이터 상태 관리
-  const [info, setInfo] = useState(null);
   const [error, setError] = useState(null);
+  const [memberInfo, setMemberInfo] = useState(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Bearer Token
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmaGJzeTg0QGdtYWlsLmNvbSIsImlhdCI6MTczMDc3MDY5NywiZXhwIjoxNzMwODU3MDk3fQ.IdaZJ1ilvWTjboYWZ6ZcDjf0i83z2KRUQ0cwCWkSVBc';
-
-    // API 호출
-    axios.get('http://localhost:8080/api/members/mypage', {
-      headers: {
-        'Authorization': `Bearer ${token}`
+    // 멤버 정보 조회 API 호출
+    const fetchMemberInfo = async () => {
+      try {
+        const response = await getMemberInfo(); 
+        if (response.data && response.data.data) {
+          setMemberInfo(response.data.data); 
+        }
+      } catch (error) {
+        console.error('멤버 정보 조회 실패:', error);
       }
-    })
-      .then(response => {
-        setInfo(response.data.data);
-      })
-      .catch(err => {
-        setError('데이터를 가져오는데 실패했습니다.');
-      });
+    };
+
+    fetchMemberInfo(); 
   }, []);
 
   if (error) {
@@ -36,26 +33,24 @@ const MemberInfoCardComponent = () => {
     );
   }
 
-  if (!info) {
+  if (!memberInfo) {
     // 데이터가 아직 로드되지 않은 경우
     return null; // 여기에 대체 UI를 표시
   }
 
-  // Handle purchase click
   const handlePurchaseClick = () => {
-    navigate('/mypage/plist'); // Navigate to purchase list
+    navigate('/mypage/plist');
   };
 
-  // Handle sales click
   const handleSalesClick = () => {
-    navigate('/mypage/slist'); // Navigate to sales list
+    navigate('/mypage/slist');
   };
 
   return (
     <Card id="card_memberInfo" className="mx-2 mr-5">
       <Card.Body>
         <Card.Title>
-          {info.memberNickName} 님 &nbsp;
+          {memberInfo.memberNickName} 님 &nbsp;
           <span id="span_welcome">환영합니다!</span>
         </Card.Title>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect  } from "react";
 import { Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
 import {saveProduct} from "../service/ProductService";
 
@@ -12,7 +12,7 @@ const ProductCreateComponent = () => {
     const [productPoint, setProductPoint] = useState("");
     const [productContent, setProductContent] = useState(""); // For product content
     const [errors, setErrors] = useState({});
-
+    const contentRef = useRef(null); 
     // 이미지 핸들러
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -105,6 +105,39 @@ const ProductCreateComponent = () => {
         })
 
     };
+
+    // const handleContentChange = (e) => {
+    //     setProductContent(e.target.value);
+
+    //     // Resize the textarea based on its scrollHeight
+    //     contentRef.current.style.height = 'auto';
+    //     contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+    // };
+
+    // useEffect(() => {
+    //     if (contentRef.current) {
+    //         contentRef.current.style.height = 'auto';
+    //         contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+    //     }
+    // }, [productContent]);
+    
+    const handleContentChange = (e) => {
+        const content = e.target.value;
+        if (content.length <= 255) { // Limit content to 255 characters
+            setProductContent(content);
+
+            contentRef.current.style.height = 'auto';
+            contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+        }
+    };
+
+    useEffect(() => {
+        if (contentRef.current) {
+            contentRef.current.style.height = 'auto';
+            contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+        }
+    }, [productContent]);
+
 
     return (
         <div className="product">
@@ -203,19 +236,19 @@ const ProductCreateComponent = () => {
                         </Form.Group>
                     </Row>
 
+                      {/* 상세 내용 */}
                     <Row>
-                        <Form.Label column sm="2">
-                            상세내용
-                        </Form.Label>
+                        <Form.Label column sm="2">상세내용</Form.Label>
                         <Col>
                             <FloatingLabel controlId="floatingContent" label="제품 상세 내용" className="mb-3">
                                 <Form.Control 
                                     as="textarea" 
+                                    ref={contentRef}
                                     placeholder="상세 내용을 입력해주세요." 
                                     value={productContent} 
-                                    onChange={(e) => setProductContent(e.target.value)} 
+                                    onChange={handleContentChange}
                                     isInvalid={!!errors.content}
-                                    style={{ height: '200px' }} // Set height for textarea
+                                    style={{ resize: 'none', overflow: 'hidden' }}
                                 />
                                 <Form.Control.Feedback type="invalid">{errors.content}</Form.Control.Feedback>
                             </FloatingLabel>

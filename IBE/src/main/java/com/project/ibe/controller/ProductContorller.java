@@ -65,9 +65,10 @@ public class ProductContorller {
      *  댓글 등록.
      */
     @PostMapping("/comments")
-    public Response createProductComment(@Valid @RequestBody ProductCommentRequest productCommentRequest){
+    public Response createProductComment(@Valid @RequestBody ProductCommentRequest productCommentRequest,
+                                         @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.createProductComment(productCommentRequest), "200");
+            return new Response(ResponseCode.SUCCESS, productService.createProductComment(productCommentRequest, principalDTO), "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
@@ -90,9 +91,10 @@ public class ProductContorller {
      *  대댓글 등록.
      */
     @PostMapping("/reply")
-    public Response createProductReply(@Valid @RequestBody ProductReplyRequest productReplyRequest){
+    public Response createProductReply(@Valid @RequestBody ProductReplyRequest productReplyRequest,
+                                       @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.createProductReply(productReplyRequest), "200");
+            return new Response(ResponseCode.SUCCESS, productService.createProductReply(productReplyRequest, principalDTO), "200");
         }catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
@@ -103,9 +105,9 @@ public class ProductContorller {
      * 물품 주문시 필요 정보 조회.
      */
     @GetMapping("/orders/{productId}")
-    public Response getProductOrderResponse(@PathVariable("productId")Long productId){
+    public Response getProductOrderResponse(@PathVariable("productId")Long productId, @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.getProductOrderResponse(productId), "200");
+            return new Response(ResponseCode.SUCCESS, productService.getProductOrderResponse(productId, principalDTO), "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
