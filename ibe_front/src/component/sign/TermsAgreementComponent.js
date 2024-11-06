@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TermsAgreement.css'; // 앞에서 만든 CSS 파일을 사용한다고 가정
-import Logo from '../assets/images/sign/ibe_logo1.png';
+// import Logo from '../assets/images/sign/ibe_logo1.png';
 
 const TermsAgreementComponent = () => {
   const [termsAccepted, setTermsAccepted] = useState({
@@ -51,7 +51,7 @@ const TermsAgreementComponent = () => {
     <div className="terms__wrapper" style={{ fontFamily: "CookieRun-Regular, sans-serif" }}>
       <div className="terms__backdrop"></div>
       <div className="terms__content">
-        <img src={Logo} alt="Logo" className="mb-4" style={{ display: 'block', margin: '0 auto', width: '4rem' }} />
+        {/* <img src={Logo} alt="Logo" className="mb-4" style={{ display: 'block', margin: '0 auto', width: '4rem' }} /> */}
         <h2>약관 동의</h2>
         <p>서비스 가입을 위해 아래의 약관을 읽고 동의해주세요.</p>
 
