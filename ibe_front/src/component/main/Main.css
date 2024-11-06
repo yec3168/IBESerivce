@@ -169,12 +169,14 @@
 
 /* 카테고리 이름에 마우스 오버 효과 */
 #div_nameTxt {
+  display: inline;
   font-size: 0.9rem;
   color: #333;
-  transition: color 0.3s ease, font-weight 0.3s ease;
+  transition: color 0.2s ease, font-weight 0.3s ease;
 }
 
-#div_nameCol:hover #div_nameTxt {
-  color: #007bff; /* 텍스트 색상 변화 */
-  font-weight: bold;
+#div_nameTxt:hover {
+  cursor: pointer;
+  color: #f5af00; /* 텍스트 색상 변화 */
+  /* font-weight: bold; */
 }
