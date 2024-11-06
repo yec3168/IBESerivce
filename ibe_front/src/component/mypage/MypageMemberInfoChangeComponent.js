@@ -292,14 +292,14 @@ const MemberInfoChangeComponent = () => {
                                         value={bank} 
                                         onChange={(e) => setBank(e.target.value)} 
                                         className="select-custom">
-                                        <option value="KB">국민은행</option>
+                                        {/* <option value="KB">국민은행</option>
                                         <option value="SHINHAN">신한은행</option>
                                         <option value="HANA">하나은행</option>
-                                        <option value="WOORI">우리은행</option>
+                                        <option value="WOORI">우리은행</option> */}
                                         <option value="NH">농협은행</option>
                                         <option value="KDB">산업은행</option>
-                                        <option value="KAKAO">카카오뱅크</option>
-                                        <option value="TOSS">토스뱅크</option>
+                                        {/* <option value="KAKAO">카카오뱅크</option>
+                                        <option value="TOSS">토스뱅크</option> */}
                                     </Form.Select>
                                 </Col>
                                 <Col sm={6}>
