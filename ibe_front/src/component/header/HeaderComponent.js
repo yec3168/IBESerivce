@@ -1,21 +1,50 @@
-import ibe_logo from "../assets/images/header/ibe_logo.png";
-import coin_purse_icon from "../assets/images/header/coin_purse_icon.png";
-import "./HeaderComponent.css";
+import React, { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode'; // jwtDecode를 중괄호로 가져옵니다.
+import ibe_logo from '../assets/images/header/ibe_logo.png';
+import coin_purse_icon from '../assets/images/header/coin_purse_icon.png';
+import './HeaderComponent.css';
 
 const HeaderComponent = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken'); // 토큰을 localStorage에서 가져옵니다.
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const userRole = decodedToken.role;
+        console.log(userRole);
+        // 관리자 권한 확인
+        if (
+          userRole === 'ROLE_ADMIN' ||
+          userRole === 'ROLE_SERVICE_MANAGER' ||
+          userRole === 'ROLE_BOARD_MANAGER'
+        ) {
+          setIsAdmin(true);
+        }
+      } catch (error) {
+        console.error('토큰 디코딩 에러:', error);
+      }
+    }
+  }, []);
+
   return (
     <div className="container-fluid fixed-top bg-white" id="div_header">
       <header>
         <nav className="navbar navbar-expand-lg" id="header_nav">
           <div className="container-fluid fixed-top">
-            {/* 로그인 메뉴바 */}
             <div
               className="collapse navbar-collapse justify-content-end"
               id="loginMenubar"
             >
               <ul className="navbar-nav loginMenubar">
                 <span id="span_parent" className="mr-80">
-                  <img src={coin_purse_icon} width="20px" alt="coin_purse" id="coin_purse_icon" />
+                  <img
+                    src={coin_purse_icon}
+                    width="20px"
+                    alt="coin_purse"
+                    id="coin_purse_icon"
+                  />
                   <li className="nav-item">
                     <a className="nav-link active4" href="/" id="amt">
                       <span id="span_amt">10,000&nbsp;</span>
@@ -23,12 +52,13 @@ const HeaderComponent = () => {
                     </a>
                   </li>
                 </span>
-                {/* 관리자 페이지 버튼 */}
-                <li className="nav-item mx-3">
-                  <a className="nav-link active" href="/admin">
-                    관리자 페이지
-                  </a>
-                </li>
+                {isAdmin && (
+                  <li className="nav-item mx-3">
+                    <a className="nav-link active" href="/admin">
+                      관리자 페이지
+                    </a>
+                  </li>
+                )}
                 <li className="nav-item mx-3">
                   <a className="nav-link active" href="/signin">
                     로그인
@@ -49,7 +79,6 @@ const HeaderComponent = () => {
             </div>
           </div>
           <div className="container-fluid">
-            {/* 메인 로고 */}
             <a className="navbar-brand" href="/">
               <img src={ibe_logo} width="200px" alt="logo" />
             </a>
@@ -64,8 +93,6 @@ const HeaderComponent = () => {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-
-            {/* 메뉴바 */}
             <div
               className="collapse navbar-collapse justify-content-end"
               id="menubar"

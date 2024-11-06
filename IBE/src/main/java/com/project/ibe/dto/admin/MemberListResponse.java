@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -18,6 +19,6 @@ public class MemberListResponse {
     private String memberAddrDetail;
     private String memberEmail;
     private Role role;
-    private Date entryDate;
-    private Date UpdateDate;
+    private LocalDateTime entryDate;
+    private LocalDateTime updateDate;
 }

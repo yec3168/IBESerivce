@@ -66,4 +66,13 @@ public class MypageController {
         }
     }
 
+    @PatchMapping("/updatedel")
+    public Response updateMemberPw(@AuthenticationPrincipal PrincipalDTO principal) {
+        try {
+            return new Response(ResponseCode.SUCCESS, myPageService.updateMemberDel(principal), "200");
+        } catch (Exception e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
 }

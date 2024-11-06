@@ -194,10 +194,18 @@ const AdminMemberList = () => {
                 {member.memberPhone}
               </div>
               <div className="admin-member-column admin-member-joinedDate">
-                {new Date(member.entryDate).toLocaleDateString()}
+                {new Date(member.entryDate).toLocaleDateString('ko-KR', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}
               </div>
               <div className="admin-member-column admin-member-modifiedDate">
-                {member.UpdateDate}
+                {new Date(member.updateDate).toLocaleDateString('ko-KR', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}
               </div>
             </div>
           ))}
