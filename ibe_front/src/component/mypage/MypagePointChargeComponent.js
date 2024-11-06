@@ -2,7 +2,8 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_icon from '../assets/images/header/coin_purse_icon.png'
 import { kakaoReady } from "../service/PointService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getMemberPoint } from '../service/MypageService'; 
 
 const MypagePointChargeComponent = () => {
     const pointAmount = [
@@ -27,7 +28,23 @@ const MypagePointChargeComponent = () => {
         { amount: '500,000' }
     ];
     const [isClicked, setIsClicked] = useState(false);
+    const [memberPoint, setMemberPoint] = useState(null);
 
+    useEffect(() => {
+        // 포인트 조회 API 호출
+        const fetchMemberPoint = async () => {
+          try {
+            const response = await getMemberPoint(); 
+            if (response.data && response.data.data.memberPoint) {
+              setMemberPoint(response.data.data.memberPoint); 
+            }
+          } catch (error) {
+            console.error('포인트 조회 실패:', error);
+          }
+        };
+    
+        fetchMemberPoint(); 
+    }, []);
     
     const charge = (price) =>{
         setIsClicked(true);
@@ -61,9 +78,9 @@ const MypagePointChargeComponent = () => {
                 
                 {/* 보유 포인트 */}
                 <div id="div_pointData">
-                    보유 포인트 : 
-                    <span id="span_point">&nbsp;10,000&nbsp;</span>
-                    <span id="span_p">P</span>
+                    보유 포인트&nbsp;:&nbsp;
+                    <span id="span_point">{memberPoint !== null ? `${memberPoint}` : '로딩중'} </span>
+                    <span id="span_p">&nbsp;P</span>
                 </div>
 
                 {/* 구분선 */}

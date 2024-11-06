@@ -1,32 +1,30 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Alert, Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { getMemberPoint } from '../service/MypageService'; 
 
 const MemberPointCardComponent = () => {
   
   const navigate = useNavigate();
 
-  // 데이터 상태 관리
   const [info, setInfo] = useState(null);
   const [error, setError] = useState(null);
+  const [memberPoint, setMemberPoint] = useState(null);
 
   useEffect(() => {
-    // Bearer Token
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmaGJzeTg0QGdtYWlsLmNvbSIsImlhdCI6MTczMDc3MDY5NywiZXhwIjoxNzMwODU3MDk3fQ.IdaZJ1ilvWTjboYWZ6ZcDjf0i83z2KRUQ0cwCWkSVBc';
-
-    // API 호출
-    axios.get('http://localhost:8080/api/members/mypage', {
-      headers: {
-        'Authorization': `Bearer ${token}`
+    // 포인트 조회 API 호출
+    const fetchMemberPoint = async () => {
+      try {
+        const response = await getMemberPoint(); 
+        if (response.data && response.data.data.memberPoint) {
+          setMemberPoint(response.data.data.memberPoint); 
+        }
+      } catch (error) {
+        console.error('포인트 조회 실패:', error);
       }
-    })
-      .then(response => {
-        setInfo(response.data.data);
-      })
-      .catch(err => {
-        setError('데이터를 가져오는데 실패했습니다.');
-      });
+    };
+
+    fetchMemberPoint(); 
   }, []);
 
   if (error) {
@@ -35,11 +33,6 @@ const MemberPointCardComponent = () => {
         <Alert variant="danger">{error}</Alert>
       </Container>
     );
-  }
-
-  if (!info) {
-    // 데이터가 아직 로드되지 않은 경우
-    return null; // 여기에 대체 UI를 표시
   }
 
   const handlePointCharge = () => {
@@ -54,7 +47,7 @@ const MemberPointCardComponent = () => {
     <Card id="card_memberPointInfo" className="mx-2">
       <Card.Body>
         <Card.Text>
-          마이 포인트 &ensp; <strong>{info.memberPoint} P</strong>
+          마이 포인트 &ensp; <strong>{memberPoint !== null ? `${memberPoint}` : '로딩중'} P</strong>
         </Card.Text>
 
         <Row className="d-flex justify-content-center">
