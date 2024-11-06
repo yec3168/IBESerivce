@@ -5,7 +5,6 @@ import com.project.ibe.entity.member.Member;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 public class BoardCommentResponse {
@@ -13,6 +12,7 @@ public class BoardCommentResponse {
     private Long boardCommentId;
 
     private String boardCommentContent;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime boardCommentCreatedAt;
     // 작성자.

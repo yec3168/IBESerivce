@@ -1,6 +1,5 @@
 package com.project.ibe.entity.board;
 
-import com.project.ibe.entity.common.AuditingFields;
 import com.project.ibe.entity.common.BoardCategory;
 import com.project.ibe.entity.member.Member;
 import jakarta.persistence.*;
@@ -9,10 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+
 
 
 @Entity
