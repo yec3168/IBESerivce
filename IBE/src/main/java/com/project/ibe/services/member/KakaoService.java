@@ -113,7 +113,7 @@ public class KakaoService {
                             () -> new BusinessException("가입되지 않은 소셜아이디입니다.", HttpStatus.NOT_FOUND)
                     );
             // 존재한다면 로그인. -> 토큰 생성.
-            return jwtTokenProvider.createToken(kakaoMember.getMemberEmail());
+            return jwtTokenProvider.createToken(kakaoMember.getMemberEmail(), kakaoMember.getRole().toString());
 
         }catch (Exception e){
             //회원이 존재하지 않으면 회원가입.

@@ -85,7 +85,7 @@ public class MemberService {
             throw new BusinessException("Password is not correct", HttpStatus.NOT_FOUND);
         }
         //to do :  jwt token 만들어서 return 하기 (나중에)
-        String token = jwtTokenProvider.createToken(member.getMemberEmail());
+        String token = jwtTokenProvider.createToken(member.getMemberEmail(), member.getRole().toString());
         return token;
     }
 
