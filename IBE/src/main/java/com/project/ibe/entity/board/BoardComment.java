@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +25,7 @@ public class BoardComment {
     private String boardCommentContent;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime boardCommentCreatedAt;
 
     @ManyToOne

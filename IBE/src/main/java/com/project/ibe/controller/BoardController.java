@@ -18,7 +18,9 @@ public class BoardController {
 
     private final BoardService boardService;
 
-
+    /**
+     * 게시글 등록.
+     */
     @PostMapping
     public Response saveBoard(@RequestBody @Valid BoardFormRequest boardFormRequest, @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
@@ -31,6 +33,9 @@ public class BoardController {
         }
     }
 
+    /**
+     * 게시글 상세조회.
+     */
     @GetMapping("/{id}")
     public Response getBoardDetail(@PathVariable("id")Long boardId){
         try{
@@ -40,7 +45,17 @@ public class BoardController {
         }
     }
 
-
+    /**
+     * 게시글 목록조회.
+     */
+    @GetMapping
+    public Response getBoardList(){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.getBoardList(), "200");
+        }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
     /**
      * 댓글 등록.
      */
@@ -48,7 +63,7 @@ public class BoardController {
     public Response saveBoardComments(@RequestBody BoardCommentRequest boardCommentRequest,
                                       @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, null, "200");
+            return new Response(ResponseCode.SUCCESS, boardService.saveBoardComment(boardCommentRequest, principalDTO), "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
