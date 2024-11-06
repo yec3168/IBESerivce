@@ -1,114 +1,178 @@
-#board_content{
-    margin-top: 150px;
-    margin-bottom: 150px;
+#board_content {
+  margin-top: 150px;
+  margin-bottom: 150px;
 }
 
 .board-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
-    margin-top: 20px;
-    /* font-family: "CookieRun-Regular", sans-serif; */
-    font-family: 'Noto Sans KR', sans-serif;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  margin-top: 20px;
+  /* font-family: "CookieRun-Regular", sans-serif; */
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .board-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .board-table {
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-    border-collapse: separate;
-    border-spacing: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .board-table thead {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 .board-table th,
 .board-table td {
-    text-align: left;
-    padding: 10px;
-    font-size: 15px;
-    color: #333;
+  text-align: left;
+  padding: 10px;
+  font-size: 15px;
+  color: #333;
 }
 
 .board-table tbody tr:hover {
-    background-color: #f1f3f5;
+  background-color: #f1f3f5;
 }
 
 .notice-row {
-    background-color: #FFF4D1;
-    font-weight: bold;
+  background-color: #fff4d1;
+  font-weight: bold;
 }
 
 .notice-row:hover {
-    background-color: #FFE6A5;
+  background-color: #ffe6a5;
 }
 
 .add-post-btn {
-    background-color: #FFC847;
-    border: none;
-    color: #000;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin-top: 20px;
-    font-family: "CookieRun-Regular", sans-serif;
+  background-color: #ffc847;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-family: 'CookieRun-Regular', sans-serif;
 }
 
 .add-post-btn:hover {
-    background-color: #FFDB7D;
+  background-color: #ffdb7d;
 }
 
 .pagination {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #FFC847;
-    border-color: #FFC847;
+  background-color: #ffc847;
+  border-color: #ffc847;
 }
 
 .pagination .page-link {
-    color: #333;
+  color: #333;
 }
 
 /* New Tag Styling */
 .new-tag {
-    background-color: #FF5733;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    padding: 2px 5px;
-    border-radius: 4px;
-    margin-left: 8px;
-    display: inline-block;
+  background-color: #ff5733;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 8px;
+  display: inline-block;
 }
 
-
 .category-공지 {
-    color: blue; /* Change to desired color for 공지 */
-    font-weight: bold;
+  color: blue; /* Change to desired color for 공지 */
+  font-weight: bold;
 }
 
 .category-신고 {
-    color: red; /* Change to desired color for 오류 */
-    font-weight: bold;
+  color: red; /* Change to desired color for 오류 */
+  font-weight: bold;
 }
 
 .category-기타 {
-    color: black; /* Change to desired color for 기타 */
-    font-weight: bold;
+  color: black; /* Change to desired color for 기타 */
+  font-weight: bold;
 }
 
 .category-문의 {
-    color: green; /* Change to desired color for 문의 */
-    font-weight: bold;
+  color: green; /* Change to desired color for 문의 */
+  font-weight: bold;
 }
 
+.comment {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.comment-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment p {
+  font-size: 14px;
+  color: #333;
+}
+
+.reply-btn {
+  color: #007bff;
+  font-size: 12px;
+  padding: 0;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.replies {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.reply {
+  font-size: 13px;
+  color: #555;
+  border-left: 2px solid #dcdcdc;
+  padding-left: 10px;
+}
+
+.reply-input {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.reply-btn,
+.reply-input {
+  transition: 0.3s ease;
+}
+
+.reply-btn:hover {
+  text-decoration: underline;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+button:focus {
+  outline: none;
+}

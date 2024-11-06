@@ -47,8 +47,7 @@ public class BoardService {
         return modelMapper.map(savedBoard, BoardFormResponse.class);
 
     }
-
-
+    
     /**
      * 게시판 상세 정보
      */
