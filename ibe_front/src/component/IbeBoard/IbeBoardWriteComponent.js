@@ -42,8 +42,9 @@ const IbeBoardWriteComponent = () => {
 
       if (response.status === 200) {
         alert('게시글이 성공적으로 작성되었습니다.');
+        console.log(response);
         // 글 작성 후 다른 페이지로 이동하거나 목록 페이지로 리다이렉트 할 수 있음
-        window.location.href = '/boards';
+        // window.location.href = '/boards';
       }
     } catch (error) {
       console.error('Error posting the board:', error);
@@ -84,7 +85,7 @@ const IbeBoardWriteComponent = () => {
                 >
                   <option value="">선택하세요</option>
                   <option value="NOTICE">공지</option>
-                  <option value="REQUEST">요청</option>
+                  <option value="REQUEST">REQUEST</option>
                   <option value="QUESTION">질문</option>
                   <option value="INFORMATION">정보</option>
                   <option value="GENARAL">일반</option>

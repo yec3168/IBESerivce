@@ -30,10 +30,9 @@ public class BoardService {
         Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
 
         Board board = modelMapper.map(boardFormRequest, Board.class);
-        System.out.println(board.getBoardCategory());
         board.setMember(member); // 작성자.
-//        boardRepository.save(board);
 
-        return null;
+
+        return true;
     }
 }
