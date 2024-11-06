@@ -141,4 +141,21 @@ public class KakaoService {
         }
         return jsonNode;
     }
+
+//
+//
+//    // responseBody에 있는 정보를 꺼냄
+//    private static JsonNode getJsonNode(ResponseEntity<String> response) {
+//        String responseBody = response.getBody();
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        JsonNode jsonNode = null;
+//
+//        try {
+//            jsonNode = objectMapper.readTree(responseBody);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return jsonNode;
+//    }
+
 }

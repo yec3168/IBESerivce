@@ -1,17 +1,43 @@
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DaumPostcode from 'react-daum-postcode';
+import axios from "axios";
 
 const MemberInfoChangeComponent = () => {
+    // 데이터 상태 관리
+    const [info, setInfo] = useState(null);
+    const [error, setError] = useState(null);
+
     const [password, setPassword] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
     const [name, setName] = useState('');
     const [nickname, setNickname] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [bank, setBank] = useState('');
     const [accountNumber, setAccountNumber] = useState('');
     const [address, setAddress] = useState('');
     const [addressDetail, setAddressDetail] = useState('');
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        // Bearer Token
+        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmaGJzeTg0QGdtYWlsLmNvbSIsImlhdCI6MTczMDc3MDY5NywiZXhwIjoxNzMwODU3MDk3fQ.IdaZJ1ilvWTjboYWZ6ZcDjf0i83z2KRUQ0cwCWkSVBc';
+    
+        // API 호출
+        // GET
+        axios.get('http://localhost:8080/api/members/mypage', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+          .then(response => {
+            setInfo(response.data.data);
+            setBank(response.data.data.memberBank); 
+          })
+          .catch(err => {
+            setError('데이터를 가져오는데 실패했습니다.');
+          });
+    }, []);
 
     // 비밀번호 확인
     const handleConfirmClick = () => {
@@ -70,13 +96,16 @@ const MemberInfoChangeComponent = () => {
      // 이름, 닉네임 정규식 확인
      const validateNameAndNickname = () => {
         const newErrors = {};
-        const nameRegex = /^[가-힣]{2,11}$/; // 한글 2~11자
-        const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,11}$/; // 한글, 영문, 숫자 2~11자
+        // const nameRegex = /^[가-힣]{2,11}$/; // 한글 2~11자
+        // const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,11}$/; // 한글, 영문, 숫자 2~11자
 
-        if (!nameRegex.test(name)) {
+        // 이름이 사용자가 입력했을 경우에만 정규식 확인
+        if (name && !/^[가-힣]{2,11}$/.test(name)) {
             newErrors.name = "이름은 한글 2~11자로 입력해 주세요.";
         }
-        if (!nicknameRegex.test(nickname)) {
+
+        // 닉네임이 사용자가 입력했을 경우에만 정규식 확인
+        if (nickname && !/^[a-zA-Z0-9가-힣]{2,11}$/.test(nickname)) {
             newErrors.nickname = "닉네임은 한글, 영문, 숫자 포함 2~11자로 입력해 주세요.";
         }
         return newErrors;
@@ -90,19 +119,56 @@ const MemberInfoChangeComponent = () => {
         const newErrors = {
             ...validateNameAndNickname(),
         };
-        if (!phoneNumber) newErrors.phoneNumber = "전화번호를 입력하세요.";
-        if (!accountNumber) newErrors.accountNumber = "계좌 번호를 입력하세요.";
-        if (!address) newErrors.address = "주소를 입력하세요.";
-        if (!addressDetail) newErrors.detailAddress = "상세주소를 입력하세요.";
+
+        // null checking 안함. 입력안하면 기존 값으로 전송.
+        // if (!phoneNumber) newErrors.phoneNumber = "전화번호를 입력하세요.";
+        // if (!accountNumber) newErrors.accountNumber = "계좌 번호를 입력하세요.";
+        // if (!address) newErrors.address = "주소를 입력하세요.";
+        // if (!addressDetail) newErrors.detailAddress = "상세주소를 입력하세요.";
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             return;
         }
 
-        // 여기서 api 호출
+        // 사용자가 값을 입력하지 않았으면 info에서 기본값을 사용
+        const nameToSubmit = name || info.memberName;
+        const nicknameToSubmit = nickname || info.memberNickName;
+        const phoneNumberToSubmit = phoneNumber || info.memberPhone;
+        const accountNumberToSubmit = accountNumber || info.memberAccountNumber;
+        const bankToSubmit = bank || info.memberBank;
+        const addressToSubmit = address || info.memberAddr;
+        const addressDetailToSubmit = addressDetail || info.memberAddrDetail;
 
-        alert('정보가 수정되었습니다.');
+        // 요청 DTO 만들기
+        const requestData = {
+            memberName: nameToSubmit,
+            memberNickName: nicknameToSubmit,
+            memberPhone: phoneNumberToSubmit,
+            memberAddr: addressToSubmit,
+            memberAddrDetail: addressDetailToSubmit,
+            memberAccountNumber: accountNumberToSubmit,
+            memberBank: bankToSubmit
+        };
+
+        // 여기서 api 호출, 위의 값을 전송
+        // PUT
+        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmaGJzeTg0QGdtYWlsLmNvbSIsImlhdCI6MTczMDc3MDY5NywiZXhwIjoxNzMwODU3MDk3fQ.IdaZJ1ilvWTjboYWZ6ZcDjf0i83z2KRUQ0cwCWkSVBc';
+        axios.put('http://localhost:8080/api/members/updateinfo', requestData, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            alert('정보가 수정되었습니다.');
+            setErrors({});
+        })
+        .catch(err => {
+            alert('정보 수정에 실패했습니다.');
+            console.log(requestData);
+            console.error(err);
+        });
+
         setErrors({}); 
     };
 
@@ -120,6 +186,10 @@ const MemberInfoChangeComponent = () => {
         setShowPostcode(true); // 주소 검색 모달 창 열기
     };
 
+    if (info === null) {
+        return <div>로딩 중...</div>; // info가 null이면 로딩 표시(필수)
+    }
+
     return (
         <>
             <div className="container text-center my-5" id="container_info">
@@ -131,7 +201,7 @@ const MemberInfoChangeComponent = () => {
                     <Form.Group as={Row} className="mb-4 mt-5">
                         <Form.Label column sm={2}>아이디</Form.Label>
                         <Col sm={8}>
-                            <Form.Control plaintext readOnly defaultValue="yec3618@naver.com" />
+                            <Form.Control plaintext readOnly defaultValue={info.memberEmail} />
                         </Col>
                     </Form.Group>
 
@@ -162,10 +232,10 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={8}>
                                     <Form.Control type="text" value={name} 
                                         onChange={(e) => setName(e.target.value)} 
-                                        placeholder="홍길동" />
+                                        placeholder={info.memberName} />
                                     {errors.name && 
                                         <small className="text-danger" 
-                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }}>
+                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
                                             {errors.name}
                                         </small>}
                                 </Col>
@@ -177,10 +247,10 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={8}>
                                     <Form.Control type="text" value={nickname} 
                                         onChange={(e) => setNickname(e.target.value)} 
-                                        placeholder="길동" />
+                                        placeholder={info.memberNickName} />
                                     {errors.nickname && 
                                         <small className="text-danger" 
-                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }}>
+                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
                                             {errors.nickname}
                                         </small>}
                                 </Col>
@@ -193,13 +263,13 @@ const MemberInfoChangeComponent = () => {
                                     <Form.Control 
                                         type="text" value={phoneNumber}
                                         onChange={handlePhoneNumberChange}
-                                        placeholder="010-1234-5678"
+                                        placeholder={info.memberPhone}
                                     />
                                     {errors.phoneNumber && 
-                                            <small className="text-danger" 
-                                                   style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }}>
-                                                {errors.phoneNumber}
-                                            </small>}
+                                        <small className="text-danger" 
+                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
+                                            {errors.phoneNumber}
+                                        </small>}
                                 </Col>
                             </Form.Group>
 
@@ -207,24 +277,27 @@ const MemberInfoChangeComponent = () => {
                             <Form.Group as={Row} className="mb-4">
                                 <Form.Label column sm={2}>계좌 번호</Form.Label>
                                 <Col sm={2}>
-                                    <Form.Select defaultValue="농협은행" className="select-custom">
-                                        <option>국민은행</option>
-                                        <option>신한은행</option>
-                                        <option>하나은행</option>
-                                        <option>우리은행</option>
-                                        <option>농협은행</option>
-                                        <option>산업은행</option>
-                                        <option>카카오뱅크</option>
-                                        <option>토스뱅크</option>
+                                <Form.Select 
+                                        value={bank} 
+                                        onChange={(e) => setBank(e.target.value)} 
+                                        className="select-custom">
+                                        <option value="KB">국민은행</option>
+                                        <option value="SHINHAN">신한은행</option>
+                                        <option value="HANA">하나은행</option>
+                                        <option value="WOORI">우리은행</option>
+                                        <option value="NH">농협은행</option>
+                                        <option value="KDB">산업은행</option>
+                                        <option value="KAKAO">카카오뱅크</option>
+                                        <option value="TOSS">토스뱅크</option>
                                     </Form.Select>
                                 </Col>
                                 <Col sm={6}>
                                     <Form.Control type="text" value={accountNumber} 
                                         onChange={handleAccountNumberChange} 
-                                        placeholder="12345677897897" />
+                                        placeholder={info.memberAccountNumber} />
                                     {errors.accountNumber && 
                                         <small className="text-danger" 
-                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }}>
+                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
                                             {errors.accountNumber}
                                         </small>}
                                 </Col>
@@ -236,10 +309,10 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={4}>
                                     <Form.Control type="text" value={address} 
                                         onChange={(e) => setAddress(e.target.value)} 
-                                        placeholder="주소" />
+                                        placeholder={info.memberAddr} />
                                     {errors.address && 
                                         <small className="text-danger" 
-                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }}>
+                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
                                             {errors.address}
                                         </small>}
                                 </Col>
@@ -264,10 +337,10 @@ const MemberInfoChangeComponent = () => {
                                 <Col sm={8}>
                                     <Form.Control type="text" value={addressDetail} 
                                         onChange={(e) => setAddressDetail(e.target.value)} 
-                                        placeholder="101동 101호" />
+                                        placeholder={info.memberAddrDetail} />
                                     {errors.detailAddress && 
                                         <small className="text-danger" 
-                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }}>
+                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
                                             {errors.detailAddress}
                                         </small>}
                                 </Col>

@@ -9,9 +9,10 @@ import lombok.ToString;
 @ToString
 public class NhRequest {
 
-private String  bankName;
-private String  bankAccountNumber;
-private String  memberPoint;
+    private String  bank;
+    private String  bankName;
+    private String  bankAccountNumber;
+    private String  memberPoint;
 
 }
 

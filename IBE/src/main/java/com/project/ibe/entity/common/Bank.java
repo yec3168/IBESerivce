@@ -7,6 +7,7 @@ public enum Bank {
     HANA("하나은행"),
     WOORI("우리은행"),
     NH("농협은행"),
+    KDB("산업은행"),
     KAKAO("카카오뱅크"),
     TOSS("토스뱅크");
 
