@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { getMemberPoint } from '../service/MypageService'; 
 
 const MemberPointCardComponent = () => {
-  
   const navigate = useNavigate();
 
   const [info, setInfo] = useState(null);
