@@ -1,6 +1,7 @@
 package com.project.ibe.jwt;
 
 import com.project.ibe.dto.member.PrincipalDTO;
+import com.project.ibe.entity.common.Role;
 import com.project.ibe.exception.BusinessException;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,8 +34,9 @@ public class JwtTokenProvider {
 //    }
 
     // JWT 토큰 생성
-    public String createToken(String memberEmail) {
+    public String createToken(String memberEmail, String role) {
         Claims claims = (Claims) Jwts.claims().setSubject(memberEmail); // JWT payload 에 저장되는 정보단위
+        claims.put("role",role);
 //        claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
         Date now = new Date();
         return Jwts.builder()

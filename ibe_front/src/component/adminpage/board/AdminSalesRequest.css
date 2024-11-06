@@ -41,8 +41,9 @@
 
 .admin-sr-sales-request-column {
   display: flex;
-  background-color: rgb(202, 202, 202);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
 }
 
 .admin-sr-sales-request-container {
@@ -56,14 +57,16 @@
 .admin-sr-sales-request-header {
   display: flex;
   cursor: pointer;
-  background-color: #eaeaea;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
 }
 
 .admin-sr-sales-request-item {
   border: none;
   margin-top: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  /* border-bottom: 1px solid #ddd; */
 }
 
 .admin-sr-column {
@@ -104,6 +107,7 @@
 }
 
 .admin-sr-textarea {
+  padding: 0.5rem;
   width: 500px;
   min-height: 100px; /* 기본 높이 설정 */
   resize: none; /* 크기 조정 비활성화 */
@@ -113,7 +117,6 @@
   transition: border-color 0.3s, box-shadow 0.3s;
   overflow-y: hidden; /* 스크롤바 숨김 */
 }
-
 
 .admin-sr-textarea:focus {
   border-color: black; /* 포커스 시 테두리 색상 변경 */
@@ -127,4 +130,3 @@
 .admin-sr-error-message {
   color: red;
 }
-

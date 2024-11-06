@@ -20,23 +20,24 @@
   border-bottom: 1px solid #ddd;
   border: none;
   margin-top: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .admin-io-inquiry-order-column {
   display: flex;
-  background-color: rgb(202, 202, 202);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
 }
 
 .admin-io-inquiry-order-header {
   display: flex;
   cursor: pointer;
-  background-color: #eaeaea;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
 }
 
 .admin-io-inquiry-order-content {
-  padding: 1rem;
+  padding: 1rem 2rem;
   background-color: white;
   transition: max-height 0.3s ease;
 }
