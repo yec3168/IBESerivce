@@ -1,6 +1,7 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { checkMemberPw, updateMemberDel } from '../service/MypageService';
 
 const MypageDeleteAccountComponent = () => {
     const [password, setPassword] = useState('');
@@ -13,18 +14,37 @@ const MypageDeleteAccountComponent = () => {
         setErrorMessage('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
-        if (password === "123123") {
-            const confirmChange = window.confirm("계정 탈퇴는 되돌릴 수 없습니다.\n정말 계속하시겠습니까?");
-            if (confirmChange) {
-                // 여기에 회원 탈퇴 API 호출 추가
-                alert("회원 탈퇴가 완료되었습니다.");
-                navigate('/'); // 탈퇴하면 메인 페이지로 리디렉션
+        // 비밀번호 확인 API 호출
+        const passwordData = { memberPassword: password };
+
+        try {
+            // 비밀번호 확인 요청
+            const checkResponse = await checkMemberPw(passwordData);
+            
+            // 비밀번호 확인 성공
+            if (checkResponse.data.code === "200" && checkResponse.data.data.success) {
+                const confirmChange = window.confirm("계정 탈퇴는 되돌릴 수 없습니다.\n정말 계속하시겠습니까?");
+                if (confirmChange) {
+                    // 회원 탈퇴 API 호출
+                    const deleteResponse = await updateMemberDel(passwordData);
+
+                    // 탈퇴 성공 시
+                    if (deleteResponse.data.code === "200" && deleteResponse.data.data.success) {
+                        alert("회원 탈퇴가 완료되었습니다.");
+                        navigate('/'); // 탈퇴 후 메인 페이지로 리디렉션
+                    } else {
+                        alert("회원 탈퇴 실패, 다시 시도해주세요.");
+                    }
+                }
+            } else {
+                setErrorMessage("비밀번호가 다릅니다.");
             }
-        } else {
-            setErrorMessage("비밀번호가 다릅니다.");
+        } catch (error) {
+            console.error("탈퇴 오류:", error);
+            setErrorMessage("비밀번호 확인 또는 탈퇴 처리에 실패했습니다.");
         }
     };
 
