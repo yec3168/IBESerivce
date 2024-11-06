@@ -16,7 +16,7 @@ public class BoardListResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime boardCreatedAt;
     private int boardHit;
+    private int boardCommentCnt;     //댓글 수.
 
-    // 댓글 수
 
 }

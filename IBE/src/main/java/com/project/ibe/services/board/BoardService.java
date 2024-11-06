@@ -59,7 +59,7 @@ public class BoardService {
 
         // 상세정보 가져오기.
         BoardDetailResponse boardDetailResponse = modelMapper.map(savedBoard, BoardDetailResponse.class);
-        //boardDetailResponse.set     //댓글 수 넣어야함.
+        boardDetailResponse.setBoardCommentCnt(getCommentCntByBoard(savedBoard));     //댓글 수 넣어야함.
 
 
         return boardDetailResponse;
@@ -76,7 +76,7 @@ public class BoardService {
         for(Board board : boardList){
             BoardListResponse boardListResponse = modelMapper.map(board, BoardListResponse.class);
             boardListResponse.setMemberNickName(board.getMember().getMemberNickName());
-            // 댓글 수 추가 예정.
+            boardListResponse.setBoardCommentCnt(getCommentCntByBoard(board));// 댓글 수 추가 예정.
             boardListResponseList.add(boardListResponse);
         }
 
@@ -95,20 +95,29 @@ public class BoardService {
 
 
         // 등록.
-        BoardComment boardComment = modelMapper.map(boardCommentRequest, BoardComment.class);
+        BoardComment boardComment = modelMapper.map(board, BoardComment.class);
         boardComment.setMember(member);
 
         boardCommentRepository.save(boardComment);
 
         return modelMapper.map(boardComment, BoardCommentResponse.class);
     }
-    
-    
+
+    /**
+     * 게시글 아이디로 찾기.
+     */
     private Board findBoardById(Long id){
         return boardRepository.findById(id)
                 .orElseThrow(
                         () -> new BusinessException("게시글을 찾을 수 없습니다.", HttpStatus.NOT_FOUND)
                 );
+    }
+
+    /**
+     * 게시판 댓글 수.
+     */
+    private int getCommentCntByBoard(Board board){
+        return boardCommentRepository.findAllByBoard(board).size();
     }
 
     
