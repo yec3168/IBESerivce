@@ -49,12 +49,20 @@ public class BoardService {
     /**
      * 게시판 상세 정보
      */
-    public boolean getBoardDetail(Long id){
+    public BoardDetailResponse getBoardDetail(Long id){
         // 게시판 정보.
         Board board = findBoardById(id);
 
+        // 게시글 조회수 1 증가
+        board.setBoardHit(board.getBoardHit()+1);
+        Board savedBoard =boardRepository.save(board);
+
         // 상세정보 가져오기.
-        return false;
+        BoardDetailResponse boardDetailResponse = modelMapper.map(savedBoard, BoardDetailResponse.class);
+        //boardDetailResponse.set     //댓글 수 넣어야함.
+
+
+        return boardDetailResponse;
     }
 
     /**
@@ -68,7 +76,7 @@ public class BoardService {
         for(Board board : boardList){
             BoardListResponse boardListResponse = modelMapper.map(board, BoardListResponse.class);
             boardListResponse.setMemberNickName(board.getMember().getMemberNickName());
-
+            // 댓글 수 추가 예정.
             boardListResponseList.add(boardListResponse);
         }
 
