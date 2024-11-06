@@ -19,3 +19,8 @@ export const getMemberInfo = () => axios.get(`${REST_API_URL}`, headers );
 export const updateMemberInfo = (data) => {
     return axios.put(`${REST_API_URL}/updateinfo`, data, headers);
 };
+
+// 멤버 비밀번호 확인
+export const checkMemberPw = (data) => {
+    return axios.post(`${REST_API_URL}/checkpw`, data, headers);
+};
