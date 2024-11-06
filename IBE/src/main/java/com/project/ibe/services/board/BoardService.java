@@ -95,12 +95,15 @@ public class BoardService {
 
 
         // 등록.
-        BoardComment boardComment = modelMapper.map(board, BoardComment.class);
-        boardComment.setMember(member);
+        BoardComment boardComment = BoardComment.builder()
+                .boardCommentContent(boardCommentRequest.getBoardCommentContent())
+                .board(board)
+                .member(member)
+                .build();
 
-        boardCommentRepository.save(boardComment);
+        BoardComment savedBoardComment = boardCommentRepository.save(boardComment);
 
-        return modelMapper.map(boardComment, BoardCommentResponse.class);
+        return modelMapper.map(savedBoardComment, BoardCommentResponse.class);
     }
 
     /**
