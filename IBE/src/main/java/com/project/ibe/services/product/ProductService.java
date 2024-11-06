@@ -1,5 +1,6 @@
 package com.project.ibe.services.product;
 
+import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.product.*;
 import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.common.ProductUploadStatus;
@@ -12,6 +13,7 @@ import com.project.ibe.repository.product.ProductCommentRepository;
 import com.project.ibe.repository.product.ProductImgRepository;
 import com.project.ibe.repository.product.ProductReplyRepository;
 import com.project.ibe.repository.product.ProductRepository;
+import com.project.ibe.services.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +40,7 @@ public class ProductService {
     private final ProductReplyRepository productReplyRepository;
 
     private final FileService fileService;
+    private final MemberService memberService;
 
     @Value("${imgSave.location}")
     private String saveImageURL; // C:/ibe/  : 폴더 생성용.
@@ -45,7 +48,7 @@ public class ProductService {
     /**
      * 물품 등록
      */
-    public ProductFormResponse createProduct(ProductFormRequest productFormRequest, List<MultipartFile> images) throws IOException {
+    public ProductFormResponse createProduct(ProductFormRequest productFormRequest, List<MultipartFile> images, PrincipalDTO principalDTO) throws IOException {
         // 먼저 제품을 저장하여 생성된 ID를 가져옴
         if(!fileService.createDirectory(saveImageURL)){
             throw new BusinessException("Directory가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
@@ -57,9 +60,9 @@ public class ProductService {
         product.setProductHit(0);
         product.setProductTradeState(ProductTradeState.TRADING_AVAILABLE);
         /**
-         * JWT 완성되면 넣어줘야함.
+         * JWT 완성되면 넣어줘야함. ==> 완료.
          */
-//        savedProduct.setMember(???);
+        product.setMember(memberService.getMemberByEmail(principalDTO.getMemberEmail()));
 
         Product savedProduct = productRepository.save(product);
 
@@ -105,7 +108,7 @@ public class ProductService {
      * 물품 상세조회
      */
 
-    public ProductDetailResponse getProductDeatail(Long id){
+    public ProductDetailResponse getProductDetail(Long id){
         Product product = findProductById(id);
 
         product.setProductHit(product.getProductHit() + 1);
@@ -120,9 +123,8 @@ public class ProductService {
         productDetailResponse.setProductCategory(product.getProductCategory().getDescription());
         productDetailResponse.setProductConditionState(product.getProductConditionState().getDescription());
         productDetailResponse.setProductTradeState(product.getProductTradeState().getDescription());
-
         productDetailResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size()); // 댓글 수 추가.
-
+        productDetailResponse.setMember(product.getMember());
         productDetailResponse.setImagePath(images);
         return productDetailResponse;
     }
