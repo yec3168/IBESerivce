@@ -208,7 +208,7 @@ const TermsAgreementComponent = () => {
             </Col>
           </Form.Group>
 
-          <Button type="submit" className="mt-4" style={{ backgroundColor: "#FFC847", width: "100%" }}>
+          <Button type="submit" className="mt-4" variant="default"  style={{ backgroundColor: "#FFC847", width: "100%" }}>
             가입하기
           </Button>
         </Form>
