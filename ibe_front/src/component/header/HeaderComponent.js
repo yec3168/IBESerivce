@@ -8,10 +8,11 @@ import { getMemberPoint } from '../service/MypageService';
 const HeaderComponent = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [memberPoint, setMemberPoint] = useState(null);
-
+  const [isLogin,setLogIn] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     if (token) {
+      setLogIn(true);
       try {
         const decodedToken = jwtDecode(token);
         const userRole = decodedToken.role;
@@ -46,6 +47,10 @@ const HeaderComponent = () => {
     fetchMemberPoint();
   }, []);
 
+  const logOutButton=()=>{
+      localStorage.removeItem('accessToken');
+      window.location.reload();
+  }
   return (
     <div className="container-fluid fixed-top bg-white" id="div_header">
       <header>
@@ -92,17 +97,29 @@ const HeaderComponent = () => {
                     </a>
                   </li>
                 )}
-                <li className="nav-item mx-3">
-                  <a className="nav-link active" href="/signin">
-                    로그인
-                  </a>
-                </li>
+                {/* isLogin 이 true 면 로그아웃 버튼, false 면 로그인 버튼 */}
+                {
+                  isLogin ? (
+                    <li className="nav-item mx-3" onClick={()=>logOutButton()}>
+                        <a className="nav-link active" href="#">
+                        로그아웃
+                        </a>
+                    </li>
+                    
+                   ) : (
+                    <li className="nav-item mx-3">
+                      <a className="nav-link active" href="/signin">
+                      로그인
+                      </a>
+                    </li>
+                  )
+                }
                 <div className="vr"></div>
-                <li className="nav-item ms-3">
+                {/* <li className="nav-item ms-3">
                   <a className="nav-link active" href="/terms">
                     회원가입
                   </a>
-                </li>
+                </li> */}
                 <li className="nav-item mx-1">
                   <a className="nav-link active" href="/">
                     고객센터
