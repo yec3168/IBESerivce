@@ -8,11 +8,14 @@ import { getMemberPoint } from '../service/MypageService';
 const HeaderComponent = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [memberPoint, setMemberPoint] = useState(null);
-  const [isLogin,setLogIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
+
     if (token) {
-      setLogIn(true);
+      setIsLoggedIn(true); //로그인 상태 변경
+
       try {
         const decodedToken = jwtDecode(token);
         const userRole = decodedToken.role;
@@ -47,91 +50,67 @@ const HeaderComponent = () => {
     fetchMemberPoint();
   }, []);
 
-  const logOutButton=()=>{
-      localStorage.removeItem('accessToken');
-      window.location.reload();
+  // 로그아웃 함수
+  const clickLogout = () => {
+    localStorage.removeItem('accessToken');
+    setIsLoggedIn(false);
+    window.location.reload();
   }
+
+  // 마이페이지 클릭 시 로그인 상태 확인
+  const handleMypageClick = (e) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      alert('로그인 한 사용자만 접근할 수 있습니다.');
+    }
+  };
+
   return (
     <div className="container-fluid fixed-top bg-white" id="div_header">
       <header>
         <nav className="navbar navbar-expand-lg" id="header_nav">
           <div className="container-fluid fixed-top">
-            <div
-              className="collapse navbar-collapse justify-content-end"
-              id="loginMenubar"
-            >
+            {/* 로그인 메뉴바 */}
+            <div className="collapse navbar-collapse justify-content-end" id="loginMenubar">
               <ul className="navbar-nav loginMenubar">
-                <span id="span_parent" className="mr-80">
-                  <img
-                    src={coin_purse_icon}
-                    width="20px"
-                    alt="coin_purse"
-                    id="coin_purse_icon"
-                  />
-                  <li className="nav-item">
-                    <a
-                      className="nav-link active4"
-                      href="/"
-                      id="amt"
-                      style={{ whiteSpace: 'nowrap' }}
-                    >
-                      <span
-                        id="span_amt"
-                        style={{
-                          whiteSpace: 'nowrap',
-                          display: 'inline-block',
-                        }}
-                      >
-                        {memberPoint !== null ? `${memberPoint}` : '로딩중'}
-                      </span>
-                      <span id="span_won" style={{ display: 'inline-block' }}>
-                        &nbsp;P
-                      </span>
-                    </a>
-                  </li>
-                </span>
-                {isAdmin && (
-                  <li className="nav-item mx-3">
-                    <a className="nav-link active" href="/admin">
-                      관리자 페이지
-                    </a>
-                  </li>
-                )}
-                {/* isLogin 이 true 면 로그아웃 버튼, false 면 로그인 버튼 */}
-                {
-                  isLogin ? (
-                    <li className="nav-item mx-3" onClick={()=>logOutButton()}>
-                        <a className="nav-link active" href="#">
-                        로그아웃
-                        </a>
-                    </li>
-                    
-                   ) : (
-                    <li className="nav-item mx-3">
-                      <a className="nav-link active" href="/signin">
-                      로그인
+                {/* 포인트 잔액 */}
+                {/* 사용자 로그인 상태에만 표시 */}
+                {/* 클릭시 포인트 충전 페이지 이동 */}
+                {isLoggedIn && !isAdmin &&  (
+                  <span id="span_parent" className="mr-80">
+                    <li className="nav-item">
+                      <a className="nav-link active4" href="/mypage/pntcharge" id="amt" style={{ whiteSpace: 'nowrap' }}>
+                        <img src={coin_purse_icon} width="20px" alt="coin_purse" id="coin_purse_icon" />
+                        <span id="span_amt" style={{ whiteSpace: 'nowrap', display: 'inline-block' }}>
+                          {memberPoint !== null ? `${memberPoint}` : '로딩중'}
+                        </span>
+                        <span id="span_won" style={{ display: 'inline-block' }}>
+                          &nbsp;P
+                        </span>
                       </a>
                     </li>
-                  )
-                }
-                <div className="vr"></div>
-                {/* <li className="nav-item ms-3">
-                  <a className="nav-link active" href="/terms">
-                    회원가입
-                  </a>
-                </li> */}
-                <li className="nav-item mx-1">
-                  <a className="nav-link active" href="/">
-                    고객센터
-                  </a>
-                </li>
+                  </span>
+                )}
+                {/* 로그인 버튼 */}
+                {/* 로그인 상태별 로그인/로그아웃 표시 */}
+                {isLoggedIn ? (
+                    <li className="nav-item mx-3">
+                      <button className="nav-link active" onClick={clickLogout} id="button_logout">로그아웃</button>
+                    </li>
+                ) : (
+                    <li className="nav-item mx-3">
+                      <a className="nav-link active" href="/signin" id="button_login">로그인</a>
+                    </li>
+                )}
               </ul>
             </div>
           </div>
           <div className="container-fluid">
+            {/* 메인 로고 */}
             <a className="navbar-brand" href="/">
               <img src={ibe_logo} width="200px" alt="logo" />
             </a>
+            {/* 반응형 메뉴바 버튼 */}
             <button
               className="navbar-toggler"
               type="button"
@@ -143,6 +122,7 @@ const HeaderComponent = () => {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
+            {/* 메뉴바 */}
             <div
               className="collapse navbar-collapse justify-content-end"
               id="menubar"
@@ -163,11 +143,20 @@ const HeaderComponent = () => {
                     아이비 게시판
                   </a>
                 </li>
-                <li className="nav-item mr-150">
-                  <a className="nav-link active5" href="/mypage">
-                    마이페이지
-                  </a>
-                </li>
+                {/* 사용자는 마이페이지, 관리자는 관리자페이지 */}
+                {isAdmin ? (
+                  <li className="nav-item mr-150">
+                    <a className="nav-link active5" href="/admin">
+                      관리자 페이지
+                    </a>
+                  </li>
+                ) : (
+                  <li className="nav-item mr-150">
+                    <a className="nav-link active5" href="/mypage" onClick={handleMypageClick}>
+                      마이페이지
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

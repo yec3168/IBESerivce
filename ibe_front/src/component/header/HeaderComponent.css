@@ -52,6 +52,7 @@
   float: left;
   left: 0px;
   position: absolute;
+  margin-top: 5px;
 }
 
 .nav-link.active1 {
@@ -104,3 +105,24 @@
 .nav-link.active5:hover {
   color: #f4890a;
 }
+
+#button_login, #button_logout {
+  margin-top: 10px;
+  margin-right: 150px;
+  white-space: nowrap;
+  height: 30px;
+  background-color: #FFD54F;
+  color: #000435; 
+  border-radius: 20px; 
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  padding: 0 15px;
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+#button_login:hover, #button_logout:hover {
+  background-color: #FFC300;
+  color: white; 
+}
+
