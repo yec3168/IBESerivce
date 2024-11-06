@@ -1,8 +1,7 @@
 package com.project.ibe.services.mypage;
 
 import com.project.ibe.dto.member.PrincipalDTO;
-import com.project.ibe.dto.mypage.MemberInfoResponse;
-import com.project.ibe.dto.mypage.MemberInfoUpdateRequest;
+import com.project.ibe.dto.mypage.*;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
 import com.project.ibe.exception.BusinessException;
@@ -12,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MypageService {
     private final MemberRepository memberRepository;
     private final MemberBankRepository memberBankRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    // 멤버 정보 전부 조회
     public MemberInfoResponse getMemberInfo(PrincipalDTO principal) {
         Member member = memberRepository.findByMemberEmail(principal.getMemberEmail()).orElseThrow();
 
@@ -45,6 +47,19 @@ public class MypageService {
         return response;
     }
 
+    // 멤버 포인트 조회
+    public MemberPointResponse getMemberPoint(PrincipalDTO principal) {
+        Member member = memberRepository.findByMemberId(principal.getMemberId())
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
+
+        MemberPointResponse response = new MemberPointResponse();
+
+        response.setMemberPoint(member.getMemberPoint());
+
+        return response;
+    }
+
+    // 멤버 정보 업데이트
     @Transactional
     public MemberInfoResponse updateMemberInfo(PrincipalDTO principal, @RequestBody @Valid MemberInfoUpdateRequest request) {
         Member member = memberRepository.findByMemberId(principal.getMemberId())
@@ -90,6 +105,28 @@ public class MypageService {
 
         memberRepository.save(member);
         memberBankRepository.save(memberBank);
+
+        return response;
+    }
+
+    // 멤버 비밀번호 변경
+    @Transactional
+    public MemberPwUpdateResponse updateMemberPw(PrincipalDTO principal, @RequestBody @Valid MemberPwUpdateRequest request) {
+        Member member = memberRepository.findByMemberId(principal.getMemberId())
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
+
+        MemberPwUpdateResponse response = new MemberPwUpdateResponse();
+
+        if (!bCryptPasswordEncoder.matches(request.getMemberPassword(), member.getMemberPassword())) {
+            response.setSuccess(false);
+            throw new BusinessException("Old password is incorrect", HttpStatus.BAD_REQUEST);
+        }
+
+        String encodedNewPassword = bCryptPasswordEncoder.encode(request.getMemberNewPassword());
+        member.setMemberPassword(encodedNewPassword);
+        response.setSuccess(true);
+
+        memberRepository.save(member);
 
         return response;
     }

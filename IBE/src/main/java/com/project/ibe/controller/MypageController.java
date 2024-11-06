@@ -2,6 +2,7 @@ package com.project.ibe.controller;
 
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.mypage.MemberInfoUpdateRequest;
+import com.project.ibe.dto.mypage.MemberPwUpdateRequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.exception.BusinessException;
@@ -34,11 +35,32 @@ public class MypageController {
         }
     }
 
+    @GetMapping("/point")
+    public Response getMemberPoint(@AuthenticationPrincipal PrincipalDTO principal) {
+        try {
+            return new Response(ResponseCode.SUCCESS, myPageService.getMemberPoint(principal), "200");
+        } catch (JwtException | AuthenticationException e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        } catch (Exception e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
     @PutMapping("/updateinfo")
-    public Response<Void> updateMemberInfo(@AuthenticationPrincipal PrincipalDTO principal,
+    public Response updateMemberInfo(@AuthenticationPrincipal PrincipalDTO principal,
                                            @RequestBody @Valid MemberInfoUpdateRequest request) {
         try {
             return new Response(ResponseCode.SUCCESS, myPageService.updateMemberInfo(principal, request), "200");
+        } catch (Exception e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
+    @PatchMapping("/updatepw")
+    public Response updateMemberPw(@AuthenticationPrincipal PrincipalDTO principal,
+                                         @RequestBody @Valid MemberPwUpdateRequest request) {
+        try {
+            return new Response(ResponseCode.SUCCESS, myPageService.updateMemberPw(principal, request), "200");
         } catch (Exception e) {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
