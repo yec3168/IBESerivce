@@ -1,17 +1,22 @@
 package com.project.ibe.services.board;
 
-import com.project.ibe.dto.board.BoardFormRequest;
-import com.project.ibe.dto.board.BoardFormResponse;
+import com.project.ibe.dto.board.*;
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.entity.board.Board;
+import com.project.ibe.entity.board.BoardComment;
 import com.project.ibe.entity.member.Member;
+import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.board.BoardCommentRepository;
 import com.project.ibe.repository.board.BoardReplyRepository;
 import com.project.ibe.repository.board.BoardRepository;
 import com.project.ibe.services.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +38,70 @@ public class BoardService {
 
         Board board = modelMapper.map(boardFormRequest, Board.class);
         board.setMember(member); // 작성자.
+        board.setBoardHit(0);
 
         Board savedBoard = boardRepository.save(board);
 
         return modelMapper.map(savedBoard, BoardFormResponse.class);
     }
+
+
+    /**
+     * 게시판 상세 정보
+     */
+    public boolean getBoardDetail(Long id){
+        // 게시판 정보.
+        Board board = findBoardById(id);
+
+        // 상세정보 가져오기.
+        return false;
+    }
+
+    /**
+     *  게시글 목록 조회.
+     */
+
+    public List<BoardListResponse> getBoardList(){
+        List<Board> boardList = boardRepository.findAll();
+
+        List<BoardListResponse> boardListResponseList = new ArrayList<>();
+        for(Board board : boardList){
+            BoardListResponse boardListResponse = modelMapper.map(board, BoardListResponse.class);
+            boardListResponse.setMemberNickName(board.getMember().getMemberNickName());
+
+            boardListResponseList.add(boardListResponse);
+        }
+
+        return boardListResponseList;
+    }
+
+    /**
+     * 댓글 등록.
+     */
+    public BoardCommentResponse saveBoardComment(BoardCommentRequest boardCommentRequest, PrincipalDTO principalDTO){
+        // 댓글 작성자.
+        Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        // 게시글
+        Board board = findBoardById(boardCommentRequest.getBoardId());
+
+
+        // 등록.
+        BoardComment boardComment = modelMapper.map(boardCommentRequest, BoardComment.class);
+        boardComment.setMember(member);
+
+        boardCommentRepository.save(boardComment);
+
+        return modelMapper.map(boardComment, BoardCommentResponse.class);
+    }
+    
+    
+    private Board findBoardById(Long id){
+        return boardRepository.findById(id)
+                .orElseThrow(
+                        () -> new BusinessException("게시글을 찾을 수 없습니다.", HttpStatus.NOT_FOUND)
+                );
+    }
+
+    
 }
