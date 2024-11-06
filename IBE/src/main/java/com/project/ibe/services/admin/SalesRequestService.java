@@ -1,10 +1,12 @@
 package com.project.ibe.services.admin;
 
 import com.project.ibe.dto.admin.ProductIdRequest;
+import com.project.ibe.dto.admin.SalesImgResponse;
 import com.project.ibe.dto.admin.SalesNoRequest;
 import com.project.ibe.dto.admin.SalesRequestResponse;
 import com.project.ibe.entity.common.ProductUploadStatus;
 import com.project.ibe.entity.product.Product;
+import com.project.ibe.entity.product.ProductImg;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.member.MemberRepository;
 import com.project.ibe.repository.product.ProductImgRepository;
@@ -56,17 +58,17 @@ public class SalesRequestService {
                 existProduct.setRejectionText(salesNoRequest.getRejectionText());
     }
 
-//    public List<SalesImgResponse> getSalesImgList(ProductIdRequest productIdRequest) {
-//
-//        List<ProductImg> productImgList = productImgRepository.findByProduct_ProductId(productIdRequest.getProductId());
-//        return productImgList.stream()
-//                .map(entity -> {
-//                    SalesImgResponse response = modelMapper.map(entity, SalesImgResponse.class);
-//                    response.setProductId(entity.getProduct().getProductId()); // productId 설정
-//                    return response;
-//                })
-//                .toList();
-//    }
+    public List<SalesImgResponse> getSalesImgList(ProductIdRequest productIdRequest) {
+
+        List<ProductImg> productImgList = productImgRepository.findByProduct_ProductId(productIdRequest.getProductId());
+        return productImgList.stream()
+                .map(entity -> {
+                    SalesImgResponse response = new SalesImgResponse();
+                    response.setImagePath(entity.getImagePath());
+                    return response;
+                })
+                .toList();
+    }
 
 
 }

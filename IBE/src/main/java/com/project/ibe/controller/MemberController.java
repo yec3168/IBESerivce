@@ -51,9 +51,7 @@ public class MemberController {
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, false, "404");
         }
-
     }
-
     /**
      * 이메일 중복확인
      */
@@ -110,9 +108,6 @@ public class MemberController {
 
 
 
-    /**
-     * 카카오 회원가입 여부 확인( 이미 아이디가 있으면 true, 없으면 dto)
-     */
     @GetMapping("/kakao/oauth")
     public Response kakaoSignupCheckRestAPI(@RequestParam("code") String code){
 //        System.out.println(code);

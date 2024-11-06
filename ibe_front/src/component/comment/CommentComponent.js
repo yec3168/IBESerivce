@@ -161,7 +161,7 @@ const CommentComponent = () => {
                 <Form onSubmit={handleCommentSubmit}>
                     <Form.Control
                         as="textarea"
-                        placeholder="댓글을 입력해주세요."
+                        placeholder="댓글을 입력해주세요. (최대 200자)"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         style={{ height: "100px" }}

@@ -1,47 +1,47 @@
+.admin-il-h2 {
+  text-align: center;
+  margin: 1rem;
+}
+
 .admin-il-inquiry-list-container {
   padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  margin: 1rem;
+  border: none;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .admin-il-inquiry-list {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-top: 10px;
+  border: none;
 }
 
 .admin-il-inquiry-list-item {
-  border-bottom: 1px solid #ddd;
-  border: 1px solid #ddd;
+  border: none;
   margin-top: 5px;
-  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .admin-il-inquiry-list-column {
   display: flex;
-  padding: 10px;
-  background-color: #f9f9f9;
+  background-color: rgb(202, 202, 202);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .admin-il-inquiry-list-header {
   display: flex;
-  padding: 10px;
   cursor: pointer;
-  background-color: #e9ecef;
-  font-weight: bold;
+  background-color: #eaeaea;
 }
 
 .admin-il-inquiry-list-content {
-  padding: 10px;
-  background-color: #fff;
+  padding: 1rem;
+  background-color: white;
   transition: max-height 0.3s ease;
 }
 
 .admin-il-column {
-  font-weight: bold;
   flex: 1;
-  padding: 5px;
+  padding: 0.5rem;
   text-align: center; /* 가운데 정렬 */
 }
 
@@ -50,11 +50,11 @@
 }
 
 .admin-il-column.admin-il-category {
-  flex: 1;
+  flex: 2;
 }
 
 .admin-il-column.admin-il-title {
-  flex: 16;
+  flex: 12;
 }
 
 .admin-il-column.admin-il-nickname {
@@ -92,4 +92,41 @@
 .admin-il-column.admin-il-responseDate {
   flex: 2; /* 기존 flex 값에서 변경 가능 */
   padding: 5px;
+}
+
+.admin-il-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.admin-il-pagination-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-il-pagination-button.active {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.admin-il-pagination-button:hover:not(.active) {
+  background-color: #e0e0e0;
+}
+
+.admin-il-pagination-button:disabled {
+  background-color: #f0f0f0;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.admin-il-pagination-button:not(:disabled):active {
+  background-color: #0056b3;
+  color: white;
 }

@@ -35,11 +35,11 @@ const AdminManagerListRole = ({
   return (
     <div className="admin-manager-modal">
       <div className="admin-manager-modal-content">
-        <h3>
-          {selectedManager?.memberName} 역할 변경 (현재: {currentRole})
-        </h3>
-        <p>이메일: {selectedManager?.memberEmail}</p>
-        <label>역할 선택:</label>
+        <h5>
+          {selectedManager?.memberName}<br/> 역할 변경
+          <br /> (현재: {currentRole})
+        </h5>
+        <label>역할 선택</label>
         <select value={newRole} onChange={(e) => setNewRole(e.target.value)}>
           <option value="ROLE_SERVICE_MANAGER">문의 담당자</option>
           <option value="ROLE_BOARD_MANAGER">게시판 담당자</option>

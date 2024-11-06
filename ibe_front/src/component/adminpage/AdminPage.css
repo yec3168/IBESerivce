@@ -11,6 +11,10 @@
   overflow-y: auto; /* 콘텐츠 영역에서도 스크롤 가능 */
 }
 
+.admin-main-content-h2 {
+  text-align: center;
+}
+
 .admin-main-button {
   padding: 0.5rem 1rem;
   background: #fffaed; /* 버튼 색상 */
@@ -43,27 +47,27 @@
   margin: 0 1rem; /* 좌우 여백 */
   padding: 1rem;
   background: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
   border-bottom: 4px solid #d27a00; /* 하단 테두리 색상 */
 }
 
 .admin-main-box-1 {
-  border-bottom: 4px solid #788eff; /* 하단 테두리 색상 */
+  border-bottom: 4px solid #82ca9d; /* 하단 테두리 색상 */
   margin-right: 0.5rem;
 }
 
 .admin-main-box-2 {
-  border-bottom: 4px solid #ffd063; /* 하단 테두리 색상 */
+  border-bottom: 4px solid #ffc658; /* 하단 테두리 색상 */
   margin-right: 0.5rem;
 }
 
 .admin-main-box-3 {
-  border-bottom: 4px solid #78ff91; /* 하단 테두리 색상 */
+  border-bottom: 4px solid #8884d8; /* 하단 테두리 색상 */
   margin-right: 0.5rem;
 }
 
 .admin-main-box-4 {
-  border-bottom: 4px solid #ff8888; /* 하단 테두리 색상 */
+  border-bottom: 4px solid #ff8042; /* 하단 테두리 색상 */
 }
 
 .admin-main-dashboard-container {

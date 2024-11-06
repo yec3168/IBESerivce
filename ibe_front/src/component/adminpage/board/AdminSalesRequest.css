@@ -48,7 +48,7 @@
 .admin-sr-sales-request-container {
   padding: 1rem;
   margin: 1rem;
-  border: 1px solid #ffffff;
+  border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   background-color: #ffffff;
 }
@@ -61,13 +61,13 @@
 }
 
 .admin-sr-sales-request-item {
-  border: 1px solid #f1f1f1;
+  border: none;
   margin-top: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .admin-sr-column {
-  padding: 5px;
+  padding: 0.5rem;
   text-align: center;
 }
 
@@ -99,21 +99,21 @@
   text-align: center;
 }
 
-/* AdminSalesRequest.css */
-
 .admin-sr-textarea-container {
   text-align: center;
 }
 
 .admin-sr-textarea {
   width: 500px;
-  height: 100px;
+  min-height: 100px; /* 기본 높이 설정 */
   resize: none; /* 크기 조정 비활성화 */
-  font-size: 14px; /* 글자 크기 */
-  line-height: 1.5; /* 줄 간격 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-  transition: border-color 0.3s, box-shadow 0.3s; 
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  overflow-y: hidden; /* 스크롤바 숨김 */
 }
+
 
 .admin-sr-textarea:focus {
   border-color: black; /* 포커스 시 테두리 색상 변경 */
@@ -127,3 +127,4 @@
 .admin-sr-error-message {
   color: red;
 }
+
