@@ -10,6 +10,7 @@ const MypagePointPaybackComponent = () => {
     const [accountNumber, setAccountNumber] = useState('1000003188002'); //정보 받아와서 초기값에 넣어주고 싶음.
     const [isFail, setIsFail] = useState(false);
     const [memberPoint, setMemberPoint] = useState(null);
+    const [isExceeded, setIsExceeded] = useState(false);
     
     const navigate = useNavigate();
 
@@ -28,6 +29,13 @@ const MypagePointPaybackComponent = () => {
     
         fetchMemberPoint(); 
     }, []);
+
+    useEffect(() => {
+        if (memberPoint !== null) {
+            const inputAmount = parseInt(inputValue) || 0;
+            setIsExceeded(inputAmount > memberPoint);
+        }
+    }, [inputValue, memberPoint]);
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value.replace(/[^0-9]/g, ''));
@@ -107,21 +115,24 @@ const MypagePointPaybackComponent = () => {
                                     />
                                 </Form.Group>
                                 <Button onClick={()=>pointButtonEvent()} id="point_input_button"
-                                    style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
+                                    style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}
+                                    disabled={isExceeded}>
                                     입력
                                 </Button>
                             </Form>
                         </Col>
                     </Row>
                     {/* 포인트 환급 예상 금액 */}
-                    {/* 포인트 입력마다 금액 보여주는 것까지 작성, 보유 포인트를 넘기지 않는지 확인시키는 코드 추가해야함 */}
-                    <div className="mt-3">
-                        고객님의 환급 예상 금액은 <strong>{expectedPayback}원</strong>입니다.
+                    {/* 포인트 입력마다 환급 예상 금액 보여줌, 보유 포인트를 넘기면 메시지 표시 후 입력 버튼 비활성화 */}
+                    <div className="mt-3" id="div_afterPaybackInput">
+                        {isExceeded ? (
+                            <div style={{ color: 'red' }}>보유 포인트를 초과하였습니다.</div>
+                        ) : (
+                            <div>고객님의 환급 예상 금액은 <strong>{expectedPayback}원</strong>입니다.</div>
+                        )}
                     </div>
                 </Container>
 
-                
-                
                 <Container className="my-5" id='point-back-put-bank' style={{display: 'none'}}>
                     <Row className="justify-content-center align-items-center">
                     <Col xs='auto'>
@@ -174,7 +185,7 @@ const MypagePointPaybackComponent = () => {
                     <div style={{ fontWeight: 'bolder' }}>아이비 포인트 이용약관</div>
                     <div>아이비 포인트 잔액을 보유한 이용자는 회사에 요청하여 본인이 보유한 아이비 포인트 잔액을 환불받을 수 있습니다.</div>
                     <div>이용자가 실제 정상적인 구매내역이 기록되는 이용대금의 결제를 통하지 않고 비정상 경로로 취득한 아이비 포인트는 환불되지 않습니다.</div>
-                    <div>문의사항은 아이비 고객 센터의 1:1문의하기를 통해 문의바랍니다.</div>
+                    <div>문의사항은 아이비 고객 센터의 1:1 문의하기를 통해 문의바랍니다.</div>
                 </div>
             </Container>
         </>
