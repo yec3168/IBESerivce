@@ -4,6 +4,7 @@ import com.project.ibe.dto.board.*;
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.entity.board.Board;
 import com.project.ibe.entity.board.BoardComment;
+import com.project.ibe.entity.board.BoardReply;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.board.BoardCommentRepository;
@@ -105,6 +106,36 @@ public class BoardService {
 
         return modelMapper.map(savedBoardComment, BoardCommentResponse.class);
     }
+
+    /**
+     * 대댓글 등록.
+     */
+    public BoardReplyResponse saveBoardReply(BoardReplyRequest boardReplyRequest , PrincipalDTO principalDTO){
+        // 작성자 정보 받아오기
+        Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        //게시글 정보 받아오기.
+        Board board = findBoardById(boardReplyRequest.getBoardId());
+
+        //게시글 댓글 정보 받아오기
+        BoardComment boardComment = boardCommentRepository.findById(boardReplyRequest.getBoardCommentId())
+                .orElseThrow(
+                        () -> new BusinessException("댓글 정보가 없습니다." ,HttpStatus.NOT_FOUND)
+                );
+
+        //등록.
+        BoardReply boardReply = BoardReply.builder()
+                .boardReplyContent(boardReplyRequest.getProductReplyContent())
+                .board(board)
+                .member(member)
+                .boardComment(boardComment)
+                .build();
+        BoardReply saveBoardReply = boardReplyRepository.save(boardReply);
+
+
+        return modelMapper.map(saveBoardReply, BoardReplyResponse.class);
+    }
+
 
     /**
      * 게시글 아이디로 찾기.

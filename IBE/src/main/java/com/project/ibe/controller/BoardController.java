@@ -2,6 +2,7 @@ package com.project.ibe.controller;
 
 import com.project.ibe.dto.board.BoardCommentRequest;
 import com.project.ibe.dto.board.BoardFormRequest;
+import com.project.ibe.dto.board.BoardReplyRequest;
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
@@ -60,6 +61,21 @@ public class BoardController {
                                       @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
             return new Response(ResponseCode.SUCCESS, boardService.saveBoardComment(boardCommentRequest, principalDTO), "200");
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+
+    }
+
+    /**
+     * 대댓글 등록.
+     *
+     */
+    @PostMapping("/reply")
+    public Response saveBoardReply(@RequestBody BoardReplyRequest boardReplyRequest,
+                                      @AuthenticationPrincipal PrincipalDTO principalDTO){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.saveBoardReply(boardReplyRequest, principalDTO), "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
