@@ -159,7 +159,7 @@ public class ProductService {
     /**
      * 물품 id로 한개만 조회.
      */
-    public ProductOrderResponse getProductOrderResponse(Long productId){
+    public ProductOrderResponse getProductOrderResponse(Long productId, PrincipalDTO principalDTO){
         Product product = findProductById(productId);
         List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
 
@@ -169,7 +169,7 @@ public class ProductService {
         }
 
         // 로그인한 사용자의 회원정보를 넣음
-//        productOrderResponse.setMember();
+        productOrderResponse.setMember(memberService.getMemberByEmail(principalDTO.getMemberEmail()));
 
 
         return productOrderResponse;

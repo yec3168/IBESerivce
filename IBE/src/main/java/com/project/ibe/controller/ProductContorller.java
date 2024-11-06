@@ -103,9 +103,9 @@ public class ProductContorller {
      * 물품 주문시 필요 정보 조회.
      */
     @GetMapping("/orders/{productId}")
-    public Response getProductOrderResponse(@PathVariable("productId")Long productId){
+    public Response getProductOrderResponse(@PathVariable("productId")Long productId, @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.getProductOrderResponse(productId), "200");
+            return new Response(ResponseCode.SUCCESS, productService.getProductOrderResponse(productId, principalDTO), "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
