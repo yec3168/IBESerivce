@@ -42,9 +42,7 @@ const IbeBoardWriteComponent = () => {
 
       if (response.status === 200) {
         alert('게시글이 성공적으로 작성되었습니다.');
-        console.log(response);
-        // 글 작성 후 다른 페이지로 이동하거나 목록 페이지로 리다이렉트 할 수 있음
-        // window.location.href = '/boards';
+        window.location.href = '/boards';
       }
     } catch (error) {
       console.error('Error posting the board:', error);

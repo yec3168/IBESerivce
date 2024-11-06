@@ -37,7 +37,6 @@ public class BoardService {
      */
     public BoardFormResponse saveBoard(BoardFormRequest boardFormRequest, PrincipalDTO principalDTO){
         // 로그인한 회원 찾기.
-        System.out.println(boardFormRequest.getBoardCategory());
         Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
 
         Board board = modelMapper.map(boardFormRequest, Board.class);
