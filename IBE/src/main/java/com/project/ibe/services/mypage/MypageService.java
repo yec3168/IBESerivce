@@ -130,4 +130,21 @@ public class MypageService {
 
         return response;
     }
+
+    // 멤버 회원 탈퇴 처리
+    // member_deleted col값을 true로 설정함.
+    @Transactional
+    public MemberDelUpdateResponse updateMemberDel(PrincipalDTO principal) {
+        Member member = memberRepository.findByMemberId(principal.getMemberId())
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
+
+        MemberDelUpdateResponse response = new MemberDelUpdateResponse();
+
+        member.setMemberDeleted(true);
+        response.setSuccess(true);
+
+        memberRepository.save(member);
+
+        return response;
+    }
 }
