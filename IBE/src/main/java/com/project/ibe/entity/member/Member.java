@@ -57,13 +57,13 @@ public class Member extends  AuditingFields{
 //    @Column(nullable = false)
 //    private String memberAccountNumber; // 환급계좌
 
-//    @Column(nullable = false, updatable = false)
-//    @CreationTimestamp
-//    private LocalDateTime entryDate;    // 가입날짜
-//
-//    @Column(nullable = false)
-//    @UpdateTimestamp
-//    private LocalDateTime updateDate;   // 수정날짜
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime entryDate;    // 가입날짜
+
+    @Column(nullable = false)
+    @UpdateTimestamp
+    private LocalDateTime updateDate;   // 수정날짜
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

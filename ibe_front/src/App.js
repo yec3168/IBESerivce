@@ -36,6 +36,7 @@ import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDelet
 import NotFound from './component/NotFound/NotFound';
 import KakaoOauthCallback from './component/sign/KakaoOauthCallback';
 import MypagePointPaybackResultPage from './component/layout/pages/mypage/MypagePointPaybackResultPage';
+import AdminPrivateRoute from './component/adminpage/AdminPrivateRoute';
 
 function App() {
   return (
@@ -58,7 +59,7 @@ function App() {
         <Route path="/orders/order/:id" element={<OrderDetailPage />} />
 
         {/* 관리자페이지 Router */}
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminPrivateRoute element={<AdminPage />} />} />
 
         {/* 마이페이지 Router */}
         <Route path="/mypage" element={<MypageMainPage />} />

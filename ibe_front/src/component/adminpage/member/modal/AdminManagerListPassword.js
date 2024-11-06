@@ -9,8 +9,7 @@ const AdminManagerListPassword = ({
   selectedManager,
 }) => {
   const [newManagerPassword, setNewManagerPassword] = useState('');
-  const [newManagerConfirmPassword, setNewManagerConfirmPassword] =
-    useState('');
+  const [newManagerConfirmPassword, setNewManagerConfirmPassword] = useState('');
   const [updatePasswordError, setUpdatePasswordError] = useState('');
 
   // 모달이 열릴 때마다 입력 필드를 초기화
@@ -23,6 +22,11 @@ const AdminManagerListPassword = ({
   }, [isOpen]);
 
   const handlePasswordChangeSave = () => {
+    if (!newManagerPassword.trim() || !newManagerConfirmPassword.trim()) {
+      setUpdatePasswordError('비밀번호를 입력해 주세요.');
+      return;
+    }
+
     if (newManagerPassword !== newManagerConfirmPassword) {
       setUpdatePasswordError('비밀번호가 일치하지 않습니다.');
       return;
