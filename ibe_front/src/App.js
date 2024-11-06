@@ -31,12 +31,14 @@ import MypageMemberInfoChangePage from './component/layout/pages/mypage/MypageMe
 import MypagePwChangePage from './component/layout/pages/mypage/MypagePwChangePage';
 
 import IbeBoardListPage from './component/layout/pages/IbeBoard/IbeBoardListPage';
+import IbeBoardWritePage from './component/layout/pages/IbeBoard/IbeBoardWritePage';
 
 import MypageDeleteAccountPage from './component/layout/pages/mypage/MypageDeleteAccountPage';
 import NotFound from './component/NotFound/NotFound';
 import KakaoOauthCallback from './component/sign/KakaoOauthCallback';
 import MypagePointPaybackResultPage from './component/layout/pages/mypage/MypagePointPaybackResultPage';
 import AdminPrivateRoute from './component/adminpage/AdminPrivateRoute';
+
 
 function App() {
   return (
@@ -81,6 +83,7 @@ function App() {
 
         {/* 아이비 게시판 */}
         <Route path="/boards" element={<IbeBoardListPage />} />
+        <Route path="/boards/write" element={<IbeBoardWritePage />} />
 
         {/* 404 에러페이지 - 위치 바꾸지 말것, 항상 마지막 Route여야 함. */}
         <Route path="*" element={<NotFound />} />

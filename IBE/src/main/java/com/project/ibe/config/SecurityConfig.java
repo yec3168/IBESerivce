@@ -46,6 +46,7 @@ public class SecurityConfig {
 //                                "/api/members/mail/**", "/api/members/emailAuth",
 //                                "/api/products/{id}", "/images/**", "/api/products/**"
                         ).permitAll() //모두에게 요청 허용
+//                                .requestMatchers("/admin/member/**").hasAnyRole("ADMIN")
                         .requestMatchers("/api/members/points/kakao/ready",
                         "/api/members/points/kakao/completed").hasAnyRole("ADMIN","DEFAULT","CLIENT") //로그인시 허용
 //                        .requestMatchers("/").hasRole("ADMIN") //ADMIN권한에게만 허용

@@ -5,6 +5,7 @@ import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.board.BoardService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class BoardController {
 
 
     @PostMapping
-    public Response saveBoard(@RequestBody BoardFormRequest boardFormRequest, @AuthenticationPrincipal PrincipalDTO principalDTO){
+    public Response saveBoard(@RequestBody @Valid BoardFormRequest boardFormRequest, @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
             return new Response(ResponseCode.SUCCESS, boardService.saveBoard(boardFormRequest, principalDTO), "200");
         }catch (Exception e){
