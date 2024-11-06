@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
@@ -110,6 +111,7 @@ public class MypageService {
     }
 
     // 멤버 비밀번호 변경
+    @CrossOrigin(origins = "http://localhost:3000")
     @Transactional
     public MemberPwUpdateResponse updateMemberPw(PrincipalDTO principal, @RequestBody @Valid MemberPwUpdateRequest request) {
         Member member = memberRepository.findByMemberId(principal.getMemberId())

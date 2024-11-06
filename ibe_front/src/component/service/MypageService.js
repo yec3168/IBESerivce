@@ -24,3 +24,9 @@ export const updateMemberInfo = (data) => {
 export const checkMemberPw = (data) => {
     return axios.post(`${REST_API_URL}/checkpw`, data, headers);
 };
+
+// 멤버 비밀번호 변경
+export const updateMemberPw = (data) => {
+    return axios.patch(`${REST_API_URL}/updatepw`, data, headers);
+};
+

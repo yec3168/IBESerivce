@@ -1,5 +1,6 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useState } from "react";
+import { checkMemberPw, updateMemberPw } from '../service/MypageService';
 
 const MypagePwChangeComponent = () => {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -20,8 +21,8 @@ const MypagePwChangeComponent = () => {
             confirmPasswordError: ''
         };
 
-        if (currentPassword !== "123123") {
-            errors.currentPasswordError = "비밀번호를 다시 확인해주세요.";
+        if (currentPassword === '') {
+            errors.currentPasswordError = "현재 비밀번호를 입력해주세요.";
         }
 
         if (newPassword.length < 6 || newPassword.length > 20) {
@@ -29,29 +30,83 @@ const MypagePwChangeComponent = () => {
         }
 
         if (newPassword === currentPassword) {
-            errors.newPasswordError = "비밀번호가 동일합니다.";
+            errors.newPasswordError = "현재 비밀번호와 동일한 비밀번호를 사용할 수 없습니다.";
         }
 
         if (newPassword !== confirmPassword) {
-            errors.confirmPasswordError = "변경할 비밀번호를 확인해 주세요.";
+            errors.confirmPasswordError = "새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.";
         }
 
         setErrorMessages(errors);
         return errors;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const errors = validatePasswords();
+    // 현재 비밀번호 확인 함수
+    const handleCheckCurrentPassword = async () => {
+        const requestData = { memberPassword: currentPassword };
 
-        if (!errors.currentPasswordError && !errors.newPasswordError && !errors.confirmPasswordError) {
-            const confirmChange = window.confirm("비밀번호 변경은 되돌릴 수 없습니다.\n진행하시겠습니까?");
-            if (confirmChange) {
-                // 비밀번호 변경 api 여기서 호출
-                alert("비밀번호가 변경되었습니다.");
+        try {
+            // 비밀번호 확인 API 호출
+            const response = await checkMemberPw(requestData);
+            
+            if (response.data.code === "200" && response.data.data.success) {
+                return true; // 비밀번호 일치
+            } else {
+                setErrorMessages((prev) => ({
+                    ...prev,
+                    currentPasswordError: "현재 비밀번호가 일치하지 않습니다.",
+                }));
+                return false; // 비밀번호 불일치
             }
+        } catch (error) {
+            console.error('비밀번호 확인 오류:', error);
+            setErrorMessages((prev) => ({
+                ...prev,
+                currentPasswordError: "현재 비밀번호 확인 중 오류가 발생했습니다.",
+            }));
+            return false;
         }
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        // 현재 비밀번호 확인
+        const isCurrentPasswordValid = await handleCheckCurrentPassword();
+        if (!isCurrentPasswordValid) return; // 현재 비밀번호가 일치하지 않으면 종료
+        
+        // 비밀번호 유효성 체크
+        const errors = validatePasswords();
+    
+        // 에러가 있으면 오류 메시지에 맞게 처리하고, 진행하지 않음
+        if (errors.currentPasswordError || errors.newPasswordError || errors.confirmPasswordError) {
+            return;
+        }
+    
+        const confirmChange = window.confirm("비밀번호 변경은 되돌릴 수 없습니다.\n진행하시겠습니까?");
+        if (confirmChange) {
+            const requestData = {
+                memberPassword: currentPassword,
+                memberNewPassword: newPassword
+            };
+    
+            try {
+                // 비밀번호 변경 API 호출
+                const response = await updateMemberPw(requestData);
+                
+                console.log("비밀번호 변경 응답:", response.data); // 서버 응답 로그 확인
+    
+                if (response.data.code === "200" && response.data.data.success) {
+                    alert("비밀번호가 변경되었습니다.");
+                } else {
+                    alert("비밀번호 변경에 실패했습니다.");
+                }
+            } catch (error) {
+                console.error('비밀번호 변경 오류:', error);
+                alert("비밀번호 변경에 실패했습니다.");
+            }
+        }
+    };    
 
     return (
         <div className="container text-center my-5" id="container_info">
@@ -95,7 +150,7 @@ const FormGroup = ({ label, value, onChange, errorMessage }) => (
                 onChange={onChange} 
             />
             {errorMessage && (
-                <small className="text-danger" style={{ textAlign: 'left', display: 'block', marginLeft: '5px' }}>
+                <small className="text-danger" style={{ textAlign: 'left', display: 'block', marginLeft: '5px' }} >
                     {errorMessage}
                 </small>
             )}
