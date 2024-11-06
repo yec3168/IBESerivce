@@ -27,10 +27,14 @@ const MypagePointChargeComponent = () => {
         { amount: '500,000' }
     ];
     const [isClicked, setIsClicked] = useState(false);
-
-    
+    const [isOpened, setIsOpened] = useState(false);
+    let popup;
     const charge = (price) =>{
         setIsClicked(true);
+        if(popup){
+            popup.close()
+        }
+        if (!isClicked) {
         let data ={
             "priceName" : `${price.replace(",", '')/10}포인트`,
             "totalPrice" : parseInt(price.replace(",", ''))
@@ -38,16 +42,22 @@ const MypagePointChargeComponent = () => {
         console.log(data);
         kakaoReady(data).then(
             response =>{
-                if (!isClicked) {
+                
                     // 로직 실행
                     console.log(response.data.data);
                     localStorage.setItem("tid", response.data.data.tid);
-                    window.open(response.data.data.next_redirect_pc_url,'_blank','width=900,height=1000');   
-                  }
+                    let popupW = 750;
+                    let popupH = 650;
+                    let left = Math.ceil((window.screen.width - popupW)/2);
+                    let top = Math.ceil((window.screen.height - popupH)/2);
+                    popup = window.open(response.data.data.next_redirect_pc_url,'_blank',
+                            'width='+popupW+',height='+popupH+',left='+left+',top='+top);
+                        
                 
             }
             
         )
+    }
         setTimeout(() => setIsClicked(false), 3000); // 3000ms 후에 다시 클릭 가능하게 함
     }
 

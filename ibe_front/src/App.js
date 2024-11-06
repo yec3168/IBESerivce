@@ -37,6 +37,7 @@ import NotFound from './component/NotFound/NotFound';
 import KakaoOauthCallback from './component/sign/KakaoOauthCallback';
 import MypagePointPaybackResultPage from './component/layout/pages/mypage/MypagePointPaybackResultPage';
 import AdminPrivateRoute from './component/adminpage/AdminPrivateRoute';
+import MypagePointPayBackComfrimComponent from './component/point/MypagePointPayBackComfirmComponent';
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
         {/* 포인트 처리 라우터 */}
         <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent />} />
         <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult />} />
+        <Route path="/mypage/pntPayBack/confirm" element={<MypagePointPayBackComfrimComponent/>}/>
         <Route path="/mypage/pntPayBack/result" element={<MypagePointPaybackResultPage/>}/>
 
         {/* 아이비 게시판 */}
