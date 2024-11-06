@@ -91,9 +91,10 @@ public class ProductContorller {
      *  대댓글 등록.
      */
     @PostMapping("/reply")
-    public Response createProductReply(@Valid @RequestBody ProductReplyRequest productReplyRequest){
+    public Response createProductReply(@Valid @RequestBody ProductReplyRequest productReplyRequest,
+                                       @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.createProductReply(productReplyRequest), "200");
+            return new Response(ResponseCode.SUCCESS, productService.createProductReply(productReplyRequest, principalDTO), "200");
         }catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }

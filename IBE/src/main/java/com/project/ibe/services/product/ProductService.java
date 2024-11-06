@@ -220,14 +220,14 @@ public class ProductService {
     /**
      * 대댓글 등록.
      */
-    public ProductReplyResponse createProductReply(ProductReplyRequest productReplyRequest){
+    public ProductReplyResponse createProductReply(ProductReplyRequest productReplyRequest, PrincipalDTO principalDTO){
         Product product = findProductById(productReplyRequest.getProductId());
         ProductComment productComment = findProductCommentById(productReplyRequest.getProductCommentId());
 
         ProductReply productReply = ProductReply.builder()
                 .product(product)
                 .productComment(productComment)
-                //.member()
+                .member(memberService.getMemberByEmail(principalDTO.getMemberEmail()))
                 .productReplyContent(productReplyRequest.getProductReplyContent())
                 .build();
 
