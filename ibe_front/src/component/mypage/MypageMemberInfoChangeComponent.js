@@ -1,7 +1,7 @@
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DaumPostcode from 'react-daum-postcode';
-import { getMemberInfo, updateMemberInfo  } from '../service/MypageService'; 
+import { getMemberInfo, updateMemberInfo, checkMemberPw  } from '../service/MypageService'; 
 
 const MemberInfoChangeComponent = () => {
     // 데이터 상태 관리
@@ -35,13 +35,30 @@ const MemberInfoChangeComponent = () => {
         fetchMemberInfo(); 
     }, []);    
 
-    // 비밀번호 확인
-    const handleConfirmClick = () => {
-        if (password === "123123") {
-            setIsConfirmed(true);
-        } else {
-            alert('비밀번호가 일치하지 않습니다.');
-            setIsConfirmed(false);
+    // 비밀번호 확인 API 호출
+    const handleConfirmClick = async () => {
+        // 요청 DTO 만들기
+        const requestData = {
+            memberPassword: password
+        };
+    
+        try {
+            const response = await checkMemberPw(requestData);
+            if (response.data.code === "200") {
+                setIsConfirmed(true); 
+                setErrors((prev) => {
+                    const { passwordMismatch, ...rest } = prev; // 비밀번호 불일치 에러 제거
+                    return rest;
+                });
+            } else {
+                setIsConfirmed(false);  
+                setErrors((prev) => ({
+                    ...prev,
+                    passwordMismatch: "비밀번호가 다릅니다."  // 비밀번호 불일치 메시지 설정
+                }));
+            }
+        } catch (error) {
+            console.error('비밀번호 확인 오류:', error);
         }
     };
 
@@ -204,6 +221,11 @@ const MemberInfoChangeComponent = () => {
                                 onChange={(e) => setPassword(e.target.value)} 
                                 readOnly={isConfirmed} // 비밀번호 확인 후 비활성화
                             />
+                            {errors.passwordMismatch && 
+                                <small className="text-danger" 
+                                    style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
+                                    {errors.passwordMismatch}
+                                </small>}
                         </Col>
                         <Col sm={2}>
                             {!isConfirmed && (

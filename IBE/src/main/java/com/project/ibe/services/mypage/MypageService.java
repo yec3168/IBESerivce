@@ -147,4 +147,24 @@ public class MypageService {
 
         return response;
     }
+
+    // 멤버 비밀번호 확인
+    @Transactional
+    public MemberPwCheckResponse checkMemberPw(PrincipalDTO principal,
+                                               @RequestBody @Valid MemberPwCheckRequest request) {
+        Member member = memberRepository.findByMemberId(principal.getMemberId())
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
+
+        MemberPwCheckResponse response = new MemberPwCheckResponse();
+
+        if (!bCryptPasswordEncoder.matches(request.getMemberPassword(), member.getMemberPassword())) {
+            response.setSuccess(false);
+            throw new BusinessException("Password is incorrect", HttpStatus.BAD_REQUEST);
+        } else{
+            response.setSuccess(true);
+        }
+
+        return response;
+    }
+
 }
