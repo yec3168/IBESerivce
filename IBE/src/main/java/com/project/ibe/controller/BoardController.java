@@ -59,7 +59,7 @@ public class BoardController {
     public Response saveBoardComments(@RequestBody BoardCommentRequest boardCommentRequest,
                                       @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, null, "200");
+            return new Response(ResponseCode.SUCCESS, boardService.saveBoardComment(boardCommentRequest, principalDTO), "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
