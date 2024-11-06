@@ -108,7 +108,7 @@ public class ProductService {
      * 물품 상세조회
      */
 
-    public ProductDetailResponse getProductDeatail(Long id){
+    public ProductDetailResponse getProductDetail(Long id){
         Product product = findProductById(id);
 
         product.setProductHit(product.getProductHit() + 1);
@@ -123,9 +123,8 @@ public class ProductService {
         productDetailResponse.setProductCategory(product.getProductCategory().getDescription());
         productDetailResponse.setProductConditionState(product.getProductConditionState().getDescription());
         productDetailResponse.setProductTradeState(product.getProductTradeState().getDescription());
-
         productDetailResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size()); // 댓글 수 추가.
-
+        productDetailResponse.setMember(product.getMember());
         productDetailResponse.setImagePath(images);
         return productDetailResponse;
     }

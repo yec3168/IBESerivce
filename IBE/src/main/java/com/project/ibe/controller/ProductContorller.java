@@ -42,7 +42,7 @@ public class ProductContorller {
     @GetMapping("/{id}")
     public Response getProductDetail(@PathVariable("id") Long id){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.getProductDeatail(id), "200");
+            return new Response(ResponseCode.SUCCESS, productService.getProductDetail(id), "200");
         }catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
