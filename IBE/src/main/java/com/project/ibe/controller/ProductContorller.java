@@ -1,5 +1,6 @@
 package com.project.ibe.controller;
 
+import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.product.ProductCommentRequest;
 import com.project.ibe.dto.product.ProductFormRequest;
 import com.project.ibe.dto.product.ProductReplyRequest;
@@ -8,6 +9,7 @@ import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.product.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,9 +27,10 @@ public class ProductContorller {
      */
     @PostMapping
     public Response saveProduct(@RequestPart("productFormRequest")ProductFormRequest productFormRequest,
-                                @RequestPart("images")List<MultipartFile> images ){
+                                @RequestPart("images")List<MultipartFile> images,
+                                @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return  new Response(ResponseCode.SUCCESS, productService.createProduct(productFormRequest, images), "200");
+            return  new Response(ResponseCode.SUCCESS, productService.createProduct(productFormRequest, images, principalDTO), "200");
         }catch (Exception e){
             return  new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
