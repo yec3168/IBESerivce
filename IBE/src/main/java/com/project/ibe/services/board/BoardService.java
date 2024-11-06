@@ -4,6 +4,7 @@ import com.project.ibe.dto.board.*;
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.entity.board.Board;
 import com.project.ibe.entity.board.BoardComment;
+import com.project.ibe.entity.board.BoardReply;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.board.BoardCommentRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +86,32 @@ public class BoardService {
     }
 
     /**
+     * 댓글 목록 조회.
+     */
+    public List<BoardCommentResponse> getBoardCommentList(Long boardId){
+        Board board = findBoardById(boardId);
+        // 결과를 저장할 리스트
+        List<BoardCommentResponse> boardCommentResponseList = new ArrayList<>();
+
+        // 댓글의 리스트를 가져옴.
+        List<BoardComment> boardCommentList = boardCommentRepository.findAllByBoard(board);
+        for(BoardComment boardComment : boardCommentList){
+            // add할 변수.
+            BoardCommentResponse boardCommentResponse = modelMapper.map(boardComment, BoardCommentResponse.class);
+
+            // 댓글의 대댓글 리스트를 가져옴.
+            List<BoardReplyResponse> boardReplyList = boardReplyRepository.findAllByBoardComment(boardComment)
+                    .stream()
+                    .map(boardReply -> modelMapper.map(boardReply, BoardReplyResponse.class))
+                    .toList();
+            boardCommentResponse.setBoardReplyResponseList(boardReplyList);
+
+            boardCommentResponseList.add(boardCommentResponse);
+        }
+
+        return boardCommentResponseList;
+    }
+    /**
      * 댓글 등록.
      */
     public BoardCommentResponse saveBoardComment(BoardCommentRequest boardCommentRequest, PrincipalDTO principalDTO){
@@ -105,6 +133,36 @@ public class BoardService {
 
         return modelMapper.map(savedBoardComment, BoardCommentResponse.class);
     }
+
+    /**
+     * 대댓글 등록.
+     */
+    public BoardReplyResponse saveBoardReply(BoardReplyRequest boardReplyRequest , PrincipalDTO principalDTO){
+        // 작성자 정보 받아오기
+        Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        //게시글 정보 받아오기.
+        Board board = findBoardById(boardReplyRequest.getBoardId());
+
+        //게시글 댓글 정보 받아오기
+        BoardComment boardComment = boardCommentRepository.findById(boardReplyRequest.getBoardCommentId())
+                .orElseThrow(
+                        () -> new BusinessException("댓글 정보가 없습니다." ,HttpStatus.NOT_FOUND)
+                );
+
+        //등록.
+        BoardReply boardReply = BoardReply.builder()
+                .boardReplyContent(boardReplyRequest.getBoardReplyContent())
+                .board(board)
+                .member(member)
+                .boardComment(boardComment)
+                .build();
+        BoardReply saveBoardReply = boardReplyRepository.save(boardReply);
+
+
+        return modelMapper.map(saveBoardReply, BoardReplyResponse.class);
+    }
+
 
     /**
      * 게시글 아이디로 찾기.
