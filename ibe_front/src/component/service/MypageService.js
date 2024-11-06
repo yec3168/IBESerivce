@@ -14,3 +14,8 @@ export const getMemberPoint = () => axios.get(`${REST_API_URL}/point`, headers )
 
 // 멤버 정보 조회
 export const getMemberInfo = () => axios.get(`${REST_API_URL}`, headers );
+
+// 멤버 정보 변경
+export const updateMemberInfo = (data) => {
+    return axios.put(`${REST_API_URL}/updateinfo`, data, headers);
+};

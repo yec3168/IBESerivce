@@ -1,7 +1,7 @@
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DaumPostcode from 'react-daum-postcode';
-import { getMemberInfo } from '../service/MypageService'; 
+import { getMemberInfo, updateMemberInfo  } from '../service/MypageService'; 
 
 const MemberInfoChangeComponent = () => {
     // 데이터 상태 관리
@@ -108,7 +108,7 @@ const MemberInfoChangeComponent = () => {
     };
 
      // Form submit
-     const handleSubmit = (e) => {
+     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validation
@@ -147,9 +147,18 @@ const MemberInfoChangeComponent = () => {
             memberBank: bankToSubmit
         };
 
-        // 여기서 api 호출, 위의 값을 전송
-        // PUT
-        
+        try {
+            // 멤버 정보 변경 API 호출
+            const response = await updateMemberInfo(requestData);
+            if (response.data.code === "200") {
+              alert("회원 정보가 성공적으로 변경되었습니다.");
+            } else {
+              alert("회원 정보 변경에 실패했습니다.");
+            }
+          } catch (error) {
+            console.error('회원 정보 변경 실패:', error);
+            alert('회원 정보 변경에 실패했습니다.');
+          }
     };
 
     /**
