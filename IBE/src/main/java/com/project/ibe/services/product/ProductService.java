@@ -179,13 +179,13 @@ public class ProductService {
     /**
      * 댓글 등록.
      */
-    public ProductCommentResponse createProductComment(ProductCommentRequest productCommentRequest){
+    public ProductCommentResponse createProductComment(ProductCommentRequest productCommentRequest, PrincipalDTO principalDTO){
         Product product = findProductById(productCommentRequest.getProductId());
 
         ProductComment productComment =ProductComment.builder()
                 .productCommentContent(productCommentRequest.getProductCommentContent())
                 .product(product)
-                //.member() // 로그인한 회원으로.
+                .member(memberService.getMemberByEmail(principalDTO.getMemberEmail())) // 로그인한 회원으로.
                 .build();
 
         productCommentRepository.save(productComment);

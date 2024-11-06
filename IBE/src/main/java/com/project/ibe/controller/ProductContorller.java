@@ -65,9 +65,10 @@ public class ProductContorller {
      *  댓글 등록.
      */
     @PostMapping("/comments")
-    public Response createProductComment(@Valid @RequestBody ProductCommentRequest productCommentRequest){
+    public Response createProductComment(@Valid @RequestBody ProductCommentRequest productCommentRequest,
+                                         @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-            return new Response(ResponseCode.SUCCESS, productService.createProductComment(productCommentRequest), "200");
+            return new Response(ResponseCode.SUCCESS, productService.createProductComment(productCommentRequest, principalDTO), "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
