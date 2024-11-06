@@ -157,7 +157,7 @@ public class MemberService {
 
 
 
-    private Member getMemberByEmail(String memberEmail) {
+    public Member getMemberByEmail(String memberEmail) {
         Member member = memberRepository.findByMemberEmail(memberEmail)
                 .orElseThrow(
                         () -> new BusinessException("Member Not Found", HttpStatus.NOT_FOUND)
