@@ -85,7 +85,7 @@ const IbeBoardWriteComponent = () => {
                 >
                   <option value="">선택하세요</option>
                   <option value="NOTICE">공지</option>
-                  <option value="REQUEST">REQUEST</option>
+                  <option value="REQUEST">요청</option>
                   <option value="QUESTION">질문</option>
                   <option value="INFORMATION">정보</option>
                   <option value="GENARAL">일반</option>

@@ -24,11 +24,9 @@ public class BoardController {
     @PostMapping
     public Response saveBoard(@RequestBody @Valid BoardFormRequest boardFormRequest, @AuthenticationPrincipal PrincipalDTO principalDTO){
         try{
-//            System.out.println(boardFormRequest.getBoardCategory() + principalDTO.getMemberEmail() + boardFormRequest.getBoardTitle() + boardFormRequest.getBoardContent());
             return new Response(ResponseCode.SUCCESS, boardService.saveBoard(boardFormRequest, principalDTO), "200");
 
         }catch (Exception e){
-//            System.out.println("fail");
             return  new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }

@@ -8,6 +8,7 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
+import axios from 'axios'; // axios 추가
 import './Board.css';
 
 const IbeBoardListComponent = () => {
@@ -16,88 +17,30 @@ const IbeBoardListComponent = () => {
   const itemsPerPage = 15;
   const navigate = useNavigate(); // useNavigate 훅 사용
 
-  // Set up mock data for testing
+  // 데이터 가져오기
   useEffect(() => {
-    const mockData = [
-      {
-        id: 1,
-        category: '공지',
-        title: '공지사항 - 리액트 프로젝트 시작 안내',
-        author: '관리자',
-        date: '2023-11-04',
-        views: 150,
-        comments: 5,
-      },
-      {
-        id: 2,
-        category: '문의',
-        title: '일반 게시글',
-        author: '작성자 1',
-        date: '2024-11-04',
-        views: 35,
-        comments: 2,
-      },
-      {
-        id: 3,
-        category: '신고',
-        title: '일반 게시글',
-        author: '작성자 2',
-        date: '2024-11-04',
-        views: 42,
-        comments: 0,
-      },
-      {
-        id: 4,
-        category: '문의',
-        title: '일반 게시글',
-        author: '작성자 3',
-        date: '2024-11-04',
-        views: 56,
-        comments: 3,
-      },
-      {
-        id: 5,
-        category: '기타',
-        title: '일반 게시글',
-        author: '작성자 4',
-        date: '2024-11-03',
-        views: 78,
-        comments: 1,
-      },
-      {
-        id: 6,
-        category: '기타',
-        title: '일반 게시글',
-        author: '작성자 5',
-        date: '2023-11-04',
-        views: 89,
-        comments: 0,
-      },
-      {
-        id: 7,
-        category: '기타',
-        title: '일반 게시글',
-        author: '작성자 6',
-        date: '2023-11-03',
-        views: 55,
-        comments: 0,
-      },
-      {
-        id: 8,
-        category: '기타',
-        title: '일반 게시글',
-        author: '작성자 7',
-        date: '2023-10-30',
-        views: 40,
-        comments: 0,
-      },
-    ];
+    axios
+      .get('http://localhost:8080/api/boards')
+      .then((response) => {
+        const data = response.data.data; // API 응답에서 데이터 추출
 
-    // Sort posts by date descending
-    const sortedPosts = mockData.sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
-    );
-    setPosts(sortedPosts);
+        // boardCreatedAt을 yyyy-MM-dd HH:mm 형식으로 변환
+        const formattedData = data.map((post) => ({
+          id: post.boardId,
+          category: post.boardCategory,
+          title: post.boardTitle,
+          author: post.memberNickName,
+          date: post.boardCreatedAt,
+          views: post.boardHit,
+          comments: post.boardCommentCnt,
+        }));
+
+        // 데이터를 상태에 저장
+        setPosts(formattedData);
+      })
+      .catch((error) => {
+        console.error('게시글을 가져오는 데 실패했습니다:', error);
+      });
   }, []);
 
   // Utility to check if a post is new (posted today)
@@ -131,6 +74,11 @@ const IbeBoardListComponent = () => {
   // Get all 공지 posts to display them on top
   const noticePosts = posts.filter((post) => post.category === '공지');
 
+  // Handle click on a post
+  const handlePostClick = (postId) => {
+    navigate(`/boards/details/${postId}`); // /boards/details/{boardId} 경로로 이동
+  };
+
   return (
     <div id="board_content">
       <Container className="board-container">
@@ -152,7 +100,7 @@ const IbeBoardListComponent = () => {
           <tbody>
             {/* Display 공지 posts */}
             {noticePosts.map((post) => (
-              <tr key={post.id}>
+              <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>
                 <td style={{ fontWeight: 'bold' }}></td> {/* No ID displayed */}
                 <td>
                   <span className={`category-${post.category}`}>
@@ -183,7 +131,7 @@ const IbeBoardListComponent = () => {
             ))}
             {/* Display paginated normal posts */}
             {paginatedPosts.map((post) => (
-              <tr key={post.id}>
+              <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>
                 <td>{post.id}</td> {/* ID displayed for normal posts */}
                 <td>
                   <span className={`category-${post.category}`}>

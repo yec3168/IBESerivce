@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import './Board.css';
 import { Button, Col, Container, Row, Form } from 'react-bootstrap';
 
-const IbeBoardDetailsComponent = ({ postId }) => {
+const IbeBoardDetailsComponent = () => {
+  const { boardId } = useParams(); // URL에서 boardId 가져오기
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
@@ -11,39 +13,66 @@ const IbeBoardDetailsComponent = ({ postId }) => {
 
   // 게시물 데이터 가져오기
   useEffect(() => {
-    // 예시 데이터, 실제 API 호출은 fetch 또는 axios로 대체
-    const mockPostData = {
-      category: '공지',
-      title: '게시물 제목',
-      nickname: '길동',
-      createdAt: '24.11.06 21:22:41',
-      views: 100,
-      content: '이것은 게시물의 내용입니다.',
-      commentCount: 3,
-    };
-    setPost(mockPostData);
+    fetch(`http://localhost:8080/api/boards/${boardId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.responseCode === 'SUCCESS') {
+          const postData = {
+            category: data.data.boardCategory,
+            title: data.data.boardTitle,
+            nickname: data.data.member.memberNickName,
+            createdAt: data.data.boardCreatedAt,
+            views: data.data.boardHit,
+            content: data.data.boardContent,
+            commentCount: data.data.boardCommentCnt,
+          };
+          setPost(postData);
 
-    // 댓글 데이터 예시
-    const mockComments = [
-      { id: 1, nickname: '댓글 작성자 1', content: '댓글 내용 1', replies: [] },
-      { id: 2, nickname: '댓글 작성자 2', content: '댓글 내용 2', replies: [] },
-    ];
-    setComments(mockComments);
-  }, [postId]);
+          // 댓글 데이터를 받아오는 로직 추가 (예시)
+          setComments([]); // 예시로 댓글은 빈 배열로 설정
+        }
+      })
+      .catch((error) => console.error('Error fetching post data:', error));
+  }, [boardId]);
 
   // 댓글 입력 처리
   const handleCommentSubmit = () => {
     if (newComment.trim()) {
-      setComments([
-        ...comments,
-        {
-          id: comments.length + 1,
-          nickname: '나',
-          content: newComment,
-          replies: [],
+      const newCommentData = {
+        boardId,
+        boardCommentContent: newComment,
+      };
+      // JWT 토큰 가져오기
+      const token = localStorage.getItem('accessToken'); // localStorage에서 JWT 토큰 가져오기
+
+      // 서버에 댓글 전송
+      fetch('http://localhost:8080/api/boards/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 포함
         },
-      ]);
-      setNewComment('');
+        body: JSON.stringify(newCommentData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.responseCode === 'SUCCESS') {
+            // 댓글이 성공적으로 추가되면, 댓글 목록에 추가
+            setComments([
+              ...comments,
+              {
+                id: comments.length + 1,
+                nickname: '나',
+                content: newComment,
+                replies: [],
+              },
+            ]);
+            setNewComment(''); // 입력 필드 비우기
+          } else {
+            console.error('댓글 추가 실패:', data.message);
+          }
+        })
+        .catch((error) => console.error('Error posting comment:', error));
     }
   };
 
@@ -98,9 +127,7 @@ const IbeBoardDetailsComponent = ({ postId }) => {
                   <strong>조회수:</strong> {post.views}
                 </div>
                 <hr />
-                <p>
-                  <strong></strong> {post.content}
-                </p>
+                <p>{post.content}</p>
                 <p>
                   <strong>댓글</strong> {post.commentCount}
                 </p>
@@ -133,7 +160,6 @@ const IbeBoardDetailsComponent = ({ postId }) => {
               <h5>댓글</h5>
               {comments.map((comment) => (
                 <div key={comment.id} className="comment mb-3">
-                  {/* 댓글 */}
                   <div className="comment-content">
                     <p className="mb-1">
                       <strong>{comment.nickname}</strong>: {comment.content}
