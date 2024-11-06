@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styles from "./FooterComponent.module.css";
 import icons from "./icon_ib.png";
 
@@ -8,6 +9,23 @@ const FooterComponent = () => {
     { msg: "사업자등록번호 123-12-12345" },
     { msg: "E-mail: I_BECompany@i_becom.or.kr 대표번호 1588-0000" },
   ];
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  // 고객센터 클릭 시 로그인 상태 체크
+  const handleInquiryClick = (e) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      alert("로그인 한 사용자만 접근할 수 있습니다.");
+    }
+  };
 
   return (
     <footer className={styles.footer}>
@@ -23,7 +41,7 @@ const FooterComponent = () => {
           <tbody>
             <tr>
               <td id="client_center">
-                <a href="/mypage/inquiry">고객센터</a>
+                <a href="/mypage/inquiry" onClick={handleInquiryClick}>고객센터</a>
               </td>
             </tr>
             <tr>
