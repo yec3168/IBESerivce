@@ -70,6 +70,13 @@ const MypagePwChangeComponent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // 에러 메시지 초기화 (버튼 클릭 시마다 에러 메시지 리셋)
+        setErrorMessages({
+            currentPasswordError: '',
+            newPasswordError: '',
+            confirmPasswordError: ''
+        });
     
         // 현재 비밀번호 확인
         const isCurrentPasswordValid = await handleCheckCurrentPassword();
@@ -106,7 +113,7 @@ const MypagePwChangeComponent = () => {
                 alert("비밀번호 변경에 실패했습니다.");
             }
         }
-    };    
+    };
 
     return (
         <div className="container text-center my-5" id="container_info">

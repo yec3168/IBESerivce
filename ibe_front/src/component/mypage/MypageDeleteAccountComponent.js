@@ -11,11 +11,14 @@ const MypageDeleteAccountComponent = () => {
 
     const handleDeleteClick = () => {
         setShowPasswordInput(true);
-        setErrorMessage('');
+        setErrorMessage(''); // 비밀번호 입력란이 보일 때 에러 메시지 초기화
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // 에러 메시지 초기화
+        setErrorMessage('');
         
         // 비밀번호 확인 API 호출
         const passwordData = { memberPassword: password };
@@ -40,11 +43,11 @@ const MypageDeleteAccountComponent = () => {
                     }
                 }
             } else {
-                setErrorMessage("비밀번호가 다릅니다.");
+                setErrorMessage("비밀번호가 다릅니다."); // 비밀번호가 다를 경우 에러 메시지
             }
         } catch (error) {
             console.error("탈퇴 오류:", error);
-            setErrorMessage("비밀번호 확인 또는 탈퇴 처리에 실패했습니다.");
+            setErrorMessage("비밀번호 확인 또는 탈퇴 처리에 실패했습니다."); // API 호출 오류 처리
         }
     };
 
