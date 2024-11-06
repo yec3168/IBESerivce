@@ -17,6 +17,7 @@ public class BoardDetailResponse {
     private LocalDateTime boardCreatedAt;
     private String boardContent;
     private int boardHit;
+    private int boardCommentCnt;     //댓글 수.
 
-    //댓글 수.
+
 }
