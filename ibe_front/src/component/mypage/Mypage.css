@@ -40,14 +40,111 @@
     
 }
 
+/* MemberInfoCardComponent */
+
+#card_memberInfo {
+    font-family: "CookieRun-Regular", sans-serif !important;
+    width: 400px;
+    height: 180px;
+    border: 1px solid #ddd; 
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+#card_memberInfo .card-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 5px;
+}
+
+#span_welcome {
+    font-size: 25px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 100;
+    margin-top: 5px;
+}
+
+#card_memberInfo .card-text {
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#card_memberInfo .card-text strong {
+    color: #f39c12; 
+}
+
+#card_memberInfo .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#card_toPlist, #card_toSlist{
+    transition: color 0.3s, transform 0.2s; 
+}
+
+#card_toPlist:hover, #card_toSlist:hover {
+    color: #f39c12; 
+}
+
 /* MemberPointCardComponent */
 
 #card_memberPointInfo{
     font-family: "CookieRun-Regular", sans-serif !important;
-    width: 500px;
+    width: 400px;
     height: 180px;
 }
 
+#card_memberPointInfo {
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    padding: 20px;
+    background-color: #f9f9f9; 
+}
+
+#card_memberPointInfo .card-text {
+    font-size: 25px; 
+    color: #333; 
+    margin-bottom: 30px; 
+    display: flex;
+    justify-content: center;
+}
+
+#card_memberPointInfo .card-text strong {
+    color: #f39c12; 
+}
+
+#btn_pCharge, #btn_pPayback {
+    background-color: #f1c40f; 
+    border: 1px solid #f1c40f;
+    color: white;
+    font-size: 16px; 
+    padding: 10px 20px;
+    border-radius: 5px; 
+    transition: background-color 0.3s, transform 0.2s; 
+}
+
+#btn_pCharge:hover, #btn_pPayback:hover {
+    background-color: #f39c12; 
+    border-color: #f39c12; 
+    transform: scale(1.05); 
+}
+
+.mx-3 {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+  
 /* MypagePurchaseListComponent */
 
 #h3_purListTitle{

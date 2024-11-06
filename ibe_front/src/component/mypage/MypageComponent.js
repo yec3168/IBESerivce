@@ -14,13 +14,15 @@ const MypageComponent = () => {
                     <Col className="p-3" id="mypage_col_002">
                         <Row>
                             <Col className="p-2 d-flex justify-content-end">
-                                {/* 회원 정보 카드 */}
+                                {/* 회원 거래 정보 카드 */}
                                 <MemberInfoCardComponent />
                             </Col>
+                            <Col xs={1}/>
                             <Col className="p-2">
                                 {/* 회원 포인트 정보 카드 */}
                                 <MemberPointCardComponent />
                             </Col>
+                            <Col xs={1}/>
                         </Row>
                         <Row>
                             <Col>

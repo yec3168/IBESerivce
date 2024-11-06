@@ -1,6 +1,9 @@
 package com.project.ibe.controller;
 
+
 import com.project.ibe.dto.member.KakaoSignupRequest;
+
+
 import com.project.ibe.services.member.KakaoService;
 import com.project.ibe.services.member.MemberService;
 import com.project.ibe.dto.member.MailRequest;
@@ -132,4 +135,17 @@ public class MemberController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
+//    @GetMapping("/kakao/oauth")
+//    public Response kakaoSigninRestAPI(@RequestParam("code") String code){
+//        kakaoService.kakaoSignin(code);
+//
+//        try{
+//            return null;
+//            //return  new Response(ResponseCode.SUCCESS, kakaoService.kakaoSignin(code, request.getServerName()), "200");
+//        }catch (Exception e){
+//            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+//        }
+//    }
+
 }
