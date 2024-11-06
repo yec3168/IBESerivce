@@ -81,4 +81,7 @@ public class Member extends  AuditingFields{
 
     @Column(nullable = true, unique = true)
     private String memberSocialId;            // 소셜 아이디.
+
+    @Column(nullable = true)
+    private Boolean memberDeleted;
 }

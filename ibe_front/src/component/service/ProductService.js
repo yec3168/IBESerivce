@@ -15,7 +15,7 @@ export const saveProduct = (productFormRequest) => axios.post(`${REST_API_URL}`,
 
 
 // 물품 상세조회
-export const getProduct = (productId) => axios.get(`${REST_API_URL}/${productId}`, );
+export const getProduct = (productId) => axios.get(`${REST_API_URL}/${productId}` );
 
 
 // 물품 목록 조회.
