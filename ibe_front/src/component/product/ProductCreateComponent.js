@@ -106,12 +106,29 @@ const ProductCreateComponent = () => {
 
     };
 
-    const handleContentChange = (e) => {
-        setProductContent(e.target.value);
+    // const handleContentChange = (e) => {
+    //     setProductContent(e.target.value);
 
-        // Resize the textarea based on its scrollHeight
-        contentRef.current.style.height = 'auto';
-        contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+    //     // Resize the textarea based on its scrollHeight
+    //     contentRef.current.style.height = 'auto';
+    //     contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+    // };
+
+    // useEffect(() => {
+    //     if (contentRef.current) {
+    //         contentRef.current.style.height = 'auto';
+    //         contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+    //     }
+    // }, [productContent]);
+    
+    const handleContentChange = (e) => {
+        const content = e.target.value;
+        if (content.length <= 255) { // Limit content to 255 characters
+            setProductContent(content);
+
+            contentRef.current.style.height = 'auto';
+            contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+        }
     };
 
     useEffect(() => {
@@ -120,7 +137,7 @@ const ProductCreateComponent = () => {
             contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
         }
     }, [productContent]);
-    
+
 
     return (
         <div className="product">
@@ -219,6 +236,7 @@ const ProductCreateComponent = () => {
                         </Form.Group>
                     </Row>
 
+                      {/* 상세 내용 */}
                     <Row>
                         <Form.Label column sm="2">상세내용</Form.Label>
                         <Col>
