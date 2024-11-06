@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_to_cash_icon from '../assets/images/mypage/point_to_cash_icon.png'
-import { nhTransfer } from '../service/PointService';
 import { useNavigate } from 'react-router-dom';
 import { getMemberPoint } from '../service/MypageService'; 
 
 const MypagePointPaybackComponent = () => {
     const [inputValue, setInputValue] = useState('');
     const [accountNumber, setAccountNumber] = useState('1000003188002'); //정보 받아와서 초기값에 넣어주고 싶음.
-    const [isClicked, setIsClicked] = useState(false);
     const [isFail, setIsFail] = useState(false);
     const [memberPoint, setMemberPoint] = useState(null);
     
@@ -51,42 +49,25 @@ const MypagePointPaybackComponent = () => {
         document.getElementById('point_input').setAttribute('disabled',true);
     }
     const pointCancleButtonEvent =()=>{
-        setIsFail(false);
+        document.getElementById('popup_result').innerText='';
         document.getElementById('point-back-put-bank').style.display='none';
         document.getElementById('point_input_button').style.display='inline';
         document.getElementById('point_input').removeAttribute('disabled');
 
     }
+    let popup
     const pointPayBackButtonEvent=()=>{
-        setIsClicked(true);
-        let bank = document.getElementById('bank');
-        let data ={
-            "bankName" : `${bank.options[bank.selectedIndex].text}`,
-            "bank" : `${bank.options[bank.selectedIndex].value}`,
-            "bankAccountNumber" : `${accountNumber}`,
-            "memberPoint" : `${inputValue}`
-        }
-        console.log(data);
-        if(!isClicked){
-            let confirmMsg = `${inputValue}포인트 ${bank.options[bank.selectedIndex].text} ${accountNumber}에 환급 받으시겠습니까?`;
-            let check=window.confirm(confirmMsg);
-            if(!check){
-                return
+            
+        let popupW = 750;
+        let popupH = 650;
+        let left = Math.ceil((window.screen.width - popupW)/2);
+        let top = Math.ceil((window.screen.height - popupH)/2);
+        if(popup){
+             popup.close();
             }
-            nhTransfer(data)
-            .then(response =>{
-                console.log(response);
-                let msg = response.data.data.msg
-                console.log(msg)
-                if(msg !=='정상처리 되었습니다.'){
-                    setIsFail(true);
-                }else{
-                    navigate("/mypage/pntPayBack/result",{ state: response.data });
-                }
-            })
-            .catch(e=>{console.log(e)})
-        }
-        setTimeout(() => setIsClicked(false), 3000);
+        popup = window.open('http://localhost:3000/mypage/pntpayback/confirm','_blank',
+                'width='+popupW+',height='+popupH+',left='+left+',top='+top);
+  
     }
     return (
         <>
@@ -159,19 +140,16 @@ const MypagePointPaybackComponent = () => {
                                     </Form.Select>   
                                     
                                     <Form.Control 
+                                        id='account_nubmer'
                                         type="text" 
                                         placeholder="계좌번호" 
                                         style={{ borderColor:'#FFB800', width:'500px', height:'50px'}} 
                                         value={accountNumber} 
                                         onChange={handleAccountNumberChange} 
                                     />
-                                    {
-                                        isFail ? (
-                                            <span onClose={() => setIsFail(false)}>"계좌번호를 확인해 주세요."</span>
-                                        ) : (
-                                            <span/>
-                                        )
-                                    }
+                                    
+                                        <span id='popup_result'></span>
+                                        
                                     <div>
                                     <Button onClick={()=>pointCancleButtonEvent()}
                                     style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
@@ -188,6 +166,7 @@ const MypagePointPaybackComponent = () => {
                             </Col>
                     </Row>
                 </Container>
+
                 <div id="div_spacing"/>
 
                 {/* 포인트 약관 */}

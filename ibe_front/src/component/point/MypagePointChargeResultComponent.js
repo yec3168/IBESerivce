@@ -8,9 +8,14 @@ const MypagePointChargeResult = ()=>{
     const location = useLocation();
     console.log(location.state);
     let name = location.state.data.memberName;
-    let memberPoint = location.state.data.memberPoint
-    let points = location.state.data.chargePoint;
-    let amount = location.state.data.amount;
+    let memberPoint = location.state.data.memberPoint.toString()
+    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    let points = location.state.data.chargePoint.toString()
+    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  
+    let amount = location.state.data.amount.toString()
+    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    
     return(
         <>
             <Container className="text-center my-5 containerPCharge">
@@ -18,20 +23,47 @@ const MypagePointChargeResult = ()=>{
                 <img src={ibe_logo} width="200px" alt="logo" />
                 <h1 id="h1_pointTitle">충전 완료</h1>
                 <hr />
-                <br/>  
-                <h1>{name}님</h1> 
-                <h3>결제 : {amount}<span id="span_won">₩</span></h3>
-                <h3>충전 :&nbsp; 
-                    <img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} />
-                    <span id="span_amt">{points}&nbsp;</span>
-                    <span id="span_won">P</span>
-                </h3>
-                <h3>보유 :&nbsp; 
-                    <img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} />
+                <br/> 
+                <table style={{margin: 'auto',borderCollapse: 'separate' ,borderSpacing: '10px 10px'}}>
+                    <tr >
+                        <td colSpan={'2'}>
+                            <h1>{name}님</h1> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h3>결제&nbsp;</h3></td>
+                        <td align="right">
+                            <h3>
+                                {amount}&nbsp;<span id="span_won">₩</span>
+                            </h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>충전&nbsp;</h3>
+                        </td>
+                        <td align="right">
+                            <h3>
+                                <img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} />
+                                <span id="span_amt">{points}&nbsp;</span><span id="span_won">P</span>
+                            </h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h3>보유&nbsp;</h3></td>
+                        <td align="right"><h3><img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} />
                     <span id="span_amt">{memberPoint}&nbsp;</span>
-                    <span id="span_won">P</span>
-                </h3>
-                <h2>감사합니다!</h2>
+                    <span id="span_won">P</span></h3></td>
+                    </tr>
+                    <tr>
+                        <td colSpan={'2'}>
+                            <h2>감사합니다!</h2> 
+                        </td>
+                    </tr>
+                </table> 
+
+                
+            
                 <br/>
                 <hr />
                 <Button onClick={()=>window.close()}

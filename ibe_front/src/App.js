@@ -39,6 +39,7 @@ import MypagePointPaybackResultPage from './component/layout/pages/mypage/Mypage
 import AdminPrivateRoute from './component/adminpage/AdminPrivateRoute';
 import IbeBoardDetailsPage from './component/layout/pages/IbeBoard/IbeBoardDetailsPage';
 import TermsAgreementComponent from './component/sign/TermsAgreementComponent';
+import MypagePointPayBackComfrimComponent from './component/point/MypagePointPayBackComfirmComponent';
 
 function App() {
   return (
@@ -84,18 +85,10 @@ function App() {
         <Route path="/mypage/delete" element={<MypageDeleteAccountPage />} />
 
         {/* 포인트 처리 라우터 */}
-        <Route
-          path="/mypage/pntcharge/completed"
-          element={<MypagePointChargeCompletedComponent />}
-        />
-        <Route
-          path="/mypage/pntcharge/result"
-          element={<MypagePointChargeResult />}
-        />
-        <Route
-          path="/mypage/pntPayBack/result"
-          element={<MypagePointPaybackResultPage />}
-        />
+        <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent />} />
+        <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult />} />
+        <Route path="/mypage/pntPayBack/confirm" element={<MypagePointPayBackComfrimComponent/>}/>
+        <Route path="/mypage/pntPayBack/result" element={<MypagePointPaybackResultPage/>}/>
 
         {/* 아이비 게시판 */}
         <Route path="/boards" element={<IbeBoardListPage />} />
