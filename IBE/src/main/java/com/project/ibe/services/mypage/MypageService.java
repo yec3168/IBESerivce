@@ -111,7 +111,6 @@ public class MypageService {
     }
 
     // 멤버 비밀번호 변경
-    @CrossOrigin(origins = "http://localhost:3000")
     @Transactional
     public MemberPwUpdateResponse updateMemberPw(PrincipalDTO principal, @RequestBody @Valid MemberPwUpdateRequest request) {
         Member member = memberRepository.findByMemberId(principal.getMemberId())

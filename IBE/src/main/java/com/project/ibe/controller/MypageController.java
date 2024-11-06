@@ -57,7 +57,7 @@ public class MypageController {
         }
     }
 
-    @PatchMapping("/updatepw")
+    @PutMapping("/updatepw")
     public Response updateMemberPw(@AuthenticationPrincipal PrincipalDTO principal,
                                          @RequestBody @Valid MemberPwUpdateRequest request) {
         try {
@@ -67,7 +67,7 @@ public class MypageController {
         }
     }
 
-    @PatchMapping("/updatedel")
+    @PutMapping("/updatedel")
     public Response updateMemberPw(@AuthenticationPrincipal PrincipalDTO principal) {
         try {
             return new Response(ResponseCode.SUCCESS, myPageService.updateMemberDel(principal), "200");

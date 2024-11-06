@@ -27,6 +27,10 @@ export const checkMemberPw = (data) => {
 
 // 멤버 비밀번호 변경
 export const updateMemberPw = (data) => {
-    return axios.patch(`${REST_API_URL}/updatepw`, data, headers);
+    return axios.put(`${REST_API_URL}/updatepw`, data, headers);
 };
 
+// 멤버 탈퇴
+export const updateMemberDel = (data) => {
+    return axios.put(`${REST_API_URL}/updatedel`, data, headers);
+};
