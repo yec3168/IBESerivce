@@ -34,6 +34,17 @@ public class MypageController {
         }
     }
 
+    @GetMapping("/point")
+    public Response getMemberPoint(@AuthenticationPrincipal PrincipalDTO principal) {
+        try {
+            return new Response(ResponseCode.SUCCESS, myPageService.getMemberPoint(principal), "200");
+        } catch (JwtException | AuthenticationException e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        } catch (Exception e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
     @PutMapping("/updateinfo")
     public Response<Void> updateMemberInfo(@AuthenticationPrincipal PrincipalDTO principal,
                                            @RequestBody @Valid MemberInfoUpdateRequest request) {
@@ -43,5 +54,7 @@ public class MypageController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
+
 
 }

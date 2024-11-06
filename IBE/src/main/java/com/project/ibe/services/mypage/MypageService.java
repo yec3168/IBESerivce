@@ -3,6 +3,7 @@ package com.project.ibe.services.mypage;
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.mypage.MemberInfoResponse;
 import com.project.ibe.dto.mypage.MemberInfoUpdateRequest;
+import com.project.ibe.dto.mypage.MemberPointResponse;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.member.MemberBank;
 import com.project.ibe.exception.BusinessException;
@@ -41,6 +42,17 @@ public class MypageService {
 
         response.setMemberBank(memberBank.getMemberBank());
         response.setMemberAccountNumber(memberBank.getMemberAccountNumber());
+
+        return response;
+    }
+
+    public MemberPointResponse getMemberPoint(PrincipalDTO principal) {
+        Member member = memberRepository.findByMemberId(principal.getMemberId())
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
+
+        MemberPointResponse response = new MemberPointResponse();
+
+        response.setMemberPoint(member.getMemberPoint());
 
         return response;
     }
