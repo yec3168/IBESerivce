@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import retrofit2.http.HEAD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +46,9 @@ public class BoardService {
         Board savedBoard = boardRepository.save(board);
 
         return modelMapper.map(savedBoard, BoardFormResponse.class);
+
     }
-
-
+    
     /**
      * 게시판 상세 정보
      */
