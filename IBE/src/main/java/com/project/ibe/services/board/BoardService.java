@@ -15,6 +15,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -58,9 +61,19 @@ public class BoardService {
      *  게시글 목록 조회.
      */
 
-//    public BoardListResponse getBoardList(){
-//        List<Board>
-//    }
+    public List<BoardListResponse> getBoardList(){
+        List<Board> boardList = boardRepository.findAll();
+
+        List<BoardListResponse> boardListResponseList = new ArrayList<>();
+        for(Board board : boardList){
+            BoardListResponse boardListResponse = modelMapper.map(board, BoardListResponse.class);
+            boardListResponse.setMemberNickName(board.getMember().getMemberNickName());
+
+            boardListResponseList.add(boardListResponse);
+        }
+
+        return boardListResponseList;
+    }
 
     /**
      * 댓글 등록.
