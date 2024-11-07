@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import point_icon from "../assets/images/header/coin_purse_icon.png";
 import ibe_logo from "../assets/images/header/ibe_logo.png";

@@ -30,11 +30,11 @@ public class Order {
 
     private LocalDateTime orderDeliveryDate; //배송시작시간  -> 따로 서비스에서 .now() 써줘야함.
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product; //판매물품 -> 판매자 정보도 들어있음.
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member orderMember; // 구매자.
 

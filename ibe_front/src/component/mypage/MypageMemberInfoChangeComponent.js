@@ -6,7 +6,7 @@ import { getMemberInfo, updateMemberInfo, checkMemberPw  } from '../service/Mypa
 const MemberInfoChangeComponent = () => {
     // 데이터 상태 관리
     const [memberInfo, setMemberInfo] = useState(null);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
 
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');

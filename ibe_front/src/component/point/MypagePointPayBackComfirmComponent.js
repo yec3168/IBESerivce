@@ -17,7 +17,7 @@ const MypagePointPayBackComfrimComponent = ()=>{
     const transfer = ()=>{
         setIsClicked(true);
         if(!isClicked){
-            let bank = document.getElementById('bank');
+            // let bank = document.getElementById('bank');
             let data ={
             "bankName" : `${bankName}`,
             "bank" : `${bankCode}`,
