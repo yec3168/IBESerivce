@@ -5,6 +5,7 @@ import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.entity.board.Board;
 import com.project.ibe.entity.board.BoardComment;
 import com.project.ibe.entity.board.BoardReply;
+import com.project.ibe.entity.common.BoardCategory;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
 import com.project.ibe.repository.board.BoardCommentRepository;
@@ -12,17 +13,17 @@ import com.project.ibe.repository.board.BoardReplyRepository;
 import com.project.ibe.repository.board.BoardRepository;
 import com.project.ibe.services.member.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import retrofit2.http.HEAD;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -195,9 +196,28 @@ public class BoardService {
 
 
     // 제목으로 검색
-    public List<BoardListResponse> searchBoardTitle(String title){
+    public List<BoardListResponse> searchBoardTitle(String category, String type, String value){
         List<BoardListResponse> boardListResponseList;
-        List<Board> boardList = boardRepository.findByBoardStatusAndBoardTitleContaining(false,title);
+        List<Board> boardList;
+        log.info("category = "+category);
+        log.info("type = "+type);
+        log.info("value = "+value);
+        if(type.equals("title")) {
+            if (category.equals("ALL")) {
+                boardList = boardRepository.findByBoardStatusAndBoardTitleContaining(false, value);
+            } else {
+                boardList = boardRepository.findByBoardStatusAndBoardCategoryAndBoardTitleContaining(false,BoardCategory.valueOf(category) , value);
+            }
+        }else if(type.equals("name")){
+            if(category.equals("ALL"))
+                boardList = boardRepository.findByBoardStatusAndMember_MemberNickName(false, value);
+            else{
+                boardList = boardRepository.findByBoardStatusAndBoardCategoryAndMember_MemberNickName(false,BoardCategory.valueOf(category),value);
+            }
+
+        }else{
+            throw new BusinessException("type error", HttpStatus.NOT_FOUND);
+        }
         boardListResponseList = new ArrayList<>();
         for (Board board : boardList) {
             BoardListResponse boardListResponse = modelMapper.map(board, BoardListResponse.class);
