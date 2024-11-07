@@ -76,7 +76,7 @@ const OrderDetailComponent = () => {
             }
         } else {
             const orderFormRequest = {
-                productId: id,
+                productId: productId,
                 productPoint: productPoint
             };
 

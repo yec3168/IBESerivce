@@ -17,16 +17,16 @@ import SignInComponent from '../sign/SigninComponent';
     // console.log(Role);
     const adminArr=["ROLE_ADMIN","ROLE_SERVICE_MANAGER","ROLE_BOARD_MANAGER"]
     const userArr =["ROLE_CLIENT", "ROLE_DEFAULT","ROLE_ADMIN","ROLE_SERVICE_MANAGER","ROLE_BOARD_MANAGER"]
-    if(Role=="ADMIN"){
+    if(Role==="ADMIN"){
         for(let i=0;i<adminArr.length;i++){
-            if(tokenRole==adminArr[i]){
+            if(tokenRole===adminArr[i]){
                 authenticated=true;
             }
         }
     }
-    if(Role=="USER"){
+    if(Role==="USER"){
         for(let i=0;i<userArr.length;i++){
-            if(tokenRole==userArr[i]){
+            if(tokenRole===userArr[i]){
                 authenticated=true;
             }
         }

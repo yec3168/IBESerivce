@@ -43,7 +43,7 @@ const MypagePointPaybackComponent = () => {
 
     const pointButtonEvent = ()=>{
 
-        if(!inputValue || inputValue==0 ||inputValue>memberPoint){
+        if(!inputValue || inputValue===0 ||inputValue>memberPoint){
             return
         }
         document.getElementById('point-back-put-bank').style.display='inline';
@@ -153,7 +153,7 @@ const MypagePointPaybackComponent = () => {
                                             accountArr.map((arr,index)=>{
                                                 return (
                                                     <>
-                                                    {arr.db==memberBankData ? (
+                                                    {arr.db===memberBankData ? (
                                                         <option value={arr.num} selected>{arr.name}</option>
                                                         ) : (
                                                         <option value={arr.num}>{arr.name}</option>
