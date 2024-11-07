@@ -40,19 +40,16 @@ import AdminPrivateRoute from './component/adminpage/AdminPrivateRoute';
 import IbeBoardDetailsPage from './component/layout/pages/IbeBoard/IbeBoardDetailsPage';
 import TermsAgreementComponent from './component/sign/TermsAgreementComponent';
 import MypagePointPayBackComfrimComponent from './component/point/MypagePointPayBackComfirmComponent';
-import PrivateRouterTest from './component/router/PrivateRouterTest.js';
 import PrivateRouter from './component/router/PrivateRouter.js';
 
 
-// 권한 감지하는 함수 PrivateRouter(ROLE, component)  권한 없을 시 <SignInComponent /> 로 보냄
+// 권한 감지하는 컴포넌트 PrivateRouter(ROLE, component)  권한 없을 시 <SignInComponent /> 로 보냄
 //<PrivateRouter Role="USER" component={<PrivateRouterTest/>}/>
 // Role =  ADMIN ,USER 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/test" element={<PrivateRouter Role="ADMIN" component={<PrivateRouterTest/>}/>} />
-
         {/* 로그인, 회원가입 */}
         <Route path="/" element={<MainPage />} />
         <Route path="/signin" element={<SignInComponent />} />
