@@ -8,25 +8,44 @@ const MypageInquiryAnsComponent = () => {
     // URL에서 inquiryId 값을 가져오기
     const { id } = useParams();
     
-    // 상태 설정
     const [inquiry, setInquiry] = useState(null);  
     const [inquiryAnswer, setInquiryAnswer] = useState(null);
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
 
+    const inquiryCategoryMapping = {
+        "DELIVERY": "배송 지연 / 누락",
+        "PRODUCT_DEFECT": "물품 하자",
+        "POINT_CHARGE": "포인트 결제",
+        "POINT_PAYBACK": "포인트 환급",
+        "INQ_MISC": "기타"
+    };
+
+    // 문의 유형 매핑 함수
+    const getCategoryLabel = (category) => {
+        return inquiryCategoryMapping[category] || category;  
+    };
+
     useEffect(() => {
         // API 호출
         const fetchInquiryData = async () => {
             try {
-                // API 호출 문의 조회
-                const response = await getInquiry(id);  // inquiryId를 파라미터로 전달
-                if (response.data.responseCode === 'SUCCESS') {
-                    setInquiry(response.data.data);  
+                // 문의 조회
+                const inquiryResponse = await getInquiry(id);  // inquiryId를 파라미터로 전달
+                if (inquiryResponse.data.responseCode === 'SUCCESS') {
+                    setInquiry(inquiryResponse.data.data);  
                 } else {
                     setError('문의 데이터를 가져오는데 실패했습니다.');
                 }
-                //API 호출 답변 조회
-                
+
+                // 문의 답변 조회
+                const inquiryAnswerResponse = await getInquiryAnswer(id);  // inquiryId를 파라미터로 전달
+                if (inquiryAnswerResponse.data.responseCode === 'SUCCESS') {
+                    setInquiryAnswer(inquiryAnswerResponse.data.data);
+                } else {
+                    setError('답변 데이터를 가져오는데 실패했습니다.');
+                }
+
             } catch (err) {
                 setError('API 요청 중 에러가 발생했습니다.');
             } finally {
@@ -58,7 +77,7 @@ const MypageInquiryAnsComponent = () => {
                 <Row className="mb-3">
                     <Col className="text-start">
                         <div id="div_inqAns" style={{ height: '40px' }}>
-                            <div>{inquiry?.inquiryCategory || '미제공'}</div>  {/* 문의 유형 */}
+                            <div>{getCategoryLabel(inquiry?.inquiryCategory) || '미제공'}</div>  
                         </div>
                     </Col>
                 </Row>
@@ -67,7 +86,7 @@ const MypageInquiryAnsComponent = () => {
                 <Row className="mb-3">
                     <Col className="text-start">
                         <div id="div_inqAns" style={{ height: '40px' }}>
-                            <div>{inquiry?.inquiryTitle || '미제공'}</div>  {/* 문의 제목 */}
+                            <div>{inquiry?.inquiryTitle || '미제공'}</div>  
                         </div>
                     </Col>
                 </Row>
@@ -76,7 +95,7 @@ const MypageInquiryAnsComponent = () => {
                 <Row className="mb-3">
                     <Col className="text-start">
                         <div id="div_inqAns" style={{ height: '300px' }}>
-                            <div>{inquiry?.inquiryContent || '미제공'}</div>  {/* 문의 내용 */}
+                            <div>{inquiry?.inquiryContent || '미제공'}</div>  
                         </div>
                     </Col>
                 </Row>
@@ -89,10 +108,15 @@ const MypageInquiryAnsComponent = () => {
                     <Col className="text-start">
                         <div id="div_inqAns" style={{ height: '300px' }}>
                             <div>
-                                [운영자]<br />
-                                안녕하세요, 운영자 아이비 입니다.<br />
-                                해당 제품은 미리 손잡이 부분이 파손되어 있음을 명시하고 사진을 올려 놓은 제품으로 확인되었습니다.<br />
-                                감사합니다.
+                                {/* 답변 내용 표시 */}
+                                {inquiryAnswer?.inquiryAnswered ? (
+                                    <>
+                                        [운영자]<br />
+                                        {inquiryAnswer.inquiryAnswerContent}
+                                    </>
+                                ) : (
+                                    <div>답변이 아직 없습니다.</div>
+                                )}
                             </div>
                         </div>
                     </Col>

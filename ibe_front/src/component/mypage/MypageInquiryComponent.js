@@ -13,7 +13,7 @@ const MypageInquiryComponent = () => {
         "포인트 결제": "POINT_CHARGE",
         "포인트 환급": "POINT_PAYBACK",
         "기타": "INQ_MISC"
-      };
+    };
 
     const [category, setCategory] = useState('');
     const [title, setTitle] = useState('');

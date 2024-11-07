@@ -47,10 +47,10 @@ public class InquiryController {
     }
 
     // 문의 답변 조회
-    @GetMapping("/inquiry/answer")
-    public Response getInquiryAnswer(PrincipalDTO principal, @RequestBody @Valid InquiryAnswerRequest request) {
+    @GetMapping("/inquiry/answer/{id}")
+    public Response getInquiryAnswer(PrincipalDTO principal, @PathVariable Long id) {
         try {
-            return new Response(ResponseCode.SUCCESS, inquiryService.getInquiryAnswer(principal, request), "200");
+            return new Response(ResponseCode.SUCCESS, inquiryService.getInquiryAnswer(principal, id), "200");
         } catch (Exception e) {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
@@ -58,8 +58,6 @@ public class InquiryController {
 
     // 문의 조회 by inquiryId
     @GetMapping("/inquiry/{id}")
-//    @GetMapping("/inquiry/id")
-//    public Response getInquiry(PrincipalDTO principal, @RequestBody @Valid InquiryIdRequest request){
     public Response getInquiry(PrincipalDTO principal, @PathVariable Long id){
         try {
             return new Response(ResponseCode.SUCCESS, inquiryService.getInquiry(principal, id), "200");
