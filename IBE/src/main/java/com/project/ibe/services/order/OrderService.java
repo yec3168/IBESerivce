@@ -13,9 +13,12 @@ import com.project.ibe.repository.order.OrderRepository;
 import com.project.ibe.services.member.MemberService;
 import com.project.ibe.services.product.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,14 +40,25 @@ public class OrderService {
             System.out.println("잔액 부족.");
             throw new BusinessException("잔액이 부족합니다.", HttpStatus.BAD_REQUEST);
         }
-        // 금액 업데이트
+
+        // 판매물품 정보
+        Product product = productService.findProductById(orderFormRequest.getProductId());;
+
+        // 중복 주문 확인
+        List<Order> orderList = orderRepository.findByProductAndOrderMember(product, orderMember);
+
+        if(!orderList.isEmpty()){
+            System.out.println("이미구매");
+            throw new BusinessException("이미 구매한 상품입니다.", HttpStatus.BAD_REQUEST);
+        }
+
+
+        // 중복 주문이 없다면, 금액 업데이트
         orderMember.setMemberPoint( orderMember.getMemberPoint() - orderFormRequest.getProductPoint());
 
         //회원정보 저장.
         Member savedMOrderMember = memberService.saveMember(orderMember);
 
-        // 판매물품 정보
-        Product product = productService.findProductById(orderFormRequest.getProductId());;
 
         //구매정보 저장.
         Order savedOrder = orderRepository.save(Order.builder()
