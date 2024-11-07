@@ -16,7 +16,6 @@ const IbeBoardListComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
   const navigate = useNavigate(); // useNavigate 훅 사용
-
   // 데이터 가져오기
   useEffect(() => {
     axios
@@ -77,7 +76,7 @@ const IbeBoardListComponent = () => {
 
   // Pagination calculations
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const normalPosts = posts.filter((post) => post.category !== '공지'); // Regular posts
+  const normalPosts = posts.filter((post) => post.category !== 'NOTICE'); // Regular posts
   const paginatedPosts = normalPosts.slice(
     startIndex,
     startIndex + itemsPerPage
@@ -93,7 +92,7 @@ const IbeBoardListComponent = () => {
   };
 
   // Get all 공지 posts to display them on top
-  const noticePosts = posts.filter((post) => post.category === '공지');
+  const noticePosts = posts.filter((post) => post.category === 'NOTICE');
 
   // Handle click on a post
   const handlePostClick = (postId) => {
@@ -120,36 +119,48 @@ const IbeBoardListComponent = () => {
           </thead>
           <tbody>
             {/* Display 공지 posts */}
-            {noticePosts.map((post) => (
-              <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>
-                <td style={{ fontWeight: 'bold' }}></td> {/* No ID displayed */}
-                <td>
-                  <span className={`board-category-${post.category}`}>
-                    {mapCategory(post.category)}&emsp;
+            
+            {
+            noticePosts.map((post) => (
+                <>
+                {currentPage == '1' ? 
+                <>
+                <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer'}}>
+                  <td style={{ fontWeight: 'bold' ,backgroundColor:'#FFFAFA'}}></td> {/* No ID displayed */}
+                  <td style={{backgroundColor:'#FFFAFA'}}>
+                <span className={`board-category-${post.category}`}>
+                  {mapCategory(post.category)}&emsp;
+                </span>
+                <strong>{post.title}</strong>
+                {post.comments !== 0 && (
+                  <span
+                    className="board-comment-count"
+                    style={{ color: 'blue', fontWeight: '700' }}
+                  >
+                    {' '}
+                    {post.comments}
                   </span>
-                  <strong>{post.title}</strong>
-                  {post.comments !== 0 && (
-                    <span
-                      className="board-comment-count"
-                      style={{ color: 'blue', fontWeight: '700' }}
-                    >
-                      {' '}
-                      {post.comments}
-                    </span>
-                  )}
-                  {isToday(post.date) && <span className="board-new-tag">New</span>}
-                </td>
-                <td>
-                  <strong>{post.author}</strong>
-                </td>
-                <td>
-                  <strong>{post.date}</strong>
-                </td>
-                <td>
-                  <strong>{post.views}</strong>
-                </td>
+                )}
+                {isToday(post.date) && <span className="board-new-tag">New</span>}
+              </td>
+              <td style={{backgroundColor:'#FFFAFA'}}>
+                <strong >{post.author}</strong>
+              </td>
+              <td style={{backgroundColor:'#FFFAFA'}}>
+                <strong>{post.date}</strong>
+              </td>
+              <td style={{backgroundColor:'#FFFAFA'}}>
+                <strong>{post.views}</strong>
+              </td>
               </tr>
-            ))}
+                </>
+                : null }
+                
+              </>
+              )
+            )
+          }
+            
             {/* Display paginated normal posts */}
             {paginatedPosts.map((post) => (
               <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>

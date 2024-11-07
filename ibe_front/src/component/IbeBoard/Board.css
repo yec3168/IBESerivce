@@ -87,27 +87,33 @@
   margin-left: 8px;
   display: inline-block;
 }
-
-.board-category-공지 {
+.board-td-notice{
+  background-color: #ffe6a5;
+}
+.board-category-NOTICE {
   color: blue; 
   font-weight: bold;
 }
 
-.board-category-신고 {
-  color: red; 
+.board-category-REQUEST {
+  color: rgb(138, 173, 54);
   font-weight: bold;
 }
 
-.board-category-기타 {
-  color: black;
-  font-weight: bold;
-}
-
-.board-category-문의 {
+.board-category-QUESTION {
   color: green; 
   font-weight: bold;
 }
 
+.board-category-INFORMATION {
+  color: rgb(129, 143, 6); 
+  font-weight: bold;
+}
+
+.board-category-GENERAL {
+  color: rgb(106, 109, 102); 
+  font-weight: bold;
+}
 .board-comment {
   border: 1px solid #e0e0e0;
   padding: 10px;

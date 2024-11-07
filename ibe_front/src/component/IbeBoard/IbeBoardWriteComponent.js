@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Board.css';
 import { Button, Col, Container, Row, Form, Spinner } from 'react-bootstrap';
+import { jwtDecode } from 'jwt-decode';
 
 const IbeBoardWriteComponent = () => {
   const [title, setTitle] = useState('');
@@ -9,6 +10,27 @@ const IbeBoardWriteComponent = () => {
   const [category, setCategory] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isAdmin,setIsAdmin] = useState(false);
+  
+    useEffect(() => {
+      const token = localStorage.getItem('accessToken');
+      let tokenRole;
+      if (token) {
+        try {
+        const decodedToken = jwtDecode(token);
+        tokenRole = decodedToken.role // Get user role from the token
+        } catch (error) {
+        console.error('Token decoding error:', error);
+        }
+      }
+    const adminArr=["ROLE_ADMIN","ROLE_SERVICE_MANAGER","ROLE_BOARD_MANAGER"]
+    for(let i=0;i<adminArr.length;i++){
+      if(tokenRole==adminArr[i]){
+        setIsAdmin(true);
+      }
+    }
+    }, []);
+
 
   // 글 작성 폼 제출 처리
   const handleSubmit = async (e) => {
@@ -84,7 +106,9 @@ const IbeBoardWriteComponent = () => {
                   className="board-select"
                 >
                   <option value="">선택하세요</option>
-                  <option value="NOTICE">공지</option>
+                  {
+                    isAdmin ? <option value="NOTICE">공지</option> : null
+                  }
                   <option value="REQUEST">요청</option>
                   <option value="QUESTION">질문</option>
                   <option value="INFORMATION">정보</option>
