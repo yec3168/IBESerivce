@@ -115,33 +115,85 @@ public class OrderService {
     /**
      * 판매목록 조회
      */
+
     public List<SellerListResponse> getSellList(PrincipalDTO principalDTO){
         // 마이페이지 사용자 정보.
-        Member orderMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+        Member sellMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
 
         // 1. 사용자가 판매한 물품 리스트들을 가져옴.
-        List<Product> productList = productService.findAllByMember(orderMember);
+        List<Product> productList = productService.findAllByMember(sellMember);
 
+        // 결과를 저장할 변수.
+        List<SellerListResponse> sellerListResponseList = new ArrayList<>();
 
-        // 2. 해당 물품과 일치하는 Order 가져옴
+        //2. 판매자가 올린 Product 목록을 가져옴.
         for(Product product : productList){
-            //2-1. 물품 정보 가져오기.
             ProductDetailResponse productDetailResponse = productService.getProductDetail(product.getProductId());
 
-            SellerListResponse sellerListResponse = modelMapper.map(productDetailResponse, SellerListResponse.class);
-            if(!productDetailResponse.getImagePath().isEmpty())
-                sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
+            //판매자 이메일과 일치하는 OrderList 가져옴.
+            List<Order> orderList = orderRepository.findAllByProductOrderByOrderIdDesc(product);
 
-            // 2-2 해당 물품의 주문 정보가 존재하는지.
-            if(orderRepository.existsByProduct(product)){
-                // 2-2-1. Order 리스트 가져오기
-                List<Order> orderList = orderRepository.findAllByProductOrderByOrderIdDesc(product);
+            if(orderList.isEmpty()){
+                SellerListResponse sellerListResponse = new SellerListResponse();
+                sellerListResponse.setOrderState(OrderState.AVAILABLE);
+                sellerListResponse.setProductTitle(productDetailResponse.getProductTitle());
+                sellerListResponse.setProductPoint(productDetailResponse.getProductPoint());
+                sellerListResponse.setSellerMemberNickName(sellMember.getMemberNickName());
+                if(!productDetailResponse.getImagePath().isEmpty())
+                    sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
 
+                sellerListResponseList.add(sellerListResponse);
             }
 
-            //2-3. 존재하지 않으면
-        }
+            for(Order order : orderList){
+                if(!order.getOrderState().equals(OrderState.REJECTED)){
+                    SellerListResponse sellerListResponse = new SellerListResponse();
+                    sellerListResponse.setOrderId(order.getOrderId());
+                    sellerListResponse.setOrderState(order.getOrderState());
+                    sellerListResponse.setOrderDate(order.getOrderDate());
+                    sellerListResponse.setOrderMemberNickName(memberService.getMemberByEmail(order.getOrderMemberEmail()).getMemberNickName()); //구매자의 닉네임.
+                    sellerListResponse.setOrderDeliveryDate(order.getOrderDeliveryDate());
+                    sellerListResponse.setProductTitle(productDetailResponse.getProductTitle());
+                    sellerListResponse.setProductPoint(productDetailResponse.getProductPoint());
+                    sellerListResponse.setSellerMemberNickName(sellMember.getMemberNickName());
+                    if(!productDetailResponse.getImagePath().isEmpty())
+                        sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
 
-        return null;
+
+                    sellerListResponseList.add(sellerListResponse);
+                }
+            }
+        }
+        return sellerListResponseList;
     }
+
+//    public List<SellerListResponse> getSellList(PrincipalDTO principalDTO){
+//        // 마이페이지 사용자 정보.
+//        Member orderMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+//
+//        // 1. 사용자가 판매한 물품 리스트들을 가져옴.
+//        List<Product> productList = productService.findAllByMember(orderMember);
+//
+//
+//        // 2. 해당 물품과 일치하는 Order 가져옴
+//        for(Product product : productList){
+//            //2-1. 물품 정보 가져오기.
+//            ProductDetailResponse productDetailResponse = productService.getProductDetail(product.getProductId());
+//
+//            SellerListResponse sellerListResponse = modelMapper.map(productDetailResponse, SellerListResponse.class);
+//            if(!productDetailResponse.getImagePath().isEmpty())
+//                sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
+//
+//            // 2-2 해당 물품의 주문 정보가 존재하는지.
+//            if(orderRepository.existsByProduct(product)){
+//                // 2-2-1. Order 리스트 가져오기
+//                List<Order> orderList = orderRepository.findAllByProductOrderByOrderIdDesc(product);
+//
+//            }
+//
+//            //2-3. 존재하지 않으면
+//        }
+//
+//        return null;
+//    }
 }

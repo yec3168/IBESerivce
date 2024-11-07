@@ -35,4 +35,14 @@ public class OrderController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
+    @GetMapping("/sell")
+    // 마이페이지 판매목록
+    public Response sellList(@AuthenticationPrincipal PrincipalDTO principalDTO){
+        try{
+            return new Response(ResponseCode.SUCCESS, orderService.getSellList(principalDTO), "200");
+        }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
 }
