@@ -40,6 +40,8 @@ public class Inquiry {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(nullable = false, columnDefinition = "boolean default false") //false: 응답대기, true: 응답완료
-    private boolean inquiryStatus;
+    // 답변 여부
+    // false: 답변대기, true: 답변완료
+    @Column(nullable = false, columnDefinition = "Boolean default false")
+    private Boolean inquiryAnswered;
 }
