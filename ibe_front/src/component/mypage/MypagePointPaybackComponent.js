@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import './Mypage.css'
 import point_to_cash_icon from '../assets/images/mypage/point_to_cash_icon.png'
-import { getMemberInfo, getMemberPoint } from '../service/MypageService'; 
+import { getMemberInfo} from '../service/MypageService'; 
 
 const MypagePointPaybackComponent = () => {
     const [inputValue, setInputValue] = useState('');
@@ -71,15 +71,6 @@ const MypagePointPaybackComponent = () => {
                 'width='+popupW+',height='+popupH+',left='+left+',top='+top);
   
     }
-    // const selectBank=(memberBank)=>{
-    //     const bank = document.getElementById('bank');
-    //     const len = accountArr;
-    //     for (let i=0; i<len; i++){  
-    //     if(accountArr[i].db == memberBank){
-    // 	    bank.options[i].selected = true;
-    //         }
-    //     }
-    // }
 
     const accountArr =[
         { db :"KB" , name:"국민은행",num:"004"},
