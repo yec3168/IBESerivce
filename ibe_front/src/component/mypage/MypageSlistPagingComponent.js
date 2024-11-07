@@ -6,7 +6,6 @@ import badge_available from '../assets/images/main/badge/badge_available.png';
 import badge_finished from '../assets/images/main/badge/badge_finished.png';
 import badge_delivery from '../assets/images/main/badge/badge_delivery.png'
 import badge_delivery_complete from "../assets/images/main/badge/badge_delivery_complete.png";
-import badge_rejected from "../assets/images/main/badge/badge_rejected.png"
 
 const MypageSlistPagingComponent = () => {
 
