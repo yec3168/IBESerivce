@@ -84,6 +84,8 @@ public class InquiryService {
             response.setInquiryContent(inquiry.getInquiryContent());
         }
 
+        inquiry.setMember(member);
+
         inquiry.setInquiryCreatedAt(LocalDateTime.now());
         response.setInquiryCreatedAt(inquiry.getInquiryCreatedAt());
 
