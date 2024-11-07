@@ -7,6 +7,7 @@ import {
   Container,
   Row,
   Col,
+  FormSelect,
 } from 'react-bootstrap';
 import axios from 'axios'; // axios 추가
 import './Board.css';
@@ -99,6 +100,37 @@ const IbeBoardListComponent = () => {
     navigate(`/boards/details/${postId}`); // /boards/details/{boardId} 경로로 이동
   };
 
+  // 검색 내용 전송
+  const handleSearch =() =>{
+    let category = document.getElementById('searchCategory').value;
+    let type = document.getElementById('searchType').value;
+    let value = document.getElementById('searchValue').value;
+    axios
+      .get(`http://localhost:8080/api/boards/search?category=${category}&type=${type}&value=${value}`)
+      .then((response) => {
+        const data = response.data.data; // API 응답에서 데이터 추출
+
+        // boardCreatedAt을 yyyy-MM-dd HH:mm 형식으로 변환
+        const formattedData = data.map((post) => ({
+          id: post.boardId,
+          category: post.boardCategory,
+          title: post.boardTitle,
+          author: post.memberNickName,
+          date: post.boardCreatedAt,
+          views: post.boardHit,
+          comments: post.boardCommentCnt,
+        }));
+
+        // boardId 기준 내림차순 정렬
+        const sortedData = formattedData.sort((a, b) => b.id - a.id);
+
+        // 데이터를 상태에 저장
+        setPosts(sortedData);
+      })
+      .catch((error) => {
+        console.error('게시글을 가져오는 데 실패했습니다:', error);
+      })
+  }
   return (
     <div id="board_content">
       <Container className="board-container">
@@ -123,7 +155,7 @@ const IbeBoardListComponent = () => {
             {
             noticePosts.map((post) => (
                 <>
-                {currentPage === '1' ? 
+                {currentPage === 1 ? 
                 <>
                 <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer'}}>
                   <td style={{ fontWeight: 'bold' ,backgroundColor:'#FFFAFA'}}></td> {/* No ID displayed */}
@@ -188,10 +220,29 @@ const IbeBoardListComponent = () => {
             ))}
           </tbody>
         </Table>
+        <div style={{textAlign:'center'}}>
+        <select id='searchCategory' style={{ width:'90px', height:'40px'}}>
+            <option value={'ALL'}>전체</option>
+            <option value={'NOTICE'}>공지</option>
+            <option value={'REQUEST'}>요청</option>
+            <option value={'QUESTION'}>질문</option>
+            <option value={'INFORMATION'}>정보</option>
+            <option value={'GENERAL'}>일반</option>
+          </select>
+          <select id='searchType' style={{ width:'90px', height:'40px'}}>
+            <option value={'title'}>제목</option>
+            <option value={'name'}>작성자</option>
+          </select>
+          <input id='searchValue' placeholder='검색어를 입력해주세요'style={{ width:'400px', height:'40px'}}></input>
+          <button className="board-add-post-btn" onClick={handleSearch} style={{ height:'40px'}}>
+            검색
+          </button>
+        </div>
         <div className="text-end">
           <Button className="board-add-post-btn" onClick={handleWriteClick}>
             글쓰기
           </Button>
+          
         </div>
         <Pagination className="board-pagination justify-content-center">
           {[...Array(Math.ceil(normalPosts.length / itemsPerPage)).keys()].map(

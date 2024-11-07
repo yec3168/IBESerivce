@@ -107,5 +107,14 @@ public class BoardController {
         }
     }
 
+    @GetMapping("/search")
+    public Response getBoardList(@RequestParam String category,
+                                 @RequestParam String type,@RequestParam String value){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.searchBoardTitle(category,type,value), "200");
+        }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
 
 }
