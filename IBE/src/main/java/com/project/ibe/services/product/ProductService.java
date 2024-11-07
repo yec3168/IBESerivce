@@ -4,6 +4,7 @@ import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.product.*;
 import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.common.ProductUploadStatus;
+import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductComment;
 import com.project.ibe.entity.product.ProductImg;
@@ -241,6 +242,10 @@ public class ProductService {
                         () -> new BusinessException("게시글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
                 );
     }
+    public List<Product> findAllByMember(Member member){
+        return productRepository.findAllByMember(member);
+    }
+
     private ProductComment findProductCommentById(Long id) {
         return productCommentRepository.findById(id)
                 .orElseThrow(
