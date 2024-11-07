@@ -21,6 +21,7 @@ public class Order {
     private Long orderId;
 
     @Column(unique = false)
+    @Enumerated(EnumType.STRING)
     private OrderState orderState;
 
     @Column(unique = false)
