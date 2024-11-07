@@ -41,7 +41,8 @@ const MypageSlistPagingComponent = () => {
         thumbnail : order.imagePath,
         orderState : order.orderState,
         orderMemberNickName : order.orderMemberNickName !== null ? "구매자 : " + order.orderMemberNickName : null , // 구매자 닉네임
-    }));
+    }))
+    .sort((a, b) => new Date(b.listedDate.split(" : ")[1]) - new Date(a.listedDate.split(" : ")[1])); // 내림차순 정렬
 
 
      const addComma = (price) => {

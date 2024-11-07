@@ -3,6 +3,7 @@ import { Card, Container, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; 
 import { getMemberInfo } from '../service/MypageService'; 
 import { getOrderList } from "../service/OrderService";
+import { getSellList } from "../service/OrderService";
 
 const MemberInfoCardComponent = () => {
   const [error, setError] = useState(null);
@@ -10,6 +11,7 @@ const MemberInfoCardComponent = () => {
 
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]); // 초기값을 빈 배열로 설정
+  const [sells, setSells] = useState([]); // 초기값을 빈 배열로 설정
   
   useEffect(() => {
     // 멤버 정보 조회 API 호출
@@ -21,22 +23,35 @@ const MemberInfoCardComponent = () => {
           }
         } catch (error) {
           console.error('멤버 정보 조회 실패:', error);
+          setError(error)
         }
       };
       fetchMemberInfo(); 
     }, []);
     useEffect(() => {
         getOrderList()
-        .then(response => {
-            console.log("Response:", response);  // 응답을 로깅하여 확인합니다.
-            if(response.data.code ==="200"){
-                setOrders(response.data.data)
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
-        });
+            .then(response => {
+                console.log("Response:", response);  // 응답을 로깅하여 확인합니다.
+                if(response.data.code ==="200"){
+                  setOrders(response.data.data)
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
+            });
+
+        getSellList()
+            .then(response => {
+                console.log("Response:", response);  // 응답을 로깅하여 확인합니다.
+                if(response.data.code ==="200"){
+                  setSells(response.data.data)
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
+            });
     }, []);
+
 
 
   if (error) {
@@ -73,7 +88,7 @@ const MemberInfoCardComponent = () => {
             구매 &nbsp;<strong>{orders.length} 건</strong>
           </Card.Text>
           <Card.Text className="mx-4" onClick={handleSalesClick} style={{ cursor: 'pointer' }} id="card_toSlist">
-            판매 &nbsp;<strong>5 건</strong>
+            판매 &nbsp;<strong>{sells.length} 건</strong>
           </Card.Text>
         </div>
       </Card.Body>

@@ -1,4 +1,4 @@
-import { Badge, Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 import badge_available from '../assets/images/main/badge/badge_available.png'

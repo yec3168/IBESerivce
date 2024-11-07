@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Col, Container, Pagination, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { getSellList } from "../service/OrderService";
 import thumbnail2 from '../assets/images/thumbnail2.png';
 import badge_available from '../assets/images/main/badge/badge_available.png';
@@ -36,7 +36,10 @@ const MypageSalesListComponent = () => {
             thumbnail : order.imagePath,
             orderState : order.orderState,
             orderMemberNickName : order.orderMemberNickName !== null ? "구매자 : " + order.orderMemberNickName : null , // 구매자 닉네임
-        }));
+        }))
+        .sort((a, b) => new Date(b.listedDate.split(" : ")[1]) - new Date(a.listedDate.split(" : ")[1])); // 내림차순 정렬
+
+
     
          const addComma = (price) => {
                     let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
