@@ -5,13 +5,20 @@ import './Mypage.css';
 import { getInquiries } from '../service/InquiryService';
 
 const MypageInquiryListComponent = () => {
+    const today = new Date();
+    const oneWeekAgo = new Date(today);
+    oneWeekAgo.setDate(today.getDate() - 7); 
+
+    const formattedToday = today.toISOString().split('T')[0];
+    const formattedOneWeekAgo = oneWeekAgo.toISOString().split('T')[0];
+
     const [inquiries, setInquiries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
-    const [startDate, setStartDate] = useState('2024-10-25');
-    const [endDate, setEndDate] = useState('2024-11-08');
-    
+
+    const [startDate, setStartDate] = useState(formattedOneWeekAgo);  // 검색 시작 날짜 == 일주일 전 날짜
+    const [endDate, setEndDate] = useState(formattedToday);           // 검색 끝 날짜 == 오늘 날짜
+
     const handleDateChange = () => {
         setLoading(true);
         setError(null);
@@ -22,11 +29,18 @@ const MypageInquiryListComponent = () => {
         getInquiries()
             .then(response => {
                 if (response && response.data.data.data && Array.isArray(response.data.data.data)) {
-                    const filteredInquiries = response.data.data.data.filter(inquiry => {
+                    let filteredInquiries = response.data.data.data.filter(inquiry => {
                         const inquiryDate = new Date(inquiry.inquiryCreatedAt);
                         const start = new Date(startDate);
                         const end = endDateAdjusted;
                         return inquiryDate >= start && inquiryDate <= end;
+                    });
+
+                    // 최신순 정렬
+                    filteredInquiries = filteredInquiries.sort((a, b) => {
+                        const dateA = new Date(a.inquiryCreatedAt);
+                        const dateB = new Date(b.inquiryCreatedAt);
+                        return dateB - dateA; 
                     });
 
                     setInquiries(filteredInquiries);
