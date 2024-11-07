@@ -3,6 +3,8 @@ package com.project.ibe.services.order;
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.order.OrderFormRequest;
 import com.project.ibe.dto.order.OrderFormResponse;
+import com.project.ibe.dto.order.OrderListResponse;
+import com.project.ibe.dto.product.ProductDetailResponse;
 import com.project.ibe.entity.common.OrderState;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.order.Order;
@@ -18,6 +20,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +35,9 @@ public class OrderService {
 
     private final ModelMapper modelMapper;
 
-    //주문정보 저장.
+    /**
+     * 구매 정보 저장.
+     */
     public OrderFormResponse saveOrders(OrderFormRequest orderFormRequest, PrincipalDTO principalDTO){
         //구매자 정보.
         Member orderMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
@@ -68,5 +73,36 @@ public class OrderService {
                                 .build());
 
         return modelMapper.map(savedOrder, OrderFormResponse.class);
+    }
+
+
+    /**
+     * 구매목록 조회.
+     */
+    public List<OrderListResponse> getOrderList(PrincipalDTO principalDTO){
+        // 마이페이지 사용자 정보.
+        Member orderMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        // 주문목록 조회 ( 주문조회시 주문번호 내림차순으로 정렬)
+        List<Order> orderList = orderRepository.findAllByOrderMemberOrderByOrderIdDesc(orderMember);
+
+        List<OrderListResponse> orderListResponseList = new ArrayList<>();
+        for(Order order : orderList){
+            System.out.println(order.toString());
+            //물품 정보가져오기.
+            ProductDetailResponse productDetailResponse = productService.getProductDetail(order.getProduct().getProductId());
+
+            // 주문정보 저장.
+            OrderListResponse orderListResponse = modelMapper.map(order, OrderListResponse.class);
+            orderListResponse.setProductTitle(productDetailResponse.getProductTitle()); // 물품 제목
+            orderListResponse.setProductPoint(productDetailResponse.getProductPoint()); //물품 포인트
+            orderListResponse.setMember(productDetailResponse.getMember());             //판매자 정보.
+            if(!productDetailResponse.getImagePath().isEmpty())
+                orderListResponse.setImagePath(productDetailResponse.getImagePath().get(0)); //썸네일.
+
+            orderListResponseList.add(orderListResponse);
+        }
+
+        return orderListResponseList;
     }
 }
