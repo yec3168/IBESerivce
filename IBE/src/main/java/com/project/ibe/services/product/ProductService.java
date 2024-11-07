@@ -162,6 +162,14 @@ public class ProductService {
      */
     public ProductOrderResponse getProductOrderResponse(Long productId, PrincipalDTO principalDTO){
         Product product = findProductById(productId);
+
+        // 사용자 정보.
+        Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        //자기자신 물품 못사게 막음.
+        if(member.equals(product.getMember()))
+            throw new BusinessException("자신의 물품을 살 수 없습니다.", HttpStatus.BAD_REQUEST);
+
         List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
 
         ProductOrderResponse productOrderResponse = modelMapper.map(product, ProductOrderResponse.class);
@@ -170,7 +178,7 @@ public class ProductService {
         }
 
         // 로그인한 사용자의 회원정보를 넣음
-        productOrderResponse.setMember(memberService.getMemberByEmail(principalDTO.getMemberEmail()));
+        productOrderResponse.setMember(member);
 
 
         return productOrderResponse;
