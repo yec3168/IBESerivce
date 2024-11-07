@@ -18,6 +18,7 @@ public class BoardDetailResponse {
     private String boardContent;
     private int boardHit;
     private int boardCommentCnt;     //댓글 수.
+    private boolean boardStatus;
 
 
 }

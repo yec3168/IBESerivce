@@ -1,0 +1,19 @@
+.board-reply-head {
+  padding-left: 20px;
+}
+.board-reply-body {
+  padding-left: 20px;
+}
+
+.board-submit-btn {
+  font-family: 'CookieRun-Regular', sans-serif !important;
+  font-size: 14px;
+  color: black;
+  background-color: #ffd97a;
+  border: none;
+  padding: 5px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* 부드러운 배경색 변화 효과 */
+}
