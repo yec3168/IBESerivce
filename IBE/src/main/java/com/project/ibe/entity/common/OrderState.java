@@ -6,7 +6,7 @@ public enum OrderState {
     COMPLETED("거래 완료"),
     SHIPPING("배송 중"),
     DELIVERED("배송 완료"),
-    REJECTED("거부됨");
+    REJECTED("구매 거부");
 
     private final String description;
 
