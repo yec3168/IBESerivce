@@ -45,7 +45,7 @@ const MypagePlistPagingComponent = () => {
         seller: order.member.memberNickName,//`판매자${index + 1} 닉네임`,
         price: order.productPoint + " P",//`${(index + 1) * 10000} P`,
         listedDate: order.orderDate,//'2024-10-25 19:00',
-        deliveryDate: order.orderDeliveryDate !== null ? order.orderDeliveryDate: "미정" ,//'2024-10-25 19:00',
+        deliveryDate: order.orderDeliveryDate !== null ? order.orderDeliveryDate: null ,//'2024-10-25 19:00',
         thumbnail : order.imagePath,
         orderState : order.orderState,
     }));
@@ -85,7 +85,7 @@ const MypagePlistPagingComponent = () => {
                         <Col xs={4} id="col_purListPaging">
                             <div>
                                 <div>신청 일자: {item.listedDate}</div>
-                                <div>배송 도착: {item.deliveryDate}</div>
+                                <div>{item.deliveryDate !== null ? <span>배송 도착: {item.deliveryDate} </span>: ""}</div>
                             </div>
                         </Col>
                         <Col xs={2} id="col_purListPaging">
