@@ -203,9 +203,9 @@ const MemberInfoChangeComponent = () => {
                 <hr />
 
                 <Form onSubmit={handleSubmit}>
-                    {/* 아이디 */}
+                    {/* 이메일 */}
                     <Form.Group as={Row} className="mb-4 mt-5">
-                        <Form.Label column sm={2}>아이디</Form.Label>
+                        <Form.Label column sm={2}>이메일</Form.Label>
                         <Col sm={8}>
                             <Form.Control plaintext readOnly defaultValue={memberInfo.memberEmail} />
                         </Col>
