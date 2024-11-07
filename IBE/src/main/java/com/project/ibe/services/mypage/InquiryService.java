@@ -59,6 +59,7 @@ public class InquiryService {
         response.setInquiryContent(inquiry.getInquiryContent());
         response.setInquiryCreatedAt(inquiry.getInquiryCreatedAt());
         response.setInquiryAnswered(inquiry.getInquiryAnswered());
+        response.setInquiryId(inquiry.getInquiryId());
 
         return response;
     }
@@ -108,6 +109,21 @@ public class InquiryService {
         InquiryAnswerResponse response = new InquiryAnswerResponse();
         response.setInquiryAnswered(inquiry.getInquiryAnswered());
         response.setInquiryAnswerContent(inquiryAnswer.getInquiryAnswerContent());
+
+        return response;
+    }
+
+    // 일대일문의 조회
+    public InquiryResponse getInquiry(PrincipalDTO principal, Long id) {
+        Inquiry inquiry = inquiryRepository.findByInquiryId(id)
+                .orElseThrow(() -> new BusinessException("Inquiry not found", HttpStatus.NOT_FOUND));
+
+        InquiryResponse response = new InquiryResponse();
+
+        response.setInquiryId(inquiry.getInquiryId());
+        response.setInquiryCategory(inquiry.getInquiryCategory());
+        response.setInquiryTitle(inquiry.getInquiryTitle());
+        response.setInquiryContent(inquiry.getInquiryContent());
 
         return response;
     }

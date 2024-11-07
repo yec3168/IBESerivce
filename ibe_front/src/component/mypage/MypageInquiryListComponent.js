@@ -149,7 +149,7 @@ const MypageInquiryListComponent = () => {
                                     {inquiry.inquiryAnswered ? '답변 완료' : '답변 대기'}
                                 </Badge>
                                 {/* 문의 내용 */}
-                                <Link to={`/mypage/inquiry/answer/${inquiry.inquiryTitle}`} className="text-decoration-none">
+                                <Link to={`/mypage/inquiry/answer/${inquiry.inquiryId}`} className="text-decoration-none">
                                     <span className="hover-highlight">{inquiry.inquiryTitle}</span>
                                 </Link>
                             </div>

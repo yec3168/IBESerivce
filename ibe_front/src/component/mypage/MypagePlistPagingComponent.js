@@ -1,23 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Col, Container, Pagination, Row } from "react-bootstrap";
 import thumbnail2 from '../assets/images/thumbnail2.png';
+import badge_available from '../assets/images/main/badge/badge_available.png'
 import badge_finished from '../assets/images/main/badge/badge_finished.png';
 
-const MypagePlistPagingComponent = () => {
-    const productNames = [
-        '유모차', '유아 모빌', '신생아 우주복', '이유식 용기', '아기 침대', '아기띠',
-        '젖병', '분유통', '신생아 배냇저고리', '유아 장난감', '아기 발싸개',
-        '아기 화장대', '카시트', '아기 소독기', '아기 모자', '이불 세트',
-        '유아용 식탁 의자', '아기 수영복', '유아용 신발', '신생아 수면조끼'
-    ];
+import { getOrderList } from "../service/OrderService";
 
-    const purchaseList = productNames.map((name, index) => ({
-        id: index + 1,
-        title: `${name} 판매합니다`,
-        seller: `판매자${index + 1} 닉네임`,
-        price: `${(index + 1) * 10000} P`,
-        listedDate: '2024-10-25 19:00',
-        deliveryDate: '2024-10-25 19:00',
+
+const MypagePlistPagingComponent = () => {
+
+    const [orders, setOrders] = useState([]); // 초기값을 빈 배열로 설정
+    useEffect(() => {
+        getOrderList()
+        .then(response => {
+            console.log("Response:", response);  // 응답을 로깅하여 확인합니다.
+            if(response.data.code ==="200"){
+                setOrders(response.data.data)
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
+        });
+    }, []);
+
+    // const productNames = [
+    //     '유모차', '유아 모빌', '신생아 우주복', '이유식 용기', '아기 침대', '아기띠',
+    //     '젖병', '분유통', '신생아 배냇저고리', '유아 장난감', '아기 발싸개',
+    //     '아기 화장대', '카시트', '아기 소독기', '아기 모자', '이불 세트',
+    //     '유아용 식탁 의자', '아기 수영복', '유아용 신발', '신생아 수면조끼'
+    // ];
+     const addComma = (price) => {
+            let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return returnString;
+        }
+
+    const getFullImageUrl = (imagePath) => {
+        const cleanPath = imagePath.replace(/\\/g, "/"); // 백슬래시를 슬래시로 변경
+        return cleanPath.startsWith("http") ? cleanPath : `http://localhost:8080${cleanPath}`;
+    };
+
+    const purchaseList = orders.map((order, index) => ({
+        id: order.orderId,
+        title: order.productTitle,//`${name} 판매합니다`,
+        seller: order.member.memberNickName,//`판매자${index + 1} 닉네임`,
+        price: order.productPoint + " P",//`${(index + 1) * 10000} P`,
+        listedDate: order.orderDate,//'2024-10-25 19:00',
+        deliveryDate: order.orderDeliveryDate !== null ? order.orderDeliveryDate: null ,//'2024-10-25 19:00',
+        thumbnail : order.imagePath,
+        orderState : order.orderState,
     }));
 
     const itemsPerPage = 5; // 한 페이지에 5개 씩 띄움
@@ -31,6 +61,8 @@ const MypagePlistPagingComponent = () => {
         setCurrentPage(page);
     };
 
+    
+
     return (
         <>
             {/* 구매 목록 타이틀 */}
@@ -41,29 +73,39 @@ const MypagePlistPagingComponent = () => {
                 {currentItems.map(item => (
                     <Row className="my-2" key={item.id}>
                         <Col xs={1} id="col_purListPaging">
-                            <img src={thumbnail2} alt="thumbnailImg" id="img_purListPagingThumbnail"/>
+                            <img src={getFullImageUrl(item.thumbnail)} alt="thumbnailImg" id="img_purListPagingThumbnail"  onError={(e) => e.target.src = thumbnail2}/>
                         </Col>
                         <Col xs={2} id="col_purListPagingTitle">
                             <div>
                                 <div id="purListPagingTitle">{item.title}</div>
                                 <div>{item.seller}</div>
-                                <div>{item.price}</div>
+                                <div>{addComma(item.price)}</div>
                             </div>
                         </Col>
                         <Col xs={4} id="col_purListPaging">
                             <div>
                                 <div>신청 일자: {item.listedDate}</div>
-                                <div>배송 도착: {item.deliveryDate}</div>
+                                <div>{item.deliveryDate !== null ? <span>배송 도착: {item.deliveryDate} </span>: ""}</div>
+                            </div>
+                        </Col>
+                        <Col xs={2} id="col_purListPaging">
+                       
+                            <div>
+                                {item.orderState === "AVAILABLE" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}
+                                {item.orderState === "COMPLETED" &&  <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/>}
+                                {/* 배송중사진 */}
+                                {item.orderState === "SHIPPING" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}    
+                                {/* 배송완료사진 */}
+                                {item.orderState === "DELIVERED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
+                                {/* <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/> */}
                             </div>
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/>
-                            </div>
-                        </Col>
-                        <Col xs={2} id="col_purListPaging">
-                            <div>
-                                <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>
+                                {item.orderState === "AVAILABLE" &&   <div />}
+                                {item.orderState === "COMPLETED" &&   <div />}
+                                {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
+                                {item.orderState === "DELIVERED" &&   <div />}
                             </div>
                         </Col>
                     </Row>

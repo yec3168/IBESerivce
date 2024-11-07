@@ -2,6 +2,7 @@ package com.project.ibe.controller;
 
 import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.mypage.InquiryAnswerRequest;
+import com.project.ibe.dto.mypage.InquiryIdRequest;
 import com.project.ibe.dto.mypage.InquiryRequest;
 import com.project.ibe.dto.mypage.InquiryResponse;
 import com.project.ibe.entity.common.Response;
@@ -50,6 +51,18 @@ public class InquiryController {
     public Response getInquiryAnswer(PrincipalDTO principal, @RequestBody @Valid InquiryAnswerRequest request) {
         try {
             return new Response(ResponseCode.SUCCESS, inquiryService.getInquiryAnswer(principal, request), "200");
+        } catch (Exception e) {
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
+    // 문의 조회 by inquiryId
+    @GetMapping("/inquiry/{id}")
+//    @GetMapping("/inquiry/id")
+//    public Response getInquiry(PrincipalDTO principal, @RequestBody @Valid InquiryIdRequest request){
+    public Response getInquiry(PrincipalDTO principal, @PathVariable Long id){
+        try {
+            return new Response(ResponseCode.SUCCESS, inquiryService.getInquiry(principal, id), "200");
         } catch (Exception e) {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }

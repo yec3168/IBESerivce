@@ -153,9 +153,10 @@
     height: 50px;
     width: 90%;
     margin-top: 20px;
-    padding-left: 20px; 
+    padding-left: 40px; 
     display: flex;
     align-items: center;
+    border-radius: 10px;
 }
 
 #col_purList {
@@ -204,13 +205,14 @@
 
 #h3_salListTitle{
     font-family: "CookieRun-Regular", sans-serif !important;
-    background-color: #f6c3b23f;;
+    background-color: #f6c3b23f;
     height: 50px;
     width: 90%;
     margin-top: 20px;
-    padding-left: 20px; 
+    padding-left: 40px; 
     display: flex;
     align-items: center;
+    border-radius: 10px;
 }
 
 #col_salList{
