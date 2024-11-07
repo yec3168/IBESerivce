@@ -4,6 +4,9 @@ import { getSellList } from "../service/OrderService";
 import thumbnail2 from '../assets/images/thumbnail2.png';
 import badge_available from '../assets/images/main/badge/badge_available.png';
 import badge_finished from '../assets/images/main/badge/badge_finished.png';
+import badge_delivery from '../assets/images/main/badge/badge_delivery.png'
+import badge_delivery_complete from "../assets/images/main/badge/badge_delivery_complete.png";
+import badge_rejected from "../assets/images/main/badge/badge_rejected.png"
 
 const MypageSlistPagingComponent = () => {
 
@@ -22,12 +25,12 @@ const MypageSlistPagingComponent = () => {
     }, []);
 
 
-    const productNames = [
-        '유모차', '유아 모빌', '신생아 우주복', '이유식 용기', '아기 침대', '아기띠',
-        '젖병', '분유통', '신생아 배냇저고리', '유아 장난감', '아기 발싸개',
-        '아기 화장대', '카시트', '아기 소독기', '아기 모자', '이불 세트',
-        '유아용 식탁 의자', '아기 수영복', '유아용 신발', '신생아 수면조끼'
-    ];
+    // const productNames = [
+    //     '유모차', '유아 모빌', '신생아 우주복', '이유식 용기', '아기 침대', '아기띠',
+    //     '젖병', '분유통', '신생아 배냇저고리', '유아 장난감', '아기 발싸개',
+    //     '아기 화장대', '카시트', '아기 소독기', '아기 모자', '이불 세트',
+    //     '유아용 식탁 의자', '아기 수영복', '유아용 신발', '신생아 수면조끼'
+    // ];
 
     const purchaseList = orders.map((order, index) => ({
         id: order.orderId,
@@ -92,21 +95,19 @@ const MypageSlistPagingComponent = () => {
                         <Col xs={2} id="col_purListPaging">
                     
                             <div>
-                                {item.orderState === "AVAILABLE" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}
+                            {item.orderState === "AVAILABLE" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}
                                 {item.orderState === "COMPLETED" &&  <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/>}
                                 {/* 배송중사진 */}
-                                {item.orderState === "SHIPPING" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}    
+                                {item.orderState === "SHIPPING" &&  <img src={badge_delivery} alt="finished" id="img_purListPagingBadge"/>}    
                                 {/* 배송완료사진 */}
-                                {item.orderState === "DELIVERED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
-                                {/* 구매거부*/}
-                                {item.orderState === "REJECTED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
+                                {item.orderState === "DELIVERED" &&  <img src={badge_delivery_complete} alt="finished" id="img_purListPagingBadge"/>} 
                                 {/* <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/> */}
                             </div>
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {item.orderState === "AVAILABLE" &&   <div />}
-                                {item.orderState === "COMPLETED" &&   <div />}
+                                {item.orderState === "AVAILABLE" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">거래 확정</Button>}
+                                {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />}
                             </div>

@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 
 import badge_available from '../assets/images/main/badge/badge_available.png'
 import badge_finished from '../assets/images/main/badge/badge_finished.png';
+import badge_delivery from '../assets/images/main/badge/badge_delivery.png'
+import badge_delivery_complete from "../assets/images/main/badge/badge_delivery_complete.png";
+import badge_rejected from "../assets/images/main/badge/badge_rejected.png"
+
 import thumbnail2 from '../assets/images/thumbnail2.png';
 
 import { getOrderList } from "../service/OrderService";
@@ -138,11 +142,11 @@ const MypagePurchaseListComponent = () => {
                                 {item.orderState === "AVAILABLE" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}
                                 {item.orderState === "COMPLETED" &&  <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/>}
                                 {/* 배송중사진 */}
-                                {item.orderState === "SHIPPING" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}    
+                                {item.orderState === "SHIPPING" &&  <img src={badge_delivery} alt="finished" id="img_purListPagingBadge"/>}    
                                 {/* 배송완료사진 */}
-                                {item.orderState === "DELIVERED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
+                                {item.orderState === "DELIVERED" &&  <img src={badge_delivery_complete} alt="finished" id="img_purListPagingBadge"/>} 
                                 {/* 구매거부*/}
-                                {item.orderState === "REJECTED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
+                                {item.orderState === "REJECTED" &&  <img src={badge_rejected} alt="finished" id="img_purListPagingBadge"/>} 
                                 {/* <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/> */}
                             </div>
                         </Col>
