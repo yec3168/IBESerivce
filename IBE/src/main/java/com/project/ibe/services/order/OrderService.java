@@ -52,7 +52,7 @@ public class OrderService {
 
         // 판매자정보 == 구매자 정보 확인
         if(product.getMember().equals(orderMember))
-            throw new BusinessException("본인의 물건을 구매할 수 없습니다.", HttpStatus.BAD_REQUEST);
+            throw new BusinessException("자신의 물품을 구매할 수 없습니다.", HttpStatus.BAD_REQUEST);
 
         // 중복 주문 확인
         List<Order> orderList = orderRepository.findByProductAndOrderMemberEmail(product, orderMember.getMemberEmail());

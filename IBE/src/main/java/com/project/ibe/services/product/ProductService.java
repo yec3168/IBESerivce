@@ -168,7 +168,7 @@ public class ProductService {
 
         //자기자신 물품 못사게 막음.
         if(member.equals(product.getMember()))
-            throw new BusinessException("자신의 물품을 살 수 없습니다.", HttpStatus.BAD_REQUEST);
+            throw new BusinessException("자신의 물품을 구매할 수 없습니다.", HttpStatus.BAD_REQUEST);
 
         List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
 
