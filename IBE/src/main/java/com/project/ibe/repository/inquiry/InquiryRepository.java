@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Integer> {
-    List<Inquiry> findByInquiryStatus(Boolean inquiryStatus);
+    List<Inquiry> findByInquiryAnswered(Boolean inquiryAnswered);
     Optional<Inquiry> findByInquiryId(Long inquiryId);
 }

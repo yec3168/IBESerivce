@@ -4,7 +4,6 @@ package com.project.ibe.services.admin;
 import com.project.ibe.dto.admin.AdminAnsweredInquiryResponse;
 import com.project.ibe.dto.admin.AdminInquiryAnswerRequest;
 import com.project.ibe.dto.admin.AdminInquiryResponse;
-import com.project.ibe.dto.admin.SalesRequestResponse;
 import com.project.ibe.entity.inquiry.Inquiry;
 import com.project.ibe.entity.inquiry.InquiryAnswer;
 import com.project.ibe.entity.member.Member;
@@ -32,7 +31,7 @@ public class AdminInquiryService {
     private final ModelMapper modelMapper;
 
     public List<AdminInquiryResponse> getInquiryList() {
-        List<Inquiry> inquiryList = inquiryRepository.findByInquiryStatus(false);
+        List<Inquiry> inquiryList = inquiryRepository.findByInquiryAnswered(false);
         return inquiryList.stream()
                 .map(inquiry -> {
                     AdminInquiryResponse response = modelMapper.map(inquiry, AdminInquiryResponse.class);
@@ -54,11 +53,11 @@ public class AdminInquiryService {
         inquiryAnswer.setInquiryAnswerCreatedAt(LocalDateTime.now());
         inquiryAnswer.setInquiryAnswerContent(adminInquiryAnswerRequest.getInquiryAnswerContent());
         inquiryAnswerRepository.save(inquiryAnswer);
-        existInquiry.setInquiryStatus(true);
+        existInquiry.setInquiryAnswered(true);
     }
 
     public List<AdminInquiryResponse> getAnsweredInquiryList() {
-        List<Inquiry> inquiryList = inquiryRepository.findByInquiryStatus(true);
+        List<Inquiry> inquiryList = inquiryRepository.findByInquiryAnswered(true);
         return inquiryList.stream()
                 .map(inquiry -> {
                     AdminInquiryResponse response = modelMapper.map(inquiry, AdminInquiryResponse.class);
