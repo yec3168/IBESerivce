@@ -164,4 +164,8 @@ public class MemberService {
                 );
         return member;
     }
+
+    public Member saveMember(Member member){
+        return memberRepository.save(member);
+    }
 }

@@ -27,7 +27,8 @@ public class MypageService {
 
     // 멤버 정보 전부 조회
     public MemberInfoResponse getMemberInfo(PrincipalDTO principal) {
-        Member member = memberRepository.findByMemberEmail(principal.getMemberEmail()).orElseThrow();
+        Member member = memberRepository.findByMemberId(principal.getMemberId())
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
 
         MemberBank memberBank = memberBankRepository.findByMember_MemberId(member.getMemberId())
                 .orElseThrow(() -> new BusinessException("Member bank not found", HttpStatus.NOT_FOUND));
