@@ -148,10 +148,14 @@ const MypageInquiryListComponent = () => {
                                 <Badge pill className={`me-2 badge_${inquiry.inquiryAnswered ? 'complete' : 'processing'}`}>
                                     {inquiry.inquiryAnswered ? '답변 완료' : '답변 대기'}
                                 </Badge>
-                                {/* 문의 내용 */}
-                                <Link to={`/mypage/inquiry/answer/${inquiry.inquiryId}`} className="text-decoration-none">
-                                    <span className="hover-highlight">{inquiry.inquiryTitle}</span>
-                                </Link>
+                                {/* 답변 대기인 경우 Link 비활성화 */}
+                                {inquiry.inquiryAnswered ? (
+                                    <Link to={`/mypage/inquiry/answer/${inquiry.inquiryId}`} className="text-decoration-none">
+                                        <span className="hover-highlight">{inquiry.inquiryTitle}</span>
+                                    </Link>
+                                ) : (
+                                    <span className="text-muted">{inquiry.inquiryTitle}</span>
+                                )}
                             </div>
                         ))}
                     </Tab.Pane>
@@ -161,9 +165,8 @@ const MypageInquiryListComponent = () => {
                         {inquiriesProcessing.map(inquiry => (
                             <div key={inquiry.inquiryTitle} className="p-3 border rounded d-flex align-items-center mb-2">
                                 <Badge pill className="me-2 badge_processing">답변 대기</Badge>
-                                <Link to={`/mypage/inquiry/answer/${inquiry.inquiryTitle}`} className="text-decoration-none">
-                                    <span className="hover-highlight">{inquiry.inquiryTitle}</span>
-                                </Link>
+                                {/* 답변 대기인 경우 Link 비활성화 */}
+                                <span className="text-muted">{inquiry.inquiryTitle}</span>
                             </div>
                         ))}
                     </Tab.Pane>
@@ -173,7 +176,7 @@ const MypageInquiryListComponent = () => {
                         {inquiriesComplete.map(inquiry => (
                             <div key={inquiry.inquiryTitle} className="p-3 border rounded d-flex align-items-center mb-2">
                                 <Badge pill className="me-2 badge_complete">답변 완료</Badge>
-                                <Link to={`/mypage/inquiry/answer/${inquiry.inquiryTitle}`} className="text-decoration-none">
+                                <Link to={`/mypage/inquiry/answer/${inquiry.inquiryId}`} className="text-decoration-none">
                                     <span className="hover-highlight">{inquiry.inquiryTitle}</span>
                                 </Link>
                             </div>
@@ -183,7 +186,6 @@ const MypageInquiryListComponent = () => {
             </Tab.Container>
 
             {/* Pagination */}
-            {/* 탭 별로 페이징 처리하지 않으면 데이터 수가 달라 페이지 수가 추가되어 보임 */}
             <Row className="justify-content-center mt-2">
                 {activeKey === 'inqAll' && (
                     <Pagination id="pagination_purListPaging">
