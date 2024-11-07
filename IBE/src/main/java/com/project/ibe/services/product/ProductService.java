@@ -235,7 +235,7 @@ public class ProductService {
 
         return modelMapper.map(productReply, ProductReplyResponse.class);
     }
-    private Product findProductById(Long id) {
+    public Product findProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(
                         () -> new BusinessException("게시글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
