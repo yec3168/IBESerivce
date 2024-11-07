@@ -130,3 +130,82 @@
 .admin-sr-error-message {
   color: red;
 }
+
+.admin-sr-image {
+  width: 150px;
+  height: 150px;
+  margin: 0.5rem;
+  object-fit: cover;
+  border: 1px solid rgb(92, 92, 92);
+  border-radius: 4px;
+}
+
+.admin-sr-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.admin-sr-modal-content {
+  position: relative;
+  padding: 20px;
+  background: white;
+  max-width: 80%; /* 화면 너비의 최대 80% */
+  max-height: 80%; /* 화면 높이의 최대 80% */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-sr-modal-image {
+  max-width: 100%; /* 이미지의 최대 너비를 모달의 100%로 설정 */
+  max-height: 100%; /* 이미지의 최대 높이를 모달의 100%로 설정 */
+  object-fit: contain; /* 이미지가 비율을 유지하면서 크기 맞추기 */
+}
+
+.admin-sr-modal:hover {
+  cursor: default;
+}
+
+
+.admin-sr-image-td {
+  padding: 10px;
+  text-align: center;
+}
+
+.admin-sr-image-container {
+  position: relative; /* 이미지와 텍스트를 겹치게 하기 위해 상대 위치 설정 */
+  display: inline-block; /* 여러 이미지를 나열할 때 적합 */
+}
+
+.admin-sr-image {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer; /* 클릭할 수 있다는 피드백 */
+}
+
+.admin-sr-image-text {
+  position: absolute;
+  top: 50%; /* 세로 중앙 */
+  left: 50%; /* 가로 중앙 */
+  transform: translate(-50%, -50%); /* 정확한 중앙 위치 조정 */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 텍스트 가독성 향상 */
+  opacity: 0.7; /* 기본 투명도 */
+  pointer-events: none; /* 텍스트 클릭 방지 */
+}
+
+.admin-sr-image-container:hover .admin-sr-image-text {
+  opacity: 1; /* 마우스를 올렸을 때 텍스트의 투명도 증가 */
+}

@@ -89,12 +89,12 @@
 }
 
 .board-category-공지 {
-  color: blue; 
+  color: blue;
   font-weight: bold;
 }
 
 .board-category-신고 {
-  color: red; 
+  color: red;
   font-weight: bold;
 }
 
@@ -104,7 +104,7 @@
 }
 
 .board-category-문의 {
-  color: green; 
+  color: green;
   font-weight: bold;
 }
 
@@ -165,11 +165,7 @@
   text-decoration: underline;
 }
 
-/* .board-button {
-  border: none;
-  background-color: transparent;
+.board-comment-top {
+  font-size: 20px;
+  font-family: "CookieRun-Regular", sans-serif !important;
 }
-
-.board-button:focus {
-  outline: none;
-} */
