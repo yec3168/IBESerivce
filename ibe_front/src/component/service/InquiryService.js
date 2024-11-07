@@ -13,13 +13,7 @@ const headers = {
 export const getInquiries = () => axios.get(`${REST_API_URL}/inqlist`, headers );
 
 // 문의 답변 조회
-// export const getInquiryAnswer = () => axios.get(`${REST_API_URL}/inquiry/answer`, headers );
-export const getInquiryAnswer = (id) => {
-    return axios.get(`${REST_API_URL}/inquiry/answer`, {
-        headers,
-        params: { inquiryId: id }  // 쿼리 파라미터로 inquiryId를 전달
-    });
-};
+export const getInquiryAnswer = (id) => axios.get(`${REST_API_URL}/inquiry/answer/${id}`, headers);
 
 // 문의 등록
 export const postInquiry = (data) => {

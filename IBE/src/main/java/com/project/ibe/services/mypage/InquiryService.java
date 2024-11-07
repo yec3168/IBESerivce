@@ -99,11 +99,11 @@ public class InquiryService {
     }
 
     // 일대일문의답변 조회
-    public InquiryAnswerResponse getInquiryAnswer(PrincipalDTO principal, InquiryAnswerRequest request) {
-        Inquiry inquiry = inquiryRepository.findByInquiryId(request.getInquiryId())
+    public InquiryAnswerResponse getInquiryAnswer(PrincipalDTO principal, Long id) {
+        Inquiry inquiry = inquiryRepository.findByInquiryId(id)
                 .orElseThrow(() -> new BusinessException("Inquiry not found", HttpStatus.NOT_FOUND));
 
-        InquiryAnswer inquiryAnswer = inquiryAnswerRepository.findByInquiry_InquiryId(request.getInquiryId())
+        InquiryAnswer inquiryAnswer = inquiryAnswerRepository.findByInquiry_InquiryId(id)
                 .orElseThrow(() -> new BusinessException("Answer not found for this inquiry", HttpStatus.NOT_FOUND));
 
         InquiryAnswerResponse response = new InquiryAnswerResponse();
