@@ -230,10 +230,13 @@ const IbeBoardDetailsComponent = () => {
             <Row>
               <Form.Group controlId="newComment">
                 <Form.Control
-                  type="text"
-                  placeholder="댓글을 입력하세요"
+                  as="textarea"
+                  rows={3}
+                  placeholder="댓글을 입력하세요. (최대 200자)"
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
+                  maxLength={200} // 글자 수 200자 제한
+                  style={{ resize: 'none' }} // 크기 조절 기능 없애기
                 />
                 <Button
                   variant="primary"
