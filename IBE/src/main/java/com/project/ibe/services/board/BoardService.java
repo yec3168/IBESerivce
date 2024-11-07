@@ -192,4 +192,19 @@ public class BoardService {
         boardRepository.save(existBoard);
         return true;
     }
+
+
+    // 제목으로 검색
+    public List<BoardListResponse> searchBoardTitle(String title){
+        List<BoardListResponse> boardListResponseList;
+        List<Board> boardList = boardRepository.findByBoardStatusAndBoardTitleContaining(false,title);
+        boardListResponseList = new ArrayList<>();
+        for (Board board : boardList) {
+            BoardListResponse boardListResponse = modelMapper.map(board, BoardListResponse.class);
+            boardListResponse.setMemberNickName(board.getMember().getMemberNickName());
+            boardListResponse.setBoardCommentCnt(getCommentCntByBoard(board));// 댓글 수 추가 예정.
+            boardListResponseList.add(boardListResponse);
+        }
+        return boardListResponseList;
+    }
 }

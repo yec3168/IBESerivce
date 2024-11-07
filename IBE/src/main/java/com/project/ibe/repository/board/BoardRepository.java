@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByBoardStatus(boolean boardStatus);
     Optional<Board> findByBoardId(Long boardId);
+    List<Board> findByBoardStatusAndBoardTitleContaining(boolean boardStatus,String search);
 }
