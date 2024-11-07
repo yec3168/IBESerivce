@@ -1,12 +1,12 @@
 package com.project.ibe.services.mypage;
 
 import com.project.ibe.dto.member.PrincipalDTO;
-import com.project.ibe.dto.mypage.InquiryRequest;
-import com.project.ibe.dto.mypage.InquiryResponse;
-import com.project.ibe.dto.mypage.MemberInfoResponse;
+import com.project.ibe.dto.mypage.*;
 import com.project.ibe.entity.inquiry.Inquiry;
+import com.project.ibe.entity.inquiry.InquiryAnswer;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.exception.BusinessException;
+import com.project.ibe.repository.inquiry.InquiryAnswerRepository;
 import com.project.ibe.repository.inquiry.InquiryRepository;
 import com.project.ibe.repository.member.MemberRepository;
 import com.project.ibe.entity.common.Response;
@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class InquiryService {
     private final MemberRepository memberRepository;
     private final InquiryRepository inquiryRepository;
+    private final InquiryAnswerRepository inquiryAnswerRepository;
 
     // 문의 내역 조회
     public Response<List<InquiryResponse>> getInquiries(PrincipalDTO principal) {
@@ -90,6 +91,21 @@ public class InquiryService {
         response.setInquiryAnswered(inquiry.getInquiryAnswered());
 
         inquiryRepository.save(inquiry);
+
+        return response;
+    }
+
+    // 일대일문의답변 조회
+    public InquiryAnswerResponse getInquiryAnswer(PrincipalDTO principal, InquiryAnswerRequest request) {
+        Inquiry inquiry = inquiryRepository.findByInquiryId(request.getInquiryId())
+                .orElseThrow(() -> new BusinessException("Inquiry not found", HttpStatus.NOT_FOUND));
+
+        InquiryAnswer inquiryAnswer = inquiryAnswerRepository.findByInquiry_InquiryId(request.getInquiryId())
+                .orElseThrow(() -> new BusinessException("Answer not found for this inquiry", HttpStatus.NOT_FOUND));
+
+        InquiryAnswerResponse response = new InquiryAnswerResponse();
+        response.setInquiryAnswered(inquiry.getInquiryAnswered());
+        response.setInquiryAnswerContent(inquiryAnswer.getInquiryAnswerContent());
 
         return response;
     }
