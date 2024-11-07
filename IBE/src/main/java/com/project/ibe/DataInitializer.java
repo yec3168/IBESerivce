@@ -28,6 +28,7 @@ public class DataInitializer {
         executeSqlScript("classpath:sql/productComment_dummy.sql");
         executeSqlScript("classpath:sql/productReply_dummy.sql");
         executeSqlScript("classpath:sql/inquiry_dummy.sql");
+        executeSqlScript("classpath:sql/board_dummy.sql");
     }
 
     private void executeSqlScript(String scriptPath) {
