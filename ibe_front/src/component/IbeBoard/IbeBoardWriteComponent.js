@@ -25,7 +25,7 @@ const IbeBoardWriteComponent = () => {
       }
     const adminArr=["ROLE_ADMIN","ROLE_SERVICE_MANAGER","ROLE_BOARD_MANAGER"]
     for(let i=0;i<adminArr.length;i++){
-      if(tokenRole==adminArr[i]){
+      if(tokenRole===adminArr[i]){
         setIsAdmin(true);
       }
     }
