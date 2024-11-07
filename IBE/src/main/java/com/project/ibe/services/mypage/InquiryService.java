@@ -111,4 +111,18 @@ public class InquiryService {
 
         return response;
     }
+
+    // 일대일문의 조회
+    public InquiryResponse getInquiry(PrincipalDTO principal, InquiryIdRequest request) {
+        Inquiry inquiry = inquiryRepository.findByInquiryId(request.getInquiryId())
+                .orElseThrow(() -> new BusinessException("Inquiry not found", HttpStatus.NOT_FOUND));
+
+        InquiryResponse response = new InquiryResponse();
+
+        response.setInquiryCategory(inquiry.getInquiryCategory());
+        response.setInquiryTitle(inquiry.getInquiryTitle());
+        response.setInquiryContent(inquiry.getInquiryContent());
+
+        return response;
+    }
 }
