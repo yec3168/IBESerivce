@@ -17,6 +17,8 @@ public class SellerListResponse {
     private String sellerMemberNickName; // 판매자 닉네임 가져오기 위함.
     private Long productPoint;
     private String imagePath; // 썸네일
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+    private LocalDateTime productListedAt;
 
 
     //구매 관련.

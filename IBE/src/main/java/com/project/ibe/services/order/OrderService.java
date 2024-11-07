@@ -146,7 +146,7 @@ public class OrderService {
                 sellerListResponse.setSellerMemberNickName(sellMember.getMemberNickName());
                 if(!productDetailResponse.getImagePath().isEmpty())
                     sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
-
+                sellerListResponse.setProductListedAt(productDetailResponse.getProductCreatedAt());
                 sellerListResponseList.add(sellerListResponse);
             }
 
@@ -163,7 +163,7 @@ public class OrderService {
                     sellerListResponse.setSellerMemberNickName(sellMember.getMemberNickName());
                     if(!productDetailResponse.getImagePath().isEmpty())
                         sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
-
+                    sellerListResponse.setProductListedAt(productDetailResponse.getProductCreatedAt());
 
                     sellerListResponseList.add(sellerListResponse);
                 }
