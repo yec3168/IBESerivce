@@ -10,3 +10,5 @@ const headers = {
 }
 
 export const saveOrders = (orderFormReqeust) => axios.post(`${REST_API_URL}`, orderFormReqeust, headers);
+
+export const getOrderList = () => axios.get(`${REST_API_URL}`, headers);
