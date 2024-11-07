@@ -2,7 +2,7 @@ INSERT INTO `member` (
     entry_date, member_name, member_point, update_date, member_nick_name, member_addr, member_addr_detail,
     member_auth_number, member_email, member_password, member_phone, role, member_social_type
 ) VALUES
-      (NOW(), '홍길동', 100, NOW(), '홍닉', '서울특별시 강남구', NULL, '123456', 'hong@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1234-5678', 'ROLE_CLIENT', 'LOCAL'),
+      (NOW(), '홍길동', 100000, NOW(), '홍닉', '서울특별시 강남구', NULL, '123456', 'hong@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1234-5678', 'ROLE_CLIENT', 'LOCAL'),
       (NOW(), '김철수', 150, NOW(), '김닉', '부산광역시 해운대구', NULL, '654321', 'kim@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9876-5432', 'ROLE_CLIENT', 'LOCAL'),
       (NOW(), '이영희', 200, NOW(), '이닉', '대구광역시 중구', NULL, '111222', 'lee@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1122-3344', 'ROLE_ADMIN', 'LOCAL'),
       (NOW(), '박준형', 250, NOW(), '박닉', '인천광역시 부평구', NULL, '333444', 'park@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-2233-4455', 'ROLE_DEFAULT', 'LOCAL'),
