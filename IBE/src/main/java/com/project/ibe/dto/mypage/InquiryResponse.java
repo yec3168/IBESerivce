@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class InquiryResponse {
+    private Long inquiryId;
+
     private InquiryCategory inquiryCategory;
     private String inquiryTitle;
     private String inquiryContent;
