@@ -10,27 +10,26 @@ const IbeBoardWriteComponent = () => {
   const [category, setCategory] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [isAdmin,setIsAdmin] = useState(false);
-  
-    useEffect(() => {
-      const token = localStorage.getItem('accessToken');
-      let tokenRole;
-      if (token) {
-        try {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    let tokenRole;
+    if (token) {
+      try {
         const decodedToken = jwtDecode(token);
-        tokenRole = decodedToken.role // Get user role from the token
-        } catch (error) {
+        tokenRole = decodedToken.role; // Get user role from the token
+      } catch (error) {
         console.error('Token decoding error:', error);
-        }
       }
-    const adminArr=["ROLE_ADMIN","ROLE_SERVICE_MANAGER","ROLE_BOARD_MANAGER"]
-    for(let i=0;i<adminArr.length;i++){
-      if(tokenRole==adminArr[i]){
+    }
+    const adminArr = ["ROLE_ADMIN", "ROLE_SERVICE_MANAGER", "ROLE_BOARD_MANAGER"];
+    for (let i = 0; i < adminArr.length; i++) {
+      if (tokenRole === adminArr[i]) {
         setIsAdmin(true);
       }
     }
-    }, []);
-
+  }, []);
 
   // 글 작성 폼 제출 처리
   const handleSubmit = async (e) => {
@@ -106,13 +105,12 @@ const IbeBoardWriteComponent = () => {
                   className="board-select"
                 >
                   <option value="">선택하세요</option>
-                  {
-                    isAdmin ? <option value="NOTICE">공지</option> : null
-                  }
+                  {/* 관리자 또는 보드 관리자일 때만 공지 카테고리 옵션 표시 */}
+                  {isAdmin && <option value="NOTICE">공지</option>}
                   <option value="REQUEST">요청</option>
                   <option value="QUESTION">질문</option>
                   <option value="INFORMATION">정보</option>
-                  <option value="GENARAL">일반</option>
+                  <option value="GENERAL">일반</option>
                 </Form.Control>
               </Form.Group>
 

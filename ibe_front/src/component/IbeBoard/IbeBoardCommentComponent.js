@@ -1,12 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Row } from 'react-bootstrap';
 import './IbeBoardComment.css';
+import { jwtDecode } from 'jwt-decode';
 
 const IbeBoardCommentComponent = ({ boardId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [replyContent, setReplyContent] = useState('');
   const [showReplyInput, setShowReplyInput] = useState({});
+  const [isRestrictedUser, setIsRestrictedUser] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const userRole = decodedToken.role;
+        // 제한된 역할 확인
+        if (['ROLE_DEFAULT', 'ROLE_BANNED_CLIENT'].includes(userRole)) {
+          setIsRestrictedUser(true);
+        }
+      } catch (error) {
+        console.error('Token decoding error:', error);
+      }
+    } else {
+      setIsRestrictedUser(true); // 토큰이 없는 경우 제한된 사용자로 설정
+    }
+  }, []);
 
   useEffect(() => {
     fetchCommentsData();
@@ -107,22 +127,26 @@ const IbeBoardCommentComponent = ({ boardId }) => {
       <Row>
         <Form.Group controlId="newComment">
           <hr className="board-comment-hr" />
-          <Form.Control
-            as="textarea"
-            rows={3}
-            placeholder="댓글을 입력하세요. (최대 200자)"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            maxLength={200}
-            style={{ resize: 'none' }}
-          />
-          <Button
-            variant="primary"
-            onClick={handleCommentSubmit}
-            className="board-submit-btn"
-          >
-            등록
-          </Button>
+          {!isRestrictedUser && (
+            <>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="댓글을 입력하세요. (최대 200자)"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                maxLength={200}
+                style={{ resize: 'none' }}
+              />
+              <Button
+                variant="primary"
+                onClick={handleCommentSubmit}
+                className="board-submit-btn"
+              >
+                등록
+              </Button>
+            </>
+          )}
           <br />
           <br />
           {comments.map((comment) => (
@@ -135,13 +159,15 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                   </span>
                 </div>
                 <p className="comment-body">{comment.content}</p>
-                <Button
-                  variant="primary"
-                  onClick={() => handleReplyButtonClick(comment.id)}
-                  className="reply-btn"
-                >
-                  답글
-                </Button>
+                {!isRestrictedUser && (
+                  <Button
+                    variant="primary"
+                    onClick={() => handleReplyButtonClick(comment.id)}
+                    className="reply-btn"
+                  >
+                    답글
+                  </Button>
+                )}
               </div>
 
               {comment.replies && comment.replies.length > 0 && (
@@ -160,7 +186,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                 </div>
               )}
 
-              {showReplyInput[comment.id] && (
+              {showReplyInput[comment.id] && !isRestrictedUser && (
                 <div className="reply-input mt-2">
                   <Form.Control
                     as="textarea"
