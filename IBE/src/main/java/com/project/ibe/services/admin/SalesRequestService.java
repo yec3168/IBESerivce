@@ -65,10 +65,9 @@ public class SalesRequestService {
                 .map(entity -> {
                     SalesImgResponse response = new SalesImgResponse();
                     response.setImagePath(entity.getImagePath());
+                    response.setProductImgId(entity.getProductImgId());
                     return response;
                 })
                 .toList();
     }
-
-
 }

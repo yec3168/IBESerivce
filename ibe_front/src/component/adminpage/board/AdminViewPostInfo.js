@@ -1,103 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import './AdminViewPost.css'; // CSS 파일 경로를 확인하세요
-import dummyData from './DummyData'; // 더미 데이터 import
+import axios from 'axios';
+import './AdminViewPost.css';
 
 const AdminViewPostInfo = () => {
+  const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchType, setSearchType] = useState('title'); // 기본 검색 타입 설정
-  const [selectedNotes, setSelectedNotes] = useState(''); // 비고 선택
+  const [searchType, setSearchType] = useState('boardTitle');
+  const [selectedNotes, setSelectedNotes] = useState('');
+  const [filteredItems, setFilteredItems] = useState([]);
   const itemsPerPage = 10;
+
+  // 데이터 가져오기
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:8080/admin/board/viewpost/info'
+        );
+        setData(response.data);
+        setFilteredItems(response.data); // 초기값 설정
+      } catch (error) {
+        console.error('데이터를 불러오는데 실패했습니다.', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // 검색 버튼 클릭 시 필터링
+  const handleSearch = () => {
+    const filtered = data.filter((item) => {
+      const valueToSearch = item[searchType]?.toString().toLowerCase() || '';
+      const matchesSearchTerm = valueToSearch.includes(searchTerm.toLowerCase());
+      const matchesNotes = selectedNotes
+        ? selectedNotes === '삭제되지 않음'
+          ? !item.boardStatus
+          : item.boardStatus
+        : true;
+      return matchesSearchTerm && matchesNotes;
+    });
+    setFilteredItems(filtered);
+    setCurrentPage(1); // 첫 페이지로 리셋
+  };
+
+  // 비고 콤보박스 변경 시 자동 필터링
+  useEffect(() => {
+    handleSearch();
+  }, [selectedNotes]);
 
   // 현재 페이지에 해당하는 데이터 계산
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-  // 검색 조건에 따른 필터링
-  const filteredItems = dummyData.filter((item) => {
-    const valueToSearch = item[searchType]?.toLowerCase() || '';
-    const matchesSearchTerm = valueToSearch.includes(searchTerm.toLowerCase());
-    const matchesNotes = selectedNotes ? item.notes === selectedNotes : true; // 비고 필터
-    return matchesSearchTerm && matchesNotes;
-  });
-
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   // 페이지 버튼 생성
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const pageNumbers = [...Array(totalPages)].map((_, i) => i + 1);
-
-  // 현재 페이지의 인덱스를 계산하여 페이지 버튼 범위를 결정합니다.
-  const pageLimit = 10; // 최대 페이지 버튼 개수
+  const pageLimit = 10;
   const startIndex = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
   const endIndex = Math.min(startIndex + pageLimit, totalPages);
   const visiblePageNumbers = pageNumbers.slice(startIndex, endIndex);
 
-  // 다음 페이지로 이동
-  const goToNextPage = () => {
-    const newPage = startIndex + pageLimit + 1; // 다음 페이지 그룹의 첫 페이지
-    if (newPage <= totalPages) {
-      setCurrentPage(newPage);
-    } else {
-      setCurrentPage(totalPages);
-    }
-  };
-
-  // 이전 페이지로 이동
-  const goToPreviousPage = () => {
-    const newPage = startIndex - pageLimit + pageLimit; // 이전 페이지 그룹의 마지막 페이지
-    if (newPage >= 1) {
-      setCurrentPage(newPage);
-    } else {
-      setCurrentPage(1); // 첫 페이지 그룹이라면 첫 번째 페이지로 이동
-    }
-  };
-
-  // 맨 처음 페이지로 이동
-  const goToFirstPage = () => {
-    setCurrentPage(1);
-  };
-
-  // 맨 끝 페이지로 이동
-  const goToLastPage = () => {
-    setCurrentPage(totalPages);
-  };
-
-  // 검색 버튼 클릭 시 currentPage를 1로 리셋
-  const handleSearch = () => {
-    setCurrentPage(1); // 검색할 때는 첫 페이지로 리셋
-  };
-
-  // 콤보박스 선택 변경 시 currentPage를 1로 리셋하고 결과 즉시 업데이트
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedNotes]);
+  // 페이지 이동 함수
+  const goToNextPage = () =>
+    setCurrentPage(Math.min(currentPage + pageLimit, totalPages));
+  const goToPreviousPage = () =>
+    setCurrentPage(Math.max(currentPage - pageLimit, 1));
+  const goToFirstPage = () => setCurrentPage(1);
+  const goToLastPage = () => setCurrentPage(totalPages);
 
   return (
     <div className="admin-vp-info-list">
       <h3 className="admin-vp-h2">정보 게시글 목록</h3>
       <div className="admin-vp-search-container">
-        <select
-          value={searchType}
-          onChange={(e) => {
-            setSearchType(e.target.value);
-            setSearchTerm(''); // 검색 타입이 변경될 때는 검색어 초기화
-          }}
-        >
-          <option value="title">제목</option>
-          <option value="author">작성자</option>
-        </select>
-        <input
-          type="text"
-          placeholder="검색어 입력"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSearch(); // 엔터 키를 눌렀을 때 검색
-            }
-          }}
-        />
         <select
           value={selectedNotes}
           onChange={(e) => setSelectedNotes(e.target.value)}
@@ -106,6 +81,23 @@ const AdminViewPostInfo = () => {
           <option value="삭제되지 않음">삭제되지 않음</option>
           <option value="삭제됨">삭제됨</option>
         </select>
+        <select
+          value={searchType}
+          onChange={(e) => {
+            setSearchType(e.target.value);
+            setSearchTerm('');
+          }}
+        >
+          <option value="boardTitle">제목</option>
+          <option value="memberNickName">작성자</option>
+        </select>
+        <input
+          type="text"
+          placeholder="검색어 입력"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+        />
         <button onClick={handleSearch}>조회</button>
       </div>
       <div className="admin-vp-info-table">
@@ -118,13 +110,17 @@ const AdminViewPostInfo = () => {
           <div className="admin-vp-column uploadDate">업로드 날짜</div>
         </div>
         {currentItems.map((item) => (
-          <div className="admin-vp-info-row" key={item.id}>
-            <div className="admin-vp-column id">{item.id}</div>
-            <div className="admin-vp-column category">{item.category}</div>
-            <div className="admin-vp-column title">{item.title}</div>
-            <div className="admin-vp-column author">{item.author}</div>
-            <div className="admin-vp-column notes">{item.notes}</div>
-            <div className="admin-vp-column uploadDate">{item.uploadDate}</div>
+          <div className="admin-vp-info-row" key={item.boardId}>
+            <div className="admin-vp-column id">{item.boardId}</div>
+            <div className="admin-vp-column category">{item.boardCategory}</div>
+            <div className="admin-vp-column title">{item.boardTitle}</div>
+            <div className="admin-vp-column author">{item.memberNickName}</div>
+            <div className="admin-vp-column notes">
+              {item.boardStatus ? '삭제됨' : '삭제되지 않음'}
+            </div>
+            <div className="admin-vp-column uploadDate">
+              {item.boardCreatedAt.split('T')[0]}
+            </div>
           </div>
         ))}
       </div>

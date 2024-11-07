@@ -22,7 +22,9 @@ const AdminSalesRequest = () => {
   useEffect(() => {
     const fetchSalesRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/admin/board/salesrequest');
+        const response = await axios.get(
+          'http://localhost:8080/admin/board/salesrequest'
+        );
         const requests = response.data.map((request) => ({
           id: request.productId,
           category: mapCategory(request.productCategory),
@@ -30,7 +32,7 @@ const AdminSalesRequest = () => {
           nickname: request.memberNickName,
           date: request.productCreatedAt.split('T')[0],
           content: request.productContent,
-          // images: request.productImages || [], // 이미지는 나중에 가져옴
+          // 이미지는 나중에 가져옴
         }));
         setSalesRequests(requests);
       } catch (error) {
@@ -41,7 +43,9 @@ const AdminSalesRequest = () => {
     fetchSalesRequests();
   }, []);
 
-  const sortedRequests = [...salesRequests].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sortedRequests = [...salesRequests].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
 
   const toggleExpand = async (id) => {
     if (expandedId === id) {
@@ -53,14 +57,28 @@ const AdminSalesRequest = () => {
     const request = salesRequests.find((request) => request.id === id);
     if (request) {
       try {
-        const response = await axios.post('http://localhost:8080/admin/board/salesrequest/img', { productId: request.id });
+        const response = await axios.post(
+          'http://localhost:8080/admin/board/salesrequest/img',
+          { productId: request.id }
+        );
+
+        // 응답 데이터 구조 확인
+        console.log('Response Data:', response.data); // 응답 데이터 로그 확인
+
+        const { productImagePath, productImageId } = response.data[0];
+
+        // 이미지 경로와 ID를 상태에 저장
         setImages((prevImages) => ({
           ...prevImages,
-          [id]: response.data.imagePath, // 받아온 이미지 경로 저장
+          [id]: {
+            productImageId, // 이미지 ID 저장
+            imagePath: 'C:/ibe/' + productImagePath, // 이미지 경로 저장
+          },
         }));
       } catch (error) {
         console.error('Error fetching images:', error);
       }
+      console.log(images.imagePath);
     }
 
     setExpandedId(id);
@@ -68,7 +86,9 @@ const AdminSalesRequest = () => {
 
   const handleApproval = async (productId) => {
     try {
-      await axios.post(`http://localhost:8080/admin/board/salesrequest/yes`, { productId });
+      await axios.post(`http://localhost:8080/admin/board/salesrequest/yes`, {
+        productId,
+      });
       setSalesRequests((prevRequests) =>
         prevRequests.filter((request) => request.id !== productId)
       );
@@ -126,11 +146,20 @@ const AdminSalesRequest = () => {
         </div>
         {sortedRequests.map((request) => (
           <div key={request.id} className="admin-sr-sales-request-item">
-            <div className="admin-sr-sales-request-header" onClick={() => toggleExpand(request.id)}>
+            <div
+              className="admin-sr-sales-request-header"
+              onClick={() => toggleExpand(request.id)}
+            >
               <div className="admin-sr-column admin-sr-id">{request.id}</div>
-              <div className="admin-sr-column admin-sr-category">{request.category}</div>
-              <div className="admin-sr-column admin-sr-title">{request.title}</div>
-              <div className="admin-sr-column admin-sr-nickname">{request.nickname}</div>
+              <div className="admin-sr-column admin-sr-category">
+                {request.category}
+              </div>
+              <div className="admin-sr-column admin-sr-title">
+                {request.title}
+              </div>
+              <div className="admin-sr-column admin-sr-nickname">
+                {request.nickname}
+              </div>
               <div className="admin-sr-column admin-sr-date">
                 {new Date(request.date).toLocaleString('ko-KR', {
                   year: 'numeric',
@@ -147,7 +176,11 @@ const AdminSalesRequest = () => {
                 {request.content}
                 <div className="admin-sr-images-container">
                   {images[request.id] ? (
-                    <img src={images[request.id]} alt={`상품 이미지 ${request.id}`} className="admin-sr-image" />
+                    <img
+                      src={images[request.id].imagePath}
+                      alt={`상품 이미지 ${request.id}`}
+                      className="admin-sr-image"
+                    />
                   ) : (
                     <p>이미지가 없습니다.</p>
                   )}
@@ -178,7 +211,9 @@ const AdminSalesRequest = () => {
                 </div>
                 {errorMessage[request.id] && (
                   <div className="admin-sr-error-message-container">
-                    <span className="admin-sr-error-message">{errorMessage[request.id]}</span>
+                    <span className="admin-sr-error-message">
+                      {errorMessage[request.id]}
+                    </span>
                   </div>
                 )}
               </div>
