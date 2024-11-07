@@ -10,7 +10,15 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    List<Order> findByProductAndOrderMember(Product product, Member orderMember);
+    List<Order> findByProductAndOrderMemberEmail(Product product, String orderMemberEmail);
 
-    List<Order> findAllByOrderMemberOrderByOrderIdDesc(Member orderMember);
+    List<Order> findAllByOrderMemberEmailOrderByOrderIdDesc(String orderMemberEmail);
+
+    //판매
+    boolean existsByProduct(Product product);
+
+    // Product으로 Order가져오기.
+    List<Order> findAllByProductOrderByOrderIdDesc(Product product);
+
+//    List<Order> findAllByProductOrderByOrderIdDesc(Product product);
 }

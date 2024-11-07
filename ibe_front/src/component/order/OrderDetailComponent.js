@@ -32,6 +32,7 @@ const OrderDetailComponent = () => {
                     setMember(data.member || {});
                 } else {
                     alert(response.data.message);
+                    window.location.href ="/products"
                 }
             })
             .catch(error => {

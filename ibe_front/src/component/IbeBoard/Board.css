@@ -171,11 +171,7 @@
   text-decoration: underline;
 }
 
-/* .board-button {
-  border: none;
-  background-color: transparent;
+.board-comment-top {
+  font-size: 20px;
+  font-family: "CookieRun-Regular", sans-serif !important;
 }
-
-.board-button:focus {
-  outline: none;
-} */

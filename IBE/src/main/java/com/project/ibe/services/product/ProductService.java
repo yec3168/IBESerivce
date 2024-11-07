@@ -4,6 +4,7 @@ import com.project.ibe.dto.member.PrincipalDTO;
 import com.project.ibe.dto.product.*;
 import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.common.ProductUploadStatus;
+import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.entity.product.ProductComment;
 import com.project.ibe.entity.product.ProductImg;
@@ -161,6 +162,14 @@ public class ProductService {
      */
     public ProductOrderResponse getProductOrderResponse(Long productId, PrincipalDTO principalDTO){
         Product product = findProductById(productId);
+
+        // 사용자 정보.
+        Member member = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        //자기자신 물품 못사게 막음.
+        if(member.equals(product.getMember()))
+            throw new BusinessException("자신의 물품을 구매할 수 없습니다.", HttpStatus.BAD_REQUEST);
+
         List<ProductImg> productImgList = productImgRepository.findAllByProduct(product);
 
         ProductOrderResponse productOrderResponse = modelMapper.map(product, ProductOrderResponse.class);
@@ -169,7 +178,7 @@ public class ProductService {
         }
 
         // 로그인한 사용자의 회원정보를 넣음
-        productOrderResponse.setMember(memberService.getMemberByEmail(principalDTO.getMemberEmail()));
+        productOrderResponse.setMember(member);
 
 
         return productOrderResponse;
@@ -241,6 +250,10 @@ public class ProductService {
                         () -> new BusinessException("게시글이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
                 );
     }
+    public List<Product> findAllByMember(Member member){
+        return productRepository.findAllByMember(member);
+    }
+
     private ProductComment findProductCommentById(Long id) {
         return productCommentRepository.findById(id)
                 .orElseThrow(

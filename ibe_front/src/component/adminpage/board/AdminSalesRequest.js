@@ -7,7 +7,9 @@ const AdminSalesRequest = () => {
   const [salesRequests, setSalesRequests] = useState([]);
   const [rejectionReason, setRejectionReason] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
-  const [images, setImages] = useState({}); // 이미지 URL을 저장할 상태
+  const [images, setImages] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
+  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 상태 추가
 
   const categoryMapping = {
     KIDS_CLOTHING: '아동 의류',
@@ -32,7 +34,6 @@ const AdminSalesRequest = () => {
           nickname: request.memberNickName,
           date: request.productCreatedAt.split('T')[0],
           content: request.productContent,
-          // 이미지는 나중에 가져옴
         }));
         setSalesRequests(requests);
       } catch (error) {
@@ -53,35 +54,31 @@ const AdminSalesRequest = () => {
       return;
     }
 
-    // 새로운 요청에 대해 이미지 URL을 요청
-    const request = salesRequests.find((request) => request.id === id);
-    if (request) {
-      try {
-        const response = await axios.post(
-          'http://localhost:8080/admin/board/salesrequest/img',
-          { productId: request.id }
-        );
-
-        // 응답 데이터 구조 확인
-        console.log('Response Data:', response.data); // 응답 데이터 로그 확인
-
-        const { productImagePath, productImageId } = response.data[0];
-
-        // 이미지 경로와 ID를 상태에 저장
-        setImages((prevImages) => ({
-          ...prevImages,
-          [id]: {
-            productImageId, // 이미지 ID 저장
-            imagePath: 'C:/ibe/' + productImagePath, // 이미지 경로 저장
-          },
-        }));
-      } catch (error) {
-        console.error('Error fetching images:', error);
-      }
-      console.log(images.imagePath);
-    }
-
     setExpandedId(id);
+    // 클릭한 아이템의 productId로 이미지 가져오기
+    fetchImages(id);
+  };
+
+  const fetchImages = async (productId) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/admin/board/salesrequest/img',
+        { productId }
+      );
+      const imageList = response.data;
+
+      // imageList가 배열인지 확인하고, 아니면 빈 배열로 설정
+      setImages((prevImages) => ({
+        ...prevImages,
+        [productId]: Array.isArray(imageList) ? imageList : [],
+      }));
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      setImages((prevImages) => ({
+        ...prevImages,
+        [productId]: [],
+      }));
+    }
   };
 
   const handleApproval = async (productId) => {
@@ -123,14 +120,23 @@ const AdminSalesRequest = () => {
     }
   };
 
-  // 텍스트박스 자동 리사이징 함수
   const handleInputResize = (e, productId) => {
-    e.target.style.height = 'auto'; // 높이 초기화
-    e.target.style.height = `${e.target.scrollHeight}px`; // 내용에 맞춰 높이 재설정
+    e.target.style.height = 'auto';
+    e.target.style.height = `${e.target.scrollHeight}px`;
     setRejectionReason({
       ...rejectionReason,
       [productId]: e.target.value,
     });
+  };
+
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // 모달 닫기
+    setSelectedImage(null); // 선택된 이미지 초기화
   };
 
   return (
@@ -175,16 +181,32 @@ const AdminSalesRequest = () => {
               <div className="admin-sr-sales-request-content">
                 {request.content}
                 <div className="admin-sr-images-container">
-                  {images[request.id] ? (
-                    <img
-                      src={images[request.id].imagePath}
-                      alt={`상품 이미지 ${request.id}`}
-                      className="admin-sr-image"
-                    />
+                  {images[request.id] && Array.isArray(images[request.id]) ? (
+                    <table className="admin-sr-image-table">
+                      <tbody>
+                        <tr>
+                          {images[request.id].map((image, index) => (
+                            <td
+                              key={image.productImgId}
+                              className="admin-sr-image-td"
+                            >
+                              클릭해서 확대하기
+                              <img
+                                src={`http://localhost:8080${image.imagePath}`}
+                                alt={`상품 이미지 ${index + 1}`}
+                                className="admin-sr-image"
+                                onClick={() => openModal(image)} // 이미지 클릭 시 모달 열기
+                              />
+                            </td>
+                          ))}
+                        </tr>
+                      </tbody>
+                    </table>
                   ) : (
                     <p>이미지가 없습니다.</p>
                   )}
                 </div>
+
                 <div className="admin-sr-button-container">
                   <button
                     className="admin-sr-action-button-yes"
@@ -221,6 +243,23 @@ const AdminSalesRequest = () => {
           </div>
         ))}
       </div>
+
+      {/* 모달 창 */}
+      {isModalOpen && (
+        <div className="admin-sr-modal" onClick={closeModal}>
+          <div
+            className="admin-sr-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={`http://localhost:8080${selectedImage.imagePath}`}
+              alt="상품 이미지"
+              className="admin-sr-modal-image"
+              onClick={closeModal} // 이미지 클릭 시 모달 닫기
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };
