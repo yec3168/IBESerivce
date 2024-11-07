@@ -3,18 +3,19 @@ import { jwtDecode } from 'jwt-decode';
 import ibe_logo from '../assets/images/header/ibe_logo.png';
 import coin_purse_icon from '../assets/images/header/coin_purse_icon.png';
 import './HeaderComponent.css';
-import { getMemberPoint } from '../service/MypageService';
+import { getMemberInfo } from '../service/MypageService';
 
 const HeaderComponent = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [memberPoint, setMemberPoint] = useState(null);
+  const [memberNickName, setMemberNickName] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
 
     if (token) {
-      setIsLoggedIn(true); //로그인 상태 변경
+      setIsLoggedIn(true); // 로그인 상태 변경
 
       try {
         const decodedToken = jwtDecode(token);
@@ -35,19 +36,20 @@ const HeaderComponent = () => {
   }, []);
 
   useEffect(() => {
-    // 포인트 조회 API 호출
-    const fetchMemberPoint = async () => {
+    // 멤버 정보 조회 API 호출 
+    const fetchMemberInfo = async () => {
       try {
-        const response = await getMemberPoint();
-        if (response.data && response.data.data.memberPoint) {
-          setMemberPoint(response.data.data.memberPoint);
+        const response = await getMemberInfo();
+        if (response.data) {
+          setMemberPoint(response.data.data.memberPoint); 
+          setMemberNickName(response.data.data.memberNickName); 
         }
       } catch (error) {
-        console.error('포인트 조회 실패:', error);
+        console.error('멤버 정보 조회 실패:', error);
       }
     };
 
-    fetchMemberPoint();
+    fetchMemberInfo();
   }, []);
 
   // 로그아웃 함수
@@ -73,26 +75,36 @@ const HeaderComponent = () => {
             {/* 로그인 메뉴바 */}
             <div className="collapse navbar-collapse justify-content-end" id="loginMenubar">
               <ul className="navbar-nav loginMenubar">
-                {/* 포인트 잔액 */}
+                {/* 사용자 닉네임, 포인트 */}
                 {/* 사용자 로그인 상태에만 표시 */}
-                {/* 클릭시 포인트 충전 페이지 이동 */}
-                {isLoggedIn && !isAdmin &&  (
-                  <span id="span_parent" className="mr-80">
-                    <li className="nav-item">
-                      <a className="nav-link active4" href="/mypage/pntcharge" id="amt" style={{ whiteSpace: 'nowrap' }}>
-                        <img src={coin_purse_icon} width="20px" alt="coin_purse" id="coin_purse_icon" />
-                        <span id="span_amt" style={{ whiteSpace: 'nowrap', display: 'inline-block' }}>
-                          {memberPoint !== null ? `${memberPoint}` : '로딩중'}
+                {isLoggedIn && !isAdmin && (
+                  <>
+                    <span id="span_parent" className="mr-30">
+                      <li className="nav-item">
+                        {/* 닉네임 */}
+                        <span id="span_amt" style={{ whiteSpace: 'nowrap', display: 'inline-block', marginRight: '10px', marginTop:'13px' }}>
+                          {memberNickName ? `${memberNickName} 님` : '로딩중'}  
                         </span>
-                        <span id="span_won" style={{ display: 'inline-block' }}>
-                          &nbsp;P
-                        </span>
-                      </a>
-                    </li>
-                  </span>
+                      </li>
+                    </span>
+                    <span id="span_parent" className="mr-80">
+                      <li className="nav-item">
+                        {/* 포인트 */}
+                        {/* 클릭 시 포인트 충전 페이지 이동 */}
+                        <a className="nav-link active4" href="/mypage/pntcharge" id="amt" style={{ whiteSpace: 'nowrap', display: 'inline-block' }}>
+                          <img src={coin_purse_icon} width="20px" alt="coin_purse" id="coin_purse_icon" />
+                          <span id="span_won" style={{ display: 'inline-block' }}>
+                            {memberPoint !== null ? `${memberPoint}` : '로딩중'}
+                          </span>
+                          <span id="span_won" style={{ display: 'inline-block' }}>
+                            &nbsp;P
+                          </span>
+                        </a>
+                      </li>
+                    </span>
+                  </>
                 )}
                 {/* 로그인 버튼 */}
-                {/* 로그인 상태별 로그인/로그아웃 표시 */}
                 {isLoggedIn ? (
                     <li className="nav-item mx-3">
                       <button className="nav-link active" onClick={clickLogout} id="button_logout">로그아웃</button>
