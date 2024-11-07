@@ -97,6 +97,8 @@ const MypagePlistPagingComponent = () => {
                                 {item.orderState === "SHIPPING" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}    
                                 {/* 배송완료사진 */}
                                 {item.orderState === "DELIVERED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
+                                {/* 구매거부*/}
+                                {item.orderState === "REJECTED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
                                 {/* <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/> */}
                             </div>
                         </Col>
