@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class OrderFormRequest {
     private Long productId;
+    private Long productPoint;
 }
