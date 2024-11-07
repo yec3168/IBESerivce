@@ -40,7 +40,12 @@ import AdminPrivateRoute from './component/adminpage/AdminPrivateRoute';
 import IbeBoardDetailsPage from './component/layout/pages/IbeBoard/IbeBoardDetailsPage';
 import TermsAgreementComponent from './component/sign/TermsAgreementComponent';
 import MypagePointPayBackComfrimComponent from './component/point/MypagePointPayBackComfirmComponent';
+import PrivateRouter from './component/router/PrivateRouter.js';
 
+
+// 권한 감지하는 컴포넌트 PrivateRouter(ROLE, component)  권한 없을 시 <SignInComponent /> 로 보냄
+//<PrivateRouter Role="USER" component={<PrivateRouterTest/>}/>
+// Role =  ADMIN ,USER 
 function App() {
   return (
     <BrowserRouter>
@@ -57,7 +62,7 @@ function App() {
         {/* 물품 관련 */}
         <Route path="/products" element={<ProductListPage />} />
         <Route path="/products/detail/:id" element={<ProductDetailPage />} />
-        <Route path="/products/create" element={<ProductCreatePage />} />
+        <Route path="/products/create" element={<PrivateRouter Role="USER" component={<ProductCreatePage />}/>} />
 
         {/* 주문 관련 */}
         <Route path="/orders/order/:id" element={<OrderDetailPage />} />
@@ -65,30 +70,30 @@ function App() {
         {/* 관리자페이지 Router */}
         <Route
           path="/admin"
-          element={<AdminPrivateRoute element={<AdminPage />} />}
+          element={<AdminPrivateRoute element={<PrivateRouter Role="ADMIN" component={<AdminPage />}/>} />}
         />
 
         {/* 마이페이지 Router */}
-        <Route path="/mypage" element={<MypageMainPage />} />
-        <Route path="/mypage/plist" element={<MypagePurchaseListPage />} />
-        <Route path="/mypage/slist" element={<MypageSalesListPage />} />
-        <Route path="/mypage/pntcharge" element={<MypagePointChargePage />} />
-        <Route path="/mypage/pntpayback" element={<MypagePointPaybackPage />} />
-        <Route path="/mypage/inquiry" element={<MypageInquiryPage />} />
-        <Route path="/mypage/inqlist" element={<MypageInquiryListPage />} />
+        <Route path="/mypage" element={<PrivateRouter Role="USER" component={<MypageMainPage />}/>} />
+        <Route path="/mypage/plist" element={<PrivateRouter Role="USER" component={<MypagePurchaseListPage />}/>} />
+        <Route path="/mypage/slist" element={<PrivateRouter Role="USER" component={<MypageSalesListPage />}/>} />
+        <Route path="/mypage/pntcharge" element={<PrivateRouter Role="USER" component={<MypagePointChargePage />}/>} />
+        <Route path="/mypage/pntpayback" element={<PrivateRouter Role="USER" component={<MypagePointPaybackPage />}/>} />
+        <Route path="/mypage/inquiry" element={<PrivateRouter Role="USER" component={<MypageInquiryPage />}/>} />
+        <Route path="/mypage/inqlist" element={<PrivateRouter Role="USER" component={<MypageInquiryListPage />}/>} />
         <Route
           path="/mypage/inquiry/answer/:id"
-          element={<MypageInquiryAnsPage />}
+          element={<PrivateRouter Role="USER" component={<MypageInquiryAnsPage />}/>}
         />
-        <Route path="/mypage/info" element={<MypageMemberInfoChangePage />} />
-        <Route path="/mypage/pw" element={<MypagePwChangePage />} />
-        <Route path="/mypage/delete" element={<MypageDeleteAccountPage />} />
+        <Route path="/mypage/info" element={<PrivateRouter Role="USER" component={<MypageMemberInfoChangePage />}/>} />
+        <Route path="/mypage/pw" element={<PrivateRouter Role="USER" component={<MypagePwChangePage />}/>} />
+        <Route path="/mypage/delete" element={<PrivateRouter Role="USER" component={<MypageDeleteAccountPage />}/>} />
 
         {/* 포인트 처리 라우터 */}
-        <Route path="/mypage/pntcharge/completed" element={<MypagePointChargeCompletedComponent />} />
-        <Route path="/mypage/pntcharge/result" element={<MypagePointChargeResult />} />
-        <Route path="/mypage/pntPayBack/confirm" element={<MypagePointPayBackComfrimComponent/>}/>
-        <Route path="/mypage/pntPayBack/result" element={<MypagePointPaybackResultPage/>}/>
+        <Route path="/mypage/pntcharge/completed" element={<PrivateRouter Role="USER" component={<MypagePointChargeCompletedComponent />}/>} />
+        <Route path="/mypage/pntcharge/result" element={<PrivateRouter Role="USER" component={<MypagePointChargeResult />}/>} />
+        <Route path="/mypage/pntPayBack/confirm" element={<PrivateRouter Role="USER" component={<MypagePointPayBackComfrimComponent/>}/>}/>
+        <Route path="/mypage/pntPayBack/result" element={<PrivateRouter Role="USER" component={<MypagePointPaybackResultPage/>}/>}/>
 
         {/* 아이비 게시판 */}
         <Route path="/boards" element={<IbeBoardListPage />} />
