@@ -50,6 +50,10 @@ public class OrderService {
         // 판매물품 정보
         Product product = productService.findProductById(orderFormRequest.getProductId());;
 
+        // 판매자정보 == 구매자 정보 확인
+        if(product.getMember().equals(orderMember))
+            throw new BusinessException("본인의 물건을 구매할 수 없습니다.", HttpStatus.BAD_REQUEST);
+
         // 중복 주문 확인
         List<Order> orderList = orderRepository.findByProductAndOrderMemberEmail(product, orderMember.getMemberEmail());
 
@@ -57,6 +61,7 @@ public class OrderService {
             System.out.println("이미구매");
             throw new BusinessException("이미 구매한 상품입니다.", HttpStatus.BAD_REQUEST);
         }
+
 
 
         // 중복 주문이 없다면, 금액 업데이트
