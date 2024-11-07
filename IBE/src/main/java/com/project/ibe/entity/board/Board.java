@@ -45,4 +45,6 @@ public class Board {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Column(nullable = false, columnDefinition = "boolean default false") //false: 등록됨, true: 삭제됨
+    private boolean boardStatus;
 }

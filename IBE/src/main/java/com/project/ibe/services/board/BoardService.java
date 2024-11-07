@@ -73,7 +73,7 @@ public class BoardService {
      */
 
     public List<BoardListResponse> getBoardList(){
-        List<Board> boardList = boardRepository.findAll();
+        List<Board> boardList = boardRepository.findByBoardStatus(false);
 
         List<BoardListResponse> boardListResponseList = new ArrayList<>();
         for(Board board : boardList){
@@ -182,5 +182,14 @@ public class BoardService {
         return boardCommentRepository.findAllByBoard(board).size();
     }
 
-    
+
+//    게시글 삭제
+    public boolean deleteBoard(BoardReplyRequest boardReplyRequest) {
+        Board existBoard = boardRepository.findByBoardId(boardReplyRequest.getBoardId())
+                .orElseThrow(() -> new BusinessException("게시글을 찾을 수 없습니다.", HttpStatus.NOT_FOUND)
+        );
+        existBoard.setBoardStatus(true);
+        boardRepository.save(existBoard);
+        return true;
+    }
 }

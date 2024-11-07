@@ -35,13 +35,34 @@ const IbeBoardListComponent = () => {
           comments: post.boardCommentCnt,
         }));
 
+        // boardId 기준 내림차순 정렬
+        const sortedData = formattedData.sort((a, b) => b.id - a.id);
+
         // 데이터를 상태에 저장
-        setPosts(formattedData);
+        setPosts(sortedData);
       })
       .catch((error) => {
         console.error('게시글을 가져오는 데 실패했습니다:', error);
       });
   }, []);
+
+  // 카테고리 맵핑 함수
+  const mapCategory = (category) => {
+    switch (category) {
+      case 'NOTICE':
+        return '[공지]';
+      case 'REQUEST':
+        return '[요청]';
+      case 'QUESTION':
+        return '[질문]';
+      case 'INFORMATION':
+        return '[정보]';
+      case 'GENERAL':
+        return '[일반]';
+      default:
+        return category;
+    }
+  };
 
   // Utility to check if a post is new (posted today)
   const isToday = (dateString) => {
@@ -103,20 +124,20 @@ const IbeBoardListComponent = () => {
               <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>
                 <td style={{ fontWeight: 'bold' }}></td> {/* No ID displayed */}
                 <td>
-                  <span className={`category-${post.category}`}>
-                    {post.category}&emsp;
+                  <span className={`board-category-${post.category}`}>
+                    {mapCategory(post.category)}&emsp;
                   </span>
                   <strong>{post.title}</strong>
                   {post.comments !== 0 && (
                     <span
-                      className="comment-count"
+                      className="board-comment-count"
                       style={{ color: 'blue', fontWeight: '700' }}
                     >
                       {' '}
                       {post.comments}
                     </span>
                   )}
-                  {isToday(post.date) && <span className="new-tag">New</span>}
+                  {isToday(post.date) && <span className="board-new-tag">New</span>}
                 </td>
                 <td>
                   <strong>{post.author}</strong>
@@ -134,20 +155,20 @@ const IbeBoardListComponent = () => {
               <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>
                 <td>{post.id}</td> {/* ID displayed for normal posts */}
                 <td>
-                  <span className={`category-${post.category}`}>
-                    {post.category}&emsp;
+                  <span className={`board-category-${post.category}`}>
+                    {mapCategory(post.category)}&emsp;
                   </span>
                   {post.title}
                   {post.comments !== 0 && (
                     <span
-                      className="comment-count"
+                      className="board-comment-count"
                       style={{ color: 'blue', fontWeight: '700' }}
                     >
                       {' '}
                       {post.comments}
                     </span>
                   )}
-                  {isToday(post.date) && <span className="new-tag">New</span>}
+                  {isToday(post.date) && <span className="board-new-tag">New</span>}
                 </td>
                 <td>{post.author}</td>
                 <td>{post.date}</td>
@@ -157,11 +178,11 @@ const IbeBoardListComponent = () => {
           </tbody>
         </Table>
         <div className="text-end">
-          <Button className="add-post-btn" onClick={handleWriteClick}>
+          <Button className="board-add-post-btn" onClick={handleWriteClick}>
             글쓰기
           </Button>
         </div>
-        <Pagination className="justify-content-center">
+        <Pagination className="board-pagination justify-content-center">
           {[...Array(Math.ceil(normalPosts.length / itemsPerPage)).keys()].map(
             (_, index) => (
               <Pagination.Item

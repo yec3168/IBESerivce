@@ -7,9 +7,7 @@
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
   margin-top: 20px;
-  /* font-family: "CookieRun-Regular", sans-serif; */
   font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -43,16 +41,16 @@
   background-color: #f1f3f5;
 }
 
-.notice-row {
+.board-notice-row {
   background-color: #fff4d1;
   font-weight: bold;
 }
 
-.notice-row:hover {
+.board-notice-row:hover {
   background-color: #ffe6a5;
 }
 
-.add-post-btn {
+.board-add-post-btn {
   background-color: #ffc847;
   border: none;
   color: #000;
@@ -62,25 +60,24 @@
   font-family: 'CookieRun-Regular', sans-serif;
 }
 
-.add-post-btn:hover {
+.board-add-post-btn:hover {
   background-color: #ffdb7d;
 }
 
-.pagination {
+.board-pagination {
   margin-top: 20px;
 }
 
-.pagination .page-item.active .page-link {
+.board-pagination .page-item.active .page-link {
   background-color: #ffc847;
   border-color: #ffc847;
 }
 
-.pagination .page-link {
+.board-pagination .page-link {
   color: #333;
 }
 
-/* New Tag Styling */
-.new-tag {
+.board-new-tag {
   background-color: #ff5733;
   color: white;
   font-size: 10px;
@@ -91,45 +88,45 @@
   display: inline-block;
 }
 
-.category-공지 {
-  color: blue; /* Change to desired color for 공지 */
+.board-category-공지 {
+  color: blue; 
   font-weight: bold;
 }
 
-.category-신고 {
-  color: red; /* Change to desired color for 오류 */
+.board-category-신고 {
+  color: red; 
   font-weight: bold;
 }
 
-.category-기타 {
-  color: black; /* Change to desired color for 기타 */
+.board-category-기타 {
+  color: black;
   font-weight: bold;
 }
 
-.category-문의 {
-  color: green; /* Change to desired color for 문의 */
+.board-category-문의 {
+  color: green; 
   font-weight: bold;
 }
 
-.comment {
+.board-comment {
   border: 1px solid #e0e0e0;
   padding: 10px;
   border-radius: 8px;
   background-color: #f9f9f9;
 }
 
-.comment-content {
+.board-comment-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.comment p {
+.board-comment p {
   font-size: 14px;
   color: #333;
 }
 
-.reply-btn {
+.board-reply-btn {
   color: #007bff;
   font-size: 12px;
   padding: 0;
@@ -139,19 +136,19 @@
   cursor: pointer;
 }
 
-.replies {
+.board-replies {
   padding-left: 20px;
   margin-top: 10px;
 }
 
-.reply {
+.board-reply {
   font-size: 13px;
   color: #555;
   border-left: 2px solid #dcdcdc;
   padding-left: 10px;
 }
 
-.reply-input {
+.board-reply-input {
   width: 100%;
   margin-top: 10px;
   border-radius: 4px;
@@ -159,20 +156,20 @@
   font-size: 14px;
 }
 
-.reply-btn,
-.reply-input {
+.board-reply-btn,
+.board-reply-input {
   transition: 0.3s ease;
 }
 
-.reply-btn:hover {
+.board-reply-btn:hover {
   text-decoration: underline;
 }
 
-button {
+/* .board-button {
   border: none;
   background-color: transparent;
 }
 
-button:focus {
+.board-button:focus {
   outline: none;
-}
+} */

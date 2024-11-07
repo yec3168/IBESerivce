@@ -70,6 +70,7 @@ const IbeBoardWriteComponent = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
+                  className="board-input"
                 />
               </Form.Group>
 
@@ -80,6 +81,7 @@ const IbeBoardWriteComponent = () => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   required
+                  className="board-select"
                 >
                   <option value="">선택하세요</option>
                   <option value="NOTICE">공지</option>
@@ -103,13 +105,14 @@ const IbeBoardWriteComponent = () => {
                   }}
                   style={{ resize: 'none', overflow: 'hidden' }} // 크기 조절 비활성화 및 자동 스크롤 조정
                   required
+                  className="board-textarea"
                 />
               </Form.Group>
 
-              {error && <p className="error-message mt-3">{error}</p>}
+              {error && <p className="board-error-message mt-3">{error}</p>}
 
               <div className="text-end">
-                <Button type="submit" className="add-post-btn">
+                <Button type="submit" className="board-add-post-btn">
                   {loading ? <Spinner animation="border" size="sm" /> : '작성'}
                 </Button>
               </div>

@@ -1,44 +1,76 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Board.css';
 import { Button, Col, Container, Row, Form } from 'react-bootstrap';
+import { jwtDecode } from 'jwt-decode'; // JWT 디코딩 라이브러리
 
 const IbeBoardDetailsComponent = () => {
-  const { boardId } = useParams(); // URL에서 boardId 가져오기
+  const { boardId } = useParams();
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [replyContent, setReplyContent] = useState('');
   const [showReplyInput, setShowReplyInput] = useState({});
+  const [isAuthor, setIsAuthor] = useState(false); // 작성자 여부 상태
+  const [hasDeletePermission, setHasDeletePermission] = useState(false); // 삭제 권한 여부
 
-  // 게시물 데이터 가져오기
+  // 카테고리 코드와 인간 친화적인 이름 맵핑
+  const categoryMap = {
+    NOTICE: '공지',
+    REQUEST: '요청',
+    QUESTION: '질문',
+    INFORMATION: '정보',
+    GENERAL: '일반',
+  };
+
   useEffect(() => {
     fetchPostData();
     fetchCommentsData();
   }, [boardId]);
 
-  // 게시물 데이터 가져오기
   const fetchPostData = () => {
     fetch(`http://localhost:8080/api/boards/${boardId}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.responseCode === 'SUCCESS') {
           const postData = {
-            category: data.data.boardCategory,
+            category:
+              categoryMap[data.data.boardCategory] || data.data.boardCategory, // 카테고리 코드 매핑
             title: data.data.boardTitle,
             nickname: data.data.member.memberNickName,
+            email: data.data.member.memberEmail, // 작성자 이메일
             createdAt: data.data.boardCreatedAt,
             views: data.data.boardHit,
             content: data.data.boardContent,
             commentCount: data.data.boardCommentCnt,
           };
           setPost(postData);
+
+          // 사용자 이메일을 토큰에서 추출하여 비교
+          const token = localStorage.getItem('accessToken');
+          if (token) {
+            const decodedToken = jwtDecode(token);
+            const userEmail = decodedToken.sub; // 토큰에서 이메일 추출
+            const userRoles = decodedToken.role || []; // 역할 정보 추출
+
+            if (userEmail === postData.email) {
+              setIsAuthor(true); // 작성자일 경우 true 설정
+            }
+
+            // 관리자 또는 게시판 관리자일 경우 삭제 권한 부여
+            if (
+              userRoles.includes('ROLE_ADMIN') ||
+              userRoles.includes('ROLE_BOARD_MANAGER')
+            ) {
+              setHasDeletePermission(true);
+            }
+          }
         }
       })
       .catch((error) => console.error('Error fetching post data:', error));
   };
 
-  // 댓글 데이터 가져오기
   const fetchCommentsData = () => {
     fetch(`http://localhost:8080/api/boards/comments/${boardId}`)
       .then((response) => response.json())
@@ -62,16 +94,14 @@ const IbeBoardDetailsComponent = () => {
       .catch((error) => console.error('Error fetching comments:', error));
   };
 
-  // 댓글 입력 처리
   const handleCommentSubmit = () => {
     if (newComment.trim()) {
       const newCommentData = {
         boardId,
         boardCommentContent: newComment,
       };
-      const token = localStorage.getItem('accessToken'); // JWT 토큰 가져오기
+      const token = localStorage.getItem('accessToken');
 
-      // 서버에 댓글 전송
       fetch('http://localhost:8080/api/boards/comments', {
         method: 'POST',
         headers: {
@@ -83,8 +113,8 @@ const IbeBoardDetailsComponent = () => {
         .then((response) => response.json())
         .then((data) => {
           if (data.responseCode === 'SUCCESS') {
-            fetchCommentsData(); // 댓글 등록 후 최신 댓글 데이터를 가져오기
-            setNewComment(''); // 입력 필드 비우기
+            fetchCommentsData();
+            setNewComment('');
           } else {
             console.error('댓글 추가 실패:', data.message);
           }
@@ -93,7 +123,6 @@ const IbeBoardDetailsComponent = () => {
     }
   };
 
-  // 답글 입력창 토글
   const handleReplyButtonClick = (commentId) => {
     setShowReplyInput((prev) => ({
       ...prev,
@@ -101,7 +130,6 @@ const IbeBoardDetailsComponent = () => {
     }));
   };
 
-  // 답글 등록 처리
   const handleReplySubmit = (commentId) => {
     if (!replyContent.trim()) return;
 
@@ -110,9 +138,8 @@ const IbeBoardDetailsComponent = () => {
       boardCommentId: commentId,
       boardReplyContent: replyContent,
     };
-    const token = localStorage.getItem('accessToken'); // JWT 토큰 가져오기
+    const token = localStorage.getItem('accessToken');
 
-    // 서버에 답글 전송
     fetch('http://localhost:8080/api/boards/reply', {
       method: 'POST',
       headers: {
@@ -124,14 +151,40 @@ const IbeBoardDetailsComponent = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.responseCode === 'SUCCESS') {
-          fetchCommentsData(); // 답글 등록 후 최신 댓글 데이터를 가져오기
-          setReplyContent(''); // 입력 필드 비우기
-          setShowReplyInput((prev) => ({ ...prev, [commentId]: false })); // 답글 입력창 숨기기
+          fetchCommentsData();
+          setReplyContent('');
+          setShowReplyInput((prev) => ({ ...prev, [commentId]: false }));
         } else {
           console.error('답글 추가 실패:', data.message);
         }
       })
       .catch((error) => console.error('Error posting reply:', error));
+  };
+
+  // 게시글 삭제 처리
+  const handleDeletePost = () => {
+    const isConfirmed = window.confirm('게시글을 정말 삭제하시겠습니까?');
+    if (isConfirmed) {
+      const token = localStorage.getItem('accessToken');
+      fetch('http://localhost:8080/api/boards/delete', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ boardId }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.responseCode === 'SUCCESS') {
+            alert('게시글이 삭제되었습니다.');
+            navigate('/boards'); // 삭제 후 게시판 목록으로 이동
+          } else {
+            console.error('게시글 삭제 실패:', data.message);
+          }
+        })
+        .catch((error) => console.error('Error deleting post:', error));
+    }
   };
 
   return (
@@ -154,6 +207,16 @@ const IbeBoardDetailsComponent = () => {
                 <div style={{ display: 'inline-block', marginRight: '20px' }}>
                   <strong>조회수:</strong> {post.views}
                 </div>
+                {/* 작성자 또는 관리자/게시판 관리자에게 삭제 버튼을 표시 */}
+                {(isAuthor || hasDeletePermission) && (
+                  <Button
+                    variant="danger"
+                    onClick={handleDeletePost}
+                    className="ml-auto"
+                  >
+                    삭제
+                  </Button>
+                )}
                 <hr />
                 <p>{post.content}</p>
                 <p>
@@ -167,10 +230,13 @@ const IbeBoardDetailsComponent = () => {
             <Row>
               <Form.Group controlId="newComment">
                 <Form.Control
-                  type="text"
-                  placeholder="댓글을 입력하세요"
+                  as="textarea"
+                  rows={3}
+                  placeholder="댓글을 입력하세요. (최대 200자)"
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
+                  maxLength={200} // 글자 수 200자 제한
+                  style={{ resize: 'none' }} // 크기 조절 기능 없애기
                 />
                 <Button
                   variant="primary"
@@ -205,35 +271,31 @@ const IbeBoardDetailsComponent = () => {
                   {comment.replies && comment.replies.length > 0 && (
                     <div className="replies mt-2">
                       {comment.replies.map((reply) => (
-                        <div
-                          key={reply.id}
-                          className="reply ml-4 pl-3 border-left"
-                        >
-                          <small>{reply.nickname}: {reply.content}</small>
-                          <br />
-                          <small>{reply.createdAt}</small>
+                        <div key={reply.id} className="reply ml-4 mb-2">
+                          <p>
+                            <strong>{reply.nickname}</strong>: {reply.content}
+                          </p>
                         </div>
                       ))}
                     </div>
                   )}
 
-                  {/* 답글 입력창 */}
+                  {/* 답글 입력 */}
                   {showReplyInput[comment.id] && (
-                    <div className="mt-2">
+                    <div className="reply-input mt-2">
                       <Form.Control
                         as="textarea"
-                        rows={1}
+                        rows={3}
                         value={replyContent}
                         onChange={(e) => setReplyContent(e.target.value)}
-                        placeholder="답글을 입력하세요."
-                        className="reply-input"
+                        placeholder="답글을 입력하세요"
                       />
                       <Button
-                        size="sm"
-                        className="mt-2"
+                        variant="secondary"
                         onClick={() => handleReplySubmit(comment.id)}
+                        className="mt-2"
                       >
-                        등록
+                        답글 제출
                       </Button>
                     </div>
                   )}

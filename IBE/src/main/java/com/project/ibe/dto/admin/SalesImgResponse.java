@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class SalesImgResponse {
-    private Long productId;
+    private Long productImgId;
     private String imagePath;
 }

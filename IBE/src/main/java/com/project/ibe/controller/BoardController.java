@@ -96,7 +96,16 @@ public class BoardController {
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
-
     }
+
+    @PutMapping("/delete")
+    public Response deleteBoard(@RequestBody BoardReplyRequest boardReplyRequest){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.deleteBoard(boardReplyRequest), "200");
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
 
 }
