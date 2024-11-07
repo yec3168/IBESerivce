@@ -21,6 +21,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
+        executeSqlScript("classpath:sql/board_dummy.sql");
         executeSqlScript("classpath:sql/member_dummy.sql");
         executeSqlScript("classpath:sql/product_dummy.sql");
         executeSqlScript("classpath:sql/productImg_dummy.sql");
