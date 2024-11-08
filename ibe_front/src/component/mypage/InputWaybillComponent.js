@@ -7,17 +7,36 @@ const InputWaybillComponent = () => {
     const [waybill, setWaybill] = useState('');
     const [addr, setAddr] = useState('');
     const [errors, setErrors] = useState({});
+    const [waybillData, setWaybillData] = useState(null);
 
     const location = useLocation();
 
     useEffect(() => {
-        // URL에서 'addr' 쿼리 파라미터를 추출 (API 호출 X)
+        // URL에서 'addr', waybillData 쿼리 파라미터를 추출 (API 호출 X)
         const queryParams = new URLSearchParams(location.search);
+        const waybillDataStr = queryParams.get('waybillData');
         const address = queryParams.get('address');
+
+        if (waybillDataStr) {
+            try {
+                const parsedWaybillData = JSON.parse(decodeURIComponent(waybillDataStr));
+                setWaybillData(parsedWaybillData);  
+            } catch (e) {
+                console.error('Error parsing waybillData:', e);
+            }
+        }
         if (address) {
             setAddr(decodeURIComponent(address));
         }
     }, [location.search]);
+
+    useEffect(() => {
+        // 넘어온 waybillData 콘솔 출력
+        if (waybillData) {
+            console.log('Received waybillData:', waybillData);
+        }
+    }, [waybillData]);
+
 
     // 입력된 운송장 번호를 처리하는 함수
     const handleInputChange = (e) => {
@@ -108,7 +127,7 @@ const InputWaybillComponent = () => {
                         backgroundColor: '#FFD54F', borderColor: '#FFEB3B', color: '#000435',
                         margin: '20px 30px', width: '130px', height: '40px', whiteSpace: "nowrap"
                     }} >
-                    구매자 주소 확인
+                    닫기
                 </Button>
                 
                 {/* 운송장 제출 버튼 */}

@@ -15,7 +15,6 @@ const MypageSlistPagingComponent = () => {
     const [showModal, setShowModal] = useState(false);
     const [showResultModal, setShowResultModal] = useState(false);
     const [resultMessage, setResultMessage] = useState("");
-
     
     useEffect(() => {
         getSellList()
@@ -56,6 +55,9 @@ const MypageSlistPagingComponent = () => {
         : null,
 
         productId: order.productId,
+
+        // 운송장 번호 추가
+        waybill: order.orderWayBill,
     }))
     .sort((a, b) => new Date(b.listedDate.split(" : ")[1]) - new Date(a.listedDate.split(" : ")[1])); // 내림차순 정렬
 
@@ -109,7 +111,7 @@ const MypageSlistPagingComponent = () => {
     };
 
     // 운송장 번호 입력을 위한 새 창 열기 함수
-    const openWaybillWindow = (orderId, addr) => {
+    const openWaybillWindow = (orderId, addr, productId, wb) => {
         const width = 700; 
         const height = 450; 
         const screenWidth = window.innerWidth;
@@ -118,8 +120,17 @@ const MypageSlistPagingComponent = () => {
         // 새 창 오픈 위치 (화면 정중앙에 열리도록)
         const left = Math.max((screenWidth-width)/2, 0);
         const top = Math.max((screenHeight-height)/2, 0);
-    
-        const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}`; //url에서 id, 주소 parsing
+
+        // 배송지 입력 버튼 클릭 시 넘어가는 배열
+        const waybillData = {
+            orderId: orderId,
+            productId: productId,
+            waybill: wb
+        };
+
+        console.log(waybillData);
+
+        const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}&waybillData=${encodeURIComponent(JSON.stringify(waybillData))}`;
         const windowName = `waybillWindow`;
         const windowFeatures = `width=${width}, height=${height}, left=${left}, top=${top}`;
 
@@ -128,10 +139,9 @@ const MypageSlistPagingComponent = () => {
             console.error('Order not found');
             return;
         }
-    
+
         window.open(url, windowName, windowFeatures);
     };
-
 
     
     const handlerComplete = (item) => {
@@ -188,7 +198,7 @@ const MypageSlistPagingComponent = () => {
                                 {item.orderState === "AVAILABLE" && item.id !== null &&  
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => handlerComplete(item)}>거래 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   
-                                    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openWaybillWindow(item.id, item.orderMemberAddr)}>배송지 입력</Button>}
+                                    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openWaybillWindow(item.id, item.orderMemberAddr, item.productId, item.waybill)}>배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
                                 {item.orderState === "DELIVERED" && <div />}
