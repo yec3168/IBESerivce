@@ -274,6 +274,11 @@ public class OrderService {
         // 3. orderMemberName도 같아야함.
         Order order = orderRepository.findByOrderIdAndProductAndOrderMemberEmail(orderFinishedRequest.getOrderId(), sellProduct, sellMember.getMemberEmail());
 
+        Member productMember = sellProduct.getMember();
+        productMember.setMemberPoint(sellProduct.getProductPoint());
+        memberService.saveMember(productMember);
+
+
         if(order==null)
             throw new BusinessException("주문정보가 잘못되었습니다.\n관리자에게 문의해주세요.");
 
