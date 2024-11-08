@@ -46,7 +46,7 @@ public class InquiryController {
         }
     }
 
-    // 문의 답변 조회
+    // 문의 답변 조회 by inquiryId
     @GetMapping("/inquiry/answer/{id}")
     public Response getInquiryAnswer(PrincipalDTO principal, @PathVariable Long id) {
         try {

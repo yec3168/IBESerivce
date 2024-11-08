@@ -254,6 +254,10 @@ public class ProductService {
         return productRepository.findAllByMember(member);
     }
 
+    public Product saveProduct(Product product){
+        return productRepository.save(product);
+    }
+
     private ProductComment findProductCommentById(Long id) {
         return productCommentRepository.findById(id)
                 .orElseThrow(

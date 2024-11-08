@@ -1,12 +1,10 @@
 package com.project.ibe.services.order;
 
 import com.project.ibe.dto.member.PrincipalDTO;
-import com.project.ibe.dto.order.OrderFormRequest;
-import com.project.ibe.dto.order.OrderFormResponse;
-import com.project.ibe.dto.order.OrderListResponse;
-import com.project.ibe.dto.order.SellerListResponse;
+import com.project.ibe.dto.order.*;
 import com.project.ibe.dto.product.ProductDetailResponse;
 import com.project.ibe.entity.common.OrderState;
+import com.project.ibe.entity.common.ProductTradeState;
 import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.order.Order;
 import com.project.ibe.entity.product.Product;
@@ -56,6 +54,10 @@ public class OrderService {
 
         // 중복 주문 확인
         List<Order> orderList = orderRepository.findByProductAndOrderMemberEmail(product, orderMember.getMemberEmail());
+
+        // 이미 거래완료면 구매 못하게 막음
+        if(product.getProductTradeState().equals(ProductTradeState.TRADE_COMPLETED))
+            throw new BusinessException("이미 거래완료된 상품입니다.", HttpStatus.BAD_REQUEST);
 
         if(!orderList.isEmpty()){
             System.out.println("이미구매");
@@ -110,6 +112,7 @@ public class OrderService {
             orderListResponse.setMember(productDetailResponse.getMember());             //판매자 정보.
             if(!productDetailResponse.getImagePath().isEmpty())
                 orderListResponse.setImagePath(productDetailResponse.getImagePath().get(0)); //썸네일.
+            orderListResponse.setOrderWayBill(order.getOrderWayBill());
 
             orderListResponseList.add(orderListResponse);
         }
@@ -141,6 +144,7 @@ public class OrderService {
             if(orderList.isEmpty()){
                 SellerListResponse sellerListResponse = new SellerListResponse();
                 sellerListResponse.setOrderState(OrderState.AVAILABLE);
+                sellerListResponse.setProductId(productDetailResponse.getProductId());
                 sellerListResponse.setProductTitle(productDetailResponse.getProductTitle());
                 sellerListResponse.setProductPoint(productDetailResponse.getProductPoint());
                 sellerListResponse.setSellerMemberNickName(sellMember.getMemberNickName());
@@ -156,14 +160,17 @@ public class OrderService {
                     sellerListResponse.setOrderId(order.getOrderId());
                     sellerListResponse.setOrderState(order.getOrderState());
                     sellerListResponse.setOrderDate(order.getOrderDate());
-                    sellerListResponse.setOrderMemberNickName(memberService.getMemberByEmail(order.getOrderMemberEmail()).getMemberNickName()); //구매자의 닉네임.
+                    sellerListResponse.setOrderMember(memberService.getMemberByEmail(order.getOrderMemberEmail()));
+//                    sellerListResponse.setOrderMemberNickName(memberService.getMemberByEmail(order.getOrderMemberEmail()).getMemberNickName()); //구매자의 닉네임.
                     sellerListResponse.setOrderDeliveryDate(order.getOrderDeliveryDate());
+                    sellerListResponse.setProductId(productDetailResponse.getProductId());
                     sellerListResponse.setProductTitle(productDetailResponse.getProductTitle());
                     sellerListResponse.setProductPoint(productDetailResponse.getProductPoint());
                     sellerListResponse.setSellerMemberNickName(sellMember.getMemberNickName());
                     if(!productDetailResponse.getImagePath().isEmpty())
                         sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
                     sellerListResponse.setProductListedAt(productDetailResponse.getProductCreatedAt());
+                    sellerListResponse.setOrderWayBill(order.getOrderWayBill());
 
                     sellerListResponseList.add(sellerListResponse);
                 }
@@ -172,33 +179,57 @@ public class OrderService {
         return sellerListResponseList;
     }
 
-//    public List<SellerListResponse> getSellList(PrincipalDTO principalDTO){
-//        // 마이페이지 사용자 정보.
-//        Member orderMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
-//
-//        // 1. 사용자가 판매한 물품 리스트들을 가져옴.
-//        List<Product> productList = productService.findAllByMember(orderMember);
-//
-//
-//        // 2. 해당 물품과 일치하는 Order 가져옴
-//        for(Product product : productList){
-//            //2-1. 물품 정보 가져오기.
-//            ProductDetailResponse productDetailResponse = productService.getProductDetail(product.getProductId());
-//
-//            SellerListResponse sellerListResponse = modelMapper.map(productDetailResponse, SellerListResponse.class);
-//            if(!productDetailResponse.getImagePath().isEmpty())
-//                sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
-//
-//            // 2-2 해당 물품의 주문 정보가 존재하는지.
-//            if(orderRepository.existsByProduct(product)){
-//                // 2-2-1. Order 리스트 가져오기
-//                List<Order> orderList = orderRepository.findAllByProductOrderByOrderIdDesc(product);
-//
-//            }
-//
-//            //2-3. 존재하지 않으면
-//        }
-//
-//        return null;
-//    }
+    /**
+     * 거래완료
+     */
+
+    public boolean orderComplete(OrderCompleteRequest orderCompleteRequest, PrincipalDTO principalDTO){
+        // 판매자가 존재하는지.
+        Member sellMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        // 물품 확인
+        Product sellProduct = productService.findProductById(orderCompleteRequest.getProductId());
+
+        // 구매확정 누른사람이 로그인한 사람과 물품 판매한사람과 일치하는지.
+        if(!sellMember.equals(sellProduct.getMember()))
+            throw new BusinessException("판매자가 아닙니다. 다시 시도해주세요.", HttpStatus.BAD_REQUEST);
+
+
+        // 주문번호 확인
+//        Order order = findOrderById(orderCompleteRequest.getOrderId());
+//        order.setOrderState(OrderState.COMPLETED);
+
+        // 다른 주문들은 REJECTED로 변경. 거래신청한 주문번호만 complete
+        List<Order> orderList = orderRepository.findAllByProductOrderByOrderIdDesc(sellProduct);
+        for(Order order: orderList){
+            if(order.getOrderId().equals(orderCompleteRequest.getOrderId())){
+                // 현재 거래완료 버튼 누른 orderId와 일치
+                order.setOrderState(OrderState.COMPLETED);
+            }
+            else{
+                order.setOrderState(OrderState.REJECTED);
+            }
+            orderRepository.save(order);
+        }
+
+        //물품 구매확정.
+        sellProduct.setProductTradeState(ProductTradeState.TRADE_COMPLETED);
+        productService.saveProduct(sellProduct);
+
+        return true;
+    }
+
+
+
+
+
+
+    public Order findOrderById(Long orderId){
+        return orderRepository.findById(orderId)
+                .orElseThrow(
+                        () -> new BusinessException("주문내역이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
+                );
+    }
+
+
 }
