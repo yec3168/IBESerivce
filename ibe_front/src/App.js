@@ -41,6 +41,7 @@ import IbeBoardDetailsPage from './component/layout/pages/IbeBoard/IbeBoardDetai
 import TermsAgreementComponent from './component/sign/TermsAgreementComponent';
 import MypagePointPayBackComfrimComponent from './component/point/MypagePointPayBackComfirmComponent';
 import PrivateRouter from './component/router/PrivateRouter.js';
+import InputWaybillPage from './component/layout/pages/mypage/InputWaybillPage.js';
 
 
 // 권한 감지하는 컴포넌트 PrivateRouter(ROLE, component)  권한 없을 시 <SignInComponent /> 로 보냄
@@ -81,13 +82,11 @@ function App() {
         <Route path="/mypage/pntpayback" element={<PrivateRouter Role="USER" component={<MypagePointPaybackPage />}/>} />
         <Route path="/mypage/inquiry" element={<PrivateRouter Role="USER" component={<MypageInquiryPage />}/>} />
         <Route path="/mypage/inqlist" element={<PrivateRouter Role="USER" component={<MypageInquiryListPage />}/>} />
-        <Route
-          path="/mypage/inquiry/answer/:id"
-          element={<PrivateRouter Role="USER" component={<MypageInquiryAnsPage />}/>}
-        />
+        <Route path="/mypage/inquiry/answer/:id" element={<PrivateRouter Role="USER" component={<MypageInquiryAnsPage />}/>}/>
         <Route path="/mypage/info" element={<PrivateRouter Role="USER" component={<MypageMemberInfoChangePage />}/>} />
         <Route path="/mypage/pw" element={<PrivateRouter Role="USER" component={<MypagePwChangePage />}/>} />
         <Route path="/mypage/delete" element={<PrivateRouter Role="USER" component={<MypageDeleteAccountPage />}/>} />
+        <Route path="/waybill/:orderId" element={<PrivateRouter Role="USER" component={<InputWaybillPage />}/>} />
 
         {/* 포인트 처리 라우터 */}
         <Route path="/mypage/pntcharge/completed" element={<PrivateRouter Role="USER" component={<MypagePointChargeCompletedComponent />}/>} />
