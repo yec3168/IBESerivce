@@ -37,7 +37,8 @@
 }
 
 .admin-sidebar a {
-  font-size: 27px;
+  font-size: 21px;
+  font-weight: bold;
 }
 
 .admin-sidebar nav a:hover {
@@ -75,10 +76,10 @@
 
 .sub-menu a {
   color: #666; /* 서브 메뉴 링크 색상 */
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .sub-menu a:hover {
   color: #d27a00; /* 호버 시 색상 변경 */
 }
-
