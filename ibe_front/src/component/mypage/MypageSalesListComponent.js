@@ -41,10 +41,15 @@ const MypageSalesListComponent = () => {
         orderMemberNickName : order.orderMember !== null ? "구매자 : " + order.orderMember.memberNickName: null , // 구매자 닉네임
 
         // 배송지 얻는부분.
-        orderMemberAddr : order.orderMember !== null ? (order.orderMember.memberAddr + " " + order.orderMember.memberAddrDetail) : null,
-
+        // 상세 주소 null인 경우 공백 치환 추가
+        orderMemberAddr: order.orderMember !== null 
+        ? (order.orderMember.memberAddr + " " + (order.orderMember.memberAddrDetail || "")) 
+        : null,
 
         productId: order.productId,
+
+        // 운송장 번호 추가
+        waybill: order.orderWayBill,
     }))
     .sort((a, b) => new Date(b.listedDate.split(" : ")[1]) - new Date(a.listedDate.split(" : ")[1])); // 내림차순 정렬
 
@@ -99,6 +104,39 @@ const MypageSalesListComponent = () => {
         setCompleted(prev => !prev);
     };
 
+    // 운송장 번호 입력을 위한 새 창 열기 함수
+    const openWaybillWindow = (orderId, addr, productId, wb) => {
+        const width = 700; 
+        const height = 450; 
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+    
+        // 새 창 오픈 위치 (화면 정중앙에 열리도록)
+        const left = Math.max((screenWidth-width)/2, 0);
+        const top = Math.max((screenHeight-height)/2, 0);
+
+        // 배송지 입력 버튼 클릭 시 넘어가는 배열
+        const waybillData = {
+            orderId: orderId,
+            productId: productId,
+            waybill: wb
+        };
+
+        console.log(waybillData);
+
+        const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}&waybillData=${encodeURIComponent(JSON.stringify(waybillData))}`;
+        const windowName = `waybillWindow`;
+        const windowFeatures = `width=${width}, height=${height}, left=${left}, top=${top}`;
+
+        const order = purchaseList.find(item => item.id === orderId);
+        if (!order) {
+            console.error('Order not found');
+            return;
+        }
+
+        window.open(url, windowName, windowFeatures);
+    };
+
     return (
         <>
             <h3 id="h3_salListTitle">판매 목록</h3>
@@ -136,7 +174,7 @@ const MypageSalesListComponent = () => {
                                 {item.orderState === "AVAILABLE" && item.id !== null &&  
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => handlerComplete(item)}>거래 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   
-                                    <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
+                                    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openWaybillWindow(item.id, item.orderMemberAddr, item.productId, item.waybill)}>배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
                                 {item.orderState === "DELIVERED" && <div />}
