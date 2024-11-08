@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminSalesRequest.css';
 
-const AdminSalesRequest = () => {
+const AdminBuyRequest = () => {
   const [expandedId, setExpandedId] = useState(null);
   const [salesRequests, setSalesRequests] = useState([]);
   const [rejectionReason, setRejectionReason] = useState({});
@@ -265,4 +265,4 @@ const AdminSalesRequest = () => {
   );
 };
 
-export default AdminSalesRequest;
+export default AdminBuyRequest;

@@ -34,15 +34,18 @@ public class Order {
     @JoinColumn(name = "product_id")
     private Product product; //판매물품 -> 판매자 정보도 들어있음.
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member orderMember; // 구매자.
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "member_id")
+    private String orderMemberEmail; // 구매자.
+
+    private String sellerMemberEmail; //판매자.
 
 
     @Builder
-    public Order(OrderState orderState, Product product, Member orderMember){
+    public Order(OrderState orderState, Product product, String orderMemberEmail, String sellerMemberEmail){
         this.orderState = orderState;
         this.product =product;
-        this.orderMember = orderMember;
+        this.orderMemberEmail = orderMemberEmail;
+        this.sellerMemberEmail = sellerMemberEmail;
     }
 }

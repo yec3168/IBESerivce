@@ -123,7 +123,7 @@ const IbeBoardListComponent = () => {
             {
             noticePosts.map((post) => (
                 <>
-                {currentPage == '1' ? 
+                {currentPage === '1' ? 
                 <>
                 <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer'}}>
                   <td style={{ fontWeight: 'bold' ,backgroundColor:'#FFFAFA'}}></td> {/* No ID displayed */}

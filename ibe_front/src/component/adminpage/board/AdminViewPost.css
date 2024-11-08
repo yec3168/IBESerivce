@@ -199,3 +199,50 @@
   border-radius: 4px; /* 모서리 둥글게 설정 */
   font-size: 16px; /* 글자 크기 설정 */
 }
+
+.admin-vp-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-vp-modal-content {
+  background: white;
+  padding: 20px;
+  width: 400px;
+  max-width: 90%;
+  border-radius: 8px;
+  text-align: left;
+  position: relative;
+}
+
+.admin-vp-modal h2 {
+  margin-top: 0;
+}
+
+.admin-vp-modal p {
+  margin: 10px 0;
+}
+
+.admin-vp-close-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.admin-vp-close-btn:hover {
+  background-color: #0056b3;
+}

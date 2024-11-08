@@ -1,0 +1,211 @@
+.admin-sr-title {
+  text-align: center;
+}
+
+.admin-sr-button-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.admin-sr-action-button-no {
+  padding: 8px 104px;
+  margin: 0.5rem;
+  background-color: rgb(151, 0, 0);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.admin-sr-action-button-yes {
+  padding: 8px 104px;
+  margin: 0.5rem;
+  background-color: rgb(33, 95, 33);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.admin-sr-action-button-yes:hover {
+  background-color: green;
+}
+
+.admin-sr-action-button-no:hover {
+  background-color: red;
+}
+
+.admin-sr-sales-request-column {
+  display: flex;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.admin-sr-sales-request-container {
+  padding: 1rem;
+  margin: 1rem;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+}
+
+.admin-sr-sales-request-header {
+  display: flex;
+  cursor: pointer;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+.admin-sr-sales-request-item {
+  border: none;
+  margin-top: 5px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  /* border-bottom: 1px solid #ddd; */
+}
+
+.admin-sr-column {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.admin-sr-column.admin-sr-id {
+  flex: 1;
+}
+
+.admin-sr-column.admin-sr-category {
+  flex: 2;
+}
+
+.admin-sr-column.admin-sr-title {
+  flex: 12;
+}
+
+.admin-sr-column.admin-sr-nickname {
+  flex: 2;
+}
+
+.admin-sr-column.admin-sr-date {
+  flex: 4;
+}
+
+.admin-sr-sales-request-content {
+  padding: 1rem;
+}
+
+.admin-sr-button-container {
+  text-align: center;
+}
+
+.admin-sr-textarea-container {
+  text-align: center;
+}
+
+.admin-sr-textarea {
+  padding: 0.5rem;
+  width: 500px;
+  min-height: 100px; /* 기본 높이 설정 */
+  resize: none; /* 크기 조정 비활성화 */
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  overflow-y: hidden; /* 스크롤바 숨김 */
+}
+
+.admin-sr-textarea:focus {
+  border-color: black; /* 포커스 시 테두리 색상 변경 */
+  box-shadow: 0 0 5px black; /* 포커스 시 그림자 효과 */
+  outline: none; /* 포커스 아웃라인 제거 */
+}
+
+.admin-sr-error-message-container {
+  text-align: center;
+}
+.admin-sr-error-message {
+  color: red;
+}
+
+.admin-sr-image {
+  width: 150px;
+  height: 150px;
+  margin: 0.5rem;
+  object-fit: cover;
+  border: 1px solid rgb(92, 92, 92);
+  border-radius: 4px;
+}
+
+.admin-sr-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.admin-sr-modal-content {
+  position: relative;
+  padding: 20px;
+  background: white;
+  max-width: 80%; /* 화면 너비의 최대 80% */
+  max-height: 80%; /* 화면 높이의 최대 80% */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-sr-modal-image {
+  max-width: 100%; /* 이미지의 최대 너비를 모달의 100%로 설정 */
+  max-height: 100%; /* 이미지의 최대 높이를 모달의 100%로 설정 */
+  object-fit: contain; /* 이미지가 비율을 유지하면서 크기 맞추기 */
+}
+
+.admin-sr-modal:hover {
+  cursor: default;
+}
+
+
+.admin-sr-image-td {
+  padding: 10px;
+  text-align: center;
+}
+
+.admin-sr-image-container {
+  position: relative; /* 이미지와 텍스트를 겹치게 하기 위해 상대 위치 설정 */
+  display: inline-block; /* 여러 이미지를 나열할 때 적합 */
+}
+
+.admin-sr-image {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer; /* 클릭할 수 있다는 피드백 */
+}
+
+.admin-sr-image-text {
+  position: absolute;
+  top: 50%; /* 세로 중앙 */
+  left: 50%; /* 가로 중앙 */
+  transform: translate(-50%, -50%); /* 정확한 중앙 위치 조정 */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 텍스트 가독성 향상 */
+  opacity: 0.7; /* 기본 투명도 */
+  pointer-events: none; /* 텍스트 클릭 방지 */
+}
+
+.admin-sr-image-container:hover .admin-sr-image-text {
+  opacity: 1; /* 마우스를 올렸을 때 텍스트의 투명도 증가 */
+}

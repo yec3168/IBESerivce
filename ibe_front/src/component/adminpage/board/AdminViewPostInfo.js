@@ -9,6 +9,7 @@ const AdminViewPostInfo = () => {
   const [searchType, setSearchType] = useState('boardTitle');
   const [selectedNotes, setSelectedNotes] = useState('');
   const [filteredItems, setFilteredItems] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시글
   const itemsPerPage = 10;
 
   // 데이터 가져오기
@@ -31,7 +32,9 @@ const AdminViewPostInfo = () => {
   const handleSearch = () => {
     const filtered = data.filter((item) => {
       const valueToSearch = item[searchType]?.toString().toLowerCase() || '';
-      const matchesSearchTerm = valueToSearch.includes(searchTerm.toLowerCase());
+      const matchesSearchTerm = valueToSearch.includes(
+        searchTerm.toLowerCase()
+      );
       const matchesNotes = selectedNotes
         ? selectedNotes === '삭제되지 않음'
           ? !item.boardStatus
@@ -69,6 +72,21 @@ const AdminViewPostInfo = () => {
   const goToFirstPage = () => setCurrentPage(1);
   const goToLastPage = () => setCurrentPage(totalPages);
 
+  // 게시글 클릭 시 동작
+  const handleRowClick = (item) => {
+    if (item.boardStatus) {
+      setSelectedPost(item); // 모달로 게시글 데이터 전달
+    } else {
+      window.open(
+        `http://localhost:3000/boards/details/${item.boardId}`,
+        '_blank'
+      );
+    }
+  };
+
+  // 모달 닫기
+  const closeModal = () => setSelectedPost(null);
+
   return (
     <div className="admin-vp-info-list">
       <h3 className="admin-vp-h2">정보 게시글 목록</h3>
@@ -77,7 +95,7 @@ const AdminViewPostInfo = () => {
           value={selectedNotes}
           onChange={(e) => setSelectedNotes(e.target.value)}
         >
-          <option value="">비고 선택</option>
+          <option value="">삭제여부 선택</option>
           <option value="삭제되지 않음">삭제되지 않음</option>
           <option value="삭제됨">삭제됨</option>
         </select>
@@ -106,11 +124,16 @@ const AdminViewPostInfo = () => {
           <div className="admin-vp-column category">카테고리</div>
           <div className="admin-vp-column title">제목</div>
           <div className="admin-vp-column author">작성자</div>
-          <div className="admin-vp-column notes">비고</div>
+          <div className="admin-vp-column notes">삭제여부</div>
           <div className="admin-vp-column uploadDate">업로드 날짜</div>
         </div>
         {currentItems.map((item) => (
-          <div className="admin-vp-info-row" key={item.boardId}>
+          <div
+            className="admin-vp-info-row"
+            key={item.boardId}
+            onClick={() => handleRowClick(item)}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="admin-vp-column id">{item.boardId}</div>
             <div className="admin-vp-column category">{item.boardCategory}</div>
             <div className="admin-vp-column title">{item.boardTitle}</div>
@@ -147,6 +170,28 @@ const AdminViewPostInfo = () => {
           맨 끝
         </button>
       </div>
+
+      {/* 모달 */}
+      {selectedPost && (
+        <div className="admin-vp-modal">
+          <div className="admin-vp-modal-content">
+            <h2>
+              [{selectedPost.boardCategory}] {selectedPost.boardTitle}
+            </h2>
+            <p>
+              <strong>작성자:</strong> {selectedPost.memberNickName}
+            </p>
+            <p>
+              <strong>작성일자:</strong>{' '}
+              {selectedPost.boardCreatedAt.split('T')[0]}
+            </p>
+            <p> {selectedPost.boardContent}</p>
+            <button className="admin-vp-close-btn" onClick={closeModal}>
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

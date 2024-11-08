@@ -60,10 +60,6 @@
   cursor: pointer;
 }
 
-.admin-manager-modal-actions button:hover {
-  background-color: #f0f0f0; /* 버튼 호버 스타일 */
-}
-
 /* 오류 메시지 스타일 */
 .admin-manager-modal-error {
   color: red;
