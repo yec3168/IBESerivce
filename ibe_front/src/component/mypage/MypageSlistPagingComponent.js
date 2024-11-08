@@ -43,7 +43,10 @@ const MypageSlistPagingComponent = () => {
         orderMemberNickName : order.orderMember !== null ? "구매자 : " + order.orderMember.memberNickName: null , // 구매자 닉네임
 
         // 배송지 얻는부분.
-        orderMemberAddr : order.orderMember !== null ? (order.orderMember.memberAddr + " " + order.orderMember.memberAddrDetail) : null,
+        // 상세 주소 null인 경우 공백 치환 추가
+        orderMemberAddr: order.orderMember !== null 
+        ? (order.orderMember.memberAddr + " " + (order.orderMember.memberAddrDetail || "")) 
+        : null,
 
         productId: order.productId,
     }))
@@ -82,21 +85,26 @@ const MypageSlistPagingComponent = () => {
         setCurrentPage(page);
     };
 
-    // 배송지 입력을 위한 새 창 열기 함수
-    const openTrackingWindow = (orderId) => {
-        console.log('Opening window for orderId:', orderId);
-        const width = 600; 
-        const height = 400; 
+    // 운송장 번호 입력을 위한 새 창 열기 함수
+    const openTrackingWindow = (orderId, addr) => {
+        const width = 700; 
+        const height = 450; 
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
     
-        // 새 창의 위치 (화면 중앙에 열리도록)
-        const left = Math.max((screenWidth - width) / 2, 0);
-        const top = Math.max((screenHeight - height) / 2, 0);
+        // 새 창 오픈 위치 (화면 정중앙에 열리도록)
+        const left = Math.max((screenWidth-width)/2, 0);
+        const top = Math.max((screenHeight-height)/2, 0);
     
-        const url = `/waybill/${orderId}`; // URL에 주문 아이디를 포함시켜 새 창 열기
-        const windowName = `아이비 운송장 입력`; // 새 창 이름
-        const windowFeatures = `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`;
+        const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}`; //url에서 id, 주소 parsing
+        const windowName = `waybillWindow`;
+        const windowFeatures = `width=${width}, height=${height}, left=${left}, top=${top}`;
+
+        const order = purchaseList.find(item => item.id === orderId);
+        if (!order) {
+            console.error('Order not found');
+            return;
+        }
     
         window.open(url, windowName, windowFeatures);
     };
@@ -142,10 +150,9 @@ const MypageSlistPagingComponent = () => {
                         <Col xs={2} id="col_purListPaging">
                             <div>
                                 {item.orderState === "AVAILABLE" && item.id !== null &&  <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={ () => orderCompleteHandler(item)}>거래 확정</Button>}
-                                {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
+                                {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openTrackingWindow(item.id, item.orderMemberAddr)}>배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />} 
-                                {/* <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openTrackingWindow(item.id)}>배송지 입력</Button> */}
                             </div>
                         </Col>
                     </Row>
