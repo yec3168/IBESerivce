@@ -132,10 +132,23 @@ const ProductDetailComponent = () => {
                                     </p>
                                     
                                     <div id="product_price_deal" className="mx-4 my-3" >
-                                        <span id="product_price">
-                                        {productPoint !== "" ? productPoint+"P" : "0P"}
-                                            
+                                        
+                                        {productPoint !== "" ? 
+                                        <>
+                                        <span id="product_price">{productPoint}
+                                        <span id="span_won" style={{ display: 'inline-block' }}>
+                                            &nbsp;P
                                         </span>
+                                        </span>
+                                        </>
+                                        : 
+                                        <span id="product_price">0
+                                        <span id="span_won" style={{ display: 'inline-block' }}>
+                                            &nbsp;P
+                                        </span>
+                                        </span>}
+                                            
+                                        
                                         <Badge bg={productTradeState === "거래 가능" ? "success" : "secondary"}>
                                             {productTradeState === "거래 가능" ? "거래가능" : "거래완료"}
                                         </Badge>
