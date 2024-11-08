@@ -3,6 +3,12 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import ibe_logo from "../assets/images/header/ibe_logo.png";
 import { useLocation } from "react-router-dom";
 
+// ****************************************************
+// 넘어온 orderId 값 == waybillData.orderId
+// 넘어온 productId 값 == waybillData.productId
+// 넘어온 waybill 값 == waybillData.waybill
+// ****************************************************
+
 const InputWaybillComponent = () => {
     const [waybill, setWaybill] = useState('');
     const [addr, setAddr] = useState('');
@@ -34,6 +40,9 @@ const InputWaybillComponent = () => {
         // 넘어온 waybillData 콘솔 출력
         if (waybillData) {
             console.log('Received waybillData:', waybillData);
+            // console.log(waybillData.orderId);
+            // console.log(waybillData.productId);
+            // console.log(waybillData.waybill);
         }
     }, [waybillData]);
 
