@@ -19,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -220,7 +221,35 @@ public class OrderService {
     }
 
 
+    /**
+     *  운송장번호 입력.
+     *  1. order 상태 배송중으로 업데이트
+     *  2. order 배송지 입력
+     *  3. roder 배송시작 날짜 업데이트
+     */
+    public boolean orderDelivery(OrderDeliveryRequest orderDeliveryRequest, PrincipalDTO principalDTO){
+        // 로그인한 회원 가져오기.
+        Member sellMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
 
+        // 물품 가져오기.
+        Product sellProduct = productService.findProductById(orderDeliveryRequest.getProductId());
+
+        // 물품의 판매자와 로그인한 회원이 일치하는지 확인
+        if(!sellMember.equals(sellProduct.getMember()))
+            throw new BusinessException("판매자가 아닙니다. 다시 시도해주세요.", HttpStatus.BAD_REQUEST);
+
+
+        // 주문정보 가져오기. ( 나머지는 rejected 될 예정이라 한개만 가져와도 됨.)
+        Order order = findOrderById(orderDeliveryRequest.getOrderId());
+        order.setOrderState(OrderState.SHIPPING); //배송중으로 업데이트
+        order.setOrderWayBill(orderDeliveryRequest.getOrderWayBill());
+        order.setOrderDeliveryDate(LocalDateTime.now());
+
+        //저장.
+        orderRepository.save(order);
+
+        return true;
+    }
 
 
 

@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 import badge_available from '../assets/images/main/badge/badge_available.png'
@@ -14,6 +14,12 @@ import { getOrderList } from "../service/OrderService";
 const MypagePurchaseListComponent = () => {
 
     const [orders, setOrders] = useState([]); // 초기값을 빈 배열로 설정
+    const [completed, setCompleted] = useState(false); // 거래완료시 변화함.
+    const [selectedItem, setSelectedItem] = useState(null); // 선택된 item 상태
+    const [showModal, setShowModal] = useState(false);
+    const [showResultModal, setShowResultModal] = useState(false);
+    const [resultMessage, setResultMessage] = useState("");
+
     useEffect(() => {
         getOrderList()
         .then(response => {
@@ -25,7 +31,7 @@ const MypagePurchaseListComponent = () => {
         .catch(error => {
             console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
         });
-    }, []);
+    }, [completed]);
 
     const purchaseList = orders.map((order, index) => ({
         id: order.orderId,
@@ -39,6 +45,49 @@ const MypagePurchaseListComponent = () => {
         orderWayBill : order.orderWayBill,
     }));
 
+   
+
+
+
+ // 구매 확정 핸들러
+    const orderFinishedHandler = () =>{
+        handleCloseModal();
+
+        if (selectedItem) {
+            const orderFinishedRequest = {
+                orderId: selectedItem.id,
+                productId: selectedItem.productId
+            };
+
+            // orderComplete(orderFinishedRequest)
+            //     .then(response => {
+            //         if (response.data.code === "200") {
+            //             setResultMessage("거래확정되었습니다.");
+            //         } else {
+            //             setResultMessage(response.data.message); // 실패 메시지 설정
+            //         }
+            //         setShowResultModal(true);  // 결과 모달 열기
+            //     })
+            //     .catch(() => {
+            //         setResultMessage("구매에 실패했습니다.\n 다시 시도해주세요."); // 실패 메시지 설정
+            //         setShowResultModal(true);  // 결과 모달 열기
+            //     });
+        }
+    }
+
+    const handlerFinished = (item) => {
+        setSelectedItem(item);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleCloseResultModal = () => {
+        setShowResultModal(false);
+        setCompleted(prev => !prev);
+    };
 
      const addComma = (price) => {
                 let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -52,70 +101,12 @@ const MypagePurchaseListComponent = () => {
 
     const currentItems = purchaseList.slice(0, 3);
 
+
+
     return (
         <>
             {/* 구매 목록 타이틀 */}
             <h3 id="h3_purListTitle">구매 목록</h3>
-
-            {/* 구매 목록 리스트 */}
-            {/* <Container className="mb-3">
-                <Row className="my-5">
-                    <Col xs={1} id="col_purList">
-                        <img src={product_stroller} alt="strollerImg" id="img_purListThumbnail" />
-                    </Col>
-                    <Col xs={2} id="col_purListTitle">
-                        <div>
-                            <div id="purListTitle">유모차 팝니다</div>
-                            <div>판매자닉네임</div>
-                            <div>70,000 P</div>
-                        </div>
-                    </Col>
-                    <Col xs={4} id="col_purList">
-                        <div>
-                            <div>신청일자   2024-10-25 19:00</div>
-                            <div>배송도착   2024-10-25 19:00</div>
-                        </div>
-                    </Col>
-                    <Col xs={2} id="col_purList">
-                        <div>
-                            <img src={badge_finished} alt="finished" width="100px"/>
-                        </div>
-                    </Col>
-                    <Col xs={2} id="col_purList">
-                        <div>
-                            <Button size="lg" variant="warning" id="btn_purConfirm">구매 확정</Button>
-                        </div>
-                    </Col>
-                </Row>
-                <Row className="my-5">
-                    <Col xs={1} id="col_purList">
-                        <img src={product_stroller} alt="strollerImg" id="img_purListThumbnail" />
-                    </Col>
-                    <Col xs={2} id="col_purListTitle">
-                        <div>
-                            <div id="purListTitle">유모차 팝니다</div>
-                            <div>판매자닉네임</div>
-                            <div>70,000 P</div>
-                        </div>
-                    </Col>
-                    <Col xs={4} id="col_purList">
-                        <div>
-                            <div>신청일자   2024-10-25 19:00</div>
-                            <div>배송도착   2024-10-25 19:00</div>
-                        </div>
-                    </Col>
-                    <Col xs={2} id="col_purList">
-                        <div>
-                            <img src={badge_finished} alt="finished" width="100px"/>
-                        </div>
-                    </Col>
-                    <Col xs={2} id="col_purList">
-                        <div>
-                            <Button size="lg" variant="warning" id="btn_purConfirm">구매 확정</Button>
-                        </div>
-                    </Col>
-                </Row>
-            </Container> */}
 
             {/* 구매 목록 리스트 */}
             <Container className="mb-3" id="container_purListPaging">
@@ -154,12 +145,43 @@ const MypagePurchaseListComponent = () => {
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {item.orderState === "AVAILABLE" &&   <div />}
+                                {/* {item.orderState === "AVAILABLE" &&    <div />} */}
+                                {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   <div />}
-                                {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
+                                {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />}
                             </div>
                         </Col>
+
+                        <Modal id="order-modal" show={showModal} onHide={handleCloseModal} centered>
+                            <Modal.Header closeButton>
+                                <Modal.Title>구매 확정 확인</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                            <div style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                <div>물품을 수령했으면 상품을 확인 후 구매 확정 버튼을 눌러주세요.</div>
+                                <div>구매 확정시 환불 및 교환이 <strong style={{color:"red"}}>불가</strong>합니다.</div>
+                                <div  style={{color:"red"}}>구매 확정 하시겠습니까?</div>
+                            </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleCloseModal}>취소</Button>
+                                <Button variant="custom" onClick={orderFinishedHandler}>확인</Button>
+                            </Modal.Footer>
+                        </Modal>
+
+                        <Modal  id="order-modal" show={showResultModal} onHide={handleCloseResultModal} centered>
+                            <Modal.Header closeButton>
+                                {/* <Modal.Title>결고</Modal.Title> */}
+                            </Modal.Header>
+                            <Modal.Body>
+                                <p>{resultMessage}</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="custom" onClick={handleCloseResultModal}>확인</Button>
+                            </Modal.Footer>
+                        </Modal>
+
                     </Row>
                 ))}
             </Container>

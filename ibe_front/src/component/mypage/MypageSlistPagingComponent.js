@@ -28,7 +28,7 @@ const MypageSlistPagingComponent = () => {
         .catch(error => {
             console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
         });
-    }, []);
+    }, [completed]);
 
 
     // const productNames = [

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Col, Container, Pagination, Row } from "react-bootstrap";
+import { Button, Col, Container, Pagination, Row, Modal } from "react-bootstrap";
 import thumbnail2 from '../assets/images/thumbnail2.png';
 import badge_available from '../assets/images/main/badge/badge_available.png'
 import badge_finished from '../assets/images/main/badge/badge_finished.png';
@@ -8,8 +8,13 @@ import { getOrderList } from "../service/OrderService";
 
 
 const MypagePlistPagingComponent = () => {
-
     const [orders, setOrders] = useState([]); // 초기값을 빈 배열로 설정
+    const [completed, setCompleted] = useState(false); // 거래완료시 변화함.
+    const [selectedItem, setSelectedItem] = useState(null); // 선택된 item 상태
+    const [showModal, setShowModal] = useState(false);
+    const [showResultModal, setShowResultModal] = useState(false);
+    const [resultMessage, setResultMessage] = useState("");
+  
     useEffect(() => {
         getOrderList()
         .then(response => {
@@ -21,24 +26,8 @@ const MypagePlistPagingComponent = () => {
         .catch(error => {
             console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
         });
-    }, []);
-
-    // const productNames = [
-    //     '유모차', '유아 모빌', '신생아 우주복', '이유식 용기', '아기 침대', '아기띠',
-    //     '젖병', '분유통', '신생아 배냇저고리', '유아 장난감', '아기 발싸개',
-    //     '아기 화장대', '카시트', '아기 소독기', '아기 모자', '이불 세트',
-    //     '유아용 식탁 의자', '아기 수영복', '유아용 신발', '신생아 수면조끼'
-    // ];
-     const addComma = (price) => {
-            let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            return returnString;
-        }
-
-    const getFullImageUrl = (imagePath) => {
-        const cleanPath = imagePath.replace(/\\/g, "/"); // 백슬래시를 슬래시로 변경
-        return cleanPath.startsWith("http") ? cleanPath : `http://localhost:8080${cleanPath}`;
-    };
-
+    }, [completed]);
+    
     const purchaseList = orders.map((order, index) => ({
         id: order.orderId,
         title: order.productTitle,//`${name} 판매합니다`,
@@ -50,6 +39,60 @@ const MypagePlistPagingComponent = () => {
         orderState : order.orderState,
         orderWayBill : order.orderWayBill,
     }));
+
+    // 구매 확정 핸들러
+    const orderFinishedHandler = () =>{
+        handleCloseModal();
+
+        if (selectedItem) {
+            const orderFinishedRequest = {
+                orderId: selectedItem.id,
+                productId: selectedItem.productId
+            };
+
+        // orderComplete(orderFinishedRequest)
+        //     .then(response => {
+        //         if (response.data.code === "200") {
+        //             setResultMessage("거래확정되었습니다.");
+        //         } else {
+        //             setResultMessage(response.data.message); // 실패 메시지 설정
+        //         }
+        //         setShowResultModal(true);  // 결과 모달 열기
+        //     })
+        //     .catch(() => {
+        //         setResultMessage("구매에 실패했습니다.\n 다시 시도해주세요."); // 실패 메시지 설정
+        //         setShowResultModal(true);  // 결과 모달 열기
+        //     });
+        }
+    }
+
+    const handlerFinished = (item) => {
+        setSelectedItem(item);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleCloseResultModal = () => {
+        setShowResultModal(false);
+        setCompleted(prev => !prev);
+    };
+
+
+
+     const addComma = (price) => {
+            let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return returnString;
+        }
+
+    const getFullImageUrl = (imagePath) => {
+        const cleanPath = imagePath.replace(/\\/g, "/"); // 백슬래시를 슬래시로 변경
+        return cleanPath.startsWith("http") ? cleanPath : `http://localhost:8080${cleanPath}`;
+    };
+
+
 
     const itemsPerPage = 5; // 한 페이지에 5개 씩 띄움
     const [currentPage, setCurrentPage] = useState(1);
@@ -106,12 +149,43 @@ const MypagePlistPagingComponent = () => {
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {item.orderState === "AVAILABLE" &&   <div />}
+                                {/* {item.orderState === "AVAILABLE" &&    <div />} */}
+                                {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   <div />}
-                                {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
+                                {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />}
                             </div>
                         </Col>
+
+                        <Modal id="order-modal" show={showModal} onHide={handleCloseModal} centered>
+                            <Modal.Header closeButton>
+                                <Modal.Title>구매 확정 확인</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                            <div style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                <div>물품을 수령했으면 상품을 확인 후 구매 확정 버튼을 눌러주세요.</div>
+                                <div>구매 확정시 환불 및 교환이 <strong style={{color:"red"}}>불가</strong>합니다.</div>
+                                <div  style={{color:"red"}}>구매 확정 하시겠습니까?</div>
+                            </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleCloseModal}>취소</Button>
+                                <Button variant="custom" onClick={orderFinishedHandler}>확인</Button>
+                            </Modal.Footer>
+                        </Modal>
+
+                        <Modal  id="order-modal" show={showResultModal} onHide={handleCloseResultModal} centered>
+                            <Modal.Header closeButton>
+                                {/* <Modal.Title>결고</Modal.Title> */}
+                            </Modal.Header>
+                            <Modal.Body>
+                                <p>{resultMessage}</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="custom" onClick={handleCloseResultModal}>확인</Button>
+                            </Modal.Footer>
+                        </Modal>
+
                     </Row>
                 ))}
             </Container>
