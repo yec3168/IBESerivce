@@ -3,8 +3,11 @@ import { Button, Col, Container, Pagination, Row, Modal } from "react-bootstrap"
 import thumbnail2 from '../assets/images/thumbnail2.png';
 import badge_available from '../assets/images/main/badge/badge_available.png'
 import badge_finished from '../assets/images/main/badge/badge_finished.png';
+import badge_delivery from '../assets/images/main/badge/badge_delivery.png'
+import badge_delivery_complete from "../assets/images/main/badge/badge_delivery_complete.png";
+import badge_rejected from "../assets/images/main/badge/badge_rejected.png";
 
-import { getOrderList } from "../service/OrderService";
+import { getOrderList, orderFinished } from "../service/OrderService";
 
 
 const MypagePlistPagingComponent = () => {
@@ -38,6 +41,7 @@ const MypagePlistPagingComponent = () => {
         thumbnail : order.imagePath,
         orderState : order.orderState,
         orderWayBill : order.orderWayBill,
+        productId: order.productId,
     }));
 
     // 구매 확정 핸들러
@@ -50,19 +54,19 @@ const MypagePlistPagingComponent = () => {
                 productId: selectedItem.productId
             };
 
-        // orderComplete(orderFinishedRequest)
-        //     .then(response => {
-        //         if (response.data.code === "200") {
-        //             setResultMessage("거래확정되었습니다.");
-        //         } else {
-        //             setResultMessage(response.data.message); // 실패 메시지 설정
-        //         }
-        //         setShowResultModal(true);  // 결과 모달 열기
-        //     })
-        //     .catch(() => {
-        //         setResultMessage("구매에 실패했습니다.\n 다시 시도해주세요."); // 실패 메시지 설정
-        //         setShowResultModal(true);  // 결과 모달 열기
-        //     });
+            orderFinished(orderFinishedRequest)
+            .then(response => {
+                if (response.data.code === "200") {
+                    setResultMessage("구매확정 되었습니다.");
+                } else {
+                    setResultMessage(response.data.message); // 실패 메시지 설정
+                }
+                setShowResultModal(true);  // 결과 모달 열기
+            })
+            .catch(() => {
+                setResultMessage("구매확정에 실패했습니다.\n 다시 시도해주세요."); // 실패 메시지 설정
+                setShowResultModal(true);  // 결과 모달 열기
+            });
         }
     }
 
@@ -139,18 +143,18 @@ const MypagePlistPagingComponent = () => {
                                 {item.orderState === "AVAILABLE" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}
                                 {item.orderState === "COMPLETED" &&  <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/>}
                                 {/* 배송중사진 */}
-                                {item.orderState === "SHIPPING" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>}    
+                                {item.orderState === "SHIPPING" &&  <img src={badge_delivery} alt="finished" id="img_purListPagingBadge"/>}    
                                 {/* 배송완료사진 */}
-                                {item.orderState === "DELIVERED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
+                                {item.orderState === "DELIVERED" &&  <img src={badge_delivery_complete} alt="finished" id="img_purListPagingBadge"/>} 
                                 {/* 구매거부*/}
-                                {item.orderState === "REJECTED" &&  <img src={badge_available} alt="finished" id="img_purListPagingBadge"/>} 
+                                {item.orderState === "REJECTED" &&  <img src={badge_rejected} alt="finished" id="img_purListPagingBadge"/>} 
                                 {/* <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/> */}
                             </div>
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {/* {item.orderState === "AVAILABLE" &&    <div />} */}
-                                {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
+                                {item.orderState === "AVAILABLE" &&    <div />}
+                                {/* {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>} */}
                                 {item.orderState === "COMPLETED" &&   <div />}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />}

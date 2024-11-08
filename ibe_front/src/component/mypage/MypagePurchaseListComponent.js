@@ -9,7 +9,7 @@ import badge_rejected from "../assets/images/main/badge/badge_rejected.png"
 
 import thumbnail2 from '../assets/images/thumbnail2.png';
 
-import { getOrderList } from "../service/OrderService";
+import { getOrderList, orderFinished } from "../service/OrderService";
 
 const MypagePurchaseListComponent = () => {
 
@@ -43,6 +43,7 @@ const MypagePurchaseListComponent = () => {
         thumbnail : order.imagePath,
         orderState : order.orderState,
         orderWayBill : order.orderWayBill,
+        productId: order.productId,
     }));
 
    
@@ -59,19 +60,21 @@ const MypagePurchaseListComponent = () => {
                 productId: selectedItem.productId
             };
 
-            // orderComplete(orderFinishedRequest)
-            //     .then(response => {
-            //         if (response.data.code === "200") {
-            //             setResultMessage("거래확정되었습니다.");
-            //         } else {
-            //             setResultMessage(response.data.message); // 실패 메시지 설정
-            //         }
-            //         setShowResultModal(true);  // 결과 모달 열기
-            //     })
-            //     .catch(() => {
-            //         setResultMessage("구매에 실패했습니다.\n 다시 시도해주세요."); // 실패 메시지 설정
-            //         setShowResultModal(true);  // 결과 모달 열기
-            //     });
+            console.log(orderFinishedRequest)
+
+            orderFinished(orderFinishedRequest)
+                .then(response => {
+                    if (response.data.code === "200") {
+                        setResultMessage("거래확정되었습니다.");
+                    } else {
+                        setResultMessage(response.data.message); // 실패 메시지 설정
+                    }
+                    setShowResultModal(true);  // 결과 모달 열기
+                })
+                .catch(() => {
+                    setResultMessage("구매에 실패했습니다.\n 다시 시도해주세요."); // 실패 메시지 설정
+                    setShowResultModal(true);  // 결과 모달 열기
+                });
         }
     }
 
@@ -145,8 +148,8 @@ const MypagePurchaseListComponent = () => {
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {/* {item.orderState === "AVAILABLE" &&    <div />} */}
-                                {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
+                                {item.orderState === "AVAILABLE" &&    <div />}
+                                {/* {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>} */}
                                 {item.orderState === "COMPLETED" &&   <div />}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />}
