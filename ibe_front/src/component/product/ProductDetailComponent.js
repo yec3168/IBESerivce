@@ -64,6 +64,10 @@ const ProductDetailComponent = () => {
         window.location.href ="/products"
     }
     const purchaseHandler  = () =>{
+        if ( productTradeState === "거래 완료"){
+            alert("이미 거래가 완료된 상품입니다.")
+            return false;
+        }
         window.location.href =" /orders/order/" + id;
     }
 
