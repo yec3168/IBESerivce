@@ -38,7 +38,7 @@ const CategoryIconsComponent = ({ setSelectedCategory }) => {
             <div className="container" id="div_allIcons">
                 <div className="row row-cols-6" id="div_categoryName">
                     {categoryNames.map((item, idx) => (
-                        <div className="col" id="div_nameCol" key={idx}>
+                        <div className="col" id="div_nameCol" key={idx} onClick={() => setSelectedCategory(categoryNames[idx])}>
                             <div id="div_nameTxt">{item}</div>
                         </div>
                     ))}
