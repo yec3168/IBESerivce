@@ -153,14 +153,14 @@ const IbeBoardListComponent = () => {
             <p className="h2 board-title">아이비 게시판</p>
           </Col>
         </Row>
-        <Table hover className="board-table">
-          <thead>
+        <Table hover className="board-table" style={{tableLayout:'fixed',wordBreak:'break-all',height:'auto'}}>
+          <thead style={{ textAlign:'center'}}>
             <tr>
-              <th>번호</th>
-              <th>제목</th>
-              <th>작성자</th>
-              <th>날짜</th>
-              <th>조회수</th>
+              <th style={{width: '150px' ,textAlign:'center'}}>번호</th>
+              <th style={{width: '800px',textAlign:'center'}}>제목</th>
+              <th style={{width: '150px' ,textAlign:'center'}}>작성자</th>
+              <th style={{width: '200px',textAlign:'center'}}>날짜</th>
+              <th style={{width: '150px' ,textAlign:'center'}}>조회수</th>
             </tr>
           </thead>
           <tbody>
@@ -173,7 +173,7 @@ const IbeBoardListComponent = () => {
                 <>
                 <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer'}}>
                   <td style={{ fontWeight: 'bold' ,backgroundColor:'#FFFAFA'}}></td> {/* No ID displayed */}
-                  <td style={{backgroundColor:'#FFFAFA'}}>
+                  <td style={{backgroundColor:'#FFFAFA', width: '800px'}}>
                 <span className={`board-category-${post.category}`}>
                   {mapCategory(post.category)}&emsp;
                 </span>
@@ -189,13 +189,13 @@ const IbeBoardListComponent = () => {
                 )}
                 {isToday(post.date) && <span className="board-new-tag">New</span>}
               </td>
-              <td style={{backgroundColor:'#FFFAFA'}}>
+              <td style={{backgroundColor:'#FFFAFA', textAlign:'center'}}>
                 <strong >{post.author}</strong>
               </td>
-              <td style={{backgroundColor:'#FFFAFA'}}>
+              <td style={{backgroundColor:'#FFFAFA', textAlign:'center'}}>
                 <strong>{post.date}</strong>
               </td>
-              <td style={{backgroundColor:'#FFFAFA'}}>
+              <td style={{backgroundColor:'#FFFAFA', textAlign:'center'}}>
                 <strong>{post.views}</strong>
               </td>
               </tr>
@@ -210,8 +210,8 @@ const IbeBoardListComponent = () => {
             {/* Display paginated normal posts */}
             {paginatedPosts.map((post) => (
               <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>
-                <td>{post.id}</td> {/* ID displayed for normal posts */}
-                <td>
+                <td style={{textAlign:'center'}}>{post.id}</td> {/* ID displayed for normal posts */}
+                <td >
                   <span className={`board-category-${post.category}`}>
                     {mapCategory(post.category)}&emsp;
                   </span>
@@ -227,9 +227,9 @@ const IbeBoardListComponent = () => {
                   )}
                   {isToday(post.date) && <span className="board-new-tag">New</span>}
                 </td>
-                <td>{post.author}</td>
-                <td>{post.date}</td>
-                <td>{post.views}</td>
+                <td style={{textAlign:'center'}}>{post.author}</td>
+                <td style={{textAlign:'center'}}>{post.date}</td>
+                <td style={{textAlign:'center'}}>{post.views}</td>
               </tr>
             ))}
           </tbody>
