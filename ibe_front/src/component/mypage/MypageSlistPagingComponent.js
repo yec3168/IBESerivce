@@ -66,6 +66,25 @@ const MypageSlistPagingComponent = () => {
         setCurrentPage(page);
     };
 
+    // 배송지 입력을 위한 새 창 열기 함수
+    const openTrackingWindow = (orderId) => {
+        console.log('Opening window for orderId:', orderId);
+        const width = 600; 
+        const height = 400; 
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+    
+        // 새 창의 위치 (화면 중앙에 열리도록)
+        const left = Math.max((screenWidth - width) / 2, 0);
+        const top = Math.max((screenHeight - height) / 2, 0);
+    
+        const url = `/waybill/${orderId}`; // URL에 주문 아이디를 포함시켜 새 창 열기
+        const windowName = `아이비 운송장 입력`; // 새 창 이름
+        const windowFeatures = `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`;
+    
+        window.open(url, windowName, windowFeatures);
+    };
+
     return (
         <>
             {/* 판매 목록 타이틀 */}
@@ -106,10 +125,11 @@ const MypageSlistPagingComponent = () => {
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {item.orderState === "AVAILABLE" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">거래 확정</Button>}
+                                {/* {item.orderState === "AVAILABLE" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">거래 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
-                                {item.orderState === "DELIVERED" &&   <div />}
+                                {item.orderState === "DELIVERED" &&   <div />} */}
+                                <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openTrackingWindow(item.id)}>배송지 입력</Button>
                             </div>
                         </Col>
                     </Row>
