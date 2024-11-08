@@ -17,6 +17,8 @@ const IbeBoardListComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
   const navigate = useNavigate(); // useNavigate 훅 사용
+  const [error, setError] = useState(""); // State for error message
+
   // 데이터 가져오기
   useEffect(() => {
     axios
@@ -40,8 +42,11 @@ const IbeBoardListComponent = () => {
 
         // 데이터를 상태에 저장
         setPosts(sortedData);
+        setError(""); // Set error message when fetch fails
       })
       .catch((error) => {
+        setError("게시글을 가져오는 데 실패했습니다:"); // Set error message when fetch fails
+        setPosts([]); 
         console.error('게시글을 가져오는 데 실패했습니다:', error);
       });
   }, []);
@@ -126,8 +131,12 @@ const IbeBoardListComponent = () => {
 
         // 데이터를 상태에 저장
         setPosts(sortedData);
+        setError(""); // Reset error message if products are fetched successfully
+
       })
       .catch((error) => {
+        setError("게시글을 가져오는 데 실패했습니다:"); // Set error message when fetch fails
+        setPosts([]); 
         console.error('게시글을 가져오는 데 실패했습니다:', error);
       })
   }
@@ -219,6 +228,20 @@ const IbeBoardListComponent = () => {
               </tr>
             ))}
           </tbody>
+          {((paginatedPosts.length === 0 && !error) || error) && (
+              <tr>
+                <th colSpan={'5'}>
+                  <div className="text-center mt-4">
+                    <i className="bi bi-exclamation-circle" style={{ fontSize: '3rem', color: 'red' }}></i>
+                    <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
+                    <p>다른 키워드로 검색해 주세요.</p>
+                    <div id="div_spacing"/>
+                    <div id="div_spacing"/>
+                  </div>
+                </th>
+              </tr>
+           
+        )}
         </Table>
         <div style={{textAlign:'center'}}>
         <select id='searchCategory' style={{ width:'90px', height:'40px'}}>
