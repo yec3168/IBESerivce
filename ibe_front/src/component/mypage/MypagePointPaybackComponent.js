@@ -74,13 +74,13 @@ const MypagePointPaybackComponent = () => {
 
     const accountArr =[
         { db :"KB" , name:"국민은행",num:"004"},
-        { db :"SHINHAN" , name:"신한은행",num:"004"},
-        { db :"HANA" , name:"하나은행",num:"004"},
-        { db :"WOORI" , name:"우리은행",num:"004"},
-        { db :"NH" , name:"농협은행",num:"004"},
-        { db :"KDB" , name:"산업은행",num:"004"},
-        { db :"KAKAO" , name:"카카오뱅크",num:"004"},
-        { db :"TOSS" , name:"토스뱅크",num:"004"}
+        { db :"SHINHAN" , name:"신한은행",num:"088"},
+        { db :"HANA" , name:"하나은행",num:"081"},
+        { db :"WOORI" , name:"우리은행",num:"020"},
+        { db :"NH" , name:"농협은행",num:"011"},
+        { db :"KDB" , name:"산업은행",num:"002"},
+        { db :"KAKAO" , name:"카카오뱅크",num:"090"},
+        { db :"TOSS" , name:"토스뱅크",num:"092"}
     ]
 
     
