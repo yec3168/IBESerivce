@@ -19,8 +19,8 @@ INSERT INTO `member` (
       (NOW(), '정지2', 550, NOW(), '욕설', '충청남도 천안', NULL, '313131', 'swear@banned.user', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1312-5134', 'ROLE_BANNED_CLIENT', 'LOCAL'),
       (NOW(), '정지3', 550, NOW(), '사기', '충청남도 천안', NULL, '313131', 'fraud@banned.user', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-2312-5134', 'ROLE_BANNED_CLIENT', 'LOCAL');
 INSERT INTO member_bank (member_id, member_account_number, member_bank) VALUES
-    (1, '123-456-7890', 'HANA'),
-    (2, '234-567-8901', 'KAKAO'),
+    (1, '3020000011702', 'NH'),
+    (2, '1000003188002', 'KDB'),
     (3, '345-678-9012', 'KB'),
     (4, '456-789-0123', 'NH'),
     (5, '567-890-1234', 'SHINHAN'),
