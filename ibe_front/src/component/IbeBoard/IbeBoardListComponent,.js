@@ -140,6 +140,11 @@ const IbeBoardListComponent = () => {
         console.error('게시글을 가져오는 데 실패했습니다:', error);
       })
   }
+  const activeEnter = (e) => {
+    if(e.key === "Enter") {
+      handleSearch();
+    }
+  }
   return (
     <div id="board_content">
       <Container className="board-container">
@@ -256,7 +261,8 @@ const IbeBoardListComponent = () => {
             <option value={'title'}>제목</option>
             <option value={'name'}>작성자</option>
           </select>
-          <input id='searchValue' placeholder='검색어를 입력해주세요'style={{ width:'400px', height:'40px'}}></input>
+          <input id='searchValue' placeholder='검색어를 입력해주세요'
+          onKeyDown={(e) => activeEnter(e)}style={{ width:'400px', height:'40px'}} />
           <button className="board-add-post-btn" onClick={handleSearch} style={{ height:'40px'}}>
             검색
           </button>
