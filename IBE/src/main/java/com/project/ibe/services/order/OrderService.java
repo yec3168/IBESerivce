@@ -19,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -192,7 +193,7 @@ public class OrderService {
 
         // 구매확정 누른사람이 로그인한 사람과 물품 판매한사람과 일치하는지.
         if(!sellMember.equals(sellProduct.getMember()))
-            throw new BusinessException("판매자가 아닙니다. 다시 시도해주세요.", HttpStatus.BAD_REQUEST);
+            throw new BusinessException("판매자가 아닙니다.\n 다시 시도해주세요.", HttpStatus.BAD_REQUEST);
 
 
         // 주문번호 확인
@@ -220,8 +221,65 @@ public class OrderService {
     }
 
 
+    /**
+     *  운송장번호 입력.
+     *  1. order 상태 배송중으로 업데이트
+     *  2. order 배송지 입력
+     *  3. roder 배송시작 날짜 업데이트
+     */
+    public boolean orderDelivery(OrderDeliveryRequest orderDeliveryRequest, PrincipalDTO principalDTO){
+        // 로그인한 회원 가져오기.
+        Member sellMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        // 물품 가져오기.
+        Product sellProduct = productService.findProductById(orderDeliveryRequest.getProductId());
+
+        // 물품의 판매자와 로그인한 회원이 일치하는지 확인
+        if(!sellMember.equals(sellProduct.getMember()))
+            throw new BusinessException("판매자가 아닙니다.\n 다시 시도해주세요.", HttpStatus.BAD_REQUEST);
 
 
+        // 주문정보 가져오기. ( 나머지는 rejected 될 예정이라 한개만 가져와도 됨. 하나만 거래가능일 예정.)
+        Order order = findOrderById(orderDeliveryRequest.getOrderId());
+        if(!order.getOrderState().equals(OrderState.COMPLETED))
+            throw new BusinessException("잘 못된 주문정보 입니다.\n 관리자에게 문의하세요.", HttpStatus.BAD_REQUEST);
+
+        order.setOrderState(OrderState.SHIPPING); //배송중으로 업데이트
+        order.setOrderWayBill(orderDeliveryRequest.getOrderWayBill());
+        order.setOrderDeliveryDate(LocalDateTime.now());
+
+        //저장.
+        orderRepository.save(order);
+
+        return true;
+    }
+
+    /**
+     * 구매확정.
+     * 1. Order State 배송완료로 업데이트
+     */
+
+    public boolean orderFinished(OrderFinishedRequest orderFinishedRequest, PrincipalDTO principalDTO){
+        // 로그인한 회원 가져오기.
+        Member sellMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        // 물품 가져오기.
+        Product sellProduct = productService.findProductById(orderFinishedRequest.getProductId());
+
+        // 주문정보 가져오기. 예외처리
+        // 1. OrderId 같음
+        // 2. product도 같음
+        // 3. orderMemberName도 같아야함.
+        Order order = orderRepository.findByOrderIdAndProductAndOrderMemberEmail(orderFinishedRequest.getProductId(), sellProduct, sellMember.getMemberEmail());
+
+        if(order==null)
+            throw new BusinessException("주문정보가 잘못되었습니다.\n관리자에게 문의해주세요.");
+
+        order.setOrderState(OrderState.DELIVERED);
+        orderRepository.save(order);
+
+        return true;
+    }
 
 
     public Order findOrderById(Long orderId){

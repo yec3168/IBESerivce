@@ -148,7 +148,7 @@
 }
 
 #div_iconCol:hover {
-  transform: scale(0.9); /* 아이콘 확대 효과 */
+  transform: scale(0.9);
   /* background-color: #f0f4f8; 배경 색상 변화 */
 }
 
@@ -158,7 +158,7 @@
 }
 
 #img_categoryIcons:hover {
-  transform: scale(1.2); /* 아이콘을 조금 더 확대 */
+  transform: scale(1.2); 
 }
 
 /* 카테고리 이름에 마우스 오버 효과 */
