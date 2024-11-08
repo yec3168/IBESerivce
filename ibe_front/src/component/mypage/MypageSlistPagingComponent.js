@@ -208,8 +208,7 @@ const MypageSlistPagingComponent = () => {
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => handlerComplete(item)}>거래 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openWaybillWindow(item.id, item.orderMemberAddr, item.productId, item.waybill)}>배송지 입력</Button>}
-                                {item.orderState === "SHIPPING" &&   
-                                    <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
+                                {item.orderState === "SHIPPING" &&  <div />}
                                 {item.orderState === "DELIVERED" && <div />}
                             </div>
                         </Col>

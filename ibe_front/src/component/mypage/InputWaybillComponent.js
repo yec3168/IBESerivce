@@ -64,8 +64,8 @@ const InputWaybillComponent = () => {
             });
             return;
         }
-        handleCloseModal()
-        handlerDelivery(); // 모달 열기
+        
+        handleCloseModal();
         
         // localWaybillData에 운송장 번호 저장
         const orderDeliveryRequest = {
@@ -91,7 +91,7 @@ const InputWaybillComponent = () => {
             });
     };
 
-    // 거래확정 확인 모달 열기
+    // 운송장 입력 확정 확인 모달 열기
     const handlerDelivery = () => {
         if (!waybill) {
             setErrors({
@@ -102,7 +102,7 @@ const InputWaybillComponent = () => {
         setShowModal(true);
     };
 
-    // 거래확정 모달 닫기
+    // 운송장 입력 확정 모달 닫기
     const handleCloseModal = () => {
         setShowModal(false);
     };
