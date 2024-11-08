@@ -119,12 +119,15 @@ const MypageSalesListComponent = () => {
         const waybillData = {
             orderId: orderId,
             productId: productId,
-            waybill: wb
+            addr: addr,
+            // waybill: wb
         };
 
         console.log(waybillData);
 
-        const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}&waybillData=${encodeURIComponent(JSON.stringify(waybillData))}`;
+        // const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}&waybillData=${encodeURIComponent(JSON.stringify(waybillData))}`;
+
+        localStorage.setItem('waybillData', JSON.stringify(waybillData));
         const windowName = `waybillWindow`;
         const windowFeatures = `width=${width}, height=${height}, left=${left}, top=${top}`;
 
@@ -133,10 +136,23 @@ const MypageSalesListComponent = () => {
             console.error('Order not found');
             return;
         }
+        // window.open(`/waybill/${orderId}`, 'waybillWindow');
+        const newWindow = window.open(`/waybill/${orderId}`, windowName, windowFeatures);
 
-        window.open(url, windowName, windowFeatures);
+
+        checkWindowClose(newWindow);
     };
-
+    const checkWindowClose = (newWindow) => {
+            // setInterval을 외부에서 사용하여 창 상태를 계속 확인
+            const intervalId = setInterval(() => {
+                if (newWindow.closed) {
+                    // 자식 창이 닫혔을 때 실행할 동작
+                    setCompleted(prev => !prev);
+                    clearInterval(intervalId);  // 창이 닫히면 interval을 정리합니다.
+                }
+            }, 500);  // 0.5초마다 확인
+        };
+        
     return (
         <>
             <h3 id="h3_salListTitle">판매 목록</h3>
