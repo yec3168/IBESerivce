@@ -48,6 +48,7 @@ const MypagePlistPagingComponent = () => {
         deliveryDate: order.orderDeliveryDate !== null ? order.orderDeliveryDate: null ,//'2024-10-25 19:00',
         thumbnail : order.imagePath,
         orderState : order.orderState,
+        orderWayBill : order.orderWayBill,
     }));
 
     const itemsPerPage = 5; // 한 페이지에 5개 씩 띄움
@@ -86,6 +87,7 @@ const MypagePlistPagingComponent = () => {
                             <div>
                                 <div>신청 일자: {item.listedDate}</div>
                                 <div>{item.deliveryDate !== null ? <span>배송 도착: {item.deliveryDate} </span>: ""}</div>
+                                <div>{item.orderWayBill !== null ? <span>운송장 번호: {item.orderWayBill} </span>: ""}</div>
                             </div>
                         </Col>
                         <Col xs={2} id="col_purListPaging">
