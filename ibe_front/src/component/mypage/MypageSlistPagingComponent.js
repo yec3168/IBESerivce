@@ -138,9 +138,9 @@ const MypageSlistPagingComponent = () => {
                         <Col xs={2} id="col_purListPaging">
                             <div>
                                 {item.orderState === "AVAILABLE" && item.id !== null &&  <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={ () => orderCompleteHandler(item)}>거래 확정</Button>}
-                                {/* {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
+                                {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
-                                {item.orderState === "DELIVERED" &&   <div />}  */}
+                                {item.orderState === "DELIVERED" &&   <div />} 
                                 {/* <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openTrackingWindow(item.id)}>배송지 입력</Button> */}
                             </div>
                         </Col>
