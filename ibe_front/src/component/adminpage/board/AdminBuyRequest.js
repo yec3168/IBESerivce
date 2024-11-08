@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './AdminSalesRequest.css';
+import './AdminBuyRequest.css';
 
 const AdminBuyRequest = () => {
   const [expandedId, setExpandedId] = useState(null);
@@ -230,7 +230,7 @@ const AdminBuyRequest = () => {
                     value={rejectionReason[request.id] || ''}
                     onChange={(e) => handleInputResize(e, request.id)}
                     style={{ overflowY: 'hidden' }}
-                    maxLength={250}
+
                   />
                 </div>
                 {errorMessage[request.id] && (

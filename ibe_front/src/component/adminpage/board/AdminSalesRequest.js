@@ -225,11 +225,12 @@ const AdminSalesRequest = () => {
                 </div>
                 <div className="admin-sr-textarea-container">
                   <textarea
-                    placeholder="거절 사유 입력"
+                    placeholder="거절 사유 입력(최대 250자)"
                     className="admin-sr-textarea"
                     value={rejectionReason[request.id] || ''}
                     onChange={(e) => handleInputResize(e, request.id)}
                     style={{ overflowY: 'hidden' }}
+                    maxLength={250}
                   />
                 </div>
                 {errorMessage[request.id] && (
