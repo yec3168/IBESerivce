@@ -55,6 +55,10 @@ public class OrderService {
         // 중복 주문 확인
         List<Order> orderList = orderRepository.findByProductAndOrderMemberEmail(product, orderMember.getMemberEmail());
 
+        // 이미 거래완료면 구매 못하게 막음
+        if(product.getProductTradeState().equals(ProductTradeState.TRADE_COMPLETED))
+            throw new BusinessException("이미 거래완료된 상품입니다.", HttpStatus.BAD_REQUEST);
+
         if(!orderList.isEmpty()){
             System.out.println("이미구매");
             throw new BusinessException("이미 구매한 상품입니다.", HttpStatus.BAD_REQUEST);
