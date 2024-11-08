@@ -140,25 +140,14 @@
 
 /* 이후에 추가 */
 /* 카테고리 아이콘에 마우스 오버 효과 */
-#div_iconCol {
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  cursor: pointer;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-#div_iconCol:hover {
-  transform: scale(0.9);
-  /* background-color: #f0f4f8; 배경 색상 변화 */
-}
-
 #img_categoryIcons {
   width: 80%; /* 아이콘 크기 조정 */
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease-in-out;
 }
 
 #img_categoryIcons:hover {
-  transform: scale(1.2); 
+  cursor: pointer;
+  transform: scale(1.07); 
 }
 
 /* 카테고리 이름에 마우스 오버 효과 */
