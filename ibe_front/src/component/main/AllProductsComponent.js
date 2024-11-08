@@ -96,7 +96,11 @@ const AllProductsComponent = ({ selectedCategory }) => {
                                 
                                 {/* 상품 가격 */}
                                 <div id="div_proPriceCol">
-                                    <div id="div_proPriceTxt">{addComma(product.price)} P</div>
+                                    <div id="div_proPriceTxt">{addComma(product.price)} 
+                                    <span id="span_won" style={{ display: 'inline-block' }}>
+                                        &nbsp;P
+                                    </span>
+                                        </div>
                                 </div>
                             </div>
                         </Link>
