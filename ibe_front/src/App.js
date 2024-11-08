@@ -96,7 +96,7 @@ function App() {
 
         {/* 아이비 게시판 */}
         <Route path="/boards" element={<IbeBoardListPage />} />
-        <Route path="/boards/write" element={<IbeBoardWritePage />} />
+        <Route path="/boards/write" element={<PrivateRouter Role="USER" component={<IbeBoardWritePage />}/>} />
         <Route path="/boards/details/:boardId" element={<IbeBoardDetailsPage />} />
 
         {/* 404 에러페이지 - 위치 바꾸지 말것, 항상 마지막 Route여야 함. */}
