@@ -58,8 +58,7 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
         <p>이메일: {member.memberEmail}</p>
         <p>권한: {getRoleDisplay(member.role)}</p> {/* 권한 표시 */}
         <p>가입일: {new Date(member.entryDate).toLocaleDateString()}</p>
-        <p>수정일: {new Date(member.UpdateDate).toLocaleDateString()}</p>
-
+        <p>수정일: {new Date(member.updateDate).toLocaleDateString()}</p>
         {/* 버튼 그룹 */}
         <div className="admin-member-modal-button-group">
           {/* 조건에 따라 버튼 표시 */}

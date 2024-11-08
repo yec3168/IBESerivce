@@ -134,7 +134,7 @@ public class ProductService {
      * 물품 목록 조회.
      */
     public List<ProductListResponse> getProductList(){
-        List<Product> productList = productRepository.findAll();
+        List<Product> productList = productRepository.findByProductUploadStatus(ProductUploadStatus.STATUS_APPROVE);
         String imagePath ="";
 
 

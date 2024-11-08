@@ -10,27 +10,30 @@ const IbeBoardWriteComponent = () => {
   const [category, setCategory] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [isAdmin,setIsAdmin] = useState(false);
-  
-    useEffect(() => {
-      const token = localStorage.getItem('accessToken');
-      let tokenRole;
-      if (token) {
-        try {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    let tokenRole;
+    if (token) {
+      try {
         const decodedToken = jwtDecode(token);
-        tokenRole = decodedToken.role // Get user role from the token
-        } catch (error) {
+        tokenRole = decodedToken.role; // Get user role from the token
+      } catch (error) {
         console.error('Token decoding error:', error);
-        }
       }
-    const adminArr=["ROLE_ADMIN","ROLE_SERVICE_MANAGER","ROLE_BOARD_MANAGER"]
-    for(let i=0;i<adminArr.length;i++){
-      if(tokenRole===adminArr[i]){
+    }
+    const adminArr = [
+      'ROLE_ADMIN',
+      'ROLE_SERVICE_MANAGER',
+      'ROLE_BOARD_MANAGER',
+    ];
+    for (let i = 0; i < adminArr.length; i++) {
+      if (tokenRole === adminArr[i]) {
         setIsAdmin(true);
       }
     }
-    }, []);
-
+  }, []);
 
   // 글 작성 폼 제출 처리
   const handleSubmit = async (e) => {
@@ -106,13 +109,12 @@ const IbeBoardWriteComponent = () => {
                   className="board-select"
                 >
                   <option value="">선택하세요</option>
-                  {
-                    isAdmin ? <option value="NOTICE">공지</option> : null
-                  }
+                  {/* 관리자 또는 보드 관리자일 때만 공지 카테고리 옵션 표시 */}
+                  {isAdmin && <option value="NOTICE">공지</option>}
                   <option value="REQUEST">요청</option>
                   <option value="QUESTION">질문</option>
                   <option value="INFORMATION">정보</option>
-                  <option value="GENARAL">일반</option>
+                  <option value="GENERAL">일반</option>
                 </Form.Control>
               </Form.Group>
 
@@ -132,6 +134,17 @@ const IbeBoardWriteComponent = () => {
                   className="board-textarea"
                 />
               </Form.Group>
+
+              {/* 정책 내용 추가 */}
+              <div className="board-policy-notice mt-2">
+                <p>
+                  관련 법령을 위반하거나 타인의 권리를 침해하는 내용의 게시물은
+                  명백한 법령 위반 또는 권리 침해의 내용이 아닌 한, 원칙적으로
+                  법원의 판결, 결정 등 또는 법률에 따라 관련 권한을 보유한
+                  행정기관의 행정처분, 명령 등에 의해 법령 위반 또는 권리 침해가
+                  확인된 경우 게재가 제한됨을 알려 드립니다.
+                </p>
+              </div>
 
               {error && <p className="board-error-message mt-3">{error}</p>}
 

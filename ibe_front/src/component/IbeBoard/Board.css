@@ -87,11 +87,11 @@
   margin-left: 8px;
   display: inline-block;
 }
-.board-td-notice{
+.board-td-notice {
   background-color: #ffe6a5;
 }
 .board-category-NOTICE {
-  color: blue; 
+  color: blue;
   font-weight: bold;
 }
 
@@ -101,17 +101,17 @@
 }
 
 .board-category-QUESTION {
-  color: green; 
+  color: green;
   font-weight: bold;
 }
 
 .board-category-INFORMATION {
-  color: rgb(129, 143, 6); 
+  color: rgb(129, 143, 6);
   font-weight: bold;
 }
 
 .board-category-GENERAL {
-  color: rgb(106, 109, 102); 
+  color: rgb(106, 109, 102);
   font-weight: bold;
 }
 .board-comment {
@@ -173,5 +173,14 @@
 
 .board-comment-top {
   font-size: 20px;
-  font-family: "CookieRun-Regular", sans-serif !important;
+  font-family: 'CookieRun-Regular', sans-serif !important;
+}
+
+.board-policy-notice {
+  font-size: 0.875rem;
+  color: #6c757d;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
 }

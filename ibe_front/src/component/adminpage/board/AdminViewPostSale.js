@@ -32,7 +32,9 @@ const AdminViewPostSale = () => {
           'http://localhost:8080/admin/board/viewpost/sale'
         );
         // ID 기준으로 내림차순 정렬
-        const sortedData = response.data.sort((a, b) => b.productId - a.productId);
+        const sortedData = response.data.sort(
+          (a, b) => b.productId - a.productId
+        );
         setSalesData(sortedData); // 정렬된 데이터로 상태 업데이트
       } catch (error) {
         console.error('Error fetching sales data:', error);
@@ -165,7 +167,24 @@ const AdminViewPostSale = () => {
           <div className="admin-vp-column uploadDate">업로드 날짜</div>
         </div>
         {currentItems.map((item) => (
-          <div className="admin-vp-sale-row" key={item.productId}>
+          <div
+            className="admin-vp-sale-row"
+            key={item.productId}
+            onClick={() => {
+              if (item.productUploadStatus === 'STATUS_APPROVE') {
+                window.open(
+                  `http://localhost:3000/products/detail/${item.productId}`,
+                  '_blank'
+                );
+              }
+            }}
+            style={{
+              cursor:
+                item.productUploadStatus === 'STATUS_APPROVE'
+                  ? 'pointer'
+                  : 'default',
+            }}
+          >
             <div className="admin-vp-column id">{item.productId}</div>
             <div className="admin-vp-column title">{item.productTitle}</div>
             <div className="admin-vp-column status">
@@ -177,14 +196,16 @@ const AdminViewPostSale = () => {
               {statusMap[item.productUploadStatus]}
             </div>
             <div className="admin-vp-column uploadDate">
-              {new Date(item.productListedAt).toLocaleString('ko-KR', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false,
-              })}
+              {item.productListedAt
+                ? new Date(item.productListedAt).toLocaleString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                  })
+                : ''}
             </div>
           </div>
         ))}

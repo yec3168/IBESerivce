@@ -17,7 +17,8 @@ INSERT INTO inquiry (inquiry_category, inquiry_title, inquiry_content, inquiry_c
 ('PRODUCT_DEFECT', '하자 있는 제품 문의', '구입한 제품이 파손된 상태입니다.', NOW(), 1),
 ('POINT_PAYBACK', '환급 기간 문의', '포인트 환급 소요 기간이 얼마나 될까요?', NOW(), 2),
 ('INQ_MISC', '기타 서비스 문의', '서비스 이용에 대한 문의입니다.', NOW(), 1),
-('DELIVERY', '배송 주소 확인', '배송 주소를 다시 한 번 확인하고 싶습니다.', NOW(), 3)
+('INQ_MISC', '배송 주소 확인', '배송 주소를 다시 한 번 확인하고 싶습니다.', NOW(), 1),
+('INQ_MISC', '도배 유저 신고', '누가 제 판매 게시글에 도배하고 있어요. 제제해주세요.', NOW(), 1)
 ;
 
 INSERT INTO inquiry_answer (inquiry_answer_content, inquiry_answer_created_at, inquiry_id, member_id) VALUES
