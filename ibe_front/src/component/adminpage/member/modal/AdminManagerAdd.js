@@ -134,7 +134,8 @@ const AdminManagerAdd = ({
           type="text"
           value={newManagerName}
           onChange={handleChangeName}
-          placeholder="이름을 입력하세요"
+          placeholder="2~8글자 제한"
+          maxLength={8}
         />
         {nameError && <p className="admin-manager-modal-error">{nameError}</p>}
         <label>아이디 입력</label>
@@ -142,7 +143,8 @@ const AdminManagerAdd = ({
           type="text"
           value={newManagerId}
           onChange={handleChangeId}
-          placeholder="아이디를 입력하세요(영문, 숫자)"
+          placeholder="영문, 숫자 조합(최대 20)"
+          maxLength={20}
         />
         {isIdDuplicate && (
           <p className="admin-manager-modal-error">중복된 아이디입니다.</p>
@@ -160,14 +162,16 @@ const AdminManagerAdd = ({
           type="password"
           value={newPassword}
           onChange={handleChangePassword}
-          placeholder="비밀번호를 입력하세요"
+          placeholder="비밀번호 입력(최대 200)"
+          maxLength={200}
         />
         <label>비밀번호 확인</label>
         <input
           type="password"
           value={confirmPassword}
           onChange={handleChangeConfirmPassword}
-          placeholder="비밀번호를 다시 입력하세요"
+          placeholder="비밀번호 재입력"
+          maxLength={200}
         />
         {passwordError && (
           <p className="admin-manager-modal-error">{passwordError}</p>

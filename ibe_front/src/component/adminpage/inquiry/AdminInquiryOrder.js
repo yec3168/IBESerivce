@@ -22,7 +22,8 @@ const AdminInquiryOrder = () => {
       const response = await axios.get('http://localhost:8080/admin/inquiry');
       const fetchedInquiries = response.data.map((inquiry) => ({
         inquiryId: inquiry.inquiryId,
-        category: categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
+        category:
+          categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
         title: inquiry.inquiryTitle,
         nickname: inquiry.memberNickName,
         date: new Date(inquiry.inquiryCreatedAt).toLocaleDateString(),
@@ -82,7 +83,7 @@ const AdminInquiryOrder = () => {
         ...prevErrors,
         [inquiryId]: '',
       }));
-      
+
       // 리스트 갱신
       fetchInquiries();
     } catch (error) {
@@ -136,13 +137,22 @@ const AdminInquiryOrder = () => {
                 <div className="admin-io-inquiry-order-content">
                   <p>{inquiry.content}</p>
                   <textarea
-                    placeholder="답변을 입력하세요..."
+                    placeholder="답변을 입력하세요. (최대 250자)"
                     value={responses[inquiry.inquiryId] || ''}
                     onChange={(e) =>
                       handleResponseChange(inquiry.inquiryId, e.target.value)
                     }
-                    rows="4"
-                    style={{ width: '100%', marginTop: '10px' }}
+                    onInput={(e) => {
+                      e.target.style.height = 'auto'; // 높이를 초기화
+                      e.target.style.height = `${e.target.scrollHeight}px`; // 컨텐츠 높이에 맞춰 자동 확장
+                    }}
+                    rows="3" // 최소 높이를 지정하여 초기 렌더링 시 크기가 설정되도록
+                    style={{
+                      width: '100%',
+                      marginTop: '10px',
+                      resize: 'none', // 크기 조절을 비활성화
+                      overflow: 'hidden', // 자동 높이에 맞춰 스크롤을 숨김
+                    }}
                   />
                   {errors[inquiry.inquiryId] && (
                     <p style={{ color: 'red' }}>{errors[inquiry.inquiryId]}</p>
@@ -151,7 +161,10 @@ const AdminInquiryOrder = () => {
                     <button
                       className="admin-io-action-button"
                       onClick={() =>
-                        handleResponseSubmit(inquiry.inquiryId, inquiry.memberId)
+                        handleResponseSubmit(
+                          inquiry.inquiryId,
+                          inquiry.memberId
+                        )
                       }
                     >
                       답변

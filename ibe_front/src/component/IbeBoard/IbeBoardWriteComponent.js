@@ -23,7 +23,11 @@ const IbeBoardWriteComponent = () => {
         console.error('Token decoding error:', error);
       }
     }
-    const adminArr = ["ROLE_ADMIN", "ROLE_SERVICE_MANAGER", "ROLE_BOARD_MANAGER"];
+    const adminArr = [
+      'ROLE_ADMIN',
+      'ROLE_SERVICE_MANAGER',
+      'ROLE_BOARD_MANAGER',
+    ];
     for (let i = 0; i < adminArr.length; i++) {
       if (tokenRole === adminArr[i]) {
         setIsAdmin(true);
@@ -130,6 +134,17 @@ const IbeBoardWriteComponent = () => {
                   className="board-textarea"
                 />
               </Form.Group>
+
+              {/* 정책 내용 추가 */}
+              <div className="board-policy-notice mt-2">
+                <p>
+                  관련 법령을 위반하거나 타인의 권리를 침해하는 내용의 게시물은
+                  명백한 법령 위반 또는 권리 침해의 내용이 아닌 한, 원칙적으로
+                  법원의 판결, 결정 등 또는 법률에 따라 관련 권한을 보유한
+                  행정기관의 행정처분, 명령 등에 의해 법령 위반 또는 권리 침해가
+                  확인된 경우 게재가 제한됨을 알려 드립니다.
+                </p>
+              </div>
 
               {error && <p className="board-error-message mt-3">{error}</p>}
 

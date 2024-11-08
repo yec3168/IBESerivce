@@ -9,7 +9,8 @@ const AdminManagerListPassword = ({
   selectedManager,
 }) => {
   const [newManagerPassword, setNewManagerPassword] = useState('');
-  const [newManagerConfirmPassword, setNewManagerConfirmPassword] = useState('');
+  const [newManagerConfirmPassword, setNewManagerConfirmPassword] =
+    useState('');
   const [updatePasswordError, setUpdatePasswordError] = useState('');
 
   // 모달이 열릴 때마다 입력 필드를 초기화
@@ -60,14 +61,16 @@ const AdminManagerListPassword = ({
           type="password"
           value={newManagerPassword}
           onChange={(e) => setNewManagerPassword(e.target.value)}
-          placeholder="새 비밀번호를 입력하세요"
+          placeholder="새 비밀번호 입력"
+          maxLength={200}
         />
         <label>비밀번호 확인</label>
         <input
           type="password"
           value={newManagerConfirmPassword}
           onChange={(e) => setNewManagerConfirmPassword(e.target.value)}
-          placeholder="비밀번호를 다시 입력하세요"
+          placeholder="새 비밀번호 재입력"
+          maxLength={200}
         />
         {updatePasswordError && (
           <p className="admin-manager-modal-error">{updatePasswordError}</p>
