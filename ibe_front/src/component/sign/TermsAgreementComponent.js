@@ -9,18 +9,38 @@ const TermsAgreementComponent = () => {
     service: false,
     privacy: false,
     marketing: false,
+    all: false,
   });
   const [showWarning, setShowWarning] = useState({
     service: false,
     privacy: false,
   });
 
+  // 전체 선택 체크박스를 클릭했을 때 개별 체크박스 상태 변경
+  const handleAllCheckboxChange = (event) => {
+    const { checked } = event.target;
+    setTermsAccepted({
+      service: checked,
+      privacy: checked,
+      marketing: checked,
+      all: checked,
+    });
+  };
+
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
-    setTermsAccepted((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
+    setTermsAccepted((prevState) => {
+      const updatedTerms = {
+        ...prevState,
+        [name]: checked,
+      };
+
+      // 모든 체크박스 상태에 따라 전체 선택 체크박스 상태 업데이트
+      const allChecked = updatedTerms.service && updatedTerms.privacy && updatedTerms.marketing;
+      updatedTerms.all = allChecked;
+
+      return updatedTerms;
+    });
 
     // Reset the warning for this specific checkbox once it's checked
     if (checked && showWarning[name]) {
@@ -56,19 +76,7 @@ const TermsAgreementComponent = () => {
         <p>서비스 가입을 위해 아래의 약관을 읽고 동의해주세요.</p>
 
         <Form onSubmit={handleSubmit}>
-          <Form.Group as={Row} controlId="termsCheckbox1" className="mb-3">
-              <Col>
-                <Form.Check 
-                  type="checkbox" 
-                  label="(필수) 서비스 이용 약관에 동의합니다." 
-                  name="service" 
-                  checked={termsAccepted.service} 
-                  onChange={handleCheckboxChange} 
-                  className={showWarning.service ? "highlight-warning" : ""}
-                />
-              </Col>
-            </Form.Group>
-
+          
           <div className="terms-box">
             <h5>서비스 이용 약관</h5>
             <div className="terms-content">
@@ -112,18 +120,18 @@ const TermsAgreementComponent = () => {
             </div>
           </div>
 
-          <Form.Group as={Row} controlId="termsCheckbox2" className="mb-3 mt-3">
-            <Col>
-              <Form.Check 
-                type="checkbox" 
-                label="(필수) 개인정보 수집 및 이용에 동의합니다." 
-                name="privacy" 
-                checked={termsAccepted.privacy} 
-                onChange={handleCheckboxChange} 
-                className={showWarning.privacy ? "highlight-warning" : ""}
-              />
-            </Col>
-          </Form.Group>
+          <Form.Group as={Row} controlId="termsCheckbox1" className="my-1">
+              <Col>
+                <Form.Check 
+                  type="checkbox" 
+                  label="(필수) 서비스 이용 약관에 동의합니다." 
+                  name="service" 
+                  checked={termsAccepted.service} 
+                  onChange={handleCheckboxChange} 
+                  className={showWarning.service ? "highlight-warning" : ""}
+                />
+              </Col>
+            </Form.Group>
 
           <div className="terms-box">
             <h5>개인정보 수집 및 이용</h5>
@@ -196,7 +204,20 @@ const TermsAgreementComponent = () => {
             </div>
           </div>
 
-          <Form.Group as={Row} controlId="termsCheckbox3" className="mb-3 mt-3">
+          <Form.Group as={Row} controlId="termsCheckbox2" className="my-1">
+            <Col>
+              <Form.Check 
+                type="checkbox" 
+                label="(필수) 개인정보 수집 및 이용에 동의합니다." 
+                name="privacy" 
+                checked={termsAccepted.privacy} 
+                onChange={handleCheckboxChange} 
+                className={showWarning.privacy ? "highlight-warning" : ""}
+              />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row} controlId="termsCheckbox3" className="my-1">
             <Col>
               <Form.Check 
                 type="checkbox" 
@@ -208,9 +229,24 @@ const TermsAgreementComponent = () => {
             </Col>
           </Form.Group>
 
-          <Button type="submit" className="mt-4" variant="default"  style={{ backgroundColor: "#FFC847", width: "100%" }}>
-            가입하기
-          </Button>
+          <Form.Group as={Row} controlId="termsCheckboxAll" className="mb-1">
+            <Col>
+              <Form.Check
+                type="checkbox"
+                label="전체 선택"
+                checked={termsAccepted.all}
+                onChange={handleAllCheckboxChange}
+              />
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row} className="text-center mb-0">
+            <Col>
+              <Button type="submit" variant="default" style={{ backgroundColor: "#FFC847" }}>
+                가입하기
+              </Button>
+            </Col>
+          </Form.Group>
         </Form>
       </div>
     </div>
