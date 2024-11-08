@@ -88,6 +88,7 @@ public class NhService {
         pointPayBack.setPointPayBackPrice(Integer.parseInt(nhRequest.getMemberPoint())*10);
         if(msg.equals("정상처리 되었습니다.")){
             pointPayBack.setPointPayBackResult(PayResult.SUCCESS);
+            member.setMemberPoint(member.getMemberPoint()-pointPayBack.getPointPayBackPoint());
         }else {
             pointPayBack.setPointPayBackResult(PayResult.FAIL);
         }
@@ -95,7 +96,6 @@ public class NhService {
         pointPayBack.setBankName(nhRequest.getBankName());
         pointPayBack.setBankAccountNumber(nhRequest.getBankAccountNumber());
         pointPayBackRepository.save(pointPayBack);
-        member.setMemberPoint(member.getMemberPoint()-pointPayBack.getPointPayBackPoint());
 
         return NhResponse.builder()
                 .msg(msg)

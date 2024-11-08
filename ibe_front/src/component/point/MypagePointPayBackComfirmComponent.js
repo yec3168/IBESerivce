@@ -13,11 +13,10 @@ const MypagePointPayBackComfrimComponent = ()=>{
     let bankCode = bank.options[bank.selectedIndex].value;
     let accountNumber=window.opener.document.getElementById('account_nubmer').value;
     const navigate = useNavigate();
-    console.log("123")
+
     const transfer = ()=>{
         setIsClicked(true);
         if(!isClicked){
-            // let bank = document.getElementById('bank');
             let data ={
             "bankName" : `${bankName}`,
             "bank" : `${bankCode}`,
