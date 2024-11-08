@@ -37,7 +37,7 @@
 }
 
 .admin-sidebar a {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -82,4 +82,8 @@
 
 .sub-menu a:hover {
   color: #d27a00; /* 호버 시 색상 변경 */
+}
+
+.admin-main-title {
+  font-size: 25px;
 }

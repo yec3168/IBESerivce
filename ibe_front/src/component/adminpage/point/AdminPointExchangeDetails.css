@@ -3,6 +3,8 @@
 .admin-ped-h2 {
   text-align: center;
   margin: 1rem;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .admin-ped-point-exchange-list {
@@ -62,7 +64,6 @@
 
 .admin-ped-point-exchange-row.header {
   background-color: white; /* 헤더 배경색 */
-
 }
 
 .admin-ped-column {

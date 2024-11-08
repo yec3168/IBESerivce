@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.admin-sr-h2 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .admin-sr-button-container {
   margin-top: 10px;
   text-align: center;
@@ -175,7 +181,6 @@
 .admin-sr-modal:hover {
   cursor: default;
 }
-
 
 .admin-sr-image-td {
   padding: 10px;

@@ -29,7 +29,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
 
   return (
     <aside className="admin-sidebar">
-      <h2>IBE 관리자</h2>
+      <h2 className="admin-main-title">IBE 관리자</h2>
       <nav>
         <ul>
         {userRole === 'ROLE_ADMIN' && (

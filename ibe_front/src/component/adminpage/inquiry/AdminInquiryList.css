@@ -1,6 +1,8 @@
 .admin-il-h2 {
   text-align: center;
   margin: 1rem;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .admin-il-inquiry-list-container {

@@ -89,7 +89,6 @@ const AdminViewPostInfo = () => {
 
   return (
     <div className="admin-vp-info-list">
-      <h3 className="admin-vp-h2">정보 게시글 목록</h3>
       <div className="admin-vp-search-container">
         <select
           value={selectedNotes}

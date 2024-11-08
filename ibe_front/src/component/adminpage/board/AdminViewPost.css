@@ -1,5 +1,7 @@
 .admin-vp-h2 {
   text-align: center;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .admin-vp-post-box {
@@ -128,31 +130,6 @@
   transition: background-color 0.3s ease;
 }
 
-.admin-vp-sale-button {
-  background-color: #28a745;
-  color: white;
-}
-
-.admin-vp-sale-button:hover {
-  background-color: #218838;
-}
-
-.admin-vp-sale-button:active {
-  background-color: #1e7e34;
-}
-
-.admin-vp-info-button {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.admin-vp-info-button:hover {
-  background-color: #138496;
-}
-
-.admin-vp-info-button:active {
-  background-color: #117a8b;
-}
 
 .admin-vp-column.author {
   flex: 2;
@@ -245,4 +222,10 @@
 
 .admin-vp-close-btn:hover {
   background-color: #0056b3;
+}
+
+.admin-vp-button-group button.active {
+  background-color: #0056b3; /* 활성화된 버튼 색상 */
+  color: #fff; /* 활성화된 버튼 텍스트 색상 */
+  border-color: #0056b3;
 }

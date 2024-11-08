@@ -111,7 +111,6 @@ const AdminViewPostSale = () => {
 
   return (
     <>
-      <h3 className="admin-vp-h2">판매 게시글 목록</h3>
       <div className="admin-vp-search-container">
         <select
           value={selectedStatus}
