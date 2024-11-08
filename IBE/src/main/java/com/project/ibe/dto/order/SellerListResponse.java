@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class SellerListResponse {
     // 물품 관련
+    private Long productId;
     private String productTitle;
     private String sellerMemberNickName; // 판매자 닉네임 가져오기 위함.
     private Long productPoint;
