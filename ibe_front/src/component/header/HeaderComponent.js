@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import ibe_logo from '../assets/images/header/ibe_logo.png';
+import ibe_logo_header from '../assets/images/header/ibe_logo_header.png';
 import coin_purse_icon from '../assets/images/header/coin_purse_icon.png';
+import login_icon from '../assets/images/header/login_icon.png';
+import logout_icon from '../assets/images/header/logout_icon.png';
 import './HeaderComponent.css';
 import { getMemberInfo } from '../service/MypageService';
 
@@ -87,7 +89,8 @@ const HeaderComponent = () => {
                         </span>
                       </li>
                     </span>
-                    <span id="span_parent" className="mr-80">
+                    {/* <span id="span_parent" style={{marginRight:'107px'}}> */}
+                    <span id="span_parent" style={{marginRight:'50px'}}>
                       <li className="nav-item">
                         {/* 포인트 */}
                         {/* 클릭 시 포인트 충전 페이지 이동 */}
@@ -106,13 +109,19 @@ const HeaderComponent = () => {
                 )}
                 {/* 로그인 버튼 */}
                 {isLoggedIn ? (
-                    <li className="nav-item mx-3">
-                      <button className="nav-link active" onClick={clickLogout} id="button_logout">로그아웃</button>
-                    </li>
+                  // 로그아웃 아이콘
+                  <li className="nav-item mx-3 mt-1">
+                    <button className="nav-link active" onClick={clickLogout}>
+                      <img src={logout_icon} alt="로그아웃" width="25px" />
+                    </button>
+                  </li>
                 ) : (
-                    <li className="nav-item mx-3">
-                      <a className="nav-link active" href="/signin" id="button_login">로그인</a>
-                    </li>
+                  // 로그인 아이콘
+                  <li className="nav-item mx-3 mt-1">
+                    <a className="nav-link active" href="/signin">
+                      <img src={login_icon} alt="로그인" width="25px" /> 
+                    </a>
+                  </li>
                 )}
               </ul>
             </div>
@@ -120,7 +129,7 @@ const HeaderComponent = () => {
           <div className="container-fluid">
             {/* 메인 로고 */}
             <a className="navbar-brand" href="/">
-              <img src={ibe_logo} width="200px" alt="logo" />
+              <img src={ibe_logo_header} width="200px" alt="logo" style={{marginTop:'10px'}}/>
             </a>
             {/* 반응형 메뉴바 버튼 */}
             <button
@@ -138,6 +147,7 @@ const HeaderComponent = () => {
             <div
               className="collapse navbar-collapse justify-content-end"
               id="menubar"
+              style={{marginTop:'38px'}}
             >
               <ul className="navbar-nav menubar">
                 <li className="nav-item mr-150">
