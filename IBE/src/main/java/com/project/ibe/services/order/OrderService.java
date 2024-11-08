@@ -255,8 +255,31 @@ public class OrderService {
     }
 
     /**
-     *
+     * 구매확정.
+     * 1. Order State 배송완료로 업데이트
      */
+
+    public boolean orderFinished(OrderFinishedRequest orderFinishedRequest, PrincipalDTO principalDTO){
+        // 로그인한 회원 가져오기.
+        Member sellMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        // 물품 가져오기.
+        Product sellProduct = productService.findProductById(orderFinishedRequest.getProductId());
+
+        // 주문정보 가져오기. 예외처리
+        // 1. OrderId 같음
+        // 2. product도 같음
+        // 3. orderMemberName도 같아야함.
+        Order order = orderRepository.findByOrderIdAndProductAndOrderMemberEmail(orderFinishedRequest.getProductId(), sellProduct, sellMember.getMemberEmail());
+
+        if(order==null)
+            throw new BusinessException("주문정보가 잘못되었습니다.\n관리자에게 문의해주세요.");
+
+        order.setOrderState(OrderState.DELIVERED);
+        orderRepository.save(order);
+
+        return true;
+    }
 
 
     public Order findOrderById(Long orderId){
