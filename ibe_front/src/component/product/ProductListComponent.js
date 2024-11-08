@@ -138,7 +138,10 @@ const ProductListComponent = () => {
                       </Badge>
                       
                       <span id="product_price" className="d-flex justify-content-end">
-                        {addComma(product.price)} P
+                        {addComma(product.price)} 
+                        <span id="span_won" style={{ display: 'inline-block' }}>
+                            &nbsp;P
+                          </span>
                       </span>
                     </div>
                   </Card.Body>
