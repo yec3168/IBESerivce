@@ -24,7 +24,8 @@ public class SellerListResponse {
 
     //구매 관련.
     private Long orderId;
-    private String orderMemberNickName; // 구매자 닉네임.
+    private Member orderMember;
+//    private String orderMemberNickName; // 구매자 닉네임.
 
     private OrderState orderState; // 현재 진행상태( 거래가능, 거래완료, 배송중, 배송완료, 구매 거부)
                                     // 판매자가 승인하면 거래완료로 바뀜.

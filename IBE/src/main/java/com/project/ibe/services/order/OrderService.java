@@ -156,7 +156,8 @@ public class OrderService {
                     sellerListResponse.setOrderId(order.getOrderId());
                     sellerListResponse.setOrderState(order.getOrderState());
                     sellerListResponse.setOrderDate(order.getOrderDate());
-                    sellerListResponse.setOrderMemberNickName(memberService.getMemberByEmail(order.getOrderMemberEmail()).getMemberNickName()); //구매자의 닉네임.
+                    sellerListResponse.setOrderMember(memberService.getMemberByEmail(order.getOrderMemberEmail()));
+//                    sellerListResponse.setOrderMemberNickName(memberService.getMemberByEmail(order.getOrderMemberEmail()).getMemberNickName()); //구매자의 닉네임.
                     sellerListResponse.setOrderDeliveryDate(order.getOrderDeliveryDate());
                     sellerListResponse.setProductId(productDetailResponse.getProductId());
                     sellerListResponse.setProductTitle(productDetailResponse.getProductTitle());

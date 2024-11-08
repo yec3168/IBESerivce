@@ -40,7 +40,11 @@ const MypageSlistPagingComponent = () => {
         deliveryDate: order.orderDeliveryDate !== null ? order.orderDeliveryDate: null ,//'2024-10-25 19:00',
         thumbnail : order.imagePath,
         orderState : order.orderState,
-        orderMemberNickName : order.orderMemberNickName !== null ? "구매자 : " + order.orderMemberNickName : null , // 구매자 닉네임
+        orderMemberNickName : order.orderMember !== null ? "구매자 : " + order.orderMember.memberNickName: null , // 구매자 닉네임
+
+        // 배송지 얻는부분.
+        orderMemberAddr : order.orderMember !== null ? (order.orderMember.memberAddr + " " + order.orderMember.memberAddrDetail) : null,
+
         productId: order.productId,
     }))
     .sort((a, b) => new Date(b.listedDate.split(" : ")[1]) - new Date(a.listedDate.split(" : ")[1])); // 내림차순 정렬
