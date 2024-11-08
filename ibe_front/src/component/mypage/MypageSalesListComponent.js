@@ -150,7 +150,9 @@ const MypageSalesListComponent = () => {
                             <Modal.Body>
                                 <p>상품: {selectedItem?.title}</p>
                                 <p>가격: {addComma(selectedItem?.price)}</p>
-                                <p>구매하시겠습니까?</p>
+                                <p>{selectedItem?.orderMemberNickName}</p>
+                                <p>{selectedItem?.listedDate}</p>
+                                <p>해당 구매자와 거래하시겠습니까?</p>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleCloseModal}>취소</Button>
