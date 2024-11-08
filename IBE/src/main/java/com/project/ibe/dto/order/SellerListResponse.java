@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class SellerListResponse {
     // 물품 관련
+    private Long productId;
     private String productTitle;
     private String sellerMemberNickName; // 판매자 닉네임 가져오기 위함.
     private Long productPoint;
@@ -33,6 +34,7 @@ public class SellerListResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime orderDeliveryDate;
 
+    private String orderWayBill; // 운송장번호.
 
 //    // 해당 상품을 주문했으면 구매자 목록 버튼 클릭시  보여줄 리스트.
 //    List<SellOrderListResponse> sellOrderListResponseList = new ArrayList<>();

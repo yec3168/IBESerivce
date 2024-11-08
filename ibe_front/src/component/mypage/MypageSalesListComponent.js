@@ -10,6 +10,7 @@ import badge_delivery_complete from "../assets/images/main/badge/badge_delivery_
 const MypageSalesListComponent = () => {
 
         const [orders, setOrders] = useState([]); // 초기값을 빈 배열로 설정
+        const [completed, setCompleted] = useState([]); // 거래완료시 변화함.
         useEffect(() => {
             getSellList()
             .then(response => {
@@ -21,7 +22,7 @@ const MypageSalesListComponent = () => {
             .catch(error => {
                 console.error("Error fetching order list:", error);  // 에러 정보를 출력합니다.
             });
-        }, []);
+        }, [completed]); // 거래완료 버튼 누르면 다시 불러야함.
 
 
 
@@ -36,11 +37,26 @@ const MypageSalesListComponent = () => {
             thumbnail : order.imagePath,
             orderState : order.orderState,
             orderMemberNickName : order.orderMemberNickName !== null ? "구매자 : " + order.orderMemberNickName : null , // 구매자 닉네임
+            productId: order.productId,
         }))
         .sort((a, b) => new Date(b.listedDate.split(" : ")[1]) - new Date(a.listedDate.split(" : ")[1])); // 내림차순 정렬
 
 
+
+        // 거래 확정 핸들러
+        const orderCompleteHandler =(item) =>{
+            console.log(item)
+            const orderCompleteRequest ={
+                orderId : item.id,
+                productId : item.productId
+            }
+
+        }
+
     
+
+
+
          const addComma = (price) => {
                     let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     return returnString;
@@ -92,7 +108,7 @@ const MypageSalesListComponent = () => {
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {item.orderState === "AVAILABLE" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">거래 확정</Button>}
+                            {item.orderState === "AVAILABLE" && item.id !== null &&  <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={ () => orderCompleteHandler(item)}>거래 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />}

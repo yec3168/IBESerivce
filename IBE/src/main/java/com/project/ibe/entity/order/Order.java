@@ -40,6 +40,7 @@ public class Order {
 
     private String sellerMemberEmail; //판매자.
 
+    private String orderWayBill; // 운송장 번호.
 
     @Builder
     public Order(OrderState orderState, Product product, String orderMemberEmail, String sellerMemberEmail){

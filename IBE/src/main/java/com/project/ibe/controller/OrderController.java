@@ -1,6 +1,7 @@
 package com.project.ibe.controller;
 
 import com.project.ibe.dto.member.PrincipalDTO;
+import com.project.ibe.dto.order.OrderCompleteRequest;
 import com.project.ibe.dto.order.OrderFormRequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
@@ -45,4 +46,15 @@ public class OrderController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
+    @PostMapping("/complete")
+    public Response orderComplete(@RequestBody OrderCompleteRequest orderCompleteRequest,
+                                  @AuthenticationPrincipal PrincipalDTO principalDTO){
+        try{
+            return new Response(ResponseCode.SUCCESS, orderService.orderComplete(orderCompleteRequest, principalDTO), "200");
+        }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
 }
