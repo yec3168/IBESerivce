@@ -123,7 +123,7 @@ const IbeBoardWriteComponent = () => {
                 <Form.Label>내용</Form.Label>
                 <Form.Control
                   as="textarea"
-                  placeholder="내용을 입력하세요"
+                  placeholder="내용을 입력하세요(최대 250자)"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   onInput={(e) => {

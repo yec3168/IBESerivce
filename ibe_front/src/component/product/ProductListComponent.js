@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import { getProductList } from "../service/ProductService";
 import thumbnaiil from "../assets/images/thumbnail.png";
 
-
 import "./ProductList.css";
 
 const ProductListComponent = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortOrder, setSortOrder] = useState("views");
+  const [sortOrder, setSortOrder] = useState("listedAt"); // 기본 정렬을 최신순으로 설정
   const [error, setError] = useState(""); // State for error message
 
   useEffect(() => {
@@ -34,7 +33,8 @@ const ProductListComponent = () => {
               item.productCategory === "아동 도서" ? "KIDS_BOOKS" :
               item.productCategory === "외출 용품" ? "OUTDOOR_SUPPLIES" : 
               "MISC",
-            price: item.productPoint
+            price: item.productPoint,
+            productListedAt: new Date(item.productListedAt) // 날짜 필드를 Date 객체로 변환
           }));
           setProducts(formattedData);
           setError(""); // Reset error message if products are fetched successfully
@@ -57,6 +57,8 @@ const ProductListComponent = () => {
       updatedProducts = [...updatedProducts].sort((a, b) => b.views - a.views);
     } else if (sortOrder === "comments") {
       updatedProducts = [...updatedProducts].sort((a, b) => b.comments - a.comments);
+    } else if (sortOrder === "listedAt") {
+      updatedProducts = [...updatedProducts].sort((a, b) => b.productListedAt - a.productListedAt); // 최신순 정렬
     }
 
     setFilteredProducts(updatedProducts);
@@ -96,23 +98,17 @@ const ProductListComponent = () => {
             >
               <option value="views">조회수</option>
               <option value="comments">댓글</option>
+              <option value="listedAt">최신순</option> {/* 최신순 옵션 추가 */}
             </Form.Select>
           </Col>
         </Row>
 
         {((filteredProducts.length === 0 && !error) || error) && (
-           <div className="text-center mt-4">
+          <div className="text-center mt-4">
             <i className="bi bi-exclamation-circle" style={{ fontSize: '3rem', color: 'red' }}></i>
             <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
             <p>다른 키워드로 검색해 주세요.</p>
-            <div id="div_spacing"/>
-            <div id="div_spacing"/>
-            <div id="div_spacing"/>
-            <div id="div_spacing"/>
-            <div id="div_spacing"/>
-            <div id="div_spacing"/>
-            
-         </div>
+          </div>
         )}
         
         <Row xs={1} md={2} lg={6} className="g-4">
@@ -120,7 +116,7 @@ const ProductListComponent = () => {
             <Col key={product.id}>
               <Link to={`/products/detail/${product.id}`} className="text-decoration-none text-dark">
                 <Card id="product_card" className="h-100">
-                  <Card.Img variant="top" src={product.image} alt={product.title} className="product-image"  onError={(e) => e.target.src = thumbnaiil} />
+                  <Card.Img variant="top" src={product.image} alt={product.title} className="product-image" onError={(e) => e.target.src = thumbnaiil} />
                   <Card.Body>
                     <Card.Title>{product.title}</Card.Title>
                     <div className="d-flex justify-content-between">

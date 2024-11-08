@@ -16,7 +16,6 @@ const CustomTooltip = ({ active, payload, dataKey }) => {
     let formattedValue;
     let label;
 
-    // 데이터 유형에 따라 툴팁에 표시할 값을 설정
     switch (dataKey) {
       case 'income':
         formattedValue = new Intl.NumberFormat('ko-KR', {
@@ -26,15 +25,15 @@ const CustomTooltip = ({ active, payload, dataKey }) => {
         label = '수익';
         break;
       case 'connCount':
-        formattedValue = `${payload[0].value}회`; // 연결 수는 회 단위로 표시
+        formattedValue = `${payload[0].value}회`;
         label = '접속 횟수';
         break;
       case 'transCount':
-        formattedValue = `${payload[0].value}건`; // 거래 수는 건 단위로 표시
+        formattedValue = `${payload[0].value}건`;
         label = '거래 횟수';
         break;
       case 'uploadCount':
-        formattedValue = `${payload[0].value}개`; // 업로드 수는 개 단위로 표시
+        formattedValue = `${payload[0].value}개`;
         label = '판매게시글 등록 수';
         break;
       default:
@@ -68,19 +67,16 @@ const BarChartComponent = () => {
   const lastWeek = new Date(yesterday);
   lastWeek.setDate(yesterday.getDate() - 7);
 
-  // 어제부터 7일간의 데이터 필터링
   const filteredData = DummyData.filter((item) => {
     const itemDate = new Date(item.daily);
     return itemDate >= lastWeek && itemDate <= yesterday;
   });
 
-  // 필터링된 데이터 변환
   const transformedData = filteredData.map((item) => ({
     name: item.daily,
     value: item[dataKey],
   }));
 
-  // 선택된 기간에 따른 데이터 집계
   const getAggregatedData = (timeFrame) => {
     if (timeFrame === 'daily') {
       return transformedData;
@@ -90,8 +86,8 @@ const BarChartComponent = () => {
         const targetDate = new Date();
         targetDate.setMonth(targetDate.getMonth() - (i + 1));
         const month = targetDate.toLocaleString('default', { month: '2-digit' });
-        const year = targetDate.getFullYear().toString().slice(-2); // 마지막 두 자릿수만 사용
-  
+        const year = targetDate.getFullYear().toString().slice(-2);
+
         const incomeSum = DummyData.reduce((sum, item) => {
           const itemDate = new Date(item.daily);
           if (
@@ -102,8 +98,7 @@ const BarChartComponent = () => {
           }
           return sum;
         }, 0);
-  
-        // 월간 데이터 포맷을 'YY년 MM월'로 변경
+
         monthlyData.push({ name: `${year}년 ${month}`, value: incomeSum });
       }
       return monthlyData.reverse();
@@ -118,19 +113,15 @@ const BarChartComponent = () => {
           }
           return sum;
         }, 0);
-        // 년간 데이터 포맷을 'YYYY년'로 변경
         yearlyData.push({ name: `${targetYear}년`, value: incomeSum });
       }
       return yearlyData.reverse();
     }
     return [];
   };
-  
 
-  // 집계된 데이터 가져오기
   const aggregatedData = getAggregatedData(timeFrame);
 
-  // 데이터 키에 따른 막대 색상 지정
   const barColor = {
     income: '#8884d8',
     connCount: '#82ca9d',
@@ -138,7 +129,6 @@ const BarChartComponent = () => {
     uploadCount: '#ff8042',
   };
 
-  // 기간과 데이터 유형에 따른 타이틀 설정
   const titleMap = {
     daily: '일간',
     monthly: '월간',
@@ -152,15 +142,22 @@ const BarChartComponent = () => {
     uploadCount: '판매게시글 등록 수',
   };
 
-  // Y축 눈금 포맷터 함수
   const yAxisTickFormatter = (value) => {
     if (value === 0) {
-      return value; // 0인 경우에는 만 단위를 표시하지 않음
+      return value;
     }
     if (dataKey === 'income') {
-      return `${value / 10000}만`; // 만 단위로 표시 및 단위 추가
+      return `${value / 10000}만`;
     }
     return value;
+  };
+
+  // 날짜 형식을 MM월 DD일로 변경하는 함수
+  const formatDailyDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${month}월 ${day}일`;
   };
 
   return (
@@ -200,8 +197,12 @@ const BarChartComponent = () => {
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={aggregatedData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" reversed={timeFrame === 'daily'} />
-          <YAxis tickFormatter={yAxisTickFormatter} /> {/* Y축 포맷팅 추가 */}
+          <XAxis 
+            dataKey="name" 
+            tickFormatter={timeFrame === 'daily' ? formatDailyDate : null} // daily일 때만 날짜 형식 변경
+            reversed={timeFrame === 'daily'} 
+          />
+          <YAxis tickFormatter={yAxisTickFormatter} />
           <Tooltip content={<CustomTooltip dataKey={dataKey} />} />
           <Bar dataKey="value" fill={barColor[dataKey]} />
         </BarChart>

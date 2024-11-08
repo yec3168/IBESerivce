@@ -17,7 +17,7 @@ const IbeBoardListComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
   const navigate = useNavigate(); // useNavigate 훅 사용
-  const [error, setError] = useState(""); // State for error message
+  const [error, setError] = useState(''); // State for error message
 
   // 데이터 가져오기
   useEffect(() => {
@@ -42,11 +42,11 @@ const IbeBoardListComponent = () => {
 
         // 데이터를 상태에 저장
         setPosts(sortedData);
-        setError(""); // Set error message when fetch fails
+        setError(''); // Set error message when fetch fails
       })
       .catch((error) => {
-        setError("게시글을 가져오는 데 실패했습니다:"); // Set error message when fetch fails
-        setPosts([]); 
+        setError('게시글을 가져오는 데 실패했습니다:'); // Set error message when fetch fails
+        setPosts([]);
         console.error('게시글을 가져오는 데 실패했습니다:', error);
       });
   }, []);
@@ -106,12 +106,14 @@ const IbeBoardListComponent = () => {
   };
 
   // 검색 내용 전송
-  const handleSearch =() =>{
+  const handleSearch = () => {
     let category = document.getElementById('searchCategory').value;
     let type = document.getElementById('searchType').value;
     let value = document.getElementById('searchValue').value;
     axios
-      .get(`http://localhost:8080/api/boards/search?category=${category}&type=${type}&value=${value}`)
+      .get(
+        `http://localhost:8080/api/boards/search?category=${category}&type=${type}&value=${value}`
+      )
       .then((response) => {
         const data = response.data.data; // API 응답에서 데이터 추출
 
@@ -131,20 +133,19 @@ const IbeBoardListComponent = () => {
 
         // 데이터를 상태에 저장
         setPosts(sortedData);
-        setError(""); // Reset error message if products are fetched successfully
-
+        setError(''); // Reset error message if products are fetched successfully
       })
       .catch((error) => {
-        setError("게시글을 가져오는 데 실패했습니다:"); // Set error message when fetch fails
-        setPosts([]); 
+        setError('게시글을 가져오는 데 실패했습니다:'); // Set error message when fetch fails
+        setPosts([]);
         console.error('게시글을 가져오는 데 실패했습니다:', error);
-      })
-  }
+      });
+  };
   const activeEnter = (e) => {
-    if(e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearch();
     }
-  }
+  };
   return (
     <div id="board_content">
       <Container className="board-container">
@@ -153,65 +154,103 @@ const IbeBoardListComponent = () => {
             <p className="h2 board-title">아이비 게시판</p>
           </Col>
         </Row>
-        <Table hover className="board-table" style={{tableLayout:'fixed',wordBreak:'break-all',height:'auto'}}>
-          <thead style={{ textAlign:'center'}}>
+        <Table
+          hover
+          className="board-table"
+          style={{
+            tableLayout: 'fixed',
+            wordBreak: 'break-all',
+            height: 'auto',
+          }}
+        >
+          <thead style={{ textAlign: 'center' }}>
             <tr>
-              <th style={{width: '150px' ,textAlign:'center'}}>번호</th>
-              <th style={{width: '800px',textAlign:'center'}}>제목</th>
-              <th style={{width: '150px' ,textAlign:'center'}}>작성자</th>
-              <th style={{width: '200px',textAlign:'center'}}>날짜</th>
-              <th style={{width: '150px' ,textAlign:'center'}}>조회수</th>
+              <th style={{ width: '150px', textAlign: 'center' }}>번호</th>
+              <th style={{ width: '800px', textAlign: 'center' }}>제목</th>
+              <th style={{ width: '150px', textAlign: 'center' }}>작성자</th>
+              <th style={{ width: '200px', textAlign: 'center' }}>날짜</th>
+              <th style={{ width: '150px', textAlign: 'center' }}>조회수</th>
             </tr>
           </thead>
           <tbody>
             {/* Display 공지 posts */}
-            
-            {
-            noticePosts.map((post) => (
-                <>
-                {currentPage === 1 ? 
-                <>
-                <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer'}}>
-                  <td style={{ fontWeight: 'bold' ,backgroundColor:'#FFFAFA'}}></td> {/* No ID displayed */}
-                  <td style={{backgroundColor:'#FFFAFA', width: '800px'}}>
-                <span className={`board-category-${post.category}`}>
-                  {mapCategory(post.category)}&emsp;
-                </span>
-                <strong>{post.title}</strong>
-                {post.comments !== 0 && (
-                  <span
-                    className="board-comment-count"
-                    style={{ color: 'blue', fontWeight: '700' }}
-                  >
-                    {' '}
-                    {post.comments}
-                  </span>
-                )}
-                {isToday(post.date) && <span className="board-new-tag">New</span>}
-              </td>
-              <td style={{backgroundColor:'#FFFAFA', textAlign:'center'}}>
-                <strong >{post.author}</strong>
-              </td>
-              <td style={{backgroundColor:'#FFFAFA', textAlign:'center'}}>
-                <strong>{post.date}</strong>
-              </td>
-              <td style={{backgroundColor:'#FFFAFA', textAlign:'center'}}>
-                <strong>{post.views}</strong>
-              </td>
-              </tr>
-                </>
-                : null }
-                
+
+            {noticePosts.map((post) => (
+              <>
+                {currentPage === 1 ? (
+                  <>
+                    <tr
+                      key={post.id}
+                      onClick={() => handlePostClick(post.id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <td
+                        style={{
+                          fontWeight: 'bold',
+                          backgroundColor: '#FFFAFA',
+                        }}
+                      ></td>{' '}
+                      {/* No ID displayed */}
+                      <td
+                        style={{ backgroundColor: '#FFFAFA', width: '800px' }}
+                      >
+                        <span className={`board-category-${post.category}`}>
+                          {mapCategory(post.category)}&emsp;
+                        </span>
+                        <strong>{post.title}</strong>
+                        {post.comments !== 0 && (
+                          <span
+                            className="board-comment-count"
+                            style={{ color: 'blue', fontWeight: '700' }}
+                          >
+                            {' '}
+                            {post.comments}
+                          </span>
+                        )}
+                        {isToday(post.date) && (
+                          <span className="board-new-tag">New</span>
+                        )}
+                      </td>
+                      <td
+                        style={{
+                          backgroundColor: '#FFFAFA',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <strong>{post.author}</strong>
+                      </td>
+                      <td
+                        style={{
+                          backgroundColor: '#FFFAFA',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <strong>{post.date}</strong>
+                      </td>
+                      <td
+                        style={{
+                          backgroundColor: '#FFFAFA',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <strong>{post.views}</strong>
+                      </td>
+                    </tr>
+                  </>
+                ) : null}
               </>
-              )
-            )
-          }
-            
+            ))}
+
             {/* Display paginated normal posts */}
             {paginatedPosts.map((post) => (
-              <tr key={post.id} onClick={() => handlePostClick(post.id)} style={{ cursor: 'pointer' }}>
-                <td style={{textAlign:'center'}}>{post.id}</td> {/* ID displayed for normal posts */}
-                <td >
+              <tr
+                key={post.id}
+                onClick={() => handlePostClick(post.id)}
+                style={{ cursor: 'pointer' }}
+              >
+                <td style={{ textAlign: 'center' }}>{post.id}</td>{' '}
+                {/* ID displayed for normal posts */}
+                <td>
                   <span className={`board-category-${post.category}`}>
                     {mapCategory(post.category)}&emsp;
                   </span>
@@ -225,31 +264,35 @@ const IbeBoardListComponent = () => {
                       {post.comments}
                     </span>
                   )}
-                  {isToday(post.date) && <span className="board-new-tag">New</span>}
+                  {isToday(post.date) && (
+                    <span className="board-new-tag">New</span>
+                  )}
                 </td>
-                <td style={{textAlign:'center'}}>{post.author}</td>
-                <td style={{textAlign:'center'}}>{post.date}</td>
-                <td style={{textAlign:'center'}}>{post.views}</td>
+                <td style={{ textAlign: 'center' }}>{post.author}</td>
+                <td style={{ textAlign: 'center' }}>{post.date}</td>
+                <td style={{ textAlign: 'center' }}>{post.views}</td>
               </tr>
             ))}
           </tbody>
           {((paginatedPosts.length === 0 && !error) || error) && (
-              <tr>
-                <th colSpan={'5'}>
-                  <div className="text-center mt-4">
-                    <i className="bi bi-exclamation-circle" style={{ fontSize: '3rem', color: 'red' }}></i>
-                    <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
-                    <p>다른 키워드로 검색해 주세요.</p>
-                    <div id="div_spacing"/>
-                    <div id="div_spacing"/>
-                  </div>
-                </th>
-              </tr>
-           
-        )}
+            <tr>
+              <th colSpan={'5'}>
+                <div className="text-center mt-4">
+                  <i
+                    className="bi bi-exclamation-circle"
+                    style={{ fontSize: '3rem', color: 'red' }}
+                  ></i>
+                  <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
+                  <p>다른 키워드로 검색해 주세요.</p>
+                  <div id="div_spacing" />
+                  <div id="div_spacing" />
+                </div>
+              </th>
+            </tr>
+          )}
         </Table>
-        <div style={{textAlign:'center'}}>
-        <select id='searchCategory' style={{ width:'90px', height:'40px'}}>
+        <div style={{ textAlign: 'center' }}>
+          <select id="searchCategory" style={{ width: '90px', height: '40px' }}>
             <option value={'ALL'}>전체</option>
             <option value={'NOTICE'}>공지</option>
             <option value={'REQUEST'}>요청</option>
@@ -257,13 +300,21 @@ const IbeBoardListComponent = () => {
             <option value={'INFORMATION'}>정보</option>
             <option value={'GENERAL'}>일반</option>
           </select>
-          <select id='searchType' style={{ width:'90px', height:'40px'}}>
+          <select id="searchType" style={{ width: '90px', height: '40px' }}>
             <option value={'title'}>제목</option>
             <option value={'name'}>작성자</option>
           </select>
-          <input id='searchValue' placeholder='검색어를 입력해주세요'
-          onKeyDown={(e) => activeEnter(e)}style={{ width:'400px', height:'40px'}} />
-          <button className="board-add-post-btn" onClick={handleSearch} style={{ height:'40px'}}>
+          <input
+            id="searchValue"
+            placeholder="검색어를 입력해주세요"
+            onKeyDown={(e) => activeEnter(e)}
+            style={{ width: '400px', height: '40px' }}
+          />
+          <button
+            className="board-add-post-btn"
+            onClick={handleSearch}
+            style={{ height: '40px' }}
+          >
             검색
           </button>
         </div>
@@ -271,7 +322,6 @@ const IbeBoardListComponent = () => {
           <Button className="board-add-post-btn" onClick={handleWriteClick}>
             글쓰기
           </Button>
-          
         </div>
         <Pagination className="board-pagination justify-content-center">
           {[...Array(Math.ceil(normalPosts.length / itemsPerPage)).keys()].map(

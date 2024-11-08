@@ -83,7 +83,7 @@ const AdminManagerList = () => {
   };
 
   const handleDeleteManager = (managerEmail) => {
-    const confirmed = window.confirm('정말로 이 관리자를 삭제하시겠습니까?');
+    const confirmed = window.confirm('정말로 이 담당자를 삭제하시겠습니까?');
     if (confirmed) {
       axios
         .delete(`http://localhost:8080/admin/member/adminlist/deletemanager`, {
