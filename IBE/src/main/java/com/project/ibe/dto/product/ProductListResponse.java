@@ -2,6 +2,8 @@ package com.project.ibe.dto.product;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ProductListResponse {
     private Long productId;
@@ -12,6 +14,7 @@ public class ProductListResponse {
     private String productConditionState;
     private String productTradeState; // 거래상태
     private Long productPoint;
+    private LocalDateTime productListedAt;
 
     private String thumbnail;// 썸네일.
 }

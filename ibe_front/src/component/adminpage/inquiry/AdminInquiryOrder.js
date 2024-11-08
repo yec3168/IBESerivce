@@ -62,7 +62,7 @@ const AdminInquiryOrder = () => {
     if (!inquiryAnswerContent) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        [inquiryId]: '값을 입력해 주세요',
+        [inquiryId]: '답변을 입력해 주세요',
       }));
       return;
     }

@@ -32,7 +32,7 @@ const AdminSalesRequest = () => {
           category: mapCategory(request.productCategory),
           title: request.productTitle,
           nickname: request.memberNickName,
-          date: request.productCreatedAt.split('T')[0],
+          date: request.productCreatedAt,
           content: request.productContent,
         }));
         setSalesRequests(requests);
