@@ -99,7 +99,8 @@ const AdminPointExchangeDetails = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} // 입력 시 검색어 업데이트
           />
-          <button onClick={handleSearch}>조회</button> {/* 검색 버튼 클릭 시 필터링 */}
+          <button onClick={handleSearch}>조회</button>{' '}
+          {/* 검색 버튼 클릭 시 필터링 */}
         </div>
         <div className="admin-ped-point-exchange-table">
           <div className="admin-ped-point-exchange-row header">
@@ -116,10 +117,10 @@ const AdminPointExchangeDetails = () => {
               <div className="admin-ped-column nickname">{item.nickname}</div>
               <div className="admin-ped-column email">{item.email}</div>
               <div className="admin-ped-column exchangePoints">
-                {item.exchangePoints}
+                {item.exchangePoints.toLocaleString()}P
               </div>
               <div className="admin-ped-column paymentAmount">
-                {item.paymentAmount}
+                {item.paymentAmount.toLocaleString()}원
               </div>
               <div className="admin-ped-column paymentDate">
                 {item.paymentDate}

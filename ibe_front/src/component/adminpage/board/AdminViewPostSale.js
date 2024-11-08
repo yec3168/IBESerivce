@@ -4,15 +4,14 @@ import './AdminViewPost.css';
 
 const AdminViewPostSale = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState(''); // 검색어 입력 상태
-  const [filteredSearchTerm, setFilteredSearchTerm] = useState(''); // 필터링에 사용할 검색어
-  const [searchCategory, setSearchCategory] = useState('title'); // 검색 카테고리 상태
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [filteredSearchTerm, setFilteredSearchTerm] = useState(''); 
+  const [searchCategory, setSearchCategory] = useState('title'); 
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedNotes, setSelectedNotes] = useState('');
-  const [salesData, setSalesData] = useState([]); // 판매 데이터 상태
+  const [salesData, setSalesData] = useState([]); 
   const itemsPerPage = 10;
 
-  // 거래 상태와 비고 상태 매핑
   const tradeStateMap = {
     TRADING_AVAILABLE: '거래 가능',
     TRADE_COMPLETED: '거래 완료',
@@ -31,11 +30,8 @@ const AdminViewPostSale = () => {
         const response = await axios.get(
           'http://localhost:8080/admin/board/viewpost/sale'
         );
-        // ID 기준으로 내림차순 정렬
-        const sortedData = response.data.sort(
-          (a, b) => b.productId - a.productId
-        );
-        setSalesData(sortedData); // 정렬된 데이터로 상태 업데이트
+        const sortedData = response.data.sort((a, b) => b.productId - a.productId);
+        setSalesData(sortedData); 
       } catch (error) {
         console.error('Error fetching sales data:', error);
       }
@@ -62,10 +58,10 @@ const AdminViewPostSale = () => {
 
     const matchesStatus = selectedStatus
       ? item.productTradeState === selectedStatus
-      : true; // 거래상태 필터
+      : true;
     const matchesNotes = selectedNotes
       ? item.productUploadStatus === selectedNotes
-      : true; // 비고 필터
+      : true;
     return matchesSearchTerm() && matchesStatus && matchesNotes;
   });
 
@@ -105,8 +101,8 @@ const AdminViewPostSale = () => {
   };
 
   const handleSearch = () => {
-    setFilteredSearchTerm(searchTerm); // 검색어를 필터링에 사용할 상태로 설정
-    setCurrentPage(1); // 페이지 초기화
+    setFilteredSearchTerm(searchTerm);
+    setCurrentPage(1);
   };
 
   return (
@@ -116,7 +112,7 @@ const AdminViewPostSale = () => {
           value={selectedStatus}
           onChange={(e) => {
             setSelectedStatus(e.target.value);
-            setCurrentPage(1); // 페이지 초기화
+            setCurrentPage(1);
           }}
         >
           <option value="">거래상태 선택</option>
@@ -127,7 +123,7 @@ const AdminViewPostSale = () => {
           value={selectedNotes}
           onChange={(e) => {
             setSelectedNotes(e.target.value);
-            setCurrentPage(1); // 페이지 초기화
+            setCurrentPage(1);
           }}
         >
           <option value="">등록상태 선택</option>
@@ -160,6 +156,7 @@ const AdminViewPostSale = () => {
           <div className="admin-vp-column id">ID</div>
           <div className="admin-vp-column title">제목</div>
           <div className="admin-vp-column status">거래상태</div>
+          <div className="admin-vp-column point">포인트</div>
           <div className="admin-vp-column buyer">구매자</div>
           <div className="admin-vp-column seller">판매자</div>
           <div className="admin-vp-column notes">등록상태</div>
@@ -188,6 +185,9 @@ const AdminViewPostSale = () => {
             <div className="admin-vp-column title">{item.productTitle}</div>
             <div className="admin-vp-column status">
               {tradeStateMap[item.productTradeState]}
+            </div>
+            <div className="admin-vp-column point">
+              {item.productPoint.toLocaleString()}P
             </div>
             <div className="admin-vp-column buyer">{item.memberNickName}</div>
             <div className="admin-vp-column seller">{item.memberNickName}</div>
