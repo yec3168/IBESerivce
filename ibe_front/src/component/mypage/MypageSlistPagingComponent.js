@@ -40,9 +40,25 @@ const MypageSlistPagingComponent = () => {
         deliveryDate: order.orderDeliveryDate !== null ? order.orderDeliveryDate: null ,//'2024-10-25 19:00',
         thumbnail : order.imagePath,
         orderState : order.orderState,
-        orderMemberNickName : order.orderMemberNickName !== null ? "구매자 : " + order.orderMemberNickName : null , // 구매자 닉네임
+        orderMemberNickName : order.orderMember !== null ? "구매자 : " + order.orderMember.memberNickName: null , // 구매자 닉네임
+
+        // 배송지 얻는부분.
+        orderMemberAddr : order.orderMember !== null ? (order.orderMember.memberAddr + " " + order.orderMember.memberAddrDetail) : null,
+
+        productId: order.productId,
     }))
     .sort((a, b) => new Date(b.listedDate.split(" : ")[1]) - new Date(a.listedDate.split(" : ")[1])); // 내림차순 정렬
+
+
+    // 거래 확정 핸들러
+    const orderCompleteHandler =(item) =>{
+        console.log(item)
+
+    }
+
+
+
+
 
 
      const addComma = (price) => {
@@ -106,7 +122,7 @@ const MypageSlistPagingComponent = () => {
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {item.orderState === "AVAILABLE" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">거래 확정</Button>}
+                                {item.orderState === "AVAILABLE" && item.id !== null &&  <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={ () => orderCompleteHandler(item)}>거래 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">배송지 입력</Button>}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
                                 {item.orderState === "DELIVERED" &&   <div />}

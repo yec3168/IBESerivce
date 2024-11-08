@@ -29,4 +29,5 @@ public class OrderListResponse {
     private OrderState orderState; // 현재 진행상태( 거래가능, 거래완료, 배송중, 배송완료)
                                     // 판매자가 승인하면 거래완료로 바뀜.
                                     // 물품도 거래가능 -> 거래완료
+    private String orderWayBill; // 운송장번호.
 }
