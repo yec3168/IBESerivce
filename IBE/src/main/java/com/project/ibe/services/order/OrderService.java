@@ -110,6 +110,7 @@ public class OrderService {
             orderListResponse.setMember(productDetailResponse.getMember());             //판매자 정보.
             if(!productDetailResponse.getImagePath().isEmpty())
                 orderListResponse.setImagePath(productDetailResponse.getImagePath().get(0)); //썸네일.
+            orderListResponse.setOrderWayBill(order.getOrderWayBill());
 
             orderListResponseList.add(orderListResponse);
         }
@@ -164,6 +165,7 @@ public class OrderService {
                     if(!productDetailResponse.getImagePath().isEmpty())
                         sellerListResponse.setImagePath(productDetailResponse.getImagePath().get(0));
                     sellerListResponse.setProductListedAt(productDetailResponse.getProductCreatedAt());
+                    sellerListResponse.setOrderWayBill(order.getOrderWayBill());
 
                     sellerListResponseList.add(sellerListResponse);
                 }
