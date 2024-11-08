@@ -111,9 +111,9 @@ function SignInComponent(){
                         )
                     }
 
-                    <Form.Group className="mb-2 mb-3" controlId="checkbox">
+                    {/* <Form.Group className="mb-2 mb-3" controlId="checkbox">
                         <Form.Check type="checkbox" label="로그인 상태 유지" />
-                    </Form.Group>
+                    </Form.Group> */}
 
 
                     <Button className="w-100 mb-3" variant="default" type="submit"  style={{backgroundColor:'#FFD774'}}>

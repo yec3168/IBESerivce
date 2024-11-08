@@ -108,6 +108,8 @@ public class OrderService {
             orderListResponse.setOrderId(order.getOrderId());
             orderListResponse.setOrderState(order.getOrderState());
             orderListResponse.setOrderDate(order.getOrderDate());
+            orderListResponse.setOrderDeliveryDate(order.getOrderDeliveryDate());
+            orderListResponse.setProductId(productDetailResponse.getProductId());
             orderListResponse.setProductTitle(productDetailResponse.getProductTitle()); // 물품 제목
             orderListResponse.setProductPoint(productDetailResponse.getProductPoint()); //물품 포인트
             orderListResponse.setMember(productDetailResponse.getMember());             //판매자 정보.
@@ -225,7 +227,6 @@ public class OrderService {
      *  운송장번호 입력.
      *  1. order 상태 배송중으로 업데이트
      *  2. order 배송지 입력
-     *  3. roder 배송시작 날짜 업데이트
      */
     public boolean orderDelivery(OrderDeliveryRequest orderDeliveryRequest, PrincipalDTO principalDTO){
         // 로그인한 회원 가져오기.
@@ -246,7 +247,7 @@ public class OrderService {
 
         order.setOrderState(OrderState.SHIPPING); //배송중으로 업데이트
         order.setOrderWayBill(orderDeliveryRequest.getOrderWayBill());
-        order.setOrderDeliveryDate(LocalDateTime.now());
+//        order.setOrderDeliveryDate(LocalDateTime.now());
 
         //저장.
         orderRepository.save(order);
@@ -257,6 +258,7 @@ public class OrderService {
     /**
      * 구매확정.
      * 1. Order State 배송완료로 업데이트
+     * 2. order 배송도착 날짜 업데이트
      */
 
     public boolean orderFinished(OrderFinishedRequest orderFinishedRequest, PrincipalDTO principalDTO){
@@ -270,12 +272,13 @@ public class OrderService {
         // 1. OrderId 같음
         // 2. product도 같음
         // 3. orderMemberName도 같아야함.
-        Order order = orderRepository.findByOrderIdAndProductAndOrderMemberEmail(orderFinishedRequest.getProductId(), sellProduct, sellMember.getMemberEmail());
+        Order order = orderRepository.findByOrderIdAndProductAndOrderMemberEmail(orderFinishedRequest.getOrderId(), sellProduct, sellMember.getMemberEmail());
 
         if(order==null)
             throw new BusinessException("주문정보가 잘못되었습니다.\n관리자에게 문의해주세요.");
 
         order.setOrderState(OrderState.DELIVERED);
+        order.setOrderDeliveryDate(LocalDateTime.now());
         orderRepository.save(order);
 
         return true;

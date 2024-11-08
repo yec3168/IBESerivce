@@ -2,8 +2,8 @@ INSERT INTO `member` (
     entry_date, member_name, member_point, update_date, member_nick_name, member_addr, member_addr_detail,
     member_auth_number, member_email, member_password, member_phone, role, member_social_type
 ) VALUES
-      (NOW(), '홍길동', 100000, NOW(), '홍닉', '서울특별시 강남구', NULL, '123456', 'hong@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1234-5678', 'ROLE_CLIENT', 'LOCAL'),
-      (NOW(), '김철수', 150, NOW(), '김닉', '부산광역시 해운대구', NULL, '654321', 'kim@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9876-5432', 'ROLE_CLIENT', 'LOCAL'),
+      (NOW(), '홍길동', 100, NOW(), '홍닉', '서울특별시 강남구', NULL, '123456', 'hong@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1234-5678', 'ROLE_CLIENT', 'LOCAL'),
+      (NOW(), '김철수', 15000, NOW(), '김닉', '부산광역시 해운대구', NULL, '654321', 'kim@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-9876-5432', 'ROLE_CLIENT', 'LOCAL'),
       (NOW(), '이영희', 200, NOW(), '이닉', '대구광역시 중구', NULL, '111222', 'lee@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1122-3344', 'ROLE_ADMIN', 'LOCAL'),
       (NOW(), '박준형', 250, NOW(), '박닉', '인천광역시 부평구', NULL, '333444', 'park@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-2233-4455', 'ROLE_DEFAULT', 'LOCAL'),
       (NOW(), '최지현', 300, NOW(), '최닉', '광주광역시 북구', NULL, '555666', 'choi@example.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-3344-5566', 'ROLE_CLIENT', 'LOCAL'),
@@ -19,8 +19,8 @@ INSERT INTO `member` (
       (NOW(), '정지2', 550, NOW(), '욕설', '충청남도 천안', NULL, '313131', 'swear@banned.user', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-1312-5134', 'ROLE_BANNED_CLIENT', 'LOCAL'),
       (NOW(), '정지3', 550, NOW(), '사기', '충청남도 천안', NULL, '313131', 'fraud@banned.user', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', '010-2312-5134', 'ROLE_BANNED_CLIENT', 'LOCAL');
 INSERT INTO member_bank (member_id, member_account_number, member_bank) VALUES
-    (1, '123-456-7890', 'HANA'),
-    (2, '234-567-8901', 'KAKAO'),
+    (1, '3020000011702', 'NH'),
+    (2, '1000003188002', 'KDB'),
     (3, '345-678-9012', 'KB'),
     (4, '456-789-0123', 'NH'),
     (5, '567-890-1234', 'SHINHAN'),

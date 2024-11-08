@@ -28,7 +28,9 @@ public class Order {
     @CreationTimestamp
     private LocalDateTime orderDate; //구매신청시간
 
-    private LocalDateTime orderDeliveryDate; //배송시작시간  -> 따로 서비스에서 .now() 써줘야함.
+    private LocalDateTime orderDeliveryDate; //배송도착시간  -> 따로 서비스에서 .now() 써줘야함.
+
+//    private LocalDateTime orderArriveDate; // 배송도착시간.
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

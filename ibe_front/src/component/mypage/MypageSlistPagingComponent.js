@@ -30,13 +30,6 @@ const MypageSlistPagingComponent = () => {
     }, [completed]);
 
 
-    // const productNames = [
-    //     '유모차', '유아 모빌', '신생아 우주복', '이유식 용기', '아기 침대', '아기띠',
-    //     '젖병', '분유통', '신생아 배냇저고리', '유아 장난감', '아기 발싸개',
-    //     '아기 화장대', '카시트', '아기 소독기', '아기 모자', '이불 세트',
-    //     '유아용 식탁 의자', '아기 수영복', '유아용 신발', '신생아 수면조끼'
-    // ];
-
     const purchaseList = orders.map((order, index) => ({
         id: order.orderId,
         title: order.productTitle,//`${name} 판매합니다`,
@@ -121,16 +114,19 @@ const MypageSlistPagingComponent = () => {
         const left = Math.max((screenWidth-width)/2, 0);
         const top = Math.max((screenHeight-height)/2, 0);
 
-        // 배송지 입력 버튼 클릭 시 넘어가는 배열
-        const waybillData = {
+          // 배송지 입력 버튼 클릭 시 넘어가는 배열
+          const waybillData = {
             orderId: orderId,
             productId: productId,
-            waybill: wb
+            addr: addr,
+            // waybill: wb
         };
 
         console.log(waybillData);
 
-        const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}&waybillData=${encodeURIComponent(JSON.stringify(waybillData))}`;
+        // const url = `/waybill/${orderId}?address=${encodeURIComponent(addr)}&waybillData=${encodeURIComponent(JSON.stringify(waybillData))}`;
+
+        localStorage.setItem('waybillData', JSON.stringify(waybillData));
         const windowName = `waybillWindow`;
         const windowFeatures = `width=${width}, height=${height}, left=${left}, top=${top}`;
 
@@ -139,8 +135,21 @@ const MypageSlistPagingComponent = () => {
             console.error('Order not found');
             return;
         }
+        // window.open(`/waybill/${orderId}`, 'waybillWindow');
+        const newWindow = window.open(`/waybill/${orderId}`, windowName, windowFeatures);
 
-        window.open(url, windowName, windowFeatures);
+
+        checkWindowClose(newWindow);
+    };
+    const checkWindowClose = (newWindow) => {
+        // setInterval을 외부에서 사용하여 창 상태를 계속 확인
+        const intervalId = setInterval(() => {
+            if (newWindow.closed) {
+                // 자식 창이 닫혔을 때 실행할 동작
+                setCompleted(prev => !prev);
+                clearInterval(intervalId);  // 창이 닫히면 interval을 정리합니다.
+            }
+        }, 500);  // 0.5초마다 확인
     };
 
     
@@ -199,8 +208,7 @@ const MypageSlistPagingComponent = () => {
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => handlerComplete(item)}>거래 확정</Button>}
                                 {item.orderState === "COMPLETED" &&   
                                     <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => openWaybillWindow(item.id, item.orderMemberAddr, item.productId, item.waybill)}>배송지 입력</Button>}
-                                {item.orderState === "SHIPPING" &&   
-                                    <Button size="lg" variant="warning" id="btn_purListPagingConfirm">구매 확정</Button>}
+                                {item.orderState === "SHIPPING" &&  <div />}
                                 {item.orderState === "DELIVERED" && <div />}
                             </div>
                         </Col>
