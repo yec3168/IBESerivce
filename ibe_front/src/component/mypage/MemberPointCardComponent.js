@@ -42,11 +42,16 @@ const MemberPointCardComponent = () => {
     navigate('/mypage/pntpayback');
   };
 
+   const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
+    }
+
   return (
     <Card id="card_memberPointInfo" className="mx-2">
       <Card.Body>
         <Card.Text>
-          마이 포인트 &ensp; <strong>{memberPoint !== null ? `${memberPoint}` : '로딩중'} P</strong>
+          마이 포인트 &ensp; <strong>{memberPoint !== null ? addComma(`${memberPoint}`) : '로딩중'} P</strong>
         </Card.Text>
 
         <Row className="d-flex justify-content-center">

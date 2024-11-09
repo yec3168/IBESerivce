@@ -105,6 +105,7 @@ const MypagePwChangeComponent = () => {
     
                 if (response.data.code === "200" && response.data.data.success) {
                     alert("비밀번호가 변경되었습니다.");
+                    window.location.href ="/mypage/pw"
                 } else {
                     alert("비밀번호 변경에 실패했습니다.");
                 }
