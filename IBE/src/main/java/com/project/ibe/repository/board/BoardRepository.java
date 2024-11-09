@@ -18,4 +18,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByBoardStatusAndBoardTitleContaining(boolean boardStatus, String search);
 
     List<Board> findByBoardStatusAndMember_MemberNickName(boolean boardStatus, String search);
+    List<Board> findByBoardStatusAndBoardCategory(boolean boardStatus,BoardCategory category);
 }
