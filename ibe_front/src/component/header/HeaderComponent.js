@@ -69,6 +69,11 @@ const HeaderComponent = () => {
     }
   };
 
+   const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
+    }
+
   return (
     <div className="container-fluid fixed-top bg-white" id="div_header">
       <header>
@@ -90,14 +95,14 @@ const HeaderComponent = () => {
                       </li>
                     </span>
                     {/* <span id="span_parent" style={{marginRight:'107px'}}> */}
-                    <span id="span_parent" style={{marginRight:'50px'}}>
+                    <span id="span_parent" style={{marginRight:'100px'}}>
                       <li className="nav-item">
                         {/* 포인트 */}
                         {/* 클릭 시 포인트 충전 페이지 이동 */}
                         <a className="nav-link active4" href="/mypage/pntcharge" id="amt" style={{ whiteSpace: 'nowrap', display: 'inline-block' }}>
                           <img src={coin_purse_icon} width="20px" alt="coin_purse" id="coin_purse_icon" />
                           <span id="span_won" style={{ display: 'inline-block' }}>
-                            {memberPoint !== null ? `${memberPoint}` : '로딩중'}
+                            {memberPoint !== null ? addComma(`${memberPoint}`) : '로딩중'}
                           </span>
                           <span id="span_won" style={{ display: 'inline-block' }}>
                             &nbsp;P

@@ -31,7 +31,9 @@
 }
 
 #header_nav {
-  font-family: "CookieRun-Regular", sans-serif !important;
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+
+  font-family: 'Paperlogy-4Regular';
 }
 
 .menubar {
