@@ -78,8 +78,8 @@ const MemberInfoCardComponent = () => {
   return (
     <Card id="card_memberInfo" className="mx-2 mr-5">
       <Card.Body>
-        <Card.Title>
-          {memberInfo.memberNickName} 님 &nbsp;
+        <Card.Title style={{marginLeft:'10px'}}>
+          {memberInfo.memberNickName} 님 &ensp;
           <span id="span_welcome">환영합니다!</span>
         </Card.Title>
 
