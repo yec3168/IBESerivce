@@ -1,4 +1,7 @@
 /* 모달 스타일 */
+.admin-member-modal {
+  z-index: 1000;
+}
 .admin-member-modal-overlay {
   position: fixed;
   top: 0;

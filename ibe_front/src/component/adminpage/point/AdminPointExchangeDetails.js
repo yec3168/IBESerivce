@@ -118,7 +118,6 @@ const AdminPointExchangeDetails = () => {
         </div>
         <div className="admin-ped-point-exchange-table">
           <div className="admin-ped-point-exchange-row header">
-            <div className="admin-ped-column id">아이디</div>
             <div className="admin-ped-column nickname">이름</div>
             <div className="admin-ped-column email">이메일</div>
             <div className="admin-ped-column exchangePoints">환전포인트</div>
@@ -131,7 +130,6 @@ const AdminPointExchangeDetails = () => {
               className="admin-ped-point-exchange-row"
               key={item.pointPayBackId}
             >
-              <div className="admin-ped-column id">{item.pointPayBackId}</div>
               <div className="admin-ped-column nickname">{item.memberName}</div>
               <div className="admin-ped-column email">{item.memberEmail}</div>
               <div className="admin-ped-column exchangePoints">
@@ -144,13 +142,18 @@ const AdminPointExchangeDetails = () => {
                 {item.bankName} ({item.bankAccountNumber})
               </div>
               <div className="admin-ped-column paymentDate">
-                {new Date(item.entryDate).toLocaleString('ko-KR', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+                {(() => {
+                  const date = new Date(item.entryDate);
+                  const formattedDate = `${date.getFullYear()}. ${String(
+                    date.getMonth() + 1
+                  ).padStart(2, '0')}. ${String(date.getDate()).padStart(
+                    2,
+                    '0'
+                  )}. ${String(date.getHours()).padStart(2, '0')}:${String(
+                    date.getMinutes()
+                  ).padStart(2, '0')}`;
+                  return formattedDate;
+                })()}
               </div>
             </div>
           ))}

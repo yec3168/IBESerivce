@@ -1,289 +1,266 @@
-.product{
-    margin-top: 150px;
-    margin-bottom: 150px;
+.product {
+  margin-top: 150px;
+  margin-bottom: 150px;
 }
 
-#product_img{
-    width: 80%;
-    height: 500px;
+#product_img {
+  width: 80%;
+  height: 500px;
 }
 
 /* 물품 제목, 거래상태 css */
-#product_info > #product_title{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Paperlogy-4Regular';
-    font-weight: 500;
+#product_info > #product_title {
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Paperlogy-4Regular';
+  font-weight: 500;
 }
 
-#product_info  > #product_price_deal > #product_price{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Paperlogy-4Regular';
-    font-weight: 500;
-    font-size: 70px;
+#product_info > #product_price_deal > #product_price {
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Paperlogy-4Regular';
+  font-weight: 500;
+  font-size: 70px;
+  letter-spacing: 2px;
 }
-
 
 /* 물품 조회수, 댓글 수 css */
 #product_info > #product_view_comment {
-    margin-top: 10px;
-    width: 20%;
-    text-align: center;
+  margin-top: 10px;
+  width: 20%;
+  text-align: center;
 }
 
-#product_info > #product_view_comment  #product_cnt{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Pretendard-Regular';
-    color: #666666;
-    font-size: 12px;
+#product_info > #product_view_comment #product_cnt {
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Pretendard-Regular';
+  color: #666666;
+  font-size: 12px;
 }
-
 
 /* 물품 상태의 대한 css */
-#product_info > #product_state{
-    /* font-family: 'Jua', sans-serif; */
-    font-family: 'Pretendard-Regular';
-    margin-top: 20px;
-    width: 40%;
-    height: 80px;
-    border: 1px solid #8B8989;
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 35px;
+#product_info > #product_state {
+  /* font-family: 'Jua', sans-serif; */
+  font-family: 'Pretendard-Regular';
+  margin-top: 20px;
+  width: 40%;
+  height: 80px;
+  border: 1px solid #8b8989;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 35px;
 }
-#product_info > #product_state .state_title{
-    color: #666666;
-    margin-bottom: 0;
-    margin-top: 1rem;
-    font-size: 12px;
-}
-
-#product_info > #product_state .state_info{
-    color: #666666;
-    font-size: 20px;
-    margin-bottom: 0;
+#product_info > #product_state .state_title {
+  color: #666666;
+  margin-bottom: 0;
+  margin-top: 1rem;
+  font-size: 12px;
 }
 
+#product_info > #product_state .state_info {
+  color: #666666;
+  font-size: 20px;
+  margin-bottom: 0;
+}
 
 /* 판매자 정보 css */
-#product_info > #product_seller_info{
-    margin-top: 40px;
+#product_info > #product_seller_info {
+  margin-top: 40px;
 }
-#product_info > #product_seller_info > #info_title{
-    margin-top: 40px;
-    /* font-family: 'Jua', sans-serif; */
-    font-family: 'Paperlogy-4Regular';
-    border-bottom: 1px solid black;
-    width: 80%;
-    font-size: 25px;
-    
+#product_info > #product_seller_info > #info_title {
+  margin-top: 40px;
+  /* font-family: 'Jua', sans-serif; */
+  font-family: 'Paperlogy-4Regular';
+  border-bottom: 1px solid black;
+  width: 80%;
+  font-size: 25px;
 }
 
-#product_info > #product_seller_info > #seller_detail{
-    margin-top: 20px;
-    width: 30%;
+#product_info > #product_seller_info > #seller_detail {
+  margin-top: 20px;
+  width: 30%;
 }
-  /* 판매자 닉네임 */
-#product_info > #product_seller_info > #seller_detail  #seller_nickname{
-    margin-top: 20px;
-    /* font-family: 'Jua', sans-serif; */
-    font-family: 'Pretendard-Regular';
-    font-size: 18px;
+/* 판매자 닉네임 */
+#product_info > #product_seller_info > #seller_detail #seller_nickname {
+  margin-top: 20px;
+  /* font-family: 'Jua', sans-serif; */
+  font-family: 'Pretendard-Regular';
+  font-size: 18px;
 }
 
 /* 게시글 작성날짜 */
-#product_info > #product_seller_info > #seller_detail  #product_create_info{
-    margin-top: 20px;
-    /* font-family: 'Jua', sans-serif; */
-    font-family: 'Pretendard-Regular';
-    font-size: 15px;
-    color: #666666;
+#product_info > #product_seller_info > #seller_detail #product_create_info {
+  margin-top: 20px;
+  /* font-family: 'Jua', sans-serif; */
+  font-family: 'Pretendard-Regular';
+  font-size: 15px;
+  color: #666666;
 }
 
-#product_info > #product_buttons{
-    text-align: center;
-    width: 80%;
-    margin-top: 30px;
+#product_info > #product_buttons {
+  text-align: center;
+  width: 80%;
+  margin-top: 30px;
 }
-
 
 /* -------------------상세정보-------------------------- */
 
-#product_content{
-    border-top: 1px solid #666666;
-    margin-top: 150px;
-    margin-bottom: 150px;
+#product_content {
+  border-top: 1px solid #666666;
+  margin-top: 150px;
+  margin-bottom: 150px;
 }
 
 /* 상품정보 타이틀 */
-#product_content > #product_content_title{
-    margin-top: 50px;
-    font-size: 40px;
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Paperlogy-4Regular';
-    
+#product_content > #product_content_title {
+  margin-top: 50px;
+  font-size: 40px;
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Paperlogy-4Regular';
 }
 
 /* 상품 상세정보 */
-#product_content > #product_content_view{
-    margin-top: 40px;
-    font-size: 15px;
-    margin-bottom: 100px;
-    
+#product_content > #product_content_view {
+  margin-top: 40px;
+  font-size: 15px;
+  margin-bottom: 100px;
 }
 
 /* 제품 경고사항  */
-.product_waring{
-    margin-top: 80px;
+.product_waring {
+  margin-top: 80px;
 }
 
-.product_waring .warning{
-    font-size: 12px;
-    /* font-family: 'Jua', sans-serif; */
-    font-family: 'Paperlogy-4Regular';
-    margin-bottom: 0;
+.product_waring .warning {
+  font-size: 12px;
+  /* font-family: 'Jua', sans-serif; */
+  font-family: 'Paperlogy-4Regular';
+  margin-bottom: 0;
 }
 
 .btn-custom {
-    background-color: #FFD774;
-    color: #333;
-    font-weight: bold;
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Pretendard-Regular';
-    border: 1px solid #FFD774;
-    border-radius: 8px;
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
+  background-color: #ffd774;
+  color: #333;
+  font-weight: bold;
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Pretendard-Regular';
+  border: 1px solid #ffd774;
+  border-radius: 8px;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 /* Hover effect for buttons */
 .btn-custom:hover {
-    background-color: #FFC847; /* Slightly darker yellow on hover */
-    border-color: #FFC847;
-    color: #333;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-    transform: scale(1.05); /* Slightly increase size on hover */
+  background-color: #ffc847; /* Slightly darker yellow on hover */
+  border-color: #ffc847;
+  color: #333;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  transform: scale(1.05); /* Slightly increase size on hover */
 }
 
 /* Optional darker outline button */
 .btn-outline-dark {
-    background-color: white;
-    color: #333;
-    font-weight: bold;
-    /* font-family: "CookieRun-Regular", sans-serif; */
-    font-family: 'Pretendard-Regular';
-    border: 1px solid #666666;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+  /* font-family: "CookieRun-Regular", sans-serif; */
+  font-family: 'Pretendard-Regular';
+  border: 1px solid #666666;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 /* Hover effect for outline button */
 .btn-outline-dark:hover {
-    background-color: #e6e6e6; /* Light gray background on hover */
-    border-color: #666666;
-    color: #333;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
-    transform: scale(1.05);
+  background-color: #e6e6e6; /* Light gray background on hover */
+  border-color: #666666;
+  color: #333;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
 }
 
-#md_recommand{
-    margin-top: 100px;
-    margin-bottom: 100px;
+#md_recommand {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ------------------------------------------물품 생성----------------------------- */
 
-
-
 #section_1 {
-    width: 40%;
-    text-align: center;
-    margin-bottom: 30px;
+  width: 40%;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 #section_1 #page_title {
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Paperlogy-4Regular';
-    font-size: 2rem; /* Increased font size for emphasis */
-    color: #333; /* Darker text color for contrast */
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Paperlogy-4Regular';
+  font-size: 2rem; /* Increased font size for emphasis */
+  color: #333; /* Darker text color for contrast */
 }
 
 #section_2 {
-    width: 70%;
-    margin: auto;
+  width: 70%;
+  margin: auto;
 }
 
 .image-preview {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .image-thumbnail {
-    position: relative;
-    margin: 5px;
+  position: relative;
+  margin: 5px;
 }
 
 .image-thumbnail img {
-    width: 100px; 
-    height: auto;
-    border-radius: 5px; /* Rounded corners for images */
+  width: 100px;
+  height: auto;
+  border-radius: 5px; /* Rounded corners for images */
 }
 
 .image-thumbnail div {
-    text-align: center;
-    font-size: 12px;
+  text-align: center;
+  font-size: 12px;
 }
 
 .image-thumbnail button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #FFD97A; /* Matching button color */
-    border: none; /* No border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 2px 5px; /* Padding for button */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition */
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ffd97a; /* Matching button color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 2px 5px; /* Padding for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition */
 }
 
 .image-thumbnail button:hover {
-    background-color: #f0c26a; /* Darken button on hover */
-    transform: scale(1.05); /* Slight scale effect on hover */
+  background-color: #f0c26a; /* Darken button on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
 }
 
 .image-thumbnail {
-    position: relative;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
+  position: relative;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
 }
 
 .image-name {
-    overflow: hidden;         
-    white-space: nowrap;      
-    text-overflow: ellipsis;  
-    width: 100%;             
-    max-width: 150px;        
-    display: block;         
-    margin-top: 5px;         
-    color: #555;              /* Dark grey text for readability */
-    font-size: 12px;          /* Font size for image names */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 150px;
+  display: block;
+  margin-top: 5px;
+  color: #555; /* Dark grey text for readability */
+  font-size: 12px; /* Font size for image names */
 }
 
-
-
-#commnet_section{
-    margin-bottom: 50px;
+#commnet_section {
+  margin-bottom: 50px;
 }

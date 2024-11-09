@@ -67,3 +67,7 @@
   margin-top: -10px;
   margin-bottom: 10px;
 }
+
+.admin-manager-modal-actions button:disabled {
+  cursor: default; /* 비활성화 상태일 때 화살표 커서 */
+}

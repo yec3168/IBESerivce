@@ -53,38 +53,40 @@ const AdminMemberListDetails = ({ member, onClose, fetchMembers }) => {
   };
 
   return (
-    <div className="admin-member-modal">
-      <div className="admin-member-modal-content">
-        <h2>회원 상세 정보</h2>
-        <p>닉네임: {member.memberNickName}</p>
-        <p>휴대폰번호: {member.memberPhone}</p>
-        <p>이메일: {member.memberEmail}</p>
-        <p>권한: {getRoleDisplay(member.role)}</p>
-        <p>가입일: {new Date(member.entryDate).toLocaleDateString()}</p>
-        <p>수정일: {new Date(member.updateDate).toLocaleDateString()}</p>
-        <div className="admin-member-modal-button-group">
-          {member.role === 'ROLE_CLIENT' && (
+    <div className="admin-member-modal-overlay">
+      <div className="admin-member-modal">
+        <div className="admin-member-modal-content">
+          <h2>회원 상세 정보</h2>
+          <p>닉네임: {member.memberNickName}</p>
+          <p>휴대폰번호: {member.memberPhone}</p>
+          <p>이메일: {member.memberEmail}</p>
+          <p>권한: {getRoleDisplay(member.role)}</p>
+          <p>가입일: {new Date(member.entryDate).toLocaleDateString()}</p>
+          <p>수정일: {new Date(member.updateDate).toLocaleDateString()}</p>
+          <div className="admin-member-modal-button-group">
+            {member.role === 'ROLE_CLIENT' && (
+              <button
+                className="admin-member-modal-action-button"
+                onClick={handleBanAccount}
+              >
+                계정 정지
+              </button>
+            )}
+            {member.role === 'ROLE_BANNED_CLIENT' && (
+              <button
+                className="admin-member-modal-action-button"
+                onClick={handleCancelBan}
+              >
+                정지 취소
+              </button>
+            )}
             <button
               className="admin-member-modal-action-button"
-              onClick={handleBanAccount}
+              onClick={onClose}
             >
-              계정 정지
+              닫기
             </button>
-          )}
-          {member.role === 'ROLE_BANNED_CLIENT' && (
-            <button
-              className="admin-member-modal-action-button"
-              onClick={handleCancelBan}
-            >
-              정지 취소
-            </button>
-          )}
-          <button
-            className="admin-member-modal-action-button"
-            onClick={onClose}
-          >
-            닫기
-          </button>
+          </div>
         </div>
       </div>
     </div>

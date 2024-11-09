@@ -81,11 +81,10 @@ const IbeBoardWriteComponent = () => {
     <div id="board_content">
       <Container className="board-container">
         <Row>
-          <p className="h2 board-title">글 작성하기</p>
-        </Row>
-
-        <Row>
           <Col md={8} className="mx-auto">
+            <p className="h2 board-title">글 작성하기</p>
+            <br />
+            <br />
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="title">
                 <Form.Label>제목</Form.Label>
@@ -130,7 +129,11 @@ const IbeBoardWriteComponent = () => {
                     e.target.style.height = 'auto'; // 높이를 자동으로 맞추기 위해 초기화
                     e.target.style.height = `${e.target.scrollHeight}px`; // 컨텐츠 높이에 맞춰 자동 확장
                   }}
-                  style={{ resize: 'none', overflow: 'hidden' }} // 크기 조절 비활성화 및 자동 스크롤 조정
+                  style={{
+                    resize: 'none',
+                    overflow: 'hidden',
+                    minHeight: '6em', // 기본 높이를 3줄로 설정 (한 줄 약 1.5em 기준)
+                  }}
                   required
                   className="board-textarea"
                   maxLength={250}

@@ -26,10 +26,19 @@ const AdminInquiryOrder = () => {
           categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
         title: inquiry.inquiryTitle,
         nickname: inquiry.memberNickName,
-        date: new Date(inquiry.inquiryCreatedAt).toLocaleDateString(),
+        date: `${new Date(inquiry.inquiryCreatedAt).getFullYear()}. ${String(
+          new Date(inquiry.inquiryCreatedAt).getMonth() + 1
+        ).padStart(2, '0')}. ${String(
+          new Date(inquiry.inquiryCreatedAt).getDate()
+        ).padStart(2, '0')}. ${String(
+          new Date(inquiry.inquiryCreatedAt).getHours()
+        ).padStart(2, '0')}:${String(
+          new Date(inquiry.inquiryCreatedAt).getMinutes()
+        ).padStart(2, '0')}`,
         content: inquiry.inquiryContent,
         memberId: inquiry.memberId,
       }));
+
       setInquiries(fetchedInquiries);
     } catch (error) {
       console.error('Error fetching inquiries:', error);

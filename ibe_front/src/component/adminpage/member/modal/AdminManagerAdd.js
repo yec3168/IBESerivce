@@ -162,8 +162,8 @@ const AdminManagerAdd = ({
           type="password"
           value={newPassword}
           onChange={handleChangePassword}
-          placeholder="비밀번호 입력(최대 200)"
-          maxLength={200}
+          placeholder="비밀번호 입력(최대 20)"
+          maxLength={20}
         />
         <label>비밀번호 확인</label>
         <input
@@ -171,7 +171,7 @@ const AdminManagerAdd = ({
           value={confirmPassword}
           onChange={handleChangeConfirmPassword}
           placeholder="비밀번호 재입력"
-          maxLength={200}
+          maxLength={20}
         />
         {passwordError && (
           <p className="admin-manager-modal-error">{passwordError}</p>
