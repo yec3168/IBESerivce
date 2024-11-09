@@ -340,7 +340,7 @@
 /* MypageInquiryComponent */
 
 .containerInq{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
 }
 
 #div_inqInfo{
@@ -365,7 +365,7 @@
 /* MypageInquiryListComponent */
 
 .containerInqList{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
 }
 
 #h1_inqListTitle{
