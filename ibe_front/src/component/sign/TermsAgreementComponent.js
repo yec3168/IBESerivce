@@ -68,7 +68,7 @@ const TermsAgreementComponent = () => {
   };
 
   return (
-    <div className="terms__wrapper" style={{ fontFamily: "CookieRun-Regular, sans-serif" }}>
+    <div className="terms__wrapper" >
       <div className="terms__backdrop"></div>
       <div className="terms__content">
         {/* <img src={Logo} alt="Logo" className="mb-4" style={{ display: 'block', margin: '0 auto', width: '4rem' }} /> */}
