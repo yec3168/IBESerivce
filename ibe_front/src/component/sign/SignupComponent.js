@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col, Modal  } from "react-bootstrap";
 import {checkEmail, saveMember, saveCodeNumber} from '../service/MemberService';
 // import{FaAddressBook } from "react-icons/fa"
@@ -6,6 +6,7 @@ import Logo from '../assets/images/sign/ibe_logo1.png'
 import DaumPostcode from 'react-daum-postcode';
 
 import './Sign.css'
+import { useNavigate } from "react-router-dom";
 
 const SignupComponent = () => {
     const [memberEmail, setMemberEmail] = useState("");
@@ -40,6 +41,7 @@ const SignupComponent = () => {
     // 전화번호 인증번호 저장.
     const [saveCode, setSaveCode] = useState("");
 
+    const navigate = useNavigate();
 
     // 이메일 중복확인
     const  checkDuplicatedEmail = (event) => {
@@ -212,7 +214,13 @@ const SignupComponent = () => {
         });
 
     }
-
+    // 로그인 한 상태로 접근하면 메인페이지로 보내기
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+          navigate("/");
+        }
+      }, []);
 
 
 
