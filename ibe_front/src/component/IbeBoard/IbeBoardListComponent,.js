@@ -159,7 +159,7 @@ const IbeBoardListComponent = () => {
             <span className='board-text'>
               아이비 게시판은 종합 게시판 입니다.
               <br/>
-              공지, 정보, 요청, 질문, 일반 글을 확인 할 수 있습니다.
+              공지, 정보, 요청, 질문, 일반 게시글을 확인 할 수 있습니다.
               <div style={{display:'inline',float:"right"}}>
                 <Form.Select className='board-search' id="searchCategory" style={{ width: '90px', height: '40px', display:'inline', margin:'1px'}}>
                 <option value={'ALL'}>전체</option>
@@ -309,13 +309,13 @@ const IbeBoardListComponent = () => {
             <tr>
               <th colSpan={'5'}>
                 <div className="text-center mt-4">
+                <div id="div_spacing" />
                   <i
                     className="bi bi-exclamation-circle"
                     style={{ fontSize: '3rem', color: 'red' }}
                   ></i>
                   <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
                   <p>다른 키워드로 검색해 주세요.</p>
-                  <div id="div_spacing" />
                   <div id="div_spacing" />
                 </div>
               </th>
