@@ -91,12 +91,12 @@ const IbeBoardWriteComponent = () => {
                 <Form.Label>제목</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="제목을 입력하세요(최대 200자)"
+                  placeholder="제목을 입력하세요(최대 40자)"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
                   className="board-input"
-                  maxLength={200}
+                  maxLength={40}
                 />
               </Form.Group>
 

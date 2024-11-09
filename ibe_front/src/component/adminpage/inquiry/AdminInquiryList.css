@@ -133,3 +133,56 @@
   background-color: #0056b3;
   color: white;
 }
+
+.admin-il-search-container {
+  text-align: center;
+}
+
+.admin-il-search-container select,
+.admin-il-search-container input[type='text'] {
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.admin-il-search-container select {
+  width: 150px;
+}
+
+.admin-il-search-container button {
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s;
+  padding: 9px 15px;
+}
+
+.admin-il-search-container button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.admin-il-search-container button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+.admin-il-search-container input[type='text'] {
+  width: 300px; /* 너비를 300픽셀로 설정 */
+  height: 40px; /* 높이를 40픽셀로 설정 */
+  padding: 8px; /* 내부 여백을 8픽셀로 설정 */
+  border: 1px solid #ccc; /* 테두리 색상 설정 */
+  border-radius: 4px; /* 모서리 둥글게 설정 */
+  font-size: 16px; /* 글자 크기 설정 */
+}
+
+.admin-il-search-container select {
+  width: 180px; /* 너비를 300픽셀로 설정 */
+  height: 40px; /* 높이를 40픽셀로 설정 */
+  padding: 8px; /* 내부 여백을 8픽셀로 설정 */
+  border: 1px solid #ccc; /* 테두리 색상 설정 */
+  border-radius: 4px; /* 모서리 둥글게 설정 */
+  font-size: 16px; /* 글자 크기 설정 */
+}

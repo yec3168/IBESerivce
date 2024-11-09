@@ -7,9 +7,12 @@ const AdminInquiryList = () => {
   const [expandedId, setExpandedId] = useState(null);
   const [answers, setAnswers] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // 페이지당 항목 수
+  const [searchTerm, setSearchTerm] = useState('');
+  const [submittedSearchTerm, setSubmittedSearchTerm] = useState('');
+  const [selectedField, setSelectedField] = useState('title'); // 검색 필드 상태
+  const [selectedCategory, setSelectedCategory] = useState(''); // 카테고리 필터링 상태
+  const itemsPerPage = 10;
 
-  // 카테고리 맵핑 객체
   const categoryMap = {
     POINT_CHARGE: '포인트 결제',
     POINT_PAYBACK: '포인트 환급',
@@ -25,7 +28,8 @@ const AdminInquiryList = () => {
       );
       const fetchedInquiries = response.data.map((inquiry) => ({
         id: inquiry.inquiryId,
-        category: categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
+        category:
+          categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
         title: inquiry.inquiryTitle,
         content: inquiry.inquiryContent,
         nickname: inquiry.memberNickName,
@@ -42,9 +46,7 @@ const AdminInquiryList = () => {
     try {
       const response = await axios.post(
         'http://localhost:8080/admin/inquiry/getinquiryanswer',
-        {
-          inquiryId: inquiryId,
-        }
+        { inquiryId }
       );
       const { inquiryAnswerContent, inquiryAnswerCreatedAt } = response.data;
       setAnswers((prevAnswers) => ({
@@ -64,13 +66,27 @@ const AdminInquiryList = () => {
     fetchInquiries();
   }, []);
 
-  const sortedInquiries = [...inquiries].sort((a, b) => b.id - a.id);
+  const sortedInquiries = [...inquiries]
+    .filter((inquiry) => {
+      // 카테고리 필터링
+      if (selectedCategory && inquiry.category !== selectedCategory) {
+        return false;
+      }
+      // 검색어 필터링
+      if (!submittedSearchTerm.trim()) {
+        return true;
+      }
+      return selectedField === 'title'
+        ? inquiry.title
+            .toLowerCase()
+            .includes(submittedSearchTerm.toLowerCase())
+        : inquiry.nickname === submittedSearchTerm;
+    })
+    .sort((a, b) => b.id - a.id);
 
-  // 현재 페이지에 해당하는 항목들만 보여주기
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedInquiries.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(sortedInquiries.length / itemsPerPage);
 
   const toggleExpand = (id) => {
@@ -96,10 +112,58 @@ const AdminInquiryList = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 10, 1));
   };
 
+  const handleSearch = () => {
+    setSubmittedSearchTerm(searchTerm); // 조회 버튼 클릭 시 검색어 업데이트
+    setCurrentPage(1); // 검색 시 첫 페이지로 이동
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <>
       <h2 className="admin-il-h2">문의 관리 - 처리된 문의 목록</h2>
+
       <div className="admin-il-inquiry-list-container">
+        <div className="admin-il-search-container">
+          {/* 카테고리 필터링 콤보박스 */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="admin-il-category-select"
+          >
+            <option value="">전체 카테고리</option>
+            <option value="포인트 결제">포인트 결제</option>
+            <option value="포인트 환급">포인트 환급</option>
+            <option value="배송 지연/누락">배송 지연/누락</option>
+            <option value="물품 하자">물품 하자</option>
+            <option value="기타">기타</option>
+          </select>
+          {/* 검색 필드 선택 콤보박스 */}
+          <select
+            value={selectedField}
+            onChange={(e) => setSelectedField(e.target.value)}
+            className="admin-il-search-select"
+          >
+            <option value="title">제목으로 검색</option>
+            <option value="nickname">닉네임으로 검색</option>
+          </select>
+
+          <input
+            type="text"
+            placeholder="검색어 입력"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="admin-il-search-input"
+          />
+          <button onClick={handleSearch} className="admin-il-search-button">
+            조회
+          </button>
+        </div>
         <div className="admin-il-inquiry-list-column">
           <div className="admin-il-column admin-il-id">ID</div>
           <div className="admin-il-column admin-il-category">카테고리</div>
@@ -134,7 +198,8 @@ const AdminInquiryList = () => {
                   {answers[inquiry.id] ? (
                     <>
                       <p>
-                        <strong>답변일:</strong> {answers[inquiry.id].responseDate}
+                        <strong>답변일:</strong>{' '}
+                        {answers[inquiry.id].responseDate}
                       </p>
                       <p>
                         <strong>답변 내용</strong>
@@ -155,7 +220,6 @@ const AdminInquiryList = () => {
           ))}
         </div>
 
-        {/* 페이지네이션 */}
         <div className="admin-il-pagination">
           <button
             onClick={() => handlePageChange(1)}
@@ -171,18 +235,29 @@ const AdminInquiryList = () => {
           >
             이전
           </button>
-          {Array.from({ length: Math.min(10, totalPages - Math.floor((currentPage - 1) / 10) * 10) }, (_, i) => {
-            const pageNumber = Math.floor((currentPage - 1) / 10) * 10 + i + 1;
-            return (
-              <button
-                key={pageNumber}
-                onClick={() => handlePageChange(pageNumber)}
-                className={`admin-il-pagination-button ${currentPage === pageNumber ? 'active' : ''}`}
-              >
-                {pageNumber}
-              </button>
-            );
-          })}
+          {Array.from(
+            {
+              length: Math.min(
+                10,
+                totalPages - Math.floor((currentPage - 1) / 10) * 10
+              ),
+            },
+            (_, i) => {
+              const pageNumber =
+                Math.floor((currentPage - 1) / 10) * 10 + i + 1;
+              return (
+                <button
+                  key={pageNumber}
+                  onClick={() => handlePageChange(pageNumber)}
+                  className={`admin-il-pagination-button ${
+                    currentPage === pageNumber ? 'active' : ''
+                  }`}
+                >
+                  {pageNumber}
+                </button>
+              );
+            }
+          )}
           <button
             onClick={handleNextPageSet}
             disabled={currentPage + 10 > totalPages}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import './AdminPointExchangeDetails.css'; // CSS 파일 경로를 확인하세요
-import dummyData from './DummyData'; // 더미 데이터 import
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './AdminPointExchangeDetails.css';
 
 const AdminPointExchangeDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -8,14 +8,29 @@ const AdminPointExchangeDetails = () => {
   const [searchType, setSearchType] = useState('nickname'); // 기본 검색 타입 설정
   const [selectedStatus, setSelectedStatus] = useState(''); // 거래상태 선택
   const [selectedNotes, setSelectedNotes] = useState(''); // 비고 선택
-  const [filteredItems, setFilteredItems] = useState(dummyData); // 필터링된 항목 저장
+  const [filteredItems, setFilteredItems] = useState([]); // 필터링된 항목 저장
   const itemsPerPage = 10;
+
+  // 서버에서 데이터 가져오기
+  useEffect(() => {
+    const fetchPointData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/admin/point');
+        const sortedData = response.data.sort(
+          (a, b) => new Date(b.entryDate) - new Date(a.entryDate)
+        ); // 지급일(entryDate) 기준으로 내림차순 정렬
+        setFilteredItems(sortedData);
+      } catch (error) {
+        console.error('Error fetching point exchange data:', error);
+      }
+    };
+
+    fetchPointData();
+  }, []);
 
   // 현재 페이지에 해당하는 데이터 계산
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-  // 초기 로드 시 filteredItems가 비어있지 않으면 현재 페이지의 항목을 설정합니다.
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   // 페이지 버튼 생성
@@ -60,13 +75,13 @@ const AdminPointExchangeDetails = () => {
 
   // 조회 버튼 클릭 시 필터링
   const handleSearch = () => {
-    const newFilteredItems = dummyData.filter((item) => {
+    const newFilteredItems = filteredItems.filter((item) => {
       const valueToSearch = item[searchType]; // searchType에 따른 값 가져오기
       const matchesSearchTerm =
         valueToSearch &&
         valueToSearch.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = selectedStatus
-        ? item.status === selectedStatus
+        ? item.pointPayBackResult === selectedStatus
         : true; // 거래상태 필터
       const matchesNotes = selectedNotes ? item.notes === selectedNotes : true; // 비고 필터
       return matchesSearchTerm && matchesStatus && matchesNotes;
@@ -90,8 +105,8 @@ const AdminPointExchangeDetails = () => {
               setCurrentPage(1); // 페이지 초기화
             }}
           >
-            <option value="nickname">닉네임</option>
-            <option value="email">이메일</option>
+            <option value="memberName">이름</option>
+            <option value="memberEmail">이메일</option>
           </select>
           <input
             type="text"
@@ -99,31 +114,43 @@ const AdminPointExchangeDetails = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} // 입력 시 검색어 업데이트
           />
-          <button onClick={handleSearch}>조회</button>{' '}
-          {/* 검색 버튼 클릭 시 필터링 */}
+          <button onClick={handleSearch}>조회</button>
         </div>
         <div className="admin-ped-point-exchange-table">
           <div className="admin-ped-point-exchange-row header">
             <div className="admin-ped-column id">아이디</div>
-            <div className="admin-ped-column nickname">닉네임</div>
+            <div className="admin-ped-column nickname">이름</div>
             <div className="admin-ped-column email">이메일</div>
             <div className="admin-ped-column exchangePoints">환전포인트</div>
             <div className="admin-ped-column paymentAmount">지급금액</div>
+            <div className="admin-ped-column bankInfo">은행정보</div>
             <div className="admin-ped-column paymentDate">지급일</div>
           </div>
           {currentItems.map((item) => (
-            <div className="admin-ped-point-exchange-row" key={item.id}>
-              <div className="admin-ped-column id">{item.id}</div>
-              <div className="admin-ped-column nickname">{item.nickname}</div>
-              <div className="admin-ped-column email">{item.email}</div>
+            <div
+              className="admin-ped-point-exchange-row"
+              key={item.pointPayBackId}
+            >
+              <div className="admin-ped-column id">{item.pointPayBackId}</div>
+              <div className="admin-ped-column nickname">{item.memberName}</div>
+              <div className="admin-ped-column email">{item.memberEmail}</div>
               <div className="admin-ped-column exchangePoints">
-                {item.exchangePoints.toLocaleString()}P
+                {item.pointPayBackPoint.toLocaleString()}P
               </div>
               <div className="admin-ped-column paymentAmount">
-                {item.paymentAmount.toLocaleString()}원
+                {item.pointPayBackPrice.toLocaleString()}원
+              </div>
+              <div className="admin-ped-column bankInfo">
+                {item.bankName} ({item.bankAccountNumber})
               </div>
               <div className="admin-ped-column paymentDate">
-                {item.paymentDate}
+                {new Date(item.entryDate).toLocaleString('ko-KR', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
               </div>
             </div>
           ))}

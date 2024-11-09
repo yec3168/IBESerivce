@@ -32,7 +32,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
       <h2 className="admin-main-title">IBE 관리자</h2>
       <nav>
         <ul>
-        {userRole === 'ROLE_ADMIN' && (
+          {userRole === 'ROLE_ADMIN' && (
             <li className="main-li">
               <a
                 href="/admin"
@@ -66,7 +66,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     }}
                     className={activeMenu === 'salesRequest' ? 'active' : ''}
                   >
-                    - 판매신청 목록
+                    판매신청 목록
                   </a>
                 </li>
                 <li>
@@ -78,7 +78,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     }}
                     className={activeMenu === 'deletedPost' ? 'active' : ''}
                   >
-                    - 게시글 조회
+                    게시글 조회
                   </a>
                 </li>
               </ul>
@@ -110,7 +110,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     }}
                     className={activeMenu === 'inquiryOrder' ? 'active' : ''}
                   >
-                    - 처리해야할 문의 목록
+                    처리해야할 문의 목록
                   </a>
                 </li>
                 <li>
@@ -122,7 +122,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     }}
                     className={activeMenu === 'inquiryList' ? 'active' : ''}
                   >
-                    - 처리된 문의 조회
+                    처리된 문의 조회
                   </a>
                 </li>
               </ul>
@@ -151,7 +151,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     }}
                     className={activeMenu === 'memberList' ? 'active' : ''}
                   >
-                    - 회원 목록
+                    회원 목록
                   </a>
                 </li>
                 <li>
@@ -163,7 +163,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     }}
                     className={activeMenu === 'managerList' ? 'active' : ''}
                   >
-                    - 관리자 목록
+                    관리자 목록
                   </a>
                 </li>
               </ul>
@@ -194,7 +194,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                       activeMenu === 'pointExchangeDetails' ? 'active' : ''
                     }
                   >
-                    - 포인트 환전 내역
+                    포인트 환전 내역
                   </a>
                 </li>
               </ul>
