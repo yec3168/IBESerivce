@@ -7,7 +7,7 @@ import {
   Container,
   Row,
   Col,
-  FormSelect,
+  Form,
 } from 'react-bootstrap';
 import axios from 'axios'; // axios 추가
 import './Board.css';
@@ -151,24 +151,55 @@ const IbeBoardListComponent = () => {
       <Container className="board-container">
         <Row>
           <Col className="mb-4">
-            <p className="h2 board-title">아이비 게시판</p>
+            <p className="h2 board-title">아이비 게시판
+              {/* <Button className="board-add-post-btn" onClick={handleWriteClick} style={{float:'right'}}>
+               글쓰기
+              </Button> */}
+              </p>
+            <span className='board-text'>
+              아이비 게시판은 종합 게시판 입니다.
+              <br/>
+              공지, 정보, 요청, 질문, 일반 글을 확인 할 수 있습니다.
+              <div style={{display:'inline',float:"right"}}>
+                <Form.Select className='board-search' id="searchCategory" style={{ width: '90px', height: '40px', display:'inline', margin:'1px'}}>
+                <option value={'ALL'}>전체</option>
+                <option value={'REQUEST'}>요청</option>
+                <option value={'QUESTION'}>질문</option>
+                <option value={'INFORMATION'}>정보</option>
+                <option value={'GENERAL'}>일반</option>
+              </Form.Select>
+              <Form.Select className='board-search' id="searchType" style={{ width: '90px', height: '40px' ,display:'inline',margin:'1px'}}>
+                <option value={'title'}>제목</option>
+                <option value={'name'}>작성자</option>
+              </Form.Select>
+              <Form.Control
+                id="searchValue"
+                className='board_search'
+                type='text'
+                placeholder="검색어를 입력해주세요"
+                onKeyDown={(e) => activeEnter(e)}
+                style={{ width: '400px', height: '40px',display:'inline'}}
+              />
+              <Button
+                className="board-add-post-btn"
+                style={{display:'inline'}}
+                onClick={handleSearch}
+              >
+                검색
+              </Button>
+            </div>
+          </span>
           </Col>
         </Row>
-        <Table
-          hover
-          className="board-table"
-          style={{
-            tableLayout: 'fixed',
-            wordBreak: 'break-all',
-            height: 'auto',
-          }}
-        >
+        <Row>
+          <Col className="mb-4">
+        <Table hover className="board-table" >
           <thead style={{ textAlign: 'center' }}>
             <tr>
               <th style={{ width: '150px', textAlign: 'center' }}>번호</th>
               <th style={{ width: '800px', textAlign: 'center' }}>제목</th>
               <th style={{ width: '150px', textAlign: 'center' }}>작성자</th>
-              <th style={{ width: '200px', textAlign: 'center' }}>날짜</th>
+              <th style={{ width: '220px', textAlign: 'center' }}>날짜</th>
               <th style={{ width: '150px', textAlign: 'center' }}>조회수</th>
             </tr>
           </thead>
@@ -291,33 +322,8 @@ const IbeBoardListComponent = () => {
             </tr>
           )}
         </Table>
-        <div style={{ textAlign: 'center' }}>
-          <select id="searchCategory" style={{ width: '90px', height: '40px' }}>
-            <option value={'ALL'}>전체</option>
-            <option value={'NOTICE'}>공지</option>
-            <option value={'REQUEST'}>요청</option>
-            <option value={'QUESTION'}>질문</option>
-            <option value={'INFORMATION'}>정보</option>
-            <option value={'GENERAL'}>일반</option>
-          </select>
-          <select id="searchType" style={{ width: '90px', height: '40px' }}>
-            <option value={'title'}>제목</option>
-            <option value={'name'}>작성자</option>
-          </select>
-          <input
-            id="searchValue"
-            placeholder="검색어를 입력해주세요"
-            onKeyDown={(e) => activeEnter(e)}
-            style={{ width: '400px', height: '40px' }}
-          />
-          <button
-            className="board-add-post-btn"
-            onClick={handleSearch}
-            style={{ height: '40px' }}
-          >
-            검색
-          </button>
-        </div>
+        </Col>
+        </Row>
         <div className="text-end">
           <Button className="board-add-post-btn" onClick={handleWriteClick}>
             글쓰기
