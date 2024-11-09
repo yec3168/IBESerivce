@@ -104,7 +104,7 @@ const ProductListComponent = () => {
         </Row>
 
         {((filteredProducts.length === 0 && !error) || error) && (
-          <div className="text-center mt-4">
+          <div className="text-center mt-4" id="product_list_null">
             <i className="bi bi-exclamation-circle" style={{ fontSize: '3rem', color: 'red' }}></i>
             <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
             <p>다른 키워드로 검색해 주세요.</p>

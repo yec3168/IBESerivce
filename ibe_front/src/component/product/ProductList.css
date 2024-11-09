@@ -84,3 +84,13 @@
     font-family: 'Paperlogy-4Regular';
     color: #666666; /* Bootstrap danger color for text */
   }
+
+
+  #product_list_null {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px; /* Makes sure it takes up the full viewport height */
+    text-align: center;
+  }
