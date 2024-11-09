@@ -13,15 +13,32 @@
 
 /* MypageSidenavComponent */
 
+.ml-40{
+    margin-left: 40px;
+}
+
 #mypage_sidenav {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "Paperlogy-3Light";
     width: 250px;
     height: 1000px;
 }
 
+#mypage_sidenav_mypage{
+    font-family: "Paperlogy-4Regular";
+    font-weight: bolder;
+    font-size: 23px;
+    padding-left: 15px;
+}
+
 #mypage_sidenav_bigmenu{
+    font-family: "Paperlogy-4Regular";
     color: black !important;
     margin-left: '20px';
+    font-weight: bolder;
+}
+
+#mypage_sidenav_smenu{
+    font-weight: 600;
 }
 
 #mypage_sidenav .nav-link {
