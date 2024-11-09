@@ -10,7 +10,8 @@
     width: 90%;
 }
 .order_option{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Pretendard-Regular';
 }
 
   
@@ -72,11 +73,13 @@
   }
   
   #product_price{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
   }
 
   #product_list .text-center {
     margin-top: 20px;
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
     color: #666666; /* Bootstrap danger color for text */
   }

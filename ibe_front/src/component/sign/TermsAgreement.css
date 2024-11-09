@@ -28,6 +28,8 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    /* font-family: 'Noto Sans KR', sans-serif;  */
+    font-family: 'Pretendard-Regular';
 }
 
 .terms__content h2 {
@@ -35,6 +37,8 @@
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
     color: #333;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
 }
 
 .terms__content p {
@@ -53,11 +57,13 @@
     color: #333;
 }
 
-.terms__content .btn-primary {
-    width: 100%;
+.terms__content .btn-default {
+    /* width: 100%; */
     padding: 0.75rem;
     font-size: 1rem;
     border-radius: 5px;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Pretendard-Regular';
 }
 
 .terms-box {

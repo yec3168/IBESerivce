@@ -8,7 +8,8 @@
 
 .footer_left {
   text-align: left;
-  font-family: "CookieRun-Regular", sans-serif !important;
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Pretendard-Regular';
   font-weight: bold;
   font-size: 15px;
   color: #494444;
@@ -22,7 +23,8 @@
   padding-top: 50px;
   padding-right: 80px;
   text-align: left;
-  font-family: "CookieRun-Regular", sans-serif !important;
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Pretendard-Regular';
   font-weight: bold;
   font-size: 15px;
   color: #494444;

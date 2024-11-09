@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeaderComponent from '../header/HeaderComponent';
 import FooterComponent from '../footer/FooterComponent';
 import './NotFound.css';
-import NotFoundImg from './NotFound.png';
-import { Col, Row } from 'react-bootstrap';
+// import NotFoundImg from './NotFound.png';
+import ibe_notfound from './ibe_notfound.png';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const NotFound = () => {
   const navigate = useNavigate();
-  const [imageLoaded, setImageLoaded] = useState(false);
+  // const [imageLoaded, setImageLoaded] = useState(false);
 
-  const handleHomeClick = () => {
-    navigate('/');
-  };
+  // const handleHomeClick = () => {
+  //   navigate('/');
+  // };
 
   return (
     <>
       <HeaderComponent />
       <div id="div_headerHeight" />
 
-      <div
+      {/* <div
         className="container d-flex align-items-center justify-content-center"
         id="container_notFound"
       >
@@ -54,7 +55,34 @@ const NotFound = () => {
             />
           </Col>
         </Row>
-      </div>
+      </div> */}
+
+      <Container className="container d-flex flex-column align-items-center justify-content-center">
+        <Row className="mb-1">
+          <Col className="d-flex justify-content-center">
+            <img src={ibe_notfound} alt="notfound" width="600px" style={{ marginTop: '50px' }} />
+          </Col>
+        </Row>
+        <Row className="mt-3 mb-5">
+          <Col className="d-flex justify-content-center" style={{ marginBottom: '100px' }}>
+            <button
+              onClick={() => { navigate('/'); }}
+              className="btn btn-link"
+              style={{
+                width: '200px', height: '50px', 
+                backgroundColor: '#FFC000',
+                borderRadius: '20px',
+                color: 'white', 
+                fontFamily: "CookieRun-Regular",
+                fontSize: '22px',
+                border: 'none', 
+                textDecoration: 'none',
+              }}>
+              홈으로 돌아가기
+            </button>
+          </Col>
+        </Row>
+      </Container>
 
       <FooterComponent />
     </>

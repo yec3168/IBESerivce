@@ -1,6 +1,7 @@
 /* ---------- SIGN IN ---------- */
 .sign-in__wrapper {
-    font-family: "CookieRun-Regular", sans-serif; 
+    /* font-family: "CookieRun-Regular", sans-serif;  */
+    font-family: 'Pretendard-Regular';
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,7 +52,6 @@
   } */
   
   .col_list:nth-child(1){
-    /* font-family: "Roboto", serif; */
     font-size: 15px;
     font-weight: 400;
     margin-bottom: 15px;
@@ -60,7 +60,6 @@
   }
 
   .col_list:nth-child(2){
-    /* font-family: "Roboto", serif; */
     font-size: 15px;
     font-weight: 400;
     margin-bottom: 15px;
@@ -69,7 +68,6 @@
   }
 
   .col_list:nth-child(3){
-    /* font-family: "Roboto", serif; */
     font-size: 15px;
     font-weight: 400;
     margin-bottom: 15px;
@@ -85,7 +83,8 @@
 
   /*---------------sign up-------------*/
   .sign-up__wrapper {
-    font-family: "CookieRun-Regular", sans-serif; 
+    /* font-family: "CookieRun-Regular", sans-serif;  */
+    font-family: 'Pretendard-Regular';
     display: flex;
     flex-direction: column;
     justify-content: center;

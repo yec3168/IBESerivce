@@ -10,13 +10,15 @@
 
 /* 물품 제목, 거래상태 css */
 #product_info > #product_title{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
     font-weight: 500;
 }
 
 #product_info  > #product_price_deal > #product_price{
-    font-family: "CookieRun-Regular", sans-serif !important;
-    font-weight: 700;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
+    font-weight: 500;
     font-size: 70px;
 }
 
@@ -29,7 +31,8 @@
 }
 
 #product_info > #product_view_comment  #product_cnt{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Pretendard-Regular';
     color: #666666;
     font-size: 12px;
 }
@@ -37,7 +40,8 @@
 
 /* 물품 상태의 대한 css */
 #product_info > #product_state{
-    font-family: 'Jua', sans-serif;
+    /* font-family: 'Jua', sans-serif; */
+    font-family: 'Pretendard-Regular';
     margin-top: 20px;
     width: 40%;
     height: 80px;
@@ -66,7 +70,8 @@
 }
 #product_info > #product_seller_info > #info_title{
     margin-top: 40px;
-    font-family: 'Jua', sans-serif;
+    /* font-family: 'Jua', sans-serif; */
+    font-family: 'Paperlogy-4Regular';
     border-bottom: 1px solid black;
     width: 80%;
     font-size: 25px;
@@ -80,14 +85,16 @@
   /* 판매자 닉네임 */
 #product_info > #product_seller_info > #seller_detail  #seller_nickname{
     margin-top: 20px;
-    font-family: 'Jua', sans-serif;
+    /* font-family: 'Jua', sans-serif; */
+    font-family: 'Pretendard-Regular';
     font-size: 18px;
 }
 
 /* 게시글 작성날짜 */
 #product_info > #product_seller_info > #seller_detail  #product_create_info{
     margin-top: 20px;
-    font-family: 'Jua', sans-serif;
+    /* font-family: 'Jua', sans-serif; */
+    font-family: 'Pretendard-Regular';
     font-size: 15px;
     color: #666666;
 }
@@ -111,7 +118,9 @@
 #product_content > #product_content_title{
     margin-top: 50px;
     font-size: 40px;
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
+    
 }
 
 /* 상품 상세정보 */
@@ -129,7 +138,8 @@
 
 .product_waring .warning{
     font-size: 12px;
-    font-family: 'Jua', sans-serif;
+    /* font-family: 'Jua', sans-serif; */
+    font-family: 'Paperlogy-4Regular';
     margin-bottom: 0;
 }
 
@@ -137,7 +147,8 @@
     background-color: #FFD774;
     color: #333;
     font-weight: bold;
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Pretendard-Regular';
     border: 1px solid #FFD774;
     border-radius: 8px;
     transition: all 0.3s ease; /* Smooth transition for hover effects */
@@ -157,7 +168,8 @@
     background-color: white;
     color: #333;
     font-weight: bold;
-    font-family: "CookieRun-Regular", sans-serif;
+    /* font-family: "CookieRun-Regular", sans-serif; */
+    font-family: 'Pretendard-Regular';
     border: 1px solid #666666;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -192,72 +204,7 @@
 
 /* ------------------------------------------물품 생성----------------------------- */
 
-/* #section_1{
-    width: 40%;
-    text-align: center;
-    margin-bottom: 30px;
-}
-#section_1 #page_title{
-    font-family: "CookieRun-Regular", sans-serif !important;
 
-}
-
-#section_2{
-    width: 70%;
-    margin: auto;
-    
-}
-
-.image-preview {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.image-thumbnail {
-    position: relative;
-    margin: 5px;
-}
-
-.image-thumbnail img {
-    width: 100px; 
-    height: auto;
-}
-
-.image-thumbnail div {
-    text-align: center;
-    font-size: 12px;
-}
-
-.image-thumbnail button {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.image-thumbnail {
-    position: relative;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
-}
-
-.image-name {
-    overflow: hidden;         
-    white-space: nowrap;      
-    text-overflow: ellipsis;  
-    width: 100%;             
-    max-width: 150px;        
-    display: block;         
-} */
-
-
-form .form-label {
-    font-family: "CookieRun-Regular", sans-serif !important;
-}
-
-.form-floating{
-    font-family: "CookieRun-Regular", sans-serif !important;
-}
 
 #section_1 {
     width: 40%;
@@ -266,7 +213,8 @@ form .form-label {
 }
 
 #section_1 #page_title {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
     font-size: 2rem; /* Increased font size for emphasis */
     color: #333; /* Darker text color for contrast */
 }
