@@ -150,11 +150,11 @@ const ProductCreateComponent = () => {
                     
                       <Row>
                         <Form.Group as={Row} className="mb-3" controlId="product_category">
-                            <Form.Label column sm="2">
+                            <Form.Label column sm="2" className="product_form_title">
                                 카테고리
                             </Form.Label>
                             <Col  className="col-3">
-                                <FloatingLabel controlId="floatingCategory" label="카테고리" className="mb-3">
+                                <FloatingLabel controlId="floatingCategory" label="카테고리" className="product_form_label mb-3">
                                     <Form.Select
                                         value={productCategory} 
                                         onChange={(e) => setProductCategory(e.target.value)} 
@@ -175,11 +175,11 @@ const ProductCreateComponent = () => {
                     
                     <Row>
                         <Form.Group as={Row} className="mb-3" controlId="product_title">
-                            <Form.Label column sm="2">
+                            <Form.Label column sm="2" className="product_form_title">
                                 제목
                             </Form.Label>
                             <Col sm="10">
-                                <FloatingLabel controlId="floatingTitle" label="제목을 입력해주세요." className="mb-3">
+                                <FloatingLabel controlId="floatingTitle" label="제목을 입력해주세요." className="product_form_label mb-3">
                                     <Form.Control type="text" placeholder="제목을 입력해주세요." 
                                         value={productTitle} 
                                         onChange={(e) => setProductTitle(e.target.value)} 
@@ -194,11 +194,11 @@ const ProductCreateComponent = () => {
 
                     <Row>
                         <Form.Group as={Row} className="mb-3" controlId="product_state">
-                            <Form.Label column sm="2">
+                            <Form.Label column sm="2" className="product_form_title">
                                 상태
                             </Form.Label>
                             <Col  className="col-3">
-                                <FloatingLabel controlId="floatingCondition" label="상태" className="mb-3">
+                                <FloatingLabel controlId="floatingCondition" label="상태" className="product_form_label mb-3">
                                     <Form.Select 
                                         value={productConditionState} 
                                         onChange={(e) => setProductConditionState(e.target.value)} 
@@ -218,11 +218,11 @@ const ProductCreateComponent = () => {
 
                     <Row>
                         <Form.Group as={Row} className="mb-3" controlId="product_point">
-                            <Form.Label column sm="2">
+                            <Form.Label column sm="2" className="product_form_title">
                                 포인트
                             </Form.Label>
                             <Col  className="col-3">
-                                <FloatingLabel controlId="floatingPoints" label="포인트" className="mb-3">
+                                <FloatingLabel controlId="floatingPoints" label="포인트" className="product_form_label mb-3">
                                     <Form.Control 
                                         type="number" 
                                         placeholder="포인트를 입력해주세요." 
@@ -238,9 +238,9 @@ const ProductCreateComponent = () => {
 
                       {/* 상세 내용 */}
                     <Row>
-                        <Form.Label column sm="2">상세내용</Form.Label>
+                        <Form.Label column sm="2" className="product_form_title" >상세내용</Form.Label>
                         <Col>
-                            <FloatingLabel controlId="floatingContent" label="제품 상세 내용" className="mb-3">
+                            <FloatingLabel controlId="floatingContent" label="제품 상세 내용" className="product_form_label mb-3">
                                 <Form.Control 
                                     as="textarea" 
                                     ref={contentRef}
@@ -259,7 +259,7 @@ const ProductCreateComponent = () => {
                     <Row>
                         <Col>
                             <Form.Group controlId="formFile" className="mb-3">
-                                <Form.Label column sm="2">이미지 추가하기</Form.Label>
+                                <Form.Label column sm="2" className="product_form_title" >이미지 추가하기</Form.Label>
                                     <input 
                                         type="file" 
                                         accept="image/*" 

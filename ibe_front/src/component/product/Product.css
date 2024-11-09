@@ -18,6 +18,7 @@
 #product_info  > #product_price_deal > #product_price{
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Paperlogy-4Regular';
+    letter-spacing: 2px;
     font-weight: 500;
     font-size: 70px;
 }
@@ -222,6 +223,17 @@
 #section_2 {
     width: 70%;
     margin: auto;
+}
+#section_2 .product_form_title{
+    font-family: 'Paperlogy-4Regular';
+}
+
+#section_2 .product_form_label{
+    font-family: 'Pretendard-Regular';
+}
+
+#section_2 button{
+    font-family: 'Pretendard-Regular';
 }
 
 .image-preview {

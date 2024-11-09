@@ -75,6 +75,7 @@
   #product_price{
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Paperlogy-4Regular';
+    letter-spacing: 1px;
   }
 
   #product_list .text-center {
