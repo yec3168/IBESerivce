@@ -27,7 +27,7 @@ const MainComponent = () => {
 
       {/* 전체 상품 */}
       <div>
-        <AllProductsComponent selectedCategory={selectedCategory} />
+      <AllProductsComponent selectedCategory={selectedCategory} />
       </div>
 
       <div id="div_spacing"/>
