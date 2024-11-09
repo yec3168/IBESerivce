@@ -172,7 +172,7 @@ const SignupComponent = () => {
         setIsNameValid(isNameFormatValid);
         setIsNicknameValid(isNicknameFormatValid);
         setIsAccountNumberValid(isAccountNumberFormatValid);
-
+        let bankValue =document.getElementById('memberBankSelect').value
         if (!isPasswordValidLength || !isPasswordSame || !isNameFormatValid || !isNicknameFormatValid || !isAccountNumberFormatValid) {
             alert("모든 필드를 올바르게 입력해 주세요.");
             return false;
@@ -195,10 +195,10 @@ const SignupComponent = () => {
             memberAddr : memberAddr,
             memberAddrDetail : memberAddrDetail,
             memberPhone : memberPhone,
-            memberBank : memberBank,
+            memberBank : bankValue,
             memberAccountNumber : memberAccountNumber
         }
-
+        console.log(memberForm);
         // 회원가입 backend post 호출.
         saveMember(memberForm)
             .then((response) => {
@@ -416,9 +416,9 @@ const SignupComponent = () => {
                 <Row className="mb-2 mb-4 ">
                     <Col className="col-3">
                         <Form.Group className="mb-2" controlId="memberBank">
-                            <Form.Select aria-label="은행"
-                            value={memberBank}
-                            onChange={(e) => setMemberBank(e.target.value)}
+                            <Form.Select aria-label="은행" id="memberBankSelect"
+                            // value={memberBank}
+                            // onChange={(e) => setMemberBank(e.target.value)}
                             >
                                 {/* <option value="KB">국민은행</option> */}
                                 {/* <option value="SHINHAN">신한은행</option> */}

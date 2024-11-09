@@ -56,7 +56,8 @@ public class MemberService {
         // 회원 정보 생성.
         Member member =  modelMapper.map(memberSignUpRequest, Member.class);
         member.setMemberPoint(0L);
-        member.setRole(Role.ROLE_ADMIN);
+//        member.setRole(Role.ROLE_ADMIN);
+        member.setRole(Role.ROLE_CLIENT);
         member.setMemberSocialType(SocialType.LOCAL); // 일반 사용자는 LOCAL
         memberRepository.save(member);
 
