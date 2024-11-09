@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect  } from "react";
-import { Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
+import { Row, Col, FloatingLabel, Form, Button, OverlayTrigger , Popover} from "react-bootstrap";
 import {saveProduct} from "../service/ProductService";
 
 import './Product.css';
@@ -106,20 +106,6 @@ const ProductCreateComponent = () => {
 
     };
 
-    // const handleContentChange = (e) => {
-    //     setProductContent(e.target.value);
-
-    //     // Resize the textarea based on its scrollHeight
-    //     contentRef.current.style.height = 'auto';
-    //     contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
-    // };
-
-    // useEffect(() => {
-    //     if (contentRef.current) {
-    //         contentRef.current.style.height = 'auto';
-    //         contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
-    //     }
-    // }, [productContent]);
     
     const handleContentChange = (e) => {
         const content = e.target.value;
@@ -138,7 +124,65 @@ const ProductCreateComponent = () => {
         }
     }, [productContent]);
 
-
+    
+      // Tooltip content with HTML and styling
+    //   const contentTooltip = (
+    //     <Tooltip >
+    //         <div class="custom-tooltip_product">
+    //             <h5>📋 <strong>상세 내용 작성 가이드</strong></h5>
+    //             <p>판매 글의 신뢰도를 높이고 원활한 거래를 위해 다음 정보를 포함하세요:</p>
+    //             <ul >
+    //                 <li><strong>상품의 상태:</strong> 사용감, 스크래치, 작동 상태 등을 포함해 구체적으로 적어주세요.</li>
+    //                 <li><strong>사용 기간 및 구매처:</strong> 예: <em>"2022년 5월에 구매, 사용 기간 1년"</em></li>
+    //                 <li><strong>기능 이상 여부:</strong> 상품의 모든 기능이 정상 작동하는지 여부를 명확히 기재하세요.</li>
+    //                 <li><strong>추가 구성품:</strong> 케이스, 설명서, 보증서 등 포함 여부를 알려주세요.</li>
+    //             </ul>
+    //             <Image 
+    //                 src="https://via.placeholder.com/150" 
+    //                 rounded 
+    //                 style={{ width: '50%', marginTop: '10px' }} 
+    //                 alt="상품 상세 예시 이미지"
+    //             />
+    //             <p className="mt-3"><strong>예시:</strong></p>
+    //             <blockquote className="bg-light p-3 rounded">
+    //                 <em>
+    //                     "2022년 5월 구매 후 약 1년 사용했습니다. 약간의 사용감은 있지만 작동에 문제는 없습니다. <br/>
+    //                     스크래치와 생활 흔적이 있으니 참고 부탁드립니다. <br/>
+    //                     추가로 원래 박스, 설명서와 정품 케이스를 포함해 드립니다."
+    //                 </em>
+    //             </blockquote>
+    //         </div>
+    //     </Tooltip>
+    // );
+    const contentTooltip = (
+        <Popover id="popover-basic" className="custom-tooltip_product">
+            <Popover.Header as="h5">📋 <strong>상세 내용 작성 가이드</strong></Popover.Header>
+            <Popover.Body>
+                <p>판매 글의 신뢰도를 높이고 원활한 거래를 위해 다음 정보를 포함하세요:</p>
+                <ul>
+                    <li><strong>상품의 상태:</strong> 사용감, 스크래치, 작동 상태 등을 포함해 구체적으로 적어주세요.</li>
+                    <li><strong>사용 기간 및 구매처:</strong> 예: <em>"2022년 5월에 구매, 사용 기간 1년"</em></li>
+                    <li><strong>기능 이상 여부:</strong> 상품의 모든 기능이 정상 작동하는지 여부를 명확히 기재하세요.</li>
+                    <li><strong>추가 구성품:</strong> 케이스, 설명서, 보증서 등 포함 여부를 알려주세요.</li>
+                </ul>
+                {/* <Image
+                    src="https://via.placeholder.com/150"
+                    rounded
+                    style={{ width: '50%', marginTop: '10px' }}
+                    alt="상품 상세 예시 이미지"
+                /> */}
+                <p className="mt-3"><strong>예시:</strong></p>
+                <blockquote className="bg-light p-3 rounded">
+                    <em>
+                        2022년 5월 구매 후 약 1년 사용했습니다. <br />
+                        약간의 사용감은 있다보니 생활 스크래치 정도 있지만, 작동에 문제는 없습니다. <br />
+                        추가로 원래 박스, 설명서와 정품 케이스를 포함해 배송드립니다.<br />
+                        기존의 쓰던 정품충전기가 있지만 사용감이 많아 필요하시다면 동봉하여 보내드릴태니 구매시 댓글 부탁드립니다~ <br/>
+                    </em>
+                </blockquote>
+            </Popover.Body>
+        </Popover>
+    );
     return (
         <div className="product">
             <div id="section_1">
@@ -238,7 +282,17 @@ const ProductCreateComponent = () => {
 
                       {/* 상세 내용 */}
                     <Row>
-                        <Form.Label column sm="2" className="product_form_title" >상세내용</Form.Label>
+                        <Form.Label column sm="2" className="product_form_title" >
+                            상세내용 
+                                <OverlayTrigger
+                                    trigger="hover"
+                                    placement="right"
+                                    overlay={contentTooltip}
+                                    delay={{ show: 250, hide: 400 }}
+                                >
+                                    <span style={{ marginLeft: "10px", color: "#666666", cursor: "pointer" }}>?</span>
+                                </OverlayTrigger>
+                            </Form.Label>
                         <Col>
                             <FloatingLabel controlId="floatingContent" label="제품 상세 내용" className="product_form_label mb-3">
                                 <Form.Control 
