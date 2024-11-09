@@ -1,5 +1,5 @@
 .order-detail {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
     margin-top: 150px;
     margin-bottom: 150px;
 }
@@ -10,6 +10,7 @@
 }
 
 .product_info, .user-info, .point_info {
+    font-family: 'Pretendard-Regular';
     margin-bottom: 20px;
     border-radius: 8px;
     padding: 20px;
@@ -34,7 +35,8 @@
 }
 
 .btn-outline-dark {
-    font-family: "CookieRun-Regular", sans-serif;
+    /* font-family: "CookieRun-Regular", sans-serif; */
+    font-family: 'Pretendard-Regular';
     border-radius: 20px;
 }
 
@@ -53,5 +55,6 @@
 }
 
 #order-modal{
-    font-family: "CookieRun-Regular", sans-serif;
+    /* font-family: "CookieRun-Regular", sans-serif; */
+    font-family: 'Pretendard-Regular';
 }

@@ -109,7 +109,7 @@ const OrderDetailComponent = () => {
     };
 
     return (
-        <Container className="order-detail" style={{ fontFamily: "'CookieRun-Regular', sans-serif" }}>
+        <Container className="order-detail">
             <p className="h4 mb-4">택배거래, 안전결제로 구매합니다</p>
 
             <div className="product_info mb-4 p-3 rounded shadow-sm">
@@ -124,7 +124,7 @@ const OrderDetailComponent = () => {
                         />
                     </Col>
                     <Col md={8} className="d-flex flex-column justify-content-center">
-                        <p className="h4 text-warning">{addComma(productPoint)}P</p>
+                        <p className="h4">{addComma(productPoint)}<span className='text-warning'> P</span></p>
                         <p className="text-muted mb-0">{productTitle}</p>
                     </Col>
                 </Row>

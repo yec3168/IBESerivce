@@ -15,7 +15,8 @@
 
 #comment #comment_info .comment_top {
     font-size: 20px;
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Paperlogy-4Regular';
 }
 
 /* #comment #comment_info .comment_report {
@@ -31,7 +32,8 @@
 
 #comment_inputs .form-control {
     font-size: 15px;
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Pretendard-Regular';
     width: 100%;
     resize: none;
     padding: 10px;
@@ -41,7 +43,8 @@
 
 /* 등록 버튼 스타일 */
 #comment_inputs .submit-btn {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Pretendard-Regular';
     font-size: 14px;
     color: black;
     background-color: #FFD97A;
@@ -92,7 +95,8 @@
 
 /* 답글 버튼 스타일 */
 .reply-btn {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: 'Pretendard-Regular';
     font-size: 13px;
     color: black;
     background-color: #FFD97A;
