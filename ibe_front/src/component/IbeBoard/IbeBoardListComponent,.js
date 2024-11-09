@@ -232,10 +232,10 @@ const IbeBoardListComponent = () => {
                         {post.comments !== 0 && (
                           <span
                             className="board-comment-count"
-                            style={{ color: 'blue', fontWeight: '700' }}
+                            style={{ color: '333', fontWeight: '300' }}
                           >
                             {' '}
-                            {post.comments}
+                            [{post.comments}]
                           </span>
                         )}
                         {isToday(post.date) && (
@@ -289,10 +289,10 @@ const IbeBoardListComponent = () => {
                   {post.comments !== 0 && (
                     <span
                       className="board-comment-count"
-                      style={{ color: 'blue', fontWeight: '700' }}
+                      style={{ color: '333', fontWeight: '300' }}
                     >
                       {' '}
-                      {post.comments}
+                      [{post.comments}]
                     </span>
                   )}
                   {isToday(post.date) && (

@@ -1,6 +1,7 @@
 #board_content {
   margin-top: 150px;
   margin-bottom: 150px;
+  /* margin-left: auto; */
 }
 
 .board-container {
@@ -8,21 +9,27 @@
   padding: 20px;
   border-radius: 8px;
   margin-top: 20px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Pretendard-Regular';
 }
 
 .board-title {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 20px;
 }
-
+.board-text{
+  font-size: 20px;
+  margin-bottom: 20px;
+}
 .board-table {
   background-color: #ffffff;
   border-radius: 8px;
   overflow: hidden;
   border-collapse: separate;
   border-spacing: 0;
+  table-layout: 'fixed';
+  word-break: 'break-all';
+  height: 'auto';
 }
 
 .board-table thead {
@@ -33,7 +40,7 @@
 .board-table td {
   text-align: left;
   padding: 10px;
-  font-size: 15px;
+  font-size: 17px;
   color: #333;
 }
 
@@ -51,13 +58,13 @@
 }
 
 .board-add-post-btn {
-  background-color: #ffc847;
+  background-color: #ffecbe;
   border: none;
   color: #000;
   font-weight: bold;
   padding: 10px 20px;
-  margin-top: 20px;
-  font-family: 'CookieRun-Regular', sans-serif;
+  /* margin-top: 20px; */
+  font-family: 'Pretendard-Regular';
 }
 
 .board-add-post-btn:hover {
@@ -69,8 +76,8 @@
 }
 
 .board-pagination .page-item.active .page-link {
-  background-color: #ffc847;
-  border-color: #ffc847;
+  background-color: #ffecbe;
+  border-color: #ffecbe;
 }
 
 .board-pagination .page-link {
@@ -173,7 +180,7 @@
 
 .board-comment-top {
   font-size: 20px;
-  font-family: 'CookieRun-Regular', sans-serif !important;
+  font-family: 'Pretendard-Regular';
 }
 
 .board-policy-notice {
@@ -183,4 +190,8 @@
   padding: 10px;
   border-radius: 5px;
   margin-top: 15px;
+}
+
+.board-search{
+  font-family: 'Pretendard-Regular';
 }

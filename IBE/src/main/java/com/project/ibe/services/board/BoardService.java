@@ -180,7 +180,7 @@ public class BoardService {
      * 게시판 댓글 수.
      */
     private int getCommentCntByBoard(Board board){
-        return boardCommentRepository.findAllByBoard(board).size();
+        return boardCommentRepository.findAllByBoard(board).size()+boardReplyRepository.countByBoard(board);
     }
 
 
