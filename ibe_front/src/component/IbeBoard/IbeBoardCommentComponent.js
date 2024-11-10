@@ -163,7 +163,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                   <Button
                     variant="primary"
                     onClick={() => handleReplyButtonClick(comment.id)}
-                    className="reply-btn"
+                    className="board-submit-btn"
                   >
                     답글
                   </Button>
@@ -180,7 +180,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                           {formatDate(reply.createdAt)}
                         </span>
                       </div>
-                      <p className="reply-body">{reply.content}</p>
+                      <p className="reply-body">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{reply.content}</p>
                     </div>
                   ))}
                 </div>
@@ -199,7 +199,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                   <Button
                     variant="secondary"
                     onClick={() => handleReplySubmit(comment.id)}
-                    className="reply-btn"
+                    className="board-submit-btn"
                   >
                     답글 등록
                   </Button>

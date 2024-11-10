@@ -136,7 +136,9 @@ const IbeBoardDetailsComponent = () => {
           <>
             <Row>
               <Col>
-                <p>{post.nickname}</p>
+                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                  <strong>작성자:</strong> {post.nickname}
+                </div>
                 <div style={{ display: 'inline-block', marginRight: '20px' }}>
                   <strong>등록 시간:</strong> {post.createdAt}
                 </div>
@@ -145,15 +147,15 @@ const IbeBoardDetailsComponent = () => {
                 </div>
                 {(isAuthor || hasDeletePermission) && (
                   <Button
-                    variant="danger"
+                    className='board-add-post-btn' style={{display:'inline',float:"right",backgroundColor:'#f5a1a1',height:'40px'}}
                     onClick={()=>setShowModal(true)}
-                    className="ml-auto"
+                    // className="ml-auto"
                   >
                     삭제
                   </Button>
                 )}
                 <hr />
-                <p>{post.content}</p>
+                <p className='board-detail-text'>{post.content}</p>
                 <br />
                 <br />
                 <p className="board-comment-top">
@@ -174,8 +176,8 @@ const IbeBoardDetailsComponent = () => {
                     <h3>게시글을 <span style={{color:'red'}}>삭제</span>하시겠습니까?</h3>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>취소</Button>
-                    <Button variant="custom" onClick={handleDeletePost}>확인</Button>
+                    <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button>
+                    <Button className='board-add-post-btn' onClick={handleDeletePost}>확인</Button>
                 </Modal.Footer>
             </Modal>
 
@@ -188,7 +190,7 @@ const IbeBoardDetailsComponent = () => {
                   <h3>{resultMessage}</h3>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="custom" onClick={handleCloseResultModal}>확인</Button>
+                    <Button className='board-add-post-btn' onClick={handleCloseResultModal}>확인</Button>
                 </Modal.Footer>
             </Modal>
         </Container>

@@ -199,3 +199,20 @@
 .board-molal{
   font-family: 'Pretendard-Regular';
 }
+.board-cancle-btn {
+  background-color: #eceae4;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 20px;
+  /* margin-top: 20px; */
+  font-family: 'Pretendard-Regular';
+}
+
+.board-cancle-btn:hover {
+  background-color: #a1a1a0;
+}
+
+.board-detail-text{
+  font-size: 30px;
+}
