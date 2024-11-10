@@ -199,12 +199,19 @@ const AdminViewPostSale = () => {
               key={item.productId}
               onClick={() => {
                 if (item.productUploadStatus === 'STATUS_REJECT') {
-                  openModal(item); // Pass the entire item here
+                  openModal(item); // Pass the entire item to the modal
+                } else if (item.productUploadStatus === 'STATUS_APPROVE') {
+                  window.open(
+                    `http://localhost:3000/products/detail/${item.productId}`,
+                    '_blank'
+                  );
                 }
               }}
               style={{
                 cursor:
                   item.productUploadStatus === 'STATUS_REJECT'
+                    ? 'pointer'
+                    : item.productUploadStatus === 'STATUS_APPROVE'
                     ? 'pointer'
                     : 'default',
               }}
@@ -243,55 +250,68 @@ const AdminViewPostSale = () => {
       {isModalOpen && modalContent && (
         <div className="admin-vp-modal">
           <div className="admin-vp-modal-content">
-            <p><strong>제목:</strong> {modalContent.title}</p>
-            <p><strong>판매자:</strong> {modalContent.seller}</p>
-            <p><strong>내용:</strong> {modalContent.content}</p>
-            <p><strong>반려사유:</strong> {modalContent.rejectionText}</p>
+            <p>
+              <strong>제목:</strong> {modalContent.title}
+            </p>
+            <p>
+              <strong>판매자:</strong> {modalContent.seller}
+            </p>
+            <p>
+              <strong>내용:</strong> {modalContent.content}
+            </p>
+            <p>
+              <strong>반려사유:</strong> {modalContent.rejectionText}
+            </p>
             <button className="admin-vp-close-btn" onClick={closeModal}>
               닫기
             </button>
           </div>
         </div>
       )}
-      <div className="admin-vp-pagination">
-        <button
-          className="admin-vp-pagination-btn"
-          onClick={goToFirstPage}
-          disabled={currentPage === 1}
-        >
-          {'<<'}
-        </button>
-        <button
-          className="admin-vp-pagination-btn"
-          onClick={goToPreviousPage}
-          disabled={currentPage === 1}
-        >
-          {'<'}
-        </button>
-        {visiblePageNumbers.map((number) => (
+      {/* 페이지 버튼 표시 조건 추가 */}
+      {filteredItems.length > itemsPerPage && (
+        <div className="admin-vp-pagination">
           <button
-            key={number}
-            className={`admin-vp-pagination-btn ${currentPage === number ? 'active' : ''}`}
-            onClick={() => setCurrentPage(number)}
+            className="admin-vp-pagination-btn"
+            onClick={goToFirstPage}
+            disabled={currentPage === 1}
           >
-            {number}
+            {'<<'}
           </button>
-        ))}
-        <button
-          className="admin-vp-pagination-btn"
-          onClick={goToNextPage}
-          disabled={currentPage === totalPages}
-        >
-          {'>'}
-        </button>
-        <button
-          className="admin-vp-pagination-btn"
-          onClick={goToLastPage}
-          disabled={currentPage === totalPages}
-        >
-          {'>>'}
-        </button>
-      </div>
+          <button
+            className="admin-vp-pagination-btn"
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1}
+          >
+            {'<'}
+          </button>
+          {visiblePageNumbers.map((number) => (
+            <button
+              key={number}
+              className={`admin-vp-pagination-btn ${
+                currentPage === number ? 'active' : ''
+              }`}
+              onClick={() => setCurrentPage(number)}
+            >
+              {number}
+            </button>
+          ))}
+          <button
+            className="admin-vp-pagination-btn"
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+          >
+            {'>'}
+          </button>
+          <button
+            className="admin-vp-pagination-btn"
+            onClick={goToLastPage}
+            disabled={currentPage === totalPages}
+          >
+            {'>>'}
+          </button>
+        </div>
+      )}
     </>
   );
 };

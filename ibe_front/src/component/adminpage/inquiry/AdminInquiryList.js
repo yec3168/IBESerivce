@@ -123,11 +123,33 @@ const AdminInquiryList = () => {
   };
 
   const handleNextPageSet = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 10, totalPages));
+    // 총 페이지 수가 10개 이상일 경우
+    if (totalPages > 10) {
+      // 현재 페이지가 마지막 페이지 세트에 있을 경우, 첫 번째 페이지로 이동
+      if (currentPage + 9 <= totalPages) {
+        setCurrentPage(currentPage + 10);
+      } else {
+        setCurrentPage(totalPages);
+      }
+    } else {
+      // 10개 이하일 경우, 마지막 페이지로 이동
+      setCurrentPage(totalPages);
+    }
   };
 
   const handlePreviousPageSet = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 10, 1));
+    // 총 페이지 수가 10개 이상일 경우
+    if (totalPages > 10) {
+      // 현재 페이지가 첫 번째 페이지 세트에 있을 경우, 마지막 페이지 세트의 마지막 페이지로 이동
+      if (currentPage - 10 > 0) {
+        setCurrentPage(currentPage - 10);
+      } else {
+        setCurrentPage(1); // 첫 번째 세트의 첫 페이지로 이동
+      }
+    } else {
+      // 10개 이하일 경우, 첫 번째 페이지로 이동
+      setCurrentPage(1);
+    }
   };
 
   const handleSearch = () => {
@@ -190,106 +212,116 @@ const AdminInquiryList = () => {
           <div className="admin-il-column admin-il-date">신청일</div>
         </div>
         <div className="admin-il-inquiry-list">
-          {currentItems.map((inquiry) => (
-            <div key={inquiry.id} className="admin-il-inquiry-list-item">
-              <div
-                className="admin-il-inquiry-list-header"
-                onClick={() => toggleExpand(inquiry.id)}
-              >
-                <div className="admin-il-column admin-il-id">{inquiry.id}</div>
-                <div className="admin-il-column admin-il-category">
-                  {inquiry.category}
+          {currentItems.length === 0 ? (
+            <div className="admin-il-no-results">검색 결과가 없습니다.</div>
+          ) : (
+            currentItems.map((inquiry) => (
+              <div key={inquiry.id} className="admin-il-inquiry-list-item">
+                <div
+                  className="admin-il-inquiry-list-header"
+                  onClick={() => toggleExpand(inquiry.id)}
+                >
+                  <div className="admin-il-column admin-il-id">
+                    {inquiry.id}
+                  </div>
+                  <div className="admin-il-column admin-il-category">
+                    {inquiry.category}
+                  </div>
+                  <div className="admin-il-column admin-il-title">
+                    {inquiry.title}
+                  </div>
+                  <div className="admin-il-column admin-il-nickname">
+                    {inquiry.nickname}
+                  </div>
+                  <div className="admin-il-column admin-il-date">
+                    {inquiry.date}
+                  </div>
                 </div>
-                <div className="admin-il-column admin-il-title">
-                  {inquiry.title}
-                </div>
-                <div className="admin-il-column admin-il-nickname">
-                  {inquiry.nickname}
-                </div>
-                <div className="admin-il-column admin-il-date">
-                  {inquiry.date}
-                </div>
+                {expandedId === inquiry.id && (
+                  <div className="admin-il-inquiry-list-content">
+                    <p>{inquiry.content}</p>
+                    {answers[inquiry.id] ? (
+                      <>
+                        <p>
+                          <strong>답변일:</strong>{' '}
+                          {answers[inquiry.id].responseDate}
+                        </p>
+                        <p>
+                          <strong>답변 내용</strong>
+                          <br />
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: answers[inquiry.id].responseContent,
+                            }}
+                          />
+                        </p>
+                      </>
+                    ) : (
+                      <p>답변을 불러오는 중입니다...</p>
+                    )}
+                  </div>
+                )}
               </div>
-              {expandedId === inquiry.id && (
-                <div className="admin-il-inquiry-list-content">
-                  <p>{inquiry.content}</p>
-                  {answers[inquiry.id] ? (
-                    <>
-                      <p>
-                        <strong>답변일:</strong>{' '}
-                        {answers[inquiry.id].responseDate}
-                      </p>
-                      <p>
-                        <strong>답변 내용</strong>
-                        <br />
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: answers[inquiry.id].responseContent,
-                          }}
-                        />
-                      </p>
-                    </>
-                  ) : (
-                    <p>답변을 불러오는 중입니다...</p>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         <div className="admin-il-pagination">
-          <button
-            onClick={() => handlePageChange(1)}
-            disabled={currentPage === 1}
-            className="admin-il-pagination-button"
-          >
-            맨 처음
-          </button>
-          <button
-            onClick={handlePreviousPageSet}
-            disabled={currentPage <= 10}
-            className="admin-il-pagination-button"
-          >
-            이전
-          </button>
-          {Array.from(
-            {
-              length: Math.min(
-                10,
-                totalPages - Math.floor((currentPage - 1) / 10) * 10
-              ),
-            },
-            (_, i) => {
-              const pageNumber =
-                Math.floor((currentPage - 1) / 10) * 10 + i + 1;
-              return (
-                <button
-                  key={pageNumber}
-                  onClick={() => handlePageChange(pageNumber)}
-                  className={`admin-il-pagination-button ${
-                    currentPage === pageNumber ? 'active' : ''
-                  }`}
-                >
-                  {pageNumber}
-                </button>
-              );
-            }
+          {totalPages > 1 && ( // 페이지가 2개 이상일 때만 버튼 표시
+            <>
+              <button
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+                className="admin-il-pagination-button"
+              >
+                {'<<'}
+              </button>
+              <button
+                onClick={handlePreviousPageSet}
+                disabled={currentPage === 1}
+                className="admin-il-pagination-button"
+              >
+                {'<'}
+              </button>
+              {Array.from(
+                {
+                  length: Math.min(
+                    10,
+                    totalPages - Math.floor((currentPage - 1) / 10) * 10
+                  ),
+                },
+                (_, i) => {
+                  const pageNumber =
+                    Math.floor((currentPage - 1) / 10) * 10 + i + 1;
+                  return (
+                    <button
+                      key={pageNumber}
+                      onClick={() => handlePageChange(pageNumber)}
+                      className={`admin-il-pagination-button ${
+                        currentPage === pageNumber ? 'active' : ''
+                      }`}
+                    >
+                      {pageNumber}
+                    </button>
+                  );
+                }
+              )}
+              <button
+                onClick={handleNextPageSet}
+                disabled={currentPage === totalPages}
+                className="admin-il-pagination-button"
+              >
+                {'>'}
+              </button>
+              <button
+                onClick={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages}
+                className="admin-il-pagination-button"
+              >
+                {'>>'}
+              </button>
+            </>
           )}
-          <button
-            onClick={handleNextPageSet}
-            disabled={currentPage + 10 > totalPages}
-            className="admin-il-pagination-button"
-          >
-            다음
-          </button>
-          <button
-            onClick={() => handlePageChange(totalPages)}
-            disabled={currentPage === totalPages}
-            className="admin-il-pagination-button"
-          >
-            맨 끝
-          </button>
         </div>
       </div>
     </>

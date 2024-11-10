@@ -26,4 +26,5 @@ public class SalesRequestResponse {
     private Long memberId;
     private String productUploadStatus;
     private String MemberNickName;
+    private String rejectionText;
 }

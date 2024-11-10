@@ -117,6 +117,26 @@ const AdminMemberList = () => {
     setCurrentPage(totalPages);
   };
 
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      if (currentPage + 1 > 10) {
+        setCurrentPage(Math.min(startPage + groupSize - 1, totalPages)); // 다음 페이지 세트의 첫 번째 페이지로 이동
+      } else {
+        setCurrentPage(currentPage + 1); // 현재 그룹의 마지막 페이지로 이동
+      }
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      if (currentPage - 1 > 10) {
+        setCurrentPage(Math.max(startPage, 1)); // 이전 페이지 세트의 마지막 페이지로 이동
+      } else {
+        setCurrentPage(currentPage - 1); // 현재 그룹의 첫 번째 페이지로 이동
+      }
+    }
+  };
+
   const formatDateTime = (date) => {
     return new Date(date).toLocaleString('ko-KR', {
       year: 'numeric',
@@ -137,8 +157,8 @@ const AdminMemberList = () => {
             value={searchType}
             onChange={(e) => setSearchType(e.target.value)}
           >
-            <option value="이메일">이메일로 검색</option>
-            <option value="닉네임으">닉네임으로 검색</option>
+            <option value="이메일">검색어 입력</option>
+            <option value="닉네임으">검색어 입력</option>
           </select>
           <input
             type="text"
@@ -168,70 +188,84 @@ const AdminMemberList = () => {
               수정일
             </div>
           </div>
-          {currentMembers.map((member, index) => (
-            <div
-              key={index}
-              className="admin-member-member-row admin-member-clickable"
-              onClick={() => handleMemberClick(member)}
-            >
-              <div className="admin-member-column admin-member-nickname">
-                {member.memberNickName}
-              </div>
-              <div className="admin-member-column admin-member-email">
-                {member.memberEmail}
-              </div>
-              <div className="admin-member-column admin-member-role">
-                {member.role === 'ROLE_CLIENT'
-                  ? '회원'
-                  : member.role === 'ROLE_DEFAULT'
-                  ? '회원(탈퇴)'
-                  : member.role === 'ROLE_BANNED_CLIENT'
-                  ? '회원(정지됨)'
-                  : ''}
-              </div>
-              <div className="admin-member-column admin-member-phone">
-                {member.memberPhone}
-              </div>
-              <div className="admin-member-column admin-member-joinedDate">
-                {formatDateTime(member.entryDate)}
-              </div>
-              <div className="admin-member-column admin-member-modifiedDate">
-                {formatDateTime(member.updateDate)}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="admin-member-pagination">
-          <button onClick={handleFirstPage} disabled={currentPage === 1}>
-            처음 페이지
-          </button>
-          {currentGroup > 1 && (
-            <button onClick={handlePreviousGroup}>이전 페이지</button>
-          )}
-          {[...Array(endPage - startPage + 1).keys()].map((offset) => {
-            const pageNumber = startPage + offset;
-            if (pageNumber > totalPages) return null;
-            return (
-              <button
-                key={pageNumber}
-                onClick={() => handlePageChange(pageNumber)}
-                className={currentPage === pageNumber ? 'active' : ''}
+          {filteredMembers.length === 0 ? (
+            <div className="admin-member-no-results">검색결과가 없습니다.</div>
+          ) : (
+            currentMembers.map((member, index) => (
+              <div
+                key={index}
+                className="admin-member-member-row admin-member-clickable"
+                onClick={() => handleMemberClick(member)}
               >
-                {pageNumber}
-              </button>
-            );
-          })}
-          {currentGroup < Math.ceil(totalPages / groupSize) && (
-            <button onClick={handleNextGroup}>다음 페이지</button>
+                <div className="admin-member-column admin-member-nickname">
+                  {member.memberNickName}
+                </div>
+                <div className="admin-member-column admin-member-email">
+                  {member.memberEmail}
+                </div>
+                <div className="admin-member-column admin-member-role">
+                  {member.role === 'ROLE_CLIENT'
+                    ? '회원'
+                    : member.role === 'ROLE_DEFAULT'
+                    ? '회원(탈퇴)'
+                    : member.role === 'ROLE_BANNED_CLIENT'
+                    ? '회원(정지됨)'
+                    : ''}
+                </div>
+                <div className="admin-member-column admin-member-phone">
+                  {member.memberPhone}
+                </div>
+                <div className="admin-member-column admin-member-joinedDate">
+                  {formatDateTime(member.entryDate)}
+                </div>
+                <div className="admin-member-column admin-member-modifiedDate">
+                  {formatDateTime(member.updateDate)}
+                </div>
+              </div>
+            ))
           )}
-          <button
-            onClick={handleLastPage}
-            disabled={currentPage === totalPages}
-          >
-            마지막 페이지
-          </button>
         </div>
+        {filteredMembers.length > membersPerPage && (
+          <div className="admin-member-pagination">
+            <button onClick={handleFirstPage} disabled={currentPage === 1}>
+              {'<<'}
+            </button>
+            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+              {'<'}
+            </button>
+            {currentGroup > 1 && (
+              <button onClick={handlePreviousGroup}>이전 페이지 세트</button>
+            )}
+            {[...Array(endPage - startPage + 1).keys()].map((offset) => {
+              const pageNumber = startPage + offset;
+              if (pageNumber > totalPages) return null;
+              return (
+                <button
+                  key={pageNumber}
+                  onClick={() => handlePageChange(pageNumber)}
+                  className={currentPage === pageNumber ? 'active' : ''}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
+            {currentGroup < Math.ceil(totalPages / groupSize) && (
+              <button onClick={handleNextGroup}>다음 페이지 세트</button>
+            )}
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
+              {'>'}
+            </button>
+            <button
+              onClick={handleLastPage}
+              disabled={currentPage === totalPages}
+            >
+              {'>>'}
+            </button>
+          </div>
+        )}
 
         {isModalOpen && selectedMember && (
           <AdminMemberListDetails

@@ -104,7 +104,12 @@ const MypageInquiryComponent = () => {
                         placeholder="문의 내용" 
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        style={{ borderRadius: '20px', borderColor: '#ddd', padding: '15px' }} />
+                        onInput={(e) => {
+                            e.target.style.height = 'auto'; // 높이를 자동으로 맞추기 위해 초기화
+                            e.target.style.height = `${e.target.scrollHeight}px`; // 컨텐츠 높이에 맞춰 자동 확장
+                          }}
+                        style={{ borderRadius: '20px', borderColor: '#ddd', padding: '15px', resize: 'none', overflow: 'hidden' }}
+                        spellCheck={false} />
                 </Form.Group>
 
                 {/* 문의 등록 실패 에러 메시지 */}

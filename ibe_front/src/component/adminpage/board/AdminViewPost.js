@@ -20,16 +20,20 @@ const AdminViewPost = () => {
       <div className="admin-vp-post-box">
         <div className="admin-vp-button-group">
           <button
-            className={`admin-vp-sale-button ${view === 'sale' ? 'active' : ''}`}
+            className={`admin-vp-sale-button ${
+              view === 'sale' ? 'active' : ''
+            }`}
             onClick={handleSaleClick}
           >
-            판매 게시글 조회
+            판매 게시글 목록
           </button>
           <button
-            className={`admin-vp-info-button ${view === 'info' ? 'active' : ''}`}
+            className={`admin-vp-info-button ${
+              view === 'info' ? 'active' : ''
+            }`}
             onClick={handleInfoClick}
           >
-            정보 게시글 조회
+            정보 게시글 목록
           </button>
         </div>
 

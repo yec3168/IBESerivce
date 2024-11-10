@@ -13,20 +13,12 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.admin-il-inquiry-list {
-  border: none;
-}
-
-.admin-il-inquiry-list-item {
-  border: none;
-  margin-top: 5px;
-}
-
 .admin-il-inquiry-list-column {
   display: flex;
   background-color: #ffffff;
   border-bottom: 1px solid #ddd;
   font-weight: bold;
+  margin-top: 1rem;
 }
 
 .admin-il-inquiry-list-header {
@@ -40,6 +32,10 @@
   padding: 1rem 2rem;
   background-color: white;
   transition: max-height 0.3s ease;
+}
+
+.admin-il-inquiry-list-content:hover {
+  background-color: #eaeaea;
 }
 
 .admin-il-column {
@@ -68,25 +64,6 @@
   flex: 3;
 }
 
-.admin-il-button-container {
-  margin-top: 10px;
-}
-
-.admin-il-action-button {
-  padding: 8px 12px;
-  margin-right: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.admin-il-action-button:hover {
-  background-color: #0056b3;
-}
-
 .admin-il-column.admin-il-responder {
   flex: 2; /* 기존 flex 값에서 변경 가능 */
   padding: 5px;
@@ -105,7 +82,7 @@
 }
 
 .admin-il-pagination-button {
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
   border: 1px solid #ccc;
   padding: 5px 10px;
   margin: 0 5px;
@@ -114,19 +91,22 @@
 }
 
 .admin-il-pagination-button.active {
-  background-color: #007bff;
-  color: white;
-  border: 1px solid #007bff;
+  background-color: #ffc847;
+  border: none;
 }
 
 .admin-il-pagination-button:hover:not(.active) {
-  background-color: #e0e0e0;
+  background-color: wheat;
 }
 
 .admin-il-pagination-button:disabled {
   background-color: #f0f0f0;
   color: #ccc;
-  cursor: not-allowed;
+  cursor: default;
+}
+
+.admin-il-pagination-button:disabled:hover {
+  background-color: #f9f9f9;
 }
 
 .admin-il-pagination-button:not(:disabled):active {
@@ -149,8 +129,9 @@
 }
 
 .admin-il-search-container button {
-  background-color: #28a745;
-  color: white;
+  background-color: #ffc847;
+  color: black;
+  font-weight: bold;
   cursor: pointer;
   border: none;
   border-radius: 4px;
@@ -160,13 +141,7 @@
 }
 
 .admin-il-search-container button:hover {
-  background-color: #218838;
-  transform: scale(1.05);
-}
-
-.admin-il-search-container button:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+  background-color: wheat;
 }
 
 .admin-il-search-container input[type='text'] {
@@ -185,4 +160,10 @@
   border: 1px solid #ccc; /* 테두리 색상 설정 */
   border-radius: 4px; /* 모서리 둥글게 설정 */
   font-size: 16px; /* 글자 크기 설정 */
+}
+
+.admin-il-no-results {
+  text-align: center;
+  margin: 3rem;
+  color: #888;
 }

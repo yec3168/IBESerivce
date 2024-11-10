@@ -87,3 +87,9 @@
 .admin-io-action-button:hover {
   background-color: #0056b3;
 }
+
+.admin-io-no-inquiries {
+  text-align: center;
+  margin: 3rem;
+  color: #888;
+}

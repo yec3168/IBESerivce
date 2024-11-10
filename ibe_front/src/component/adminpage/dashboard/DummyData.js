@@ -16,14 +16,18 @@ const DummyData = Array.from({ length: 500 }, (_, index) => {
       baseTransCount = Math.floor(baseTransCount * 0.2);
       break;
     case '기타':
-      baseIncome = Math.floor(baseIncome * 2);
-      baseTransCount = Math.floor(baseTransCount * 1.2);
+      baseIncome = Math.floor(baseIncome * 0.4);
+      baseTransCount = Math.floor(baseTransCount * 2);
       break;
     case '아동 도서':
-      baseIncome = Math.floor(baseIncome * 1.5);
-      baseTransCount = Math.floor(baseTransCount * 0.4);
+      baseIncome = Math.floor(baseIncome * 0.5);
+      baseTransCount = Math.floor(baseTransCount * 0.8);
       break;
     case '아동 완구':
+      baseIncome = Math.floor(baseIncome * 1.2);
+      baseTransCount = Math.floor(baseTransCount * 0.7);
+      break;
+    case '아동 의류':
       baseIncome = Math.floor(baseIncome * 1.2);
       baseTransCount = Math.floor(baseTransCount * 1.5);
       break;

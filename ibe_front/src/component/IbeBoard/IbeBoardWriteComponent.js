@@ -96,6 +96,7 @@ const IbeBoardWriteComponent = () => {
                   required
                   className="board-input"
                   maxLength={40}
+                  spellCheck={false}
                 />
               </Form.Group>
 
@@ -137,6 +138,7 @@ const IbeBoardWriteComponent = () => {
                   required
                   className="board-textarea"
                   maxLength={250}
+                  spellCheck={false}
                 />
               </Form.Group>
 
