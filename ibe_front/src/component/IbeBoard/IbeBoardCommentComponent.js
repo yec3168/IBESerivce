@@ -127,7 +127,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
       <Row>
         <Form.Group controlId="newComment">
           <hr className="board-comment-hr" />
-          {!isRestrictedUser && (
+          {/* {!isRestrictedUser && (
             <>
               <Form.Control
                 as="textarea"
@@ -146,7 +146,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                 등록
               </Button>
             </>
-          )}
+          )} */}
           <br />
           <br />
           {comments.map((comment) => (
@@ -207,7 +207,28 @@ const IbeBoardCommentComponent = ({ boardId }) => {
               )}
               <hr />
             </div>
+            
           ))}
+          {!isRestrictedUser && (
+            <>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="댓글을 입력하세요. (최대 200자)"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                maxLength={200}
+                style={{ resize: 'none' }}
+              />
+              <Button
+                variant="primary"
+                onClick={handleCommentSubmit}
+                className="board-submit-btn"
+              >
+                등록
+              </Button>
+            </>
+          )}
         </Form.Group>
       </Row>
     </div>
