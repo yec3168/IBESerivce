@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Board.css';
-import { Button, Col, Container, Row, Form, Spinner } from 'react-bootstrap';
+import { Button, Col, Container, Row, Form, Spinner, Modal } from 'react-bootstrap';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 const IbeBoardWriteComponent = () => {
   const [title, setTitle] = useState('');
@@ -11,6 +12,10 @@ const IbeBoardWriteComponent = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showResultModal, setShowResultModal] = useState(false);  // Result modal state
+  const [resultMessage, setResultMessage] = useState("");  // Result message state
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -66,15 +71,27 @@ const IbeBoardWriteComponent = () => {
       );
 
       if (response.status === 200) {
-        alert('게시글이 성공적으로 작성되었습니다.');
-        window.location.href = '/boards';
+            setError("");
+            setResultMessage('게시글이 성공적으로 작성되었습니다.');
+            handleCloseModal();
+            setShowResultModal(true);
       }
     } catch (error) {
       console.error('Error posting the board:', error);
       setError('게시글 작성에 실패했습니다. 다시 시도해주세요.');
+      setResultMessage('게시글 작성에 실패했습니다. 다시 시도해주세요.')
+      setShowResultModal(true);
     } finally {
       setLoading(false);
     }
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleCloseResultModal = () => {
+    setShowResultModal(false);
+    navigate('/boards');
   };
 
   return (
@@ -151,13 +168,39 @@ const IbeBoardWriteComponent = () => {
               {error && <p className="board-error-message mt-3">{error}</p>}
 
               <div className="text-end">
-                <Button type="submit" className="board-add-post-btn">
+                <Button className="board-add-post-btn" onClick={()=>setShowModal(true)}>
                   {loading ? <Spinner animation="border" size="sm" /> : '작성'}
                 </Button>
               </div>
+              <Modal className="board-molal" show={showModal} onHide={handleCloseModal} centered>
+                <Modal.Header closeButton>
+                    {/* <Modal.Title></Modal.Title> */}
+                </Modal.Header>
+                <Modal.Body>
+                    <h3>게시글을 등록하시겠습니까?</h3>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button>
+                    <Button type="submit" className='board-add-post-btn' onClick={handleSubmit}>확인</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* 결과 모달 */}
+            <Modal  className="board-molal"  show={showResultModal} onHide={handleCloseResultModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>결과</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <h3>{resultMessage}</h3>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className='board-add-post-btn' onClick={handleCloseResultModal}>확인</Button>
+                </Modal.Footer>
+            </Modal>
             </Form>
           </Col>
         </Row>
+        
       </Container>
     </div>
   );
