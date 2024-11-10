@@ -126,7 +126,7 @@ const IbeBoardWriteComponent = () => {
                   required
                   className="board-select"
                 >
-                  <option value="">선택하세요</option>
+                  <option value="">카테고리를 선택하세요</option>
                   {/* 관리자 또는 보드 관리자일 때만 공지 카테고리 옵션 표시 */}
                   {isAdmin && <option value="NOTICE">공지</option>}
                   <option value="REQUEST">요청</option>
