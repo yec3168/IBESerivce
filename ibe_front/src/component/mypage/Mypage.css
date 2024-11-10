@@ -51,16 +51,8 @@
 
 /* MemberInfoCardComponent */
 
-#card_memberInfo{
-    font-family: "CookieRun-Regular", sans-serif !important;
-    width: 500px;
-    
-}
-
-/* MemberInfoCardComponent */
-
 #card_memberInfo {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
     width: 400px;
     height: 180px;
     border: 1px solid #ddd; 
@@ -70,25 +62,26 @@
 }
 
 #card_memberInfo .card-title {
-    font-size: 25px;
+    font-size: 27px;
     font-weight: bold;
     color: #333;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     margin-top: 5px;
 }
 
 #span_welcome {
-    font-size: 25px;
+    font-size: 27px;
     color: #333;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     font-weight: 100;
     margin-top: 5px;
 }
 
 #card_memberInfo .card-text {
     font-size: 20px;
+    font-weight: bolder;
     color: #333;
     text-align: center;
     margin-bottom: 10px;
@@ -117,12 +110,13 @@
 /* MemberPointCardComponent */
 
 #card_memberPointInfo{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
     width: 400px;
     height: 180px;
 }
 
 #card_memberPointInfo {
+    font-weight: bold;
     border: 1px solid #ddd; 
     border-radius: 10px; 
     padding: 20px;
@@ -132,7 +126,7 @@
 #card_memberPointInfo .card-text {
     font-size: 25px; 
     color: #333; 
-    margin-bottom: 30px; 
+    margin-bottom: 20px; 
     display: flex;
     justify-content: center;
 }
@@ -144,9 +138,10 @@
 #btn_pCharge, #btn_pPayback {
     background-color: #f1c40f; 
     border: 1px solid #f1c40f;
-    color: white;
+    color: rgb(26, 26, 73);
     font-size: 16px; 
-    padding: 10px 20px;
+    font-weight: 600;
+    padding: 10px 15px;
     border-radius: 5px; 
     transition: background-color 0.3s, transform 0.2s; 
 }
@@ -154,6 +149,7 @@
 #btn_pCharge:hover, #btn_pPayback:hover {
     background-color: #f39c12; 
     border-color: #f39c12; 
+    color:white;
     transform: scale(1.05); 
 }
 
@@ -165,11 +161,14 @@
 /* MypagePurchaseListComponent */
 
 #h3_purListTitle{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
+    font-weight: bold;
+    font-size: 25px;
     background-color: #f6c3b23f;
     height: 50px;
-    width: 90%;
-    margin-top: 20px;
+    width: 970px;
+    margin-top: 40px;
+    margin-left: 220px;
     padding-left: 40px; 
     display: flex;
     align-items: center;
@@ -221,11 +220,14 @@
 /* MypageSalesListComponent */
 
 #h3_salListTitle{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
+    font-weight: bold;
+    font-size: 25px;
     background-color: #f6c3b23f;
     height: 50px;
-    width: 90%;
+    width: 970px;
     margin-top: 20px;
+    margin-left: 220px;
     padding-left: 40px; 
     display: flex;
     align-items: center;
@@ -338,7 +340,7 @@
 /* MypageInquiryComponent */
 
 .containerInq{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
 }
 
 #div_inqInfo{
@@ -363,7 +365,7 @@
 /* MypageInquiryListComponent */
 
 .containerInqList{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
 }
 
 #h1_inqListTitle{
@@ -429,11 +431,11 @@
 
 #container_purListPaging {
     margin-bottom: 1rem;
+    width: 1100px;
 }
 
 #col_purListPaging {
     padding: 5px; 
-    border-bottom: 1px solid gray;
     font-family: 'Noto Sans KR', sans-serif; 
     font-size: 15px;
     display: flex;
@@ -441,9 +443,13 @@
     justify-content: center;
 }
 
+#row_purListPaging{
+    border-bottom: 1px solid gray;
+    width: 970px;
+}
+
 #col_purListPagingTitle{
     padding: 5px; 
-    border-bottom: 1px solid gray;
     font-family: 'Noto Sans KR', sans-serif; 
     display: flex;
     align-items: center;
@@ -454,7 +460,8 @@
 }
 
 #purListPagingTitle {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
+    font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -467,6 +474,7 @@
     height: 80px; 
     margin-bottom: 5px;
     margin-left: 20px;
+    object-fit: cover;
 }
 
 #img_purListPagingBadge{
@@ -510,7 +518,7 @@
 /* MypageMemberInfoChangeComponent */
 
 #container_info{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    font-family: "PretendardVariable";
 }
 
 #h1_infoTitle{

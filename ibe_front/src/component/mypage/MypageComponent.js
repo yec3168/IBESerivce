@@ -10,7 +10,7 @@ const MypageComponent = () => {
     return (
         <>  
             <Container fluid>
-                <Row>
+                <Row className="mt-2">
                     <Col className="p-3" id="mypage_col_002">
                         <Row>
                             <Col className="p-2 d-flex justify-content-end">
