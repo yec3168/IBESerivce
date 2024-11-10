@@ -198,12 +198,14 @@
 }
 
 #btn_purConfirm{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "Paperlogy-3Light";
     font-size: 15px;
 }
 
 #purListTitle {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "Paperlogy-3Light";
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -257,12 +259,14 @@
 }
 
 #btn_salConfirm{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "Paperlogy-3Light";
     font-size: 15px;
 }
 
 #salListTitle {
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "Paperlogy-3Light";
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -279,7 +283,8 @@
 /* MypagePointChargeComponent */
 
 .containerPCharge{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "Paperlogy-3Light";
 }
 
 #div_pointInfo{

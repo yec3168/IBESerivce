@@ -36,7 +36,7 @@ function SignInComponent(){
             .then(response => {
             console.log(response.data);
             if (response.data.code === "200") {
-                alert("로그인 성공!");
+                // alert("로그인 성공!");
                 console.log(response.data.message);
                 let accessToken = response.data.message;
                 localStorage.setItem('accessToken', accessToken);
