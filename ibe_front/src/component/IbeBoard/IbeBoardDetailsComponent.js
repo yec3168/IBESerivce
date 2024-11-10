@@ -123,6 +123,9 @@ const IbeBoardDetailsComponent = () => {
     setShowResultModal(false);
     navigate('/boards');
   };
+  const handleUpdateBtn=()=>{
+    navigate(`/boards/details/update/${boardId}`);
+  }
   return (
     <div id="board_content">
       <Container className="board-container">
@@ -145,17 +148,30 @@ const IbeBoardDetailsComponent = () => {
                 <div style={{ display: 'inline-block', marginRight: '20px' }}>
                   <strong>조회수:</strong> {post.views}
                 </div>
-                {(isAuthor || hasDeletePermission) && (
+                <div style={{display:'inline',float:"right"}}>
+                  {
+                    (isAuthor) && (
+                      <Button
+                        className='board-add-post-btn' style={{display:'inline',height:'40px'}}
+                        onClick={()=>handleUpdateBtn()}
+                        // className="ml-auto"
+                      >
+                        수정
+                      </Button>)
+                  }
+                  {(isAuthor || hasDeletePermission) && (
                   <Button
-                    className='board-add-post-btn' style={{display:'inline',float:"right",backgroundColor:'#f5a1a1',height:'40px'}}
+                    className='board-add-post-btn' style={{display:'inline',backgroundColor:'#f5a1a1',height:'40px'}}
                     onClick={()=>setShowModal(true)}
                     // className="ml-auto"
                   >
                     삭제
                   </Button>
                 )}
+                </div>
+                
                 <hr />
-                <p className='board-detail-text'>{post.content}</p>
+                <p className='board-text'>{post.content}</p>
                 <br />
                 <br />
                 <p className="board-comment-top">
