@@ -152,7 +152,7 @@ const IbeBoardDetailsComponent = () => {
                   {
                     (isAuthor) && (
                       <Button
-                        className='board-add-post-btn' style={{display:'inline',height:'40px'}}
+                        className='board-add-post-btn' style={{display:'inline',height:'40px', marginRight: '10px'}}
                         onClick={()=>handleUpdateBtn()}
                         // className="ml-auto"
                       >
