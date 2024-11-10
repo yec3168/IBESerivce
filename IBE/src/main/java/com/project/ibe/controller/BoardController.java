@@ -117,4 +117,12 @@ public class BoardController {
         }
     }
 
+    @PutMapping("/{id}")
+    public Response updateBoard(@PathVariable("id")Long boardId, @RequestBody @Valid BoardFormRequest boardFormRequest){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.updateBoard(boardId,boardFormRequest), "200");
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
 }

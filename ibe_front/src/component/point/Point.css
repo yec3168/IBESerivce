@@ -1,0 +1,12 @@
+.point-container{
+    font-family: Pretendard-Regular;
+    font-weight: bold;
+    justify-content:center;
+    align-items:center;
+}
+.point-text{
+    font-size: 30px;
+}
+.point-table{
+    font-size: 30PX;
+}

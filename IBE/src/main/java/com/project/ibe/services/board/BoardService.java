@@ -12,6 +12,7 @@ import com.project.ibe.repository.board.BoardCommentRepository;
 import com.project.ibe.repository.board.BoardReplyRepository;
 import com.project.ibe.repository.board.BoardRepository;
 import com.project.ibe.services.member.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -233,5 +234,18 @@ public class BoardService {
             boardListResponseList.add(boardListResponse);
         }
         return boardListResponseList;
+    }
+
+    // 게시글 수정
+    public BoardDetailResponse updateBoard(Long boardId, @Valid BoardFormRequest boardFormRequest) {
+        Board board = findBoardById(boardId);
+        // 제목, 카테고리, 내용
+        board.setBoardTitle(boardFormRequest.getBoardTitle());
+        board.setBoardContent(boardFormRequest.getBoardContent());
+        board.setBoardCategory(boardFormRequest.getBoardCategory());
+        Board savedBoard =boardRepository.save(board);
+        BoardDetailResponse boardDetailResponse = modelMapper.map(savedBoard, BoardDetailResponse.class);
+        boardDetailResponse.setBoardCommentCnt(getCommentCntByBoard(savedBoard));
+        return boardDetailResponse;
     }
 }

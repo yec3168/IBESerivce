@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Board.css';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import { jwtDecode } from 'jwt-decode';
 import IbeBoardCommentComponent from './IbeBoardCommentComponent';
 import { FaRegCommentDots } from 'react-icons/fa6';
@@ -12,6 +12,9 @@ const IbeBoardDetailsComponent = () => {
   const [post, setPost] = useState(null);
   const [isAuthor, setIsAuthor] = useState(false);
   const [hasDeletePermission, setHasDeletePermission] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showResultModal, setShowResultModal] = useState(false);  // Result modal state
+  const [resultMessage, setResultMessage] = useState("");  // Result message state
 
   const categoryMap = {
     NOTICE: '공지',
@@ -83,8 +86,8 @@ const IbeBoardDetailsComponent = () => {
   
 
   const handleDeletePost = () => {
-    const isConfirmed = window.confirm('게시글을 정말 삭제하시겠습니까?');
-    if (isConfirmed) {
+    // const isConfirmed = window.confirm('게시글을 정말 삭제하시겠습니까?');
+    // if (isConfirmed) {
       const token = localStorage.getItem('accessToken');
       fetch('http://localhost:8080/api/boards/delete', {
         method: 'PUT',
@@ -97,16 +100,32 @@ const IbeBoardDetailsComponent = () => {
         .then((response) => response.json())
         .then((data) => {
           if (data.responseCode === 'SUCCESS') {
-            alert('게시글이 삭제되었습니다.');
-            navigate('/boards');
+            // alert('게시글이 삭제되었습니다.');
+            // navigate('/boards');
+            setResultMessage('게시글이 삭제되었습니다.')
+            handleCloseModal()
+            setShowResultModal(true);
           } else {
+            setResultMessage('게시글 삭제를 실패했습니다.')
+            setShowResultModal(true);
             console.error('게시글 삭제 실패:', data.message);
           }
         })
         .catch((error) => console.error('Error deleting post:', error));
-    }
+    // }
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleCloseResultModal = () => {
+    setShowResultModal(false);
+    navigate('/boards');
+  };
+  const handleUpdateBtn=()=>{
+    navigate(`/boards/details/update/${boardId}`);
+  }
   return (
     <div id="board_content">
       <Container className="board-container">
@@ -120,24 +139,39 @@ const IbeBoardDetailsComponent = () => {
           <>
             <Row>
               <Col>
-                <p>{post.nickname}</p>
+                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                  <strong>작성자:</strong> {post.nickname}
+                </div>
                 <div style={{ display: 'inline-block', marginRight: '20px' }}>
                   <strong>등록 시간:</strong> {post.createdAt}
                 </div>
                 <div style={{ display: 'inline-block', marginRight: '20px' }}>
                   <strong>조회수:</strong> {post.views}
                 </div>
-                {(isAuthor || hasDeletePermission) && (
+                <div style={{display:'inline',float:"right"}}>
+                  {
+                    (isAuthor) && (
+                      <Button
+                        className='board-add-post-btn' style={{display:'inline',height:'40px', marginRight: '10px'}}
+                        onClick={()=>handleUpdateBtn()}
+                        // className="ml-auto"
+                      >
+                        수정
+                      </Button>)
+                  }
+                  {(isAuthor || hasDeletePermission) && (
                   <Button
-                    variant="danger"
-                    onClick={handleDeletePost}
-                    className="ml-auto"
+                    className='board-add-post-btn' style={{display:'inline',backgroundColor:'#f5a1a1',height:'40px'}}
+                    onClick={()=>setShowModal(true)}
+                    // className="ml-auto"
                   >
                     삭제
                   </Button>
                 )}
+                </div>
+                
                 <hr />
-                <p>{post.content}</p>
+                <p className='board-text'>{post.content}</p>
                 <br />
                 <br />
                 <p className="board-comment-top">
@@ -149,7 +183,33 @@ const IbeBoardDetailsComponent = () => {
             <IbeBoardCommentComponent boardId={boardId} />
           </>
         )}
-      </Container>
+
+            <Modal className="board-molal" show={showModal} onHide={handleCloseModal} centered>
+                <Modal.Header closeButton>
+                    {/* <Modal.Title>게시글 삭제 확인</Modal.Title> */}
+                </Modal.Header>
+                <Modal.Body>
+                    <h3>게시글을 <span style={{color:'red'}}>삭제</span>하시겠습니까?</h3>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button>
+                    <Button className='board-add-post-btn' onClick={handleDeletePost}>확인</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* 결과 모달 */}
+            <Modal  className="board-molal"  show={showResultModal} onHide={handleCloseResultModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>결과</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <h3>{resultMessage}</h3>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className='board-add-post-btn' onClick={handleCloseResultModal}>확인</Button>
+                </Modal.Footer>
+            </Modal>
+        </Container>
     </div>
   );
 };

@@ -1,9 +1,10 @@
-import { Button, Container } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import point_icon from "../assets/images/header/coin_purse_icon.png";
 import ibe_logo from "../assets/images/header/ibe_logo.png";
 import { useState } from "react";
 import { nhTransfer } from '../service/PointService';
 import { useNavigate } from "react-router-dom";
+import "./Point.css";
 
 const MypagePointPayBackComfrimComponent = ()=>{
     const [isClicked, setIsClicked] = useState(false);
@@ -43,49 +44,41 @@ const MypagePointPayBackComfrimComponent = ()=>{
     }
     return(
         <>
-        <Container className="text-center my-5 containerPCharge">
-
-        <img src={ibe_logo} width="200px" alt="logo" />
-        <h1 id="h1_pointTitle">환급 준비</h1>
-        <hr />
-        <br/> 
-        <table style={{margin: 'auto',borderCollapse: 'separate' ,borderSpacing: '10px 10px'}}>
-            <tr>
-                <td colSpan={'2'} align="center">
-                    <h3>
-                    <img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} />
+        <Container className="text-center my-5 point-container">
+        
+        <Row>
+            <Col className="mb-4 ">
+                <img src={ibe_logo} width="200px" alt="logo" />
+                <h1><strong>환급 준비</strong></h1>
+                <hr/>
+            </Col>
+        </Row>
+        <Row>
+            <Col className="mb-4 ">
+                <div className="point-text">
+                    <p >
+                        <img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} />
                         {point}&nbsp;<span id="span_won">p</span>
-                    </h3>
-                </td>
-            </tr>
-            <tr>
-                <td><h3>{bankName}&nbsp;</h3></td>
-                <td align="right">
-                    <h3>
-                    {accountNumber}
-                    </h3>
-                </td>
-            </tr>
-            
-            <tr>
-                <td colSpan={'2'}>
-                    <h2>신청하시겠습니까?</h2> 
-                </td>
-            </tr>
-        </table> 
-
-
-
-        <br/>
-        <hr />
-        <Button onClick={()=>transfer()}
-                style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
-                확인
-        </Button><Button onClick={()=>window.close()}
-                style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
-                취소
-        </Button>
-        </Container>
+                    </p>
+                    <p >{bankName}&nbsp;{accountNumber}</p>
+                    <p >신청하시겠습니까?</p> 
+                </div> 
+            </Col>
+        </Row>
+        <Row>
+            <Col className="mb-4 ">
+                <hr />
+                <Button onClick={()=>transfer()}
+                    style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginRight:'20px', width:'80px', height:'50px', color:'#000435' }}>
+                    <strong>확인</strong>
+                </Button>
+                <Button onClick={()=>window.close()}
+                        style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B',  marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
+                        <strong>취소</strong>
+                </Button>
+            </Col>
+        </Row>
+        </Container> 
 
         </>
     )
