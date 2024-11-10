@@ -125,4 +125,24 @@ public class BoardController {
             return new Response(ResponseCode.FAIL, e.getMessage(), "404");
         }
     }
+
+    //댓글 삭제
+    @PutMapping("/comments/delete/{id}")
+    public Response deleteBoardComment(@PathVariable("id") Long id){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.deleteBoardComment(id), "200");
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
+
+    //대댓글 삭제
+    @PutMapping("/reply/delete/{id}")
+    public Response deleteBoardReply(@PathVariable("id") Long id){
+        try{
+            return new Response(ResponseCode.SUCCESS, boardService.deleteBoardReply(id), "200");
+        } catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
 }

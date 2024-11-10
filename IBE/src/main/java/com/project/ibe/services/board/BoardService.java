@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -101,11 +102,19 @@ public class BoardService {
         for(BoardComment boardComment : boardCommentList){
             // add할 변수.
             BoardCommentResponse boardCommentResponse = modelMapper.map(boardComment, BoardCommentResponse.class);
-
+            if(boardComment.isBoardCommentStatus()){
+                boardCommentResponse.setBoardCommentContent("삭제된 댓글입니다.");
+            }
             // 댓글의 대댓글 리스트를 가져옴.
             List<BoardReplyResponse> boardReplyList = boardReplyRepository.findAllByBoardComment(boardComment)
                     .stream()
-                    .map(boardReply -> modelMapper.map(boardReply, BoardReplyResponse.class))
+                    .map(boardReply -> {
+                        BoardReplyResponse map = modelMapper.map(boardReply, BoardReplyResponse.class);
+                        if(boardReply.isBoardReplyStatus()){
+                            map.setBoardReplyContent("삭제된 댓글입니다.");
+                        }
+                        return map;
+                    })
                     .toList();
             boardCommentResponse.setBoardReplyResponseList(boardReplyList);
 
@@ -166,7 +175,20 @@ public class BoardService {
         return modelMapper.map(saveBoardReply, BoardReplyResponse.class);
     }
 
-
+    public boolean deleteBoardComment(Long boardCommentId){
+        BoardComment comment = boardCommentRepository.findById(boardCommentId)
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
+        comment.setBoardCommentStatus(true);
+        boardCommentRepository.save(comment);
+        return true;
+    }
+    public boolean deleteBoardReply(Long boardReplyId){
+        BoardReply reply= boardReplyRepository.findById(boardReplyId)
+                .orElseThrow(() -> new BusinessException("Member not found", HttpStatus.NOT_FOUND));
+        reply.setBoardReplyStatus(true);
+        boardReplyRepository.save(reply);
+        return true;
+    }
     /**
      * 게시글 아이디로 찾기.
      */
