@@ -279,7 +279,8 @@
 /* MypagePointChargeComponent */
 
 .containerPCharge{
-    font-family: "CookieRun-Regular", sans-serif !important;
+    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "Paperlogy-3Light";
 }
 
 #div_pointInfo{
