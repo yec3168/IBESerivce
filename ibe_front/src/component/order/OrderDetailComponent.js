@@ -110,7 +110,7 @@ const OrderDetailComponent = () => {
 
     return (
         <Container className="order-detail">
-            <p className="h4 mb-4">택배거래, 안전결제로 구매합니다</p>
+            <p className="h4 mb-4">택배거래, 안전결제로 구매신청합니다.</p>
 
             <div className="product_info mb-4 p-3 rounded shadow-sm">
                 <Row>
@@ -152,7 +152,7 @@ const OrderDetailComponent = () => {
 
             <div className="text-center mt-4">
                 <Button variant="custom" className="btn-outline-dark" onClick={handlePurchase}>
-                    구매하기
+                    구매신청
                 </Button>
             </div>
             
