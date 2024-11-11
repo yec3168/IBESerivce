@@ -17,7 +17,7 @@ const MypageLayoutComponent = (props) => {
                     <MypageSidenavComponent />
                 </Col>
                 {/* 마이페이지 사이드 메뉴 제외 바디 */}
-                <Col className="p-3" id="mypage_col_002">
+                <Col md={8} className="p-3" id="mypage_col_002">
                     {/* 마이페이지 바디에 들어가는 컴포넌트 */}
                     {props.children}
                 </Col>

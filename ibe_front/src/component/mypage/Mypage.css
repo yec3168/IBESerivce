@@ -168,7 +168,7 @@
     height: 50px;
     width: 970px;
     margin-top: 40px;
-    margin-left: 220px;
+    /* margin-left: 220px; */
     padding-left: 40px; 
     display: flex;
     align-items: center;
@@ -229,7 +229,7 @@
     height: 50px;
     width: 970px;
     margin-top: 20px;
-    margin-left: 220px;
+    /* margin-left: 220px; */
     padding-left: 40px; 
     display: flex;
     align-items: center;
