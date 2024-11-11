@@ -155,7 +155,7 @@ const MypageSalesListComponent = () => {
 
     return (
         <>
-            <h3 id="h3_salListTitle">판매 목록</h3>
+            <h3 id="h3_salListTitle">판매 내역</h3>
 
             <Container className="mb-3" id="container_purListPaging">
                 {currentItems.map(item => (
