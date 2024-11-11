@@ -61,9 +61,9 @@ const MypageInquiryComponent = () => {
     };
 
     return (
-        <Container className="text-center my-5 containerInq" style={{ maxWidth: '600px' }}>
+        <Container className="text-center my-5 containerInq" style={{ maxWidth: '600px', marginLeft: '250px' }}>
             {/* 1:1문의 타이틀*/}
-            <h1 id="h1_inqTitle">1&nbsp;:&nbsp;1 &nbsp;문의</h1>
+            <h1 id="h1_inqTitle">1:1 &nbsp;문의</h1>
             <div id="div_inqInfo">아이비를 사용하면서 생긴 문제를 문의하세요.</div>
 
             {/* 구분선 */}
@@ -76,7 +76,7 @@ const MypageInquiryComponent = () => {
                     <Form.Select 
                         value={category}
                         onChange={(e) => setCategory(e.target.value)} 
-                        style={{ borderRadius: '20px', borderColor: '#ddd', padding: '10px 15px' }}>
+                        style={{ borderRadius: '10px', borderColor: '#ddd', padding: '10px 15px' }}>
                         <option value="">문의 유형</option>
                         {inquiryCategory.map((category, index) => (
                             <option key={index} value={category}>
@@ -93,7 +93,7 @@ const MypageInquiryComponent = () => {
                         placeholder="제목" 
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        style={{ borderRadius: '20px', borderColor: '#ddd', padding: '10px 15px' }} />
+                        style={{ borderRadius: '10px', borderColor: '#ddd', padding: '10px 15px' }} />
                 </Form.Group>
 
                 {/* 문의 내용 */}
@@ -104,7 +104,7 @@ const MypageInquiryComponent = () => {
                         placeholder="문의 내용" 
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        style={{ borderRadius: '20px', borderColor: '#ddd', padding: '15px' }} />
+                        style={{ borderRadius: '10px', borderColor: '#ddd', padding: '15px' }} />
                 </Form.Group>
 
                 {/* 문의 등록 실패 에러 메시지 */}
@@ -118,7 +118,7 @@ const MypageInquiryComponent = () => {
                         <Button 
                             id="button_inqSubmit" 
                             className="px-4" 
-                            style={{ borderRadius: '20px' }}
+                            style={{ borderRadius: '20px', fontWeight:'bold' }}
                             type="submit">
                             문의하기
                         </Button>

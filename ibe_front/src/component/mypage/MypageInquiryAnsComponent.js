@@ -43,7 +43,7 @@ const MypageInquiryAnsComponent = () => {
                 if (inquiryAnswerResponse.data.responseCode === 'SUCCESS') {
                     setInquiryAnswer(inquiryAnswerResponse.data.data);
                 } else {
-                    setError('답변 데이터를 가져오는데 실패했습니다.');
+                    // setError('답변 데이터를 가져오는데 실패했습니다.');
                 }
 
             } catch (err) {
@@ -100,25 +100,22 @@ const MypageInquiryAnsComponent = () => {
                     </Col>
                 </Row>
 
-                {/* 구분선 */}
-                <hr />
-
                 {/* 문의 답변 */}
                 <Row className="mb-3">
                     <Col className="text-start">
-                        <div id="div_inqAns" style={{ height: '300px' }}>
-                            <div>
-                                {/* 답변 내용 표시 */}
-                                {inquiryAnswer?.inquiryAnswered ? (
-                                    <>
-                                        [운영자]<br />
+                        {/* 답변이 없을 때 div_inqAns를 숨기도록 조건부 렌더링 적용 */}
+                        {inquiryAnswer?.inquiryAnswered && inquiryAnswer.inquiryAnswerContent ? (
+                            <>
+                                <hr />
+                                <div id="div_inqAns" style={{ height: '300px' }}>
+                                    <div>
+                                        {/* 답변 내용 표시 */}
+                                        <strong>[운영자]</strong><br />
                                         {inquiryAnswer.inquiryAnswerContent}
-                                    </>
-                                ) : (
-                                    <div>답변이 아직 없습니다.</div>
-                                )}
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : null}
                     </Col>
                 </Row>
             </Container>

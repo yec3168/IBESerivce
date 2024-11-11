@@ -364,6 +364,12 @@
     font-family: "PretendardVariable";
 }
 
+#h1_inqTitle{
+    font-family: "Paperlogy-3Light";
+    font-weight: bold;
+    margin-top: -10px;
+}
+
 #div_inqInfo{
     margin-top: 20px;
     font-size: 20px;
@@ -372,7 +378,7 @@
 
 #button_inqSubmit {
     background-color: #FFD54F;
-    border: 2px solid #FFB800; 
+    border: none;
     color: #000435; 
     border-radius: 20px; 
     transition: background-color 0.3s ease, color 0.3s ease; 
@@ -391,17 +397,22 @@
 
 #h1_inqListTitle{
     margin-bottom: 50px;
+    font-family: "Paperlogy-3Light";
+    font-weight: bold;
+    margin-top: -10px;
 }
 
 #button_inqSearchDate{
     background-color: #FFD54F;
-    border: 2px solid #FFB800; 
+    border: none;
     color: #000435; 
+    font-weight: bold;
 }
 
 .inqListTab {
     background-color: transparent; 
     color: inherit; 
+    font-weight: bold;
 }
 
 .inqListTab:hover {
@@ -440,6 +451,9 @@
 
 #h1_inqAnsTitle{
     margin-bottom: 50px;
+    font-family: "Paperlogy-3Light";
+    font-weight: bold;
+    margin-top: -10px;
 }
 
 #div_inqAns{
@@ -545,14 +559,22 @@
     font-family: "PretendardVariable";
 }
 
+#container_info .form-label{
+    font-weight: bold;
+}
+
 #h1_infoTitle{
     margin-bottom: 50px;
+    font-family: "Paperlogy-3Light";
+    font-weight: bold;
+    margin-top: -10px;
 }
 
 #button_infoCheckPw {
     background-color: #ffe135; 
     border: none;
     color: #333; 
+    font-weight: bold;
     transition: background-color 0.3s ease; 
 }
 
@@ -564,6 +586,7 @@
     background-color: #ffe135; 
     border: none;
     color: #333; 
+    font-weight: bold;
     transition: background-color 0.3s ease; 
 }
 
@@ -575,6 +598,7 @@
     background-color: #ffe135; 
     border: none;
     color: #333; 
+    font-weight: bold;
     transition: background-color 0.3s ease; 
 }
 
