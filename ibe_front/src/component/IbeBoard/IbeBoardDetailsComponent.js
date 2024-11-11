@@ -42,8 +42,7 @@ const IbeBoardDetailsComponent = () => {
             navigate('/boards'); // 게시글이 삭제된 상태이면 /boards로 리다이렉트
           } else {
             const postData = {
-              category:
-                categoryMap[data.data.boardCategory] || data.data.boardCategory,
+              category: categoryMap[data.data.boardCategory] || data.data.boardCategory,
               title: data.data.boardTitle,
               nickname: data.data.member.memberNickName,
               email: data.data.member.memberEmail,
@@ -51,8 +50,11 @@ const IbeBoardDetailsComponent = () => {
               views: data.data.boardHit,
               content: data.data.boardContent,
               commentCount: data.data.boardCommentCnt,
+              categoryEng: data.data.boardCategory, // 해당 값을
             };
+            
             setPost(postData);
+            console.log(postData)
   
             const token = localStorage.getItem('accessToken');
             if (token) {
@@ -129,30 +131,36 @@ const IbeBoardDetailsComponent = () => {
   return (
     <div id="board_content">
       <Container className="board-container">
-        <Row>
-          <h2 className="board-title">
-            [{post?.category}] {post?.title}
-          </h2>
+        <Row style={{fontFamily:"Paperlogy-4Regular"}}>   
+        <p className='h3'>
+          {post ? (
+            <>
+              <span className={`board-category-${post.categoryEng}`}>[{post.category}]</span> {post.title}
+            </>
+          ) : (
+            <span>Loading...</span>
+          )}
+        </p>
         </Row>
 
         {post && (
           <>
-            <Row>
+            <Row style={{fontFamily:"Pretendard-Regular"}}>
               <Col>
-                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                <div style={{ display: 'inline-block', marginRight: '20px', fontSize:"12px" }}>
                   <strong>작성자:</strong> {post.nickname}
                 </div>
-                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                <div style={{ display: 'inline-block', marginRight: '20px', fontSize:"12px"}}>
                   <strong>등록 시간:</strong> {post.createdAt}
                 </div>
-                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                <div style={{ display: 'inline-block', marginRight: '20px', fontSize:"12px"}}>
                   <strong>조회수:</strong> {post.views}
                 </div>
                 <div style={{display:'inline',float:"right"}}>
                   {
                     (isAuthor) && (
-                      <Button
-                        className='board-add-post-btn' style={{display:'inline',height:'40px', marginRight: '10px'}}
+                      <Button variant="warning"
+                         style={{ marginRight: '10px', borderRadius:"10px", fontSize:"14px"}}
                         onClick={()=>handleUpdateBtn()}
                         // className="ml-auto"
                       >
@@ -160,8 +168,8 @@ const IbeBoardDetailsComponent = () => {
                       </Button>)
                   }
                   {(isAuthor || hasDeletePermission) && (
-                  <Button
-                    className='board-add-post-btn' style={{display:'inline',backgroundColor:'#f5a1a1',height:'40px'}}
+                  <Button variant="danger" 
+                     style={{borderRadius:"10px", fontSize:"14px" }}
                     onClick={()=>setShowModal(true)}
                     // className="ml-auto"
                   >
@@ -170,13 +178,13 @@ const IbeBoardDetailsComponent = () => {
                 )}
                 </div>
                 
-                <hr />
-                <p className='board-text'>{post.content}</p>
+                <hr style={{marginBottom:"30px", marginTop:"30px"}}/>
+                <p className='board-text' style={{fontSize:"14px"}}>{post.content}</p>
                 <br />
                 <br />
-                <p className="board-comment-top">
+                <div className="board-comment-top">
                   <FaRegCommentDots /> 댓글 {post.commentCount}
-                </p>
+                </div>
               </Col>
             </Row>
             {/* 댓글 컴포넌트 포함 */}

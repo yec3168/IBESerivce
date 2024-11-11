@@ -111,7 +111,7 @@ const ProductListComponent = () => {
           </div>
         )}
         
-        <Row xs={1} md={2} lg={6} className="g-4">
+        <Row xs={1} md={2} lg={5} className="g-4">
           {filteredProducts.map((product) => (
             <Col key={product.id}>
               <Link to={`/products/detail/${product.id}`} className="text-decoration-none text-dark">

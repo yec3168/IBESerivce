@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-import point_icon from "../assets/images/header/coin_purse_icon.png";
+// import point_icon from "../assets/images/header/coin_purse_icon.png";
 import ibe_logo from "../assets/images/header/ibe_logo.png";
 import { useState } from "react";
 import { nhTransfer } from '../service/PointService';
@@ -49,7 +49,7 @@ const MypagePointPayBackComfrimComponent = ()=>{
         <Row>
             <Col className="mb-4 ">
                 <img src={ibe_logo} width="200px" alt="logo" />
-                <h1><strong>환급 준비</strong></h1>
+                <h1><strong>환급 정보 확인</strong></h1>
                 <hr/>
             </Col>
         </Row>
@@ -57,11 +57,11 @@ const MypagePointPayBackComfrimComponent = ()=>{
             <Col className="mb-4 ">
                 <div className="point-text">
                     <p >
-                        <img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} />
-                        {point}&nbsp;<span id="span_won">p</span>
+                        {/* <img src={point_icon} alt="point_icon" style={{ width: '30px', height: '30px'}} /> */}
+                        환급 포인트 {point}<span id="span_won">P</span>
                     </p>
-                    <p >{bankName}&nbsp;{accountNumber}</p>
-                    <p >신청하시겠습니까?</p> 
+                    <p ><strong>{bankName}&nbsp;{accountNumber}</strong></p>
+                    <p >진행하시겠습니까?</p> 
                 </div> 
             </Col>
         </Row>
@@ -69,11 +69,11 @@ const MypagePointPayBackComfrimComponent = ()=>{
             <Col className="mb-4 ">
                 <hr />
                 <Button onClick={()=>transfer()}
-                    style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginRight:'20px', width:'80px', height:'50px', color:'#000435' }}>
+                    style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B', marginRight:'20px', width:'60px', height:'40px', color:'#000435' }}>
                     <strong>확인</strong>
                 </Button>
                 <Button onClick={()=>window.close()}
-                        style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B',  marginLeft:'20px', width:'80px', height:'50px', color:'#000435' }}>
+                        style={{ backgroundColor:'#FFD54F', borderColor:'#FFEB3B',  marginLeft:'20px', width:'60px', height:'40px', color:'#000435' }}>
                         <strong>취소</strong>
                 </Button>
             </Col>

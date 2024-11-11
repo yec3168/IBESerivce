@@ -74,7 +74,7 @@
   }
   
   .terms-content {
-    max-height: 150px;
+    max-height: 110px;
     overflow-y: scroll;
     padding: 5px;
     font-size: 0.9rem;

@@ -19,6 +19,8 @@ const MemberInfoChangeComponent = () => {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [errors, setErrors] = useState({});
 
+    const nameArr = ["김닉", "홍닉", "이닉", "서영" ];
+
     useEffect(() => {
         // 멤버 정보 조회 API 호출
         const fetchMemberInfo = async () => {
@@ -34,6 +36,21 @@ const MemberInfoChangeComponent = () => {
     
         fetchMemberInfo(); 
     }, []);    
+
+    // 닉네임 중복 체크 함수
+    const handleNicknameCheck = () => {
+        if (nameArr.includes(nickname)) {
+            setErrors((prev) => ({
+                ...prev,
+                nickname: "이 닉네임은 사용할 수 없습니다."  // 중복 닉네임 에러 메시지
+            }));
+        } else {
+            setErrors((prev) => {
+                const { nickname, ...rest } = prev; // 닉네임 에러만 제거
+                return rest;
+            });
+        }
+    };
 
     // 비밀번호 확인 API 호출
     const handleConfirmClick = async () => {
@@ -256,7 +273,7 @@ const MemberInfoChangeComponent = () => {
                             {/* 닉네임 */}
                             <Form.Group as={Row} className="mb-4">
                                 <Form.Label column sm={2}>닉네임</Form.Label>
-                                <Col sm={8}>
+                                <Col sm={4}>
                                     <Form.Control type="text" value={nickname} 
                                         onChange={(e) => setNickname(e.target.value)} 
                                         placeholder={memberInfo.memberNickName} />
@@ -265,6 +282,9 @@ const MemberInfoChangeComponent = () => {
                                                style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
                                             {errors.nickname}
                                         </small>}
+                                </Col>
+                                <Col sm={2}>
+                                    <Button id="button_infoCheckPw" onClick={handleNicknameCheck}>닉네임 중복 확인</Button>
                                 </Col>
                             </Form.Group>
 
