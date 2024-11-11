@@ -58,7 +58,7 @@ const ProductDetailComponent = () => {
             setProductImages(thumbnaiil); 
             window.location.href ="/products";
         })
-    }, []);
+    }, [id]);
     
     const backHandler = () =>{
         window.location.href ="/products"
@@ -88,13 +88,6 @@ const ProductDetailComponent = () => {
                     <Row >
                         <Col className="col-6">
                             <Carousel>
-                                {/* {product_images.map((item, idx) => {
-                                    return (
-                                    <Carousel.Item interval={2500} style={{height:"500px"}}>
-                                        <img id="product_img" src={item} alt="banner" />
-                                    </Carousel.Item>
-                                    );
-                                })} */}
                                 {productImages.length > 0 ? (
                                     productImages.map((image, idx) => (
                                         <Carousel.Item key={idx} interval={2500} style={{ height: "500px" }}>
@@ -135,17 +128,17 @@ const ProductDetailComponent = () => {
                                         
                                         {productPoint !== "" ? 
                                         <>
-                                        <span id="product_price">{productPoint}
-                                        <span id="span_won" style={{ display: 'inline-block' }}>
-                                            &nbsp;P
-                                        </span>
-                                        </span>
+                                            <span id="product_price">{productPoint}
+                                                <span id="span_won" style={{ display: 'inline-block' }}>
+                                                    &nbsp;P
+                                                </span>
+                                            </span>
                                         </>
                                         : 
                                         <span id="product_price">0
-                                        <span id="span_won" style={{ display: 'inline-block' }}>
-                                            &nbsp;P
-                                        </span>
+                                            <span id="span_won" style={{ display: 'inline-block' }}>
+                                                &nbsp;P
+                                            </span>
                                         </span>}
                                             
                                         
@@ -156,15 +149,18 @@ const ProductDetailComponent = () => {
                                     {/* 조회수 댓글 수 */}
                                     <div id="product_view_comment">
                                         <Row>
-                                            <Col>
+                                            <Col className="col-3">
                                                 <span id="product_cnt">조회수 
                                                     {productHit !== "" ? " "+productHit : " 0"}
                                                 </span>
                                             </Col>
-                                            <Col>
+                                            <Col className="col-3">
                                                 <span id="product_cnt">댓글 
                                                 {productCommentCnt !== 0 ? " "+productCommentCnt : 0}
                                                 </span>
+                                            </Col>
+                                            <Col className="col-6">
+                                                <span id="product_create_info">{productCreatedAt !== "" ? productCreatedAt: "날짜"}</span>
                                             </Col>
                                         </Row>
                                     </div>
@@ -176,7 +172,7 @@ const ProductDetailComponent = () => {
                                             <Col>
                                                 <p className="state_title">제품상태</p>
                                                 <p className="state_info">
-                                                    {productConditionState === "상" ? "양호" : productConditionState === "중" ? "보통" :"나쯤" }
+                                                    {productConditionState === "상" ? "양호" : productConditionState === "중" ? "보통" :"나쁨" }
                                                 </p>
                                             </Col>
                                             <Col>
@@ -192,8 +188,8 @@ const ProductDetailComponent = () => {
 
 
                                     <div id="product_seller_info">
-                                        <div id="info_title">판매자정보</div>
-                                        <div id="seller_detail">
+                                        <div id="info_title">판매자  <span id="seller_nickname"> {memberNickName !== "" ? memberNickName: "이름"}</span></div>
+                                        {/* <div id="seller_detail">
                                             <Row>
                                                 <Col>
                                                     <span id="seller_nickname"> {memberNickName !== "" ? memberNickName: "이름"}</span>
@@ -202,7 +198,7 @@ const ProductDetailComponent = () => {
                                                     <span id="product_create_info">{productCreatedAt !== "" ? productCreatedAt: "날짜"}</span>
                                                 </Col>
                                             </Row>
-                                        </div>
+                                        </div> */}
                                     </div>
 
 
@@ -243,9 +239,10 @@ const ProductDetailComponent = () => {
                     </div>
 
 
-                    <div  className="product_waring mx-5">
+                    <div className="product_warning mx-5">
                         <p className="warning">※ 상품 게시글은 자동으로 사이트에 노출합니다. 노출을 원하지 않으실 경우 고객센터로 문의 바랍니다.</p>
                         <p className="warning">※ 등록한 게시글이 회원의 신고를 받거나 이상거래로 모니터링 될 경우 사기통합조회 DB로 수집/활용될 수 있습니다.</p>
+                        <p className="warning">※ 아이-비는 거래에 등록된 게시물의 거래 당사자가 아니며, 판매자가 등록한 상품정보 및 거래 등에 대해서는 책임지지 않습니다.</p>
                     </div>
                 </div>
 
@@ -261,9 +258,9 @@ const ProductDetailComponent = () => {
                     <CommentCommponent />
                 </div>
 
-                <div className="product_waring mx-5 mb-5">
-                        <p className="warning">※ 아이-비는 거래에 등록된 게시물의 거래 당사자가 아니며, 판매자가 등록한 상품정보 및 거래 등에 대해서는 책임지지 않습니다.</p>
-                </div>
+                {/* <div className="product_warning mx-5 mb-5">
+                    <p className="warning">※ 아이-비는 거래에 등록된 게시물의 거래 당사자가 아니며, 판매자가 등록한 상품정보 및 거래 등에 대해서는 책임지지 않습니다.</p>
+                </div> */}
 
             </div>  
         </>
