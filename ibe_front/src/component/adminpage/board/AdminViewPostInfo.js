@@ -87,6 +87,17 @@ const AdminViewPostInfo = () => {
   // 모달 닫기
   const closeModal = () => setSelectedPost(null);
 
+  // 날짜 포맷 함수
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}. ${month}. ${day}. ${hours}:${minutes}`;
+  };
+
   return (
     <div className="admin-vp-info-list">
       <div className="admin-vp-search-container">
@@ -126,63 +137,75 @@ const AdminViewPostInfo = () => {
           <div className="admin-vp-column notes">삭제여부</div>
           <div className="admin-vp-column uploadDate">업로드 날짜</div>
         </div>
-        {currentItems.map((item) => (
-          <div
-            className="admin-vp-info-row"
-            key={item.boardId}
-            onClick={() => handleRowClick(item)}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="admin-vp-column id">{item.boardId}</div>
-            <div className="admin-vp-column category">{item.boardCategory}</div>
-            <div className="admin-vp-column title">{item.boardTitle}</div>
-            <div className="admin-vp-column author">{item.memberNickName}</div>
-            <div className="admin-vp-column notes">
-              {item.boardStatus ? '삭제됨' : '삭제되지 않음'}
+        {currentItems.length === 0 ? (
+          <p className="admin-vp-no-results">검색결과가 없습니다.</p>
+        ) : (
+          currentItems.map((item) => (
+            <div
+              className="admin-vp-info-row"
+              key={item.boardId}
+              onClick={() => handleRowClick(item)}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="admin-vp-column id">{item.boardId}</div>
+              <div className="admin-vp-column category">
+                {item.boardCategory}
+              </div>
+              <div className="admin-vp-column title">{item.boardTitle}</div>
+              <div className="admin-vp-column author">
+                {item.memberNickName}
+              </div>
+              <div className="admin-vp-column notes">
+                {item.boardStatus ? '삭제됨' : '삭제되지 않음'}
+              </div>
+              <div className="admin-vp-column uploadDate">
+                {formatDate(item.boardCreatedAt)}
+              </div>
             </div>
-            <div className="admin-vp-column uploadDate">
-              {item.boardCreatedAt.split('T')[0]}
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
-      <div className="admin-vp-pagination">
-        <button onClick={goToFirstPage} disabled={currentPage === 1}>
-          맨 처음
-        </button>
-        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
-          &lt; 이전
-        </button>
-        {visiblePageNumbers.map((number) => (
-          <button
-            key={number}
-            onClick={() => setCurrentPage(number)}
-            className={currentPage === number ? 'active' : ''}
-          >
-            {number}
+
+      {/* 페이지 버튼을 가져올 리스트가 10개 초과일 때만 표시 */}
+      {filteredItems.length > 10 && (
+        <div className="admin-vp-pagination">
+          <button onClick={goToFirstPage} disabled={currentPage === 1}>
+            {'<<'}
           </button>
-        ))}
-        <button onClick={goToNextPage} disabled={currentPage >= totalPages}>
-          다음 &gt;
-        </button>
-        <button onClick={goToLastPage} disabled={currentPage === totalPages}>
-          맨 끝
-        </button>
-      </div>
+          <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+            {'<'}
+          </button>
+          {visiblePageNumbers.map((number) => (
+            <button
+              key={number}
+              onClick={() => setCurrentPage(number)}
+              className={currentPage === number ? 'active' : ''}
+            >
+              {number}
+            </button>
+          ))}
+          <button onClick={goToNextPage} disabled={currentPage >= totalPages}>
+            {'>'}
+          </button>
+          <button onClick={goToLastPage} disabled={currentPage === totalPages}>
+            {'>>'}
+          </button>
+        </div>
+      )}
 
       {/* 모달 */}
       {selectedPost && (
         <div className="admin-vp-modal">
           <div className="admin-vp-modal-content">
-            <h2>
+            <h5>
               [{selectedPost.boardCategory}] {selectedPost.boardTitle}
-            </h2>
+            </h5>
             <p>
               <strong>작성자:</strong> {selectedPost.memberNickName}
             </p>
             <p>
               <strong>작성일자:</strong>{' '}
-              {selectedPost.boardCreatedAt.split('T')[0]}
+              {formatDate(selectedPost.boardCreatedAt)}
             </p>
             <p> {selectedPost.boardContent}</p>
             <button className="admin-vp-close-btn" onClick={closeModal}>

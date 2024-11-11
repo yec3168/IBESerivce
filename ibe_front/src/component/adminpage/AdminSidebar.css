@@ -81,6 +81,10 @@
   font-weight: 400;
 }
 
+.sub-menu li a div {
+  padding-left: 1rem;
+}
+
 .sub-menu a:hover {
   color: #d27a00; /* 호버 시 색상 변경 */
 }

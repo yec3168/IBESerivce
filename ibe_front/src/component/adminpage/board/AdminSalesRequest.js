@@ -150,103 +150,107 @@ const AdminSalesRequest = () => {
           <div className="admin-sr-column admin-sr-nickname">닉네임</div>
           <div className="admin-sr-column admin-sr-date">신청일</div>
         </div>
-        {sortedRequests.map((request) => (
-          <div key={request.id} className="admin-sr-sales-request-item">
-            <div
-              className="admin-sr-sales-request-header"
-              onClick={() => toggleExpand(request.id)}
-            >
-              <div className="admin-sr-column admin-sr-id">{request.id}</div>
-              <div className="admin-sr-column admin-sr-category">
-                {request.category}
+
+        {sortedRequests.length === 0 ? (
+          <p className="admin-sr-no-requests">신청된 게시글이 없습니다.</p>
+        ) : (
+          sortedRequests.map((request) => (
+            <div key={request.id} className="admin-sr-sales-request-item">
+              <div
+                className="admin-sr-sales-request-header"
+                onClick={() => toggleExpand(request.id)}
+              >
+                <div className="admin-sr-column admin-sr-id">{request.id}</div>
+                <div className="admin-sr-column admin-sr-category">
+                  {request.category}
+                </div>
+                <div className="admin-sr-column admin-sr-title">
+                  {request.title}
+                </div>
+                <div className="admin-sr-column admin-sr-nickname">
+                  {request.nickname}
+                </div>
+                <div className="admin-sr-column admin-sr-date">
+                  {new Date(request.date).toLocaleString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                  })}
+                </div>
               </div>
-              <div className="admin-sr-column admin-sr-title">
-                {request.title}
-              </div>
-              <div className="admin-sr-column admin-sr-nickname">
-                {request.nickname}
-              </div>
-              <div className="admin-sr-column admin-sr-date">
-                {new Date(request.date).toLocaleString('ko-KR', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  hour12: false,
-                })}
-              </div>
-            </div>
-            {expandedId === request.id && (
-              <div className="admin-sr-sales-request-content">
-                {request.content}
-                <div className="admin-sr-images-container">
-                  <br />
-                  이미지를 클릭해서 확대하기
-                  {images[request.id] && Array.isArray(images[request.id]) ? (
-                    <table className="admin-sr-image-table">
-                      <tbody>
-                        <tr>
-                          {images[request.id].map((image, index) => (
-                            <td
-                              key={image.productImgId}
-                              className="admin-sr-image-td"
-                            >
-                              <img
-                                src={`http://localhost:8080${image.imagePath}`}
-                                alt={`상품 이미지 ${index + 1}`}
-                                className="admin-sr-image"
-                                onClick={() => openModal(image)} // 이미지 클릭 시 모달 열기
-                              />
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  ) : (
-                    <p>이미지가 없습니다.</p>
+              {expandedId === request.id && (
+                <div className="admin-sr-sales-request-content">
+                  {request.content}
+                  <div className="admin-sr-images-container">
+                    <br />
+                    이미지를 클릭해서 확대하기
+                    {images[request.id] && Array.isArray(images[request.id]) ? (
+                      <table className="admin-sr-image-table">
+                        <tbody>
+                          <tr>
+                            {images[request.id].map((image, index) => (
+                              <td
+                                key={image.productImgId}
+                                className="admin-sr-image-td"
+                              >
+                                <img
+                                  src={`http://localhost:8080${image.imagePath}`}
+                                  alt={`상품 이미지 ${index + 1}`}
+                                  className="admin-sr-image"
+                                  onClick={() => openModal(image)}
+                                />
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
+                    ) : (
+                      <p>이미지가 없습니다.</p>
+                    )}
+                  </div>
+
+                  <div className="admin-sr-button-container">
+                    <button
+                      className="admin-sr-action-button-yes"
+                      onClick={() => handleApproval(request.id)}
+                    >
+                      승인
+                    </button>
+                    <button
+                      className="admin-sr-action-button-no"
+                      style={{ marginLeft: '10px' }}
+                      onClick={() => handleRejectionClick(request.id)}
+                    >
+                      거절
+                    </button>
+                  </div>
+                  <div className="admin-sr-textarea-container">
+                    <textarea
+                      placeholder="거절 사유 입력(최대 250자)"
+                      className="admin-sr-textarea"
+                      value={rejectionReason[request.id] || ''}
+                      onChange={(e) => handleInputResize(e, request.id)}
+                      style={{ overflowY: 'hidden' }}
+                      maxLength={250}
+                    />
+                  </div>
+                  {errorMessage[request.id] && (
+                    <div className="admin-sr-error-message-container">
+                      <span className="admin-sr-error-message">
+                        {errorMessage[request.id]}
+                      </span>
+                    </div>
                   )}
                 </div>
-
-                <div className="admin-sr-button-container">
-                  <button
-                    className="admin-sr-action-button-yes"
-                    onClick={() => handleApproval(request.id)}
-                  >
-                    승인
-                  </button>
-                  <button
-                    className="admin-sr-action-button-no"
-                    style={{ marginLeft: '10px' }}
-                    onClick={() => handleRejectionClick(request.id)}
-                  >
-                    거절
-                  </button>
-                </div>
-                <div className="admin-sr-textarea-container">
-                  <textarea
-                    placeholder="거절 사유 입력(최대 250자)"
-                    className="admin-sr-textarea"
-                    value={rejectionReason[request.id] || ''}
-                    onChange={(e) => handleInputResize(e, request.id)}
-                    style={{ overflowY: 'hidden' }}
-                    maxLength={250}
-                  />
-                </div>
-                {errorMessage[request.id] && (
-                  <div className="admin-sr-error-message-container">
-                    <span className="admin-sr-error-message">
-                      {errorMessage[request.id]}
-                    </span>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          ))
+        )}
       </div>
 
-      {/* 모달 창 */}
       {isModalOpen && (
         <div className="admin-sr-modal" onClick={closeModal}>
           <div
@@ -257,7 +261,7 @@ const AdminSalesRequest = () => {
               src={`http://localhost:8080${selectedImage.imagePath}`}
               alt="상품 이미지"
               className="admin-sr-modal-image"
-              onClick={closeModal} // 이미지 클릭 시 모달 닫기
+              onClick={closeModal}
             />
           </div>
         </div>

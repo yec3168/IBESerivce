@@ -218,6 +218,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                 onChange={(e) => setNewComment(e.target.value)}
                 maxLength={200}
                 style={{ resize: 'none' }}
+                spellCheck={false}
               />
               <Button
                 variant="primary"

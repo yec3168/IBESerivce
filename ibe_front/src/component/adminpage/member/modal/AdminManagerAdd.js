@@ -15,6 +15,7 @@ const AdminManagerAdd = ({
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [nameError, setNameError] = useState('');
+  const [idError, setIdError] = useState(''); // 아이디 오류 상태 추가
   const [isIdDuplicate, setIsIdDuplicate] = useState(false);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const AdminManagerAdd = ({
       setConfirmPassword('');
       setPasswordError('');
       setNameError('');
+      setIdError(''); // 모달이 열릴 때 아이디 오류 초기화
       setIsIdDuplicate(false);
     }
   }, [isOpen]);
@@ -43,6 +45,14 @@ const AdminManagerAdd = ({
   }, [newManagerId, existingManagers]);
 
   const handleAddManagerSave = async () => {
+    // 아이디 길이 체크
+    if (newManagerId.length < 3 || newManagerId.length > 20) {
+      setIdError('아이디는 3~20자 사이여야 합니다.');
+      return;
+    } else {
+      setIdError('');
+    }
+
     if (!newPassword.trim() || !confirmPassword.trim()) {
       setPasswordError('비밀번호를 입력해 주세요.');
       return;
@@ -84,6 +94,7 @@ const AdminManagerAdd = ({
       setConfirmPassword('');
       setPasswordError('');
       setNameError('');
+      setIdError(''); // 아이디 오류 초기화
     } catch (error) {
       console.error('에러 발생:', error);
     }
@@ -102,8 +113,15 @@ const AdminManagerAdd = ({
     if (/^[a-zA-Z0-9]*$/.test(value)) {
       setNewManagerId(value);
     }
-
-    // 아이디 중복 에러 초기화
+  
+    // 아이디 길이 체크
+    if (value.length >= 3 && value.length <= 20) {
+      setIdError(''); // 아이디가 유효한 길이일 경우 오류 제거
+    } else {
+      setIdError('아이디는 3~20자 사이여야 합니다.');
+    }
+  
+    // 아이디 중복 체크 초기화
     if (isIdDuplicate) {
       setIsIdDuplicate(false);
     }
@@ -143,12 +161,13 @@ const AdminManagerAdd = ({
           type="text"
           value={newManagerId}
           onChange={handleChangeId}
-          placeholder="영문, 숫자 조합(최대 20)"
+          placeholder="영문, 숫자 조합(3~20자)"
           maxLength={20}
         />
         {isIdDuplicate && (
           <p className="admin-manager-modal-error">중복된 아이디입니다.</p>
         )}
+        {idError && <p className="admin-manager-modal-error">{idError}</p>} {/* 아이디 오류 메시지 추가 */}
         <label>역할 선택</label>
         <select
           value={newManagerRole}
@@ -162,8 +181,8 @@ const AdminManagerAdd = ({
           type="password"
           value={newPassword}
           onChange={handleChangePassword}
-          placeholder="비밀번호 입력(최대 200)"
-          maxLength={200}
+          placeholder="비밀번호 입력(최대 20)"
+          maxLength={20}
         />
         <label>비밀번호 확인</label>
         <input
@@ -171,7 +190,7 @@ const AdminManagerAdd = ({
           value={confirmPassword}
           onChange={handleChangeConfirmPassword}
           placeholder="비밀번호 재입력"
-          maxLength={200}
+          maxLength={20}
         />
         {passwordError && (
           <p className="admin-manager-modal-error">{passwordError}</p>
@@ -180,7 +199,7 @@ const AdminManagerAdd = ({
           <button
             onClick={handleAddManagerSave}
             disabled={
-              isIdDuplicate || !newManagerId || !newManagerName || nameError
+              isIdDuplicate || !newManagerId || !newManagerName || nameError || idError // 추가 버튼 비활성화 조건에 아이디 오류 추가
             }
           >
             추가

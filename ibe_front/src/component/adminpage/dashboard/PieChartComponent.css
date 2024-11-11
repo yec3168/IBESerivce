@@ -24,3 +24,7 @@
   font-size: 14px; /* 범례 텍스트 폰트 크기 */
   fill: #666; /* 텍스트 색상 */
 }
+
+.admin-piechart-title {
+  font-size: 1.5rem;
+}

@@ -61,8 +61,8 @@ const AdminManagerListPassword = ({
           type="password"
           value={newManagerPassword}
           onChange={(e) => setNewManagerPassword(e.target.value)}
-          placeholder="새 비밀번호 입력"
-          maxLength={200}
+          placeholder="새 비밀번호 입력(최대 20)"
+          maxLength={20}
         />
         <label>비밀번호 확인</label>
         <input
@@ -70,7 +70,7 @@ const AdminManagerListPassword = ({
           value={newManagerConfirmPassword}
           onChange={(e) => setNewManagerConfirmPassword(e.target.value)}
           placeholder="새 비밀번호 재입력"
-          maxLength={200}
+          maxLength={20}
         />
         {updatePasswordError && (
           <p className="admin-manager-modal-error">{updatePasswordError}</p>

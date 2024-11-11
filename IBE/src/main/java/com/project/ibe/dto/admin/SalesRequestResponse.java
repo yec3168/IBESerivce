@@ -25,5 +25,7 @@ public class SalesRequestResponse {
     private LocalDateTime productListedAt; // 관리자가 판매물품 등록허용 시간
     private Long memberId;
     private String productUploadStatus;
-    private String MemberNickName;
+    private String memberNickName;
+    private String buyerNickName;
+    private String rejectionText;
 }

@@ -95,11 +95,11 @@ const AdminManagerList = () => {
               (manager) => manager.memberEmail !== managerEmail
             )
           );
-          alert('관리자가 성공적으로 삭제되었습니다.');
+          alert('담당자가 성공적으로 삭제되었습니다.');
         })
         .catch((error) => {
           console.error('Error deleting manager:', error);
-          alert('관리자 삭제 중 오류가 발생했습니다.');
+          alert('담당자 삭제 중 오류가 발생했습니다.');
         });
     }
   };

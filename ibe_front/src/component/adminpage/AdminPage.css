@@ -82,7 +82,7 @@
   flex: 1; /* 기본적으로 균등하게 배치 */
   padding: 1rem; /* 내부 여백 */
   background: #fff; /* 배경색 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
 }
 
 .admin-main-bar-chart {
@@ -124,7 +124,7 @@
   background: #fff; /* 배경색 */
   margin: 1rem; /* 좌우 여백 */
   padding: 1rem; /* 여백 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
 }
 
 .admin-main-summary-item {

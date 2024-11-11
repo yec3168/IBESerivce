@@ -26,10 +26,19 @@ const AdminInquiryOrder = () => {
           categoryMap[inquiry.inquiryCategory] || inquiry.inquiryCategory,
         title: inquiry.inquiryTitle,
         nickname: inquiry.memberNickName,
-        date: new Date(inquiry.inquiryCreatedAt).toLocaleDateString(),
+        date: `${new Date(inquiry.inquiryCreatedAt).getFullYear()}. ${String(
+          new Date(inquiry.inquiryCreatedAt).getMonth() + 1
+        ).padStart(2, '0')}. ${String(
+          new Date(inquiry.inquiryCreatedAt).getDate()
+        ).padStart(2, '0')}. ${String(
+          new Date(inquiry.inquiryCreatedAt).getHours()
+        ).padStart(2, '0')}:${String(
+          new Date(inquiry.inquiryCreatedAt).getMinutes()
+        ).padStart(2, '0')}`,
         content: inquiry.inquiryContent,
         memberId: inquiry.memberId,
       }));
+
       setInquiries(fetchedInquiries);
     } catch (error) {
       console.error('Error fetching inquiries:', error);
@@ -108,73 +117,66 @@ const AdminInquiryOrder = () => {
           <div className="admin-io-column admin-io-date">신청일</div>
         </div>
         <div className="admin-io-inquiry-order-list">
-          {sortedInquiries.map((inquiry) => (
-            <div
-              key={inquiry.inquiryId}
-              className="admin-io-inquiry-order-item"
-            >
-              <div
-                className="admin-io-inquiry-order-header"
-                onClick={() => toggleExpand(inquiry.inquiryId)}
-              >
-                <div className="admin-io-column admin-io-id">
-                  {inquiry.inquiryId}
-                </div>
-                <div className="admin-io-column admin-io-category">
-                  {inquiry.category}
-                </div>
-                <div className="admin-io-column admin-io-title">
-                  {inquiry.title}
-                </div>
-                <div className="admin-io-column admin-io-nickname">
-                  {inquiry.nickname}
-                </div>
-                <div className="admin-io-column admin-io-date">
-                  {inquiry.date}
-                </div>
-              </div>
-              {expandedId === inquiry.inquiryId && (
-                <div className="admin-io-inquiry-order-content">
-                  <p>{inquiry.content}</p>
-                  <textarea
-                    placeholder="답변을 입력하세요. (최대 250자)"
-                    value={responses[inquiry.inquiryId] || ''}
-                    onChange={(e) =>
-                      handleResponseChange(inquiry.inquiryId, e.target.value)
-                    }
-                    onInput={(e) => {
-                      e.target.style.height = 'auto'; // 높이를 초기화
-                      e.target.style.height = `${e.target.scrollHeight}px`; // 컨텐츠 높이에 맞춰 자동 확장
-                    }}
-                    rows="3" // 최소 높이를 지정하여 초기 렌더링 시 크기가 설정되도록
-                    style={{
-                      width: '100%',
-                      marginTop: '10px',
-                      resize: 'none', // 크기 조절을 비활성화
-                      overflow: 'hidden', // 자동 높이에 맞춰 스크롤을 숨김
-                    }}
-                  />
-                  {errors[inquiry.inquiryId] && (
-                    <p style={{ color: 'red' }}>{errors[inquiry.inquiryId]}</p>
-                  )}
-                  <div className="admin-io-button-container">
-                    <button
-                      className="admin-io-action-button"
-                      onClick={() =>
-                        handleResponseSubmit(
-                          inquiry.inquiryId,
-                          inquiry.memberId
-                        )
-                      }
-                    >
-                      답변
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
+  {sortedInquiries.length === 0 ? (
+    <p className="admin-io-no-inquiries">신청된 문의가 없습니다.</p>
+  ) : (
+    sortedInquiries.map((inquiry) => (
+      <div key={inquiry.inquiryId} className="admin-io-inquiry-order-item">
+        <div
+          className="admin-io-inquiry-order-header"
+          onClick={() => toggleExpand(inquiry.inquiryId)}
+        >
+          <div className="admin-io-column admin-io-id">{inquiry.inquiryId}</div>
+          <div className="admin-io-column admin-io-category">
+            {inquiry.category}
+          </div>
+          <div className="admin-io-column admin-io-title">{inquiry.title}</div>
+          <div className="admin-io-column admin-io-nickname">
+            {inquiry.nickname}
+          </div>
+          <div className="admin-io-column admin-io-date">{inquiry.date}</div>
         </div>
+        {expandedId === inquiry.inquiryId && (
+          <div className="admin-io-inquiry-order-content">
+            <p>{inquiry.content}</p>
+            <textarea
+              placeholder="답변을 입력하세요. (최대 250자)"
+              value={responses[inquiry.inquiryId] || ''}
+              onChange={(e) =>
+                handleResponseChange(inquiry.inquiryId, e.target.value)
+              }
+              onInput={(e) => {
+                e.target.style.height = 'auto';
+                e.target.style.height = `${e.target.scrollHeight}px`;
+              }}
+              rows="3"
+              style={{
+                width: '100%',
+                marginTop: '10px',
+                resize: 'none',
+                overflow: 'hidden',
+              }}
+            />
+            {errors[inquiry.inquiryId] && (
+              <p style={{ color: 'red' }}>{errors[inquiry.inquiryId]}</p>
+            )}
+            <div className="admin-io-button-container">
+              <button
+                className="admin-io-action-button"
+                onClick={() =>
+                  handleResponseSubmit(inquiry.inquiryId, inquiry.memberId)
+                }
+              >
+                답변
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    ))
+  )}
+</div>
+
       </div>
     </>
   );
