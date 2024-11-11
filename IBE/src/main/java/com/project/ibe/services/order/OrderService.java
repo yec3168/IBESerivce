@@ -210,6 +210,9 @@ public class OrderService {
                 order.setOrderState(OrderState.COMPLETED);
             }
             else{
+                Member rejectMember = memberService.getMemberByEmail(order.getOrderMemberEmail());
+                rejectMember.setMemberPoint( rejectMember.getMemberPoint() + sellProduct.getProductPoint());
+                memberService.saveMember(rejectMember);
                 order.setOrderState(OrderState.REJECTED);
             }
             orderRepository.save(order);
