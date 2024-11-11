@@ -1,4 +1,5 @@
 .admin-member-h2 {
+  font-family: "Paperlogy-4Regular";
   text-align: center;
   margin: 1rem;
   font-size: 20px;
@@ -14,6 +15,7 @@
 }
 
 .admin-member-search-container {
+  font-family: 'Pretendard-Regular';
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
@@ -34,6 +36,7 @@
 }
 
 .admin-member-member-row {
+  font-family: 'Pretendard-Regular';
   display: flex;
   justify-content: space-between;
   padding: 0.4rem;
@@ -41,6 +44,7 @@
 }
 
 .admin-member-header {
+  font-family: "Paperlogy-4Regular";
   background-color: #ffffff;
   font-weight: bold;
 }
@@ -60,6 +64,7 @@
 }
 
 .admin-member-pagination {
+  font-family: 'Pretendard-Regular';
   margin-top: 20px;
   display: flex;
   justify-content: center;

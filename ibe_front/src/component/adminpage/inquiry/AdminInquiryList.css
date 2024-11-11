@@ -1,4 +1,5 @@
 .admin-il-h2 {
+  font-family: "Paperlogy-4Regular";
   text-align: center;
   margin: 1rem;
   font-size: 20px;
@@ -18,11 +19,13 @@
 }
 
 .admin-il-inquiry-list-item {
+  font-family: 'Pretendard-Regular';
   border: none;
   margin-top: 5px;
 }
 
 .admin-il-inquiry-list-column {
+  font-family: "Paperlogy-4Regular";
   display: flex;
   background-color: #ffffff;
   border-bottom: 1px solid #ddd;
@@ -98,6 +101,7 @@
 }
 
 .admin-il-pagination {
+  font-family: 'Pretendard-Regular';
   display: flex;
   justify-content: center;
   align-items: center;
