@@ -106,11 +106,10 @@
         
         return (
             <>
-                <Container className="text-center my-5 containerPCharge">
+                <Container className="text-center my-5 mx-5 containerPCharge">
                     {/* 포인트 환급 타이틀*/}
                     <h1 id="h1_pointTitle">포인트 환급</h1>
                     <div id="div_pointInfo" className="text-muted">포인트를 현금으로 전환할 수 있습니다.</div>
-                    <div id="div_spacing"/>
 
                     {/* 보유 포인트 */}
                     <div id="div_pointData">
@@ -127,7 +126,7 @@
                         <Row className="justify-content-center align-items-center">
                             <Col xs="auto">
                                 <img src={point_to_cash_icon} alt="point_to_cash_icon" 
-                                    style={{ width:'100px', height:'100px', marginLeft:'200px', marginRight:'10px' }} />
+                                    style={{ width:'80px', height:'80px', marginLeft:'0px', marginRight:'10px' }} />
                             </Col>
                             <Col xs={12} md={8}>
                                 <Form inline className="d-flex align-items-center">
