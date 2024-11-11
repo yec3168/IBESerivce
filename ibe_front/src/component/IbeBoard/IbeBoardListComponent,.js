@@ -182,11 +182,11 @@ const IbeBoardListComponent = () => {
                   type='text'
                   placeholder="검색어를 입력해주세요"
                   onKeyDown={(e) => activeEnter(e)}
-                  style={{ width: '400px', height: '40px',display:'inline'}}
+                  style={{ width: '400px', height: '40px',display:'inline',margin:'1px'}}
                 />
                 <Button
                   className="board-add-post-btn"
-                  style={{display:'inline'}}
+                  style={{display:'inline',height: '40px',verticalAlign: 'top',margin:'1px'}}
                   onClick={handleSearch}
                 >
                   검색
