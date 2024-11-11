@@ -9,29 +9,29 @@
 }
 
 /* 물품 제목, 거래상태 css */
-#product_info > #product_title{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Paperlogy-4Regular';
-    font-weight: 700;
+#product_info > #product_title {
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Paperlogy-4Regular';
+  font-weight: 700;
 }
 
-#product_info  > #product_price_deal > #product_price{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Paperlogy-4Regular';
-    letter-spacing: 2px;
-    font-weight: 700;
-    font-size: 60px;
+#product_info > #product_price_deal > #product_price {
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Paperlogy-4Regular';
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 60px;
 }
-.product_badge{
-    font-size: 0.75rem;
-    padding: 0.5em 0.8em;
+.product_badge {
+  font-size: 0.75rem;
+  padding: 0.5em 0.8em;
 }
 
 /* 물품 조회수, 댓글 수 css */
 #product_info > #product_view_comment {
-    margin-top: 10px;
-    width: 40%;
-    text-align: center;
+  margin-top: 10px;
+  width: 40%;
+  text-align: center;
 }
 
 #product_info > #product_view_comment #product_cnt {
@@ -41,13 +41,12 @@
   font-size: 12px;
 }
 
-#product_info > #product_view_comment  #product_create_info{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
-    font-family: 'Pretendard-Regular';
-    color: #666666;
-    font-size: 12px;
+#product_info > #product_view_comment #product_create_info {
+  /* font-family: "CookieRun-Regular", sans-serif !important; */
+  font-family: 'Pretendard-Regular';
+  color: #666666;
+  font-size: 12px;
 }
-
 
 /* 물품 상태의 대한 css */
 #product_info > #product_state {
@@ -78,26 +77,25 @@
 #product_info > #product_seller_info {
   margin-top: 40px;
 }
-#product_info > #product_seller_info > #info_title{
-    margin-top: 40px;
-    /* font-family: 'Jua', sans-serif; */
-    font-family: 'Paperlogy-4Regular';
-    /* border-bottom: 1px solid black; */
-    width: 80%;
-    font-size: 18px;
-    color: #666666;
-    
+#product_info > #product_seller_info > #info_title {
+  margin-top: 40px;
+  /* font-family: 'Jua', sans-serif; */
+  font-family: 'Paperlogy-4Regular';
+  /* border-bottom: 1px solid black; */
+  width: 80%;
+  font-size: 18px;
+  color: #666666;
 }
 
-#product_info > #product_seller_info > #info_title >  #seller_nickname{
-    margin-left: 20px;
+#product_info > #product_seller_info > #info_title > #seller_nickname {
+  margin-left: 20px;
 }
 
-#product_info > #product_seller_info > #seller_detail{
-    margin-top: 20px;
-    width: 30%;
+#product_info > #product_seller_info > #seller_detail {
+  margin-top: 20px;
+  width: 30%;
 }
-  /* 판매자 닉네임 */
+/* 판매자 닉네임 */
 /* #product_info > #product_seller_info > #seller_detail  #seller_nickname{
     margin-top: 20px;
     font-family: 'Pretendard-Regular';
@@ -120,12 +118,12 @@
 
 /* -------------------상세정보-------------------------- */
 
-#product_content{
-    /* border-top: 3px solid #666666; */
-    margin-top: 250px;
-    margin-bottom: 150px;
-    width: 90%;
-    margin: auto;
+#product_content {
+  /* border-top: 3px solid #666666; */
+  margin-top: 250px;
+  margin-bottom: 150px;
+  width: 90%;
+  margin: auto;
 }
 
 /* 상품정보 타이틀 */
@@ -137,22 +135,29 @@
 }
 
 /* 상품 상세정보 */
+<<<<<<< HEAD
+#product_content > #product_content_view {
+  margin-top: 40px;
+  font-size: 15px;
+  margin-bottom: 200px;
+=======
 #product_content > #product_content_view{
     margin-top: 40px;
-    font-size: 15px;
+    font-size: 12px;
     margin-bottom: 200px;
     
+>>>>>>> 40a89a76632c3c7c9dcfa58292bd65cdc7b59483
 }
 
 /* 제품 경고사항  */
-#product_content > .product_warning{
-    margin-top: 100px;
+#product_content > .product_warning {
+  margin-top: 100px;
 }
 
-.product_warning .warning{
-    font-size: 12px;
-    font-family: 'Paperlogy-4Regular';
-    margin-bottom: 0;
+.product_warning .warning {
+  font-size: 12px;
+  font-family: 'Paperlogy-4Regular';
+  margin-bottom: 0;
 }
 
 .btn-custom {
@@ -196,9 +201,9 @@
   transform: scale(1.05);
 }
 
-#md_recommand{
-    margin-top: 150px;
-    margin-bottom: 150px;
+#md_recommand {
+  margin-top: 150px;
+  margin-bottom: 150px;
 }
 
 /* ------------------------------------------물품 생성----------------------------- */
@@ -220,28 +225,22 @@
   width: 70%;
   margin: auto;
 }
-#section_2 .product_form_title{
-    font-family: 'Paperlogy-4Regular';
+
+#section_2 button {
+  font-family: 'Pretendard-Regular';
+}
+#section_2 .product_form_title {
+  font-family: 'Paperlogy-4Regular';
+  font-weight: bold;
 }
 
-#section_2 .product_form_label{
-    font-family: 'Pretendard-Regular';
+#section_2 .product_form_label {
+  font-family: 'Pretendard-Regular';
 }
 
-#section_2 button{
-    font-family: 'Pretendard-Regular';
-}
-#section_2 .product_form_title{
-    font-family: 'Paperlogy-4Regular';
-    font-weight: bold;
-}
 
-#section_2 .product_form_label{
-    font-family: 'Pretendard-Regular';
-}
-
-#section_2 button{
-    font-family: 'Pretendard-Regular';
+#section_2 button {
+  font-family: 'Pretendard-Regular';
 }
 
 .image-preview {
@@ -302,49 +301,45 @@
   font-size: 12px; /* Font size for image names */
 }
 
-
-#commnet_section{
-    margin-bottom: 50px;
+#commnet_section {
+  margin-bottom: 50px;
 }
 
-
 .custom-tooltip_product {
-    font-family: 'Pretendard-Regular';
-    text-align: left;
-    width: 600px;  
-    max-width: 600px;
-    padding: 10px;
-    background-color: #fff8e1; /* 흰색 배경 */
-    color: #444;
-    border: none; /* 테두리 제거 */
-    line-height: 1.5;
-    box-shadow: none; /* 그림자 제거 */
-    border-radius: 8px; /* 둥근 모서리 추가 */
+  font-family: 'Pretendard-Regular';
+  text-align: left;
+  width: 600px;
+  max-width: 600px;
+  padding: 10px;
+  background-color: #fff8e1; /* 흰색 배경 */
+  color: #444;
+  border: none; /* 테두리 제거 */
+  line-height: 1.5;
+  box-shadow: none; /* 그림자 제거 */
+  border-radius: 8px; /* 둥근 모서리 추가 */
 }
 
 .custom-tooltip_product h5 {
-    font-family: 'Paperlogy-4Regular';
-    color: #f39c12;
-    font-size: 1.2rem;
-    margin-bottom: 12px;
+  font-family: 'Paperlogy-4Regular';
+  color: #f39c12;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
 }
 
 .custom-tooltip_product blockquote {
-    font-family: 'Pretendard-Regular';
-    color: #555;
-    border-left: 4px solid #f39c12;
-    padding-left: 12px;
-    font-size: 1rem;
+  font-family: 'Pretendard-Regular';
+  color: #555;
+  border-left: 4px solid #f39c12;
+  padding-left: 12px;
+  font-size: 1rem;
 }
 
-
-.productModalTitle{
-    font-family: 'Paperlogy-4Regular';
+.productModalTitle {
+  font-family: 'Paperlogy-4Regular';
 }
-.productModalContent{
-    font-family: 'Pretendard-Regular';
-    
+.productModalContent {
+  font-family: 'Pretendard-Regular';
 }
-.productModalFooter{
-    font-family: 'Pretendard-Regular';
+.productModalFooter {
+  font-family: 'Pretendard-Regular';
 }

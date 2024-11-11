@@ -34,8 +34,20 @@ const AdminManagerList = () => {
                 ? '문의 담당자'
                 : '게시판 담당자',
             memberEmail: manager.memberEmail,
+            roleCode: manager.role, // 역할 코드 추가
           }));
-        setManagers(filteredManagers);
+
+        // 역할에 따라 정렬
+        const sortedManagers = filteredManagers.sort((a, b) => {
+          const rolePriority = {
+            'ROLE_ADMIN': 1,
+            'ROLE_SERVICE_MANAGER': 2,
+            'ROLE_BOARD_MANAGER': 3,
+          };
+          return rolePriority[a.roleCode] - rolePriority[b.roleCode];
+        });
+
+        setManagers(sortedManagers);
       })
       .catch((error) => {
         console.error('Error fetching managers:', error);
@@ -74,7 +86,18 @@ const AdminManagerList = () => {
                 : '게시판 담당자',
             memberEmail: manager.memberEmail,
           }));
-        setManagers(filteredManagers);
+
+        // 역할에 따라 정렬
+        const sortedManagers = filteredManagers.sort((a, b) => {
+          const rolePriority = {
+            'ROLE_ADMIN': 1,
+            'ROLE_SERVICE_MANAGER': 2,
+            'ROLE_BOARD_MANAGER': 3,
+          };
+          return rolePriority[a.roleCode] - rolePriority[b.roleCode];
+        });
+
+        setManagers(sortedManagers);
         setIsAddModalOpen(false);
       })
       .catch((error) => {
@@ -211,7 +234,18 @@ const AdminManagerList = () => {
                         : '게시판 담당자',
                     memberEmail: manager.memberEmail,
                   }));
-                setManagers(filteredManagers);
+
+                // 역할에 따라 정렬
+                const sortedManagers = filteredManagers.sort((a, b) => {
+                  const rolePriority = {
+                    'ROLE_ADMIN': 1,
+                    'ROLE_SERVICE_MANAGER': 2,
+                    'ROLE_BOARD_MANAGER': 3,
+                  };
+                  return rolePriority[a.roleCode] - rolePriority[b.roleCode];
+                });
+
+                setManagers(sortedManagers);
               })
               .catch((error) => {
                 console.error('Error fetching updated managers:', error);
