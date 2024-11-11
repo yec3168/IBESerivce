@@ -59,11 +59,11 @@
 }
 
 .board-add-post-btn {
-  background-color: #ffecbe;
+  /* background-color: #ffecbe; */
   border: none;
   color: #000;
-  font-weight: bold;
-  padding: 10px 20px;
+  /* font-weight: bold; */
+  /* padding: 10px 20px; */
   /* margin-top: 20px; */
   font-family: 'Pretendard-Regular';
 }
@@ -180,7 +180,7 @@
 }
 
 .board-comment-top {
-  font-size: 20px;
+  font-size: 15px;
   font-family: 'Pretendard-Regular';
 }
 
