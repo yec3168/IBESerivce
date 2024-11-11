@@ -42,8 +42,7 @@ const IbeBoardDetailsComponent = () => {
             navigate('/boards'); // 게시글이 삭제된 상태이면 /boards로 리다이렉트
           } else {
             const postData = {
-              category:
-                categoryMap[data.data.boardCategory] || data.data.boardCategory,
+              category: categoryMap[data.data.boardCategory] || data.data.boardCategory,
               title: data.data.boardTitle,
               nickname: data.data.member.memberNickName,
               email: data.data.member.memberEmail,
@@ -51,8 +50,11 @@ const IbeBoardDetailsComponent = () => {
               views: data.data.boardHit,
               content: data.data.boardContent,
               commentCount: data.data.boardCommentCnt,
+              categoryEng: data.data.boardCategory, // 해당 값을
             };
+            
             setPost(postData);
+            console.log(postData)
   
             const token = localStorage.getItem('accessToken');
             if (token) {
@@ -129,10 +131,16 @@ const IbeBoardDetailsComponent = () => {
   return (
     <div id="board_content">
       <Container className="board-container">
-        <Row>
-          <h2 className="board-title">
-            [{post?.category}] {post?.title}
-          </h2>
+        <Row>   
+        <p className='h2'>
+          {post ? (
+            <>
+              <span className={`board-category-${post.categoryEng}`}>[{post.category}]</span> {post.title}
+            </>
+          ) : (
+            <span>Loading...</span>
+          )}
+        </p>
         </Row>
 
         {post && (
