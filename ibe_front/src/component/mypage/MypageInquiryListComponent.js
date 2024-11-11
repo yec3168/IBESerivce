@@ -148,14 +148,9 @@ const MypageInquiryListComponent = () => {
                                 <Badge pill className={`me-2 badge_${inquiry.inquiryAnswered ? 'complete' : 'processing'}`}>
                                     {inquiry.inquiryAnswered ? '답변 완료' : '답변 대기'}
                                 </Badge>
-                                {/* 답변 대기인 경우 Link 비활성화 */}
-                                {inquiry.inquiryAnswered ? (
-                                    <Link to={`/mypage/inquiry/answer/${inquiry.inquiryId}`} className="text-decoration-none">
-                                        <span className="hover-highlight">{inquiry.inquiryTitle}</span>
-                                    </Link>
-                                ) : (
-                                    <span className="text-muted">{inquiry.inquiryTitle}</span>
-                                )}
+                                <Link to={`/mypage/inquiry/answer/${inquiry.inquiryId}`} className="text-decoration-none">
+                                    <span className="hover-highlight">{inquiry.inquiryTitle}</span>
+                                </Link>
                             </div>
                         ))}
                     </Tab.Pane>
