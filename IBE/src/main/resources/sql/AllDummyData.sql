@@ -19,7 +19,7 @@ INSERT INTO `member_bank` (`member_id`, `member_account_number`, `member_bank`) 
 (6, '6789012345', 'NH'),
 (7, '7890123456', 'KB'),
 (8, '8901234567', 'NH'),
-(9, '9012345678', 'KB'),
+(9, '9012345678', 'KB');
 
 INSERT INTO `product` (`member_id`, `product_created_at`, `product_point`, `product_content`, `product_title`, `product_category`, `product_condition_state`, `product_trade_state`, `product_upload_status`, product_hit) VALUES
 (1, '2024-01-01 10:00:00', 1000, '깨끗하게 사용한 아기 책입니다. 페이지마다 오염 없이 잘 보관되었고, 아기가 처음 책을 접하기 좋은 색감과 그림이 많습니다. 5권 세트로 판매합니다.', '동화책 5권 팔아요', 'KIDS_BOOKS', 'HIGH', 'TRADE_COMPLETED', 'STATUS_APPROVE', 504),
