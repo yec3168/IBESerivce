@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect  } from "react";
-import { Row, Col, FloatingLabel, Form, Button, OverlayTrigger , Popover} from "react-bootstrap";
+import { Row, Col, FloatingLabel, Form, Button, OverlayTrigger , Popover, Modal} from "react-bootstrap";
 import {saveProduct} from "../service/ProductService";
 
 import './Product.css';
@@ -12,6 +12,9 @@ const ProductCreateComponent = () => {
     const [productPoint, setProductPoint] = useState("");
     const [productContent, setProductContent] = useState(""); // For product content
     const [errors, setErrors] = useState({});
+    const [showNoticeModal, setShowNoticeModal] = useState(false); // Notice modal state
+    const [showResultModal, setShowResultModal] = useState(false); // Result modal state
+    const [resultMessage, setResultMessage] = useState("");
     const contentRef = useRef(null); 
     // 이미지 핸들러
     const handleImageChange = (event) => {
@@ -37,40 +40,31 @@ const ProductCreateComponent = () => {
     // validation 체크.
     const validateForm = () => {
         const newErrors = {};
-        
-        if (productTitle.trim() === "") {
-            newErrors.title = "제품 제목을 입력해야 합니다.";
-        }
-        if (productCategory === "") {
-            newErrors.category = "카테고리를 선택해야 합니다.";
-        }
-        if (productConditionState.trim() === "") {
-            newErrors.condition = "제품 상태를 선택해야 합니다.";
-        }
-        if (productPoint.trim() === "" || isNaN(productPoint) || Number(productPoint) <= 0) {
-            newErrors.points = "올바른 포인트를 입력해야 합니다.";
-        }
-        if (images.length === 0) {
-            newErrors.images = "이미지를 업로드해야 합니다.";
-        }
-        if (productContent.trim() === "") {
-            newErrors.content = "제품 상세 내용을 입력해야 합니다.";
-        }
-
+        if (productTitle.trim() === "") newErrors.title = "제품 제목을 입력해야 합니다.";
+        if (productCategory === "") newErrors.category = "카테고리를 선택해야 합니다.";
+        if (productConditionState.trim() === "") newErrors.condition = "제품 상태를 선택해야 합니다.";
+        if (productPoint.trim() === "" || isNaN(productPoint) || Number(productPoint) <= 0) newErrors.points = "올바른 포인트를 입력해야 합니다.";
+        if (images.length === 0) newErrors.images = "이미지를 업로드해야 합니다.";
+        if (productContent.trim() === "") newErrors.content = "제품 상세 내용을 입력해야 합니다.";
         return newErrors;
     };
 
-    const handleSubmit = async (event) => {
+      const handleNoticeConfirm = () => {
+        setShowNoticeModal(false);
+        submitForm();
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        
         const formErrors = validateForm();
-        // 유효성 검사에서 오류가 발생하면 반환
         if (Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
             return;
         }
-        
-        // // FormData 객체 생성
+        setShowNoticeModal(true); // Show the notice modal first
+    };
+
+    const submitForm = async () => {
         const formData = new FormData();
         formData.append("productFormRequest", new Blob([JSON.stringify({
             productTitle,
@@ -79,14 +73,10 @@ const ProductCreateComponent = () => {
             productPoint,
             productContent,
         })], { type: "application/json" }));
-        images.forEach(image => {
-            formData.append("images", image);
-        });
-       
-        saveProduct(formData)
-        .then( (response) =>{
-            console.log(response)
+        images.forEach(image => formData.append("images", image));
 
+        saveProduct(formData)
+        .then((response) => {
             setProductTitle("");
             setProductCategory("");
             setProductConditionState("");
@@ -94,18 +84,14 @@ const ProductCreateComponent = () => {
             setProductContent("");
             setImages([]);
             setErrors({});
-
-            alert("등록에 성공하였습니다.\n 잠시만 기다려주세요.")
-            window.location.href ="/products"
+            setResultMessage("등록에 성공하였습니다.\n 잠시만 기다려주세요.");
+            setShowResultModal(true);
         })
-        .catch(errors =>{
-            console.log(errors)
-            alert("등록에 실패했습니다. 다시 시도해주세요.")
-            return false;
-        })
-
+        .catch(() => {
+            setResultMessage("등록에 실패했습니다. 다시 시도해주세요.");
+            setShowResultModal(true);
+        });
     };
-
     
     const handleContentChange = (e) => {
         const content = e.target.value;
@@ -124,36 +110,9 @@ const ProductCreateComponent = () => {
         }
     }, [productContent]);
 
-    
-      // Tooltip content with HTML and styling
-    //   const contentTooltip = (
-    //     <Tooltip >
-    //         <div class="custom-tooltip_product">
-    //             <h5>📋 <strong>상세 내용 작성 가이드</strong></h5>
-    //             <p>판매 글의 신뢰도를 높이고 원활한 거래를 위해 다음 정보를 포함하세요:</p>
-    //             <ul >
-    //                 <li><strong>상품의 상태:</strong> 사용감, 스크래치, 작동 상태 등을 포함해 구체적으로 적어주세요.</li>
-    //                 <li><strong>사용 기간 및 구매처:</strong> 예: <em>"2022년 5월에 구매, 사용 기간 1년"</em></li>
-    //                 <li><strong>기능 이상 여부:</strong> 상품의 모든 기능이 정상 작동하는지 여부를 명확히 기재하세요.</li>
-    //                 <li><strong>추가 구성품:</strong> 케이스, 설명서, 보증서 등 포함 여부를 알려주세요.</li>
-    //             </ul>
-    //             <Image 
-    //                 src="https://via.placeholder.com/150" 
-    //                 rounded 
-    //                 style={{ width: '50%', marginTop: '10px' }} 
-    //                 alt="상품 상세 예시 이미지"
-    //             />
-    //             <p className="mt-3"><strong>예시:</strong></p>
-    //             <blockquote className="bg-light p-3 rounded">
-    //                 <em>
-    //                     "2022년 5월 구매 후 약 1년 사용했습니다. 약간의 사용감은 있지만 작동에 문제는 없습니다. <br/>
-    //                     스크래치와 생활 흔적이 있으니 참고 부탁드립니다. <br/>
-    //                     추가로 원래 박스, 설명서와 정품 케이스를 포함해 드립니다."
-    //                 </em>
-    //             </blockquote>
-    //         </div>
-    //     </Tooltip>
-    // );
+    const handleCloseResultModal = () => {setShowResultModal(false); window.location.href ="/products"}
+    const handleCloseNoticeModal = () => setShowNoticeModal(false);
+
     const contentTooltip = (
         <Popover id="popover-basic" className="custom-tooltip_product">
             <Popover.Header as="h5">📋 <strong>상세 내용 작성 가이드</strong></Popover.Header>
@@ -368,9 +327,42 @@ const ProductCreateComponent = () => {
 
                    
                     <div className="d-flex justify-content-end my-5">
-                        <Button  type="submit" variant="default" style={{backgroundColor:'#FFD774'}} >등록하기</Button>
+                        <Button  type="submit" variant="default" style={{backgroundColor:'#FFD774'}} >판매신청</Button>
                     </div>
-                  
+                    
+                    <Modal className="productModal" show={showNoticeModal} onHide={handleCloseNoticeModal} centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title className="productModalTitle">판매신청 주의사항</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className="productModalContent" style={{ height: "450px" }}>
+                        <p>판매게시글 등록 시 다음 주의사항을 반드시 확인해 주세요:</p>
+                        <ul>
+                            <li><strong>승인 필수:</strong> 모든 판매 게시글은 관리자의 승인이 필요합니다. 승인 후에만 다른 사용자들에게 게시글이 노출됩니다.</li>
+                            <li><strong>승인 소요 기간:</strong> 승인에는 최대 2일이 소요될 수 있으며, 심사량에 따라 지연될 수 있습니다.</li>
+                            <li><strong>내용 준수:</strong> 부적절한 언어나 허위 정보, 공격적인 콘텐츠를 포함한 게시물은 승인되지 않을 수 있습니다. 이미지와 설명이 플랫폼 규정에 맞는지 확인해 주세요.</li>
+                            <li><strong>이미지 및 설명 품질:</strong> 흐릿하거나 저해상도의 이미지는 지양해 주세요. 고품질 이미지와 상세한 상품 설명은 구매자에게 신뢰를 줍니다.</li>
+                            <li><strong>안전과 개인정보 보호:</strong> 게시글에 개인 연락처나 개인 정보를 포함하지 않도록 주의해 주세요.</li>
+                            <li><strong>판매 금지 품목:</strong> 플랫폼에서 금지된 품목(예: 위조품, 제한 물품 등)은 등록이 거부됩니다.</li>
+                            <li><strong>책임 조항:</strong> 상품 상태 및 소유권과 관련된 모든 문제에 대한 책임은 판매자에게 있습니다.</li>
+                        </ul>
+                        </Modal.Body>
+                        <Modal.Footer className="productModalFooter">
+                            <Button variant="secondary" onClick={handleCloseNoticeModal}>취소</Button>
+                            <Button variant="custom" onClick={handleNoticeConfirm}>확인</Button>
+                        </Modal.Footer>
+                    </Modal>
+                    {/* Result Modal */}
+                    <Modal className="productModal" show={showResultModal} onHide={handleCloseResultModal} centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title className="productModalTitle">등록 결과</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body lassName="productModalContent">
+                            <p>{resultMessage}</p>
+                        </Modal.Body>
+                        <Modal.Footer className="productModalFooter">
+                            <Button variant="default" style={{ backgroundColor: '#FFD774' }} onClick={handleCloseResultModal}>확인</Button>
+                        </Modal.Footer>
+                    </Modal>
                 </Form>
             </div>
         </div>
