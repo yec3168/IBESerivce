@@ -1,26 +1,26 @@
 INSERT INTO `member` (`member_deleted`, `entry_date`, `member_name`, `member_nick_name`, `member_point`, `update_date`, `member_phone`, `member_addr`, `member_addr_detail`, `member_auth_number`, `member_email`, `member_password`, `member_social_id`, `member_social_type`, `role`) VALUES
-(0, '2024-01-01 10:00:00', '홍길동', '길동이', 1000, '2024-01-01 10:00:00', '01012345678', '서울 강남구 가로수길 13', '202동 103호', '123456', 'hong@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
-(0, '2024-01-02 10:30:00', '김유진', '유진', 2000, '2024-01-02 10:30:00', '01023456789', '서울 송파구 가락로 12', '1102동 1101호', '654321', 'kim@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_ADMIN'),
-(0, '2024-01-03 11:00:00', '이철수', '철수', 1500, '2024-01-03 11:00:00', '01034567890', '서울 마포구 독막로 172', '301동 502호', '987654', 'lee@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
-(0, '2024-01-04 12:00:00', '박지수', '지수', 1200, '2024-01-04 12:00:00', '01045678901', '서울 용산구 다산로 8-11', '904동 101호', '135792', 'park@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
-(0, '2024-01-05 13:00:00', '최명훈', '명훈', 1800, '2024-01-05 13:00:00', '01056789012', '서울 종로구 삼봉로 100-1', '406동 301호', '246801', 'choi@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_SERVICE_MANAGER'),
-(0, '2024-01-06 14:00:00', '장민경', '민경', 1100, '2024-01-06 14:00:00', '01067890123', '서울 성북구 도봉로 7', '102동 101호', '369258', 'jang@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
-(0, '2024-01-07 15:00:00', '오세훈', '세훈', 900, '2024-01-07 15:00:00', '01078901234', '서울 중구 다동길 5', '507동 1001호', '111213', 'oh@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
-(0, '2024-01-08 16:00:00', '김동우', '동우', 2500, '2024-01-08 16:00:00', '01089012345', '서울 강서구 개화길 4', '603동 203호', '141516', 'kimd@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_ADMIN'),
-(0, '2024-01-09 17:00:00', '이주현', '주현', 2200, '2024-01-09 17:00:00', '01090123456', '서울 강북구 도선사길 236', '705동 1201호', '171819', 'leej@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
-(0, '2024-01-10 18:00:00', '배수지', '수지', 2000, '2024-01-10 18:00:00', '01012346789', '서울 동대문구 서울시립대로3길 10', '808동 503호', '202122', 'bae@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_BOARD_MANAGER');
+(0, '2024-01-01 10:00:00', '홍길동', '길동이', 1000, '2024-01-01 10:00:00', '7jOxNrIHpRQeWitiaaSkBw==', '0M9PWNJH/ds0LQyYUosOFGfgf/p5knTXKt3xPYo3S+gaZwPzvmvRoSEuQK+pq8iE', '3jW6gzfR1gkS0bVr3OMaYw==', '123456', 'hong@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
+(0, '2024-01-02 10:30:00', '김유진', '유진', 2000, '2024-01-02 10:30:00', 'F3RwRMEWjmW1+U0uEjm6Ng', 'EVoEZ0AdDHTZJXlbeq6VirMvsRdTAvA8/ruh74PTwX0=', 'MANlUT9ocd6pCoY2PYYBmw==', '654321', 'kim@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_ADMIN'),
+(0, '2024-01-03 11:00:00', '이철수', '철수', 1500, '2024-01-03 11:00:00', 'lDpbxNRJep6LxbKGI+66xg==', '49s/4f8t4axndWeioKyF5juSGueZTl+zeYBBhgVeK5I=', 'gWytwgAo/kNbDwdEstnugQ==', '987654', 'lee@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
+(0, '2024-01-04 12:00:00', '박지수', '지수', 1200, '2024-01-04 12:00:00', 'UPoRTisytXqYblw5xEuJAw==', 'Nca0Qbl7HZPM1G2taL58+IUeNsY9Ah8ogbSmA3EvG7U=', 'crkk5nzevO9xVKS2AvBmVQ==', '135792', 'park@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
+(0, '2024-01-05 13:00:00', '최명훈', '명훈', 1800, '2024-01-05 13:00:00', 'IFe+DBlsA444ZUJhHITtng==', 'FIKdc41j6+HWCJUx54ICl5gQG27PjUGL5BDrN0FuLma+zKnrbcixCRzhOcyRI8Mb', 's5/2jqBkf5k1m5HOHYOWzA==', '246801', 'choi@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_SERVICE_MANAGER'),
+(0, '2024-01-06 14:00:00', '장민경', '민경', 1100, '2024-01-06 14:00:00', 'gZCj/7SqoAauLrCdvD3Etg==', 'QaMQLt3J0tugs16gUoOpCNw5pAcBlT9dYkzpuB/PPKY=', '7oPlLEzn6pwCWzICTbrKuQ==', '369258', 'jang@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
+(0, '2024-01-07 15:00:00', '오세훈', '세훈', 900, '2024-01-07 15:00:00', '/dejT8vfh/i8b/5hJfb2zg==', 'gZpnMtM6lAEurscbC8yme4w6lVy3hpA0JwLXWr32GEg=', 'gFmlXLTsg+exRTROm13/fA==', '111213', 'oh@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
+(0, '2024-01-08 16:00:00', '김동우', '동우', 2500, '2024-01-08 16:00:00', 'rfBmD993Srs3otQhJV7O+g==', 'eXhbSiSnC23J7xt+PJxcx2+sLIovQ55/fqQGynl3sy0=', 'ltEYPSTmBbYsxHH6V3+/dg==', '141516', 'kimd@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_ADMIN'),
+(0, '2024-01-09 17:00:00', '이주현', '주현', 2200, '2024-01-09 17:00:00', 'jtcNdDIoMX86louBLGxtrQ==', 'lGkC2e5v2X3zSiDeyZv5KysuIaljqFruzPNi0HPNA7nWyOkx/cytEGTyVu5bzIu8', 'awuDmaU/BpwEjivYCECAdA==', '171819', 'leej@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
+(0, '2024-01-10 18:00:00', '배수지', '수지', 2000, '2024-01-10 18:00:00', '+zQLxosizqja5Aeo+E+e+Q==', 'Ik3MhxqCFw8gHBIzHm1KhwMC6idXESdWOolhu4R5rTzH9aVOSC8g+z44Ho5ptAWS', 'A2rKfpfMw3dFEgbqSpDYCg==', '202122', 'bae@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_BOARD_MANAGER');
 
 INSERT INTO `member_bank` (`member_id`, `member_account_number`, `member_bank`) VALUES
-(1, '3020000011702', 'NH'),
-(2, '1000003188002', 'KDB'),
-(3, '3456789012', 'KB'),
-(4, '4567890123', 'NH'),
-(5, '5678901234', 'KB'),
-(6, '6789012345', 'NH'),
-(7, '7890123456', 'KB'),
-(8, '8901234567', 'NH'),
-(9, '9012345678', 'KB'),
-(10, '1234567891', 'NH');
+(1, 'ImmPeHIxCec1m5F+VnLj5A==', 'NH'),
+(2, 'DDDTUPRF90FojfidVmAm7A==', 'KDB'),
+(3, 'w8SilY77KW4a3y+wPnx0tg==', 'KB'),
+(4, 'PCbGIlFWugPC6MwBRuBorg==', 'NH'),
+(5, 'SJdnIjcnUntAZ9CPTCW0RQ==', 'KB'),
+(6, '2gOwh5bQzGBVwnm9QAf65Q==', 'NH'),
+(7, '5iTiGO4H3ZOZ5a6kDULtag==', 'KB'),
+(8, '6+rXwanms+fWPeqSeCoXjw==', 'NH'),
+(9, 'u6G3m0l8suv05yE98ES3dg==', 'KB'),
+(10, '8+n1PcnCZVEueSR9M5DgdA==', 'NH');
 INSERT INTO `product` (`member_id`, `product_created_at`, `product_point`, `product_content`, `product_title`, `product_category`, `product_condition_state`, `product_trade_state`, `product_upload_status`, product_hit) VALUES
 (1, '2024-01-01 10:00:00', 1000, '깨끗하게 사용한 아기 책입니다. 페이지마다 오염 없이 잘 보관되었고, 아기가 처음 책을 접하기 좋은 색감과 그림이 많습니다. 5권 세트로 판매합니다.', '동화책 5권 팔아요', 'KIDS_BOOKS', 'HIGH', 'TRADE_COMPLETED', 'STATUS_APPROVE', 504),
 (2, '2024-01-02 10:30:00', 4500, '저렴하게 팔아요! 아기 옷 5벌 세트. 대부분 한두 번 입은 상품으로 아주 깨끗합니다. 겨울용과 여름용 혼합 세트입니다. 사이즈는 80 사이즈입니다.', '애기옷 5벌 싸게 팔아요', 'KIDS_CLOTHING', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE', 151),
