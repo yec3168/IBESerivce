@@ -186,7 +186,7 @@ const MypagePurchaseListComponent = () => {
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                            {item.orderState === "AVAILABLE" && <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => handlerRejected(item)}>구매 취소</Button>}
+                                {item.orderState === "AVAILABLE" && <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => handlerRejected(item)}>구매 취소</Button>}
                                 {/* {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>} */}
                                 {item.orderState === "COMPLETED" &&   <div />}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
