@@ -87,14 +87,14 @@ const MypagePointPaybackComponent = () => {
     };
 
     const accountArr = [
-        { db: "KB", name: "국민은행", num: "004" },
-        { db: "SHINHAN", name: "신한은행", num: "088" },
-        { db: "HANA", name: "하나은행", num: "081" },
-        { db: "WOORI", name: "우리은행", num: "020" },
+        // { db: "KB", name: "국민은행", num: "004" },
+        // { db: "SHINHAN", name: "신한은행", num: "088" },
+        // { db: "HANA", name: "하나은행", num: "081" },
+        // { db: "WOORI", name: "우리은행", num: "020" },
         { db: "NH", name: "농협은행", num: "011" },
         { db: "KDB", name: "산업은행", num: "002" },
-        { db: "KAKAO", name: "카카오뱅크", num: "090" },
-        { db: "TOSS", name: "토스뱅크", num: "092" }
+        // { db: "KAKAO", name: "카카오뱅크", num: "090" },
+        // { db: "TOSS", name: "토스뱅크", num: "092" }
     ];
 
     return (
@@ -143,63 +143,69 @@ const MypagePointPaybackComponent = () => {
                     </Row>
 
                     {/* 포인트 환급 예상 금액 */}
-                    <div className="mt-3" id="div_afterPaybackInput">
+                    <div className="mb-3" id="div_afterPaybackInput">
                         {isExceeded ? (
-                            <div style={{ color: 'red' }}>보유 포인트를 초과하였습니다.</div>
+                            <div style={{ color: 'red', marginBottom:'20px' }}>보유 포인트를 초과하였습니다.</div>
                         ) : isError ? (
-                            <div style={{ color: 'red' }}>포인트 환급은 1000P 이상부터 가능합니다.</div>
+                            <div style={{ color: 'red', marginBottom:'20px' }}>포인트 환급은 1000P 이상부터 가능합니다.</div>
                         ) : (
-                            <div>고객님의 환급 예상 금액은 <strong>{expectedPayback}원</strong>입니다.</div>
+                            <div style={{ marginBottom:'20px' }}>고객님의 환급 예상 금액은 <strong>{expectedPayback}원</strong>입니다.</div>
                         )}
                     </div>
                 </Container>
 
-                <Container className="my-5" id='point-back-put-bank' style={{ display: 'none' }}>
+                <Container className="" id='point-back-put-bank' style={{ display: 'none' }}>
                     <Row className="justify-content-center align-items-center">
                         <Col xs='auto'>
                             <Form inline className="d-flex align-items-center">
-
                                 <Form.Group controlId="formPointInput">
-                                    <div className="mt-3">
-                                        <strong>{inputValue}P</strong>를 환급 원하십니까?
+                                    <div className="" style={{ marginBottom:'10px' }}>
+                                        {/* <strong>{inputValue}P</strong>를 환급 원하십니까? */}
+                                        환급받으실 은행과 계좌번호를 확인해주세요.
                                     </div>
-                                    <Form.Select id='bank'
-                                        style={{ borderColor: '#FFB800', width: '150px', height: '50px' }}
-                                    >
-                                        {
-                                            accountArr.map((arr, index) => {
-                                                return (
-                                                    <React.Fragment key={index}>
-                                                        {arr.db === memberBankData ? (
-                                                            <option value={arr.num} selected>{arr.name}</option>
-                                                        ) : (
-                                                            <option value={arr.num}>{arr.name}</option>
-                                                        )}
-                                                    </React.Fragment>
-                                                );
-                                            })
-                                        }
-                                    </Form.Select>
+                                    <Row className="align-items-center">
+                                        <Col sm={4}>
+                                            <Form.Select 
+                                                id='bank' 
+                                                style={{ borderColor: '#FFB800', width: '100%', height: '35px' }}
+                                            >
+                                                {
+                                                    accountArr.map((arr, index) => (
+                                                        <React.Fragment key={index}>
+                                                            {arr.db === memberBankData ? (
+                                                                <option value={arr.num} selected>{arr.name}</option>
+                                                            ) : (
+                                                                <option value={arr.num}>{arr.name}</option>
+                                                            )}
+                                                        </React.Fragment>
+                                                    ))
+                                                }
+                                            </Form.Select>
+                                        </Col>
 
-                                    <Form.Control
-                                        id='account_nubmer'
-                                        type="text"
-                                        placeholder="계좌번호"
-                                        style={{ borderColor: '#FFB800', width: '500px', height: '50px' }}
-                                        value={accountNumber}
-                                        onChange={handleAccountNumberChange}
-                                    />
+                                        <Col sm={8}>
+                                            <Form.Control
+                                                id='account_nubmer'
+                                                type="text"
+                                                placeholder="계좌번호"
+                                                style={{ borderColor: '#FFB800', width: '100%', height: '35px' }}
+                                                value={accountNumber}
+                                                onChange={handleAccountNumberChange}
+                                            />
+                                        </Col>
+                                    </Row>
 
                                     <span id='popup_result'></span>
 
-                                    <div>
+                                    <div style={{marginTop:'20px', marginLeft:'-15px'}}>
                                         <Button onClick={() => pointCancleButtonEvent()}
-                                            style={{ backgroundColor: '#FFD54F', borderColor: '#FFEB3B', marginLeft: '20px', width: '80px', height: '50px', color: '#000435' }}>
+                                            style={{ backgroundColor: '#FFD54F', borderColor: '#FFEB3B', width: '60px', height: '35px', color: '#000435', fontWeight:'bold' }}>
                                             취소
                                         </Button>
+                                        <span>&emsp;&emsp;</span>
                                         <Button onClick={() => pointPayBackButtonEvent()}
-                                            style={{ backgroundColor: '#FFD54F', borderColor: '#FFEB3B', marginLeft: '20px', width: '80px', height: '50px', color: '#000435' }}>
-                                            입력
+                                            style={{ backgroundColor: '#FFD54F', borderColor: '#FFEB3B', width: '60px', height: '35px', color: '#000435', fontWeight:'bold' }}>
+                                            확인
                                         </Button>
                                     </div>
                                 </Form.Group>
