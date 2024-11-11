@@ -27,3 +27,6 @@ export const orderDelivery = (orderDeliveryRequest) => axios.post(`${REST_API_UR
 
 //구매확정
 export const orderFinished = (orderFinishedRequest) => axios.post(`${REST_API_URL}/finish`, orderFinishedRequest, headers);
+
+// 구매 취소
+export const orderRejected = (orderRejectedRequest) => axios.post(`${REST_API_URL}/reject`, orderRejectedRequest, headers);

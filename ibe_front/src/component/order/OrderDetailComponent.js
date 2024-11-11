@@ -110,7 +110,7 @@ const OrderDetailComponent = () => {
 
     return (
         <Container className="order-detail">
-            <p className="h4 mb-4">택배거래, 안전결제로 구매합니다</p>
+            <p className="h4 mb-4">택배거래, 안전결제로 구매신청합니다.</p>
 
             <div className="product_info mb-4 p-3 rounded shadow-sm">
                 <Row>
@@ -152,12 +152,12 @@ const OrderDetailComponent = () => {
 
             <div className="text-center mt-4">
                 <Button variant="custom" className="btn-outline-dark" onClick={handlePurchase}>
-                    구매하기
+                    구매신청
                 </Button>
             </div>
             
             {showChargeModal && ReactDOM.createPortal(
-                <Modal id="order-modal"
+                <Modal id="order-modal-point"
                     show={showChargeModal}
                     onHide={handleCloseChargeModal}
                     size="xl"
@@ -181,6 +181,15 @@ const OrderDetailComponent = () => {
                     <p>보유 포인트: <span>{addComma(member.memberPoint)} <span style={{ color: "darkorange" }}>P</span></span></p>
                     <p>차감할 포인트: <span>{addComma(productPoint)} <span style={{ color: "darkorange" }}>P</span></span></p>
                     <p>구매하시겠습니까?</p>
+
+                    <div style={{ color: "gray", fontSize: "0.9em" }}>
+                        <p>주의사항:</p>
+                        <ul>
+                            <li>판매자가 거래 확정을 해야 정상적으로 구매가 완료됩니다.</li>
+                            <li>거래가 거부될 경우 차감된 포인트는 되돌아옵니다.</li>
+                            <li>구매 후 이틀 이내에 판매자 승인이 없으면 포인트가 자동으로 환불됩니다.</li>
+                        </ul>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>취소</Button>

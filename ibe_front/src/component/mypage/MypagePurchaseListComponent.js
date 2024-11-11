@@ -9,16 +9,18 @@ import badge_rejected from "../assets/images/main/badge/badge_rejected.png"
 
 import thumbnail2 from '../assets/images/thumbnail2.png';
 
-import { getOrderList, orderFinished } from "../service/OrderService";
+import { getOrderList, orderFinished, orderRejected } from "../service/OrderService";
 
 const MypagePurchaseListComponent = () => {
 
     const [orders, setOrders] = useState([]); // 초기값을 빈 배열로 설정
     const [completed, setCompleted] = useState(false); // 거래완료시 변화함.
     const [selectedItem, setSelectedItem] = useState(null); // 선택된 item 상태
-    const [showModal, setShowModal] = useState(false);
-    const [showResultModal, setShowResultModal] = useState(false);
-    const [resultMessage, setResultMessage] = useState("");
+    const [showModal, setShowModal] = useState(false); // 구매 확정 모달
+    const [showCancelModal, setShowCancelModal] = useState(false); // 구매 취소 모달
+    const [showResultModal, setShowResultModal] = useState(false); // 결과 모달
+    const [resultMessage, setResultMessage] = useState(""); // 결과 메시지
+
 
     useEffect(() => {
         getOrderList()
@@ -50,17 +52,16 @@ const MypagePurchaseListComponent = () => {
 
 
 
- // 구매 확정 핸들러
-    const orderFinishedHandler = () =>{
+  // 구매 확정 핸들러
+  const orderFinishedHandler = () => {
         handleCloseModal();
-
         if (selectedItem) {
             const orderFinishedRequest = {
                 orderId: selectedItem.id,
                 productId: selectedItem.productId
             };
 
-            console.log(orderFinishedRequest)
+            console.log(orderFinishedRequest);
 
             orderFinished(orderFinishedRequest)
                 .then(response => {
@@ -77,14 +78,52 @@ const MypagePurchaseListComponent = () => {
                 });
         }
     }
+    // 구매취소 핸들러
+    const orderRejectedHandler = () =>{
+        handleCloseCancelModal();
+
+        if (selectedItem) {
+            const orderRejectedRequest = {
+                orderId: selectedItem.id,
+                productId: selectedItem.productId
+            };
+
+            console.log(orderRejectedRequest);
+
+            orderRejected(orderRejectedRequest)
+                .then(response => {
+                    if (response.data.code === "200") {
+                        setResultMessage("구매취소되었습니다.");
+                    } else {
+                        setResultMessage(response.data.message); // 실패 메시지 설정
+                    }
+                    setShowResultModal(true);  // 결과 모달 열기
+                })
+                .catch(() => {
+                    setResultMessage("구매내역이 존재하지 않습니다."); // 실패 메시지 설정
+                    setShowResultModal(true);  // 결과 모달 열기
+                });
+        }
+    }
+   
+
+    const handlerRejected = (item) => {
+        setSelectedItem(item);
+        setShowCancelModal(true); // 구매 취소 모달 열기
+    }
+
 
     const handlerFinished = (item) => {
         setSelectedItem(item);
-        setShowModal(true);
+        setShowModal(true); // 구매 확정 모달 열기
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
+    };
+
+    const handleCloseCancelModal = () => {
+        setShowCancelModal(false);
     };
 
     const handleCloseResultModal = () => {
@@ -109,7 +148,7 @@ const MypagePurchaseListComponent = () => {
     return (
         <>
             {/* 구매 목록 타이틀 */}
-            <h3 id="h3_purListTitle">구매 목록</h3>
+            <h3 id="h3_purListTitle">구매 내역</h3>
 
             {/* 구매 목록 리스트 */}
             <Container className="mb-3" id="container_purListPaging">
@@ -143,12 +182,11 @@ const MypagePurchaseListComponent = () => {
                                 {item.orderState === "DELIVERED" &&  <img src={badge_delivery_complete} alt="finished" id="img_purListPagingBadge"/>} 
                                 {/* 구매거부*/}
                                 {item.orderState === "REJECTED" &&  <img src={badge_rejected} alt="finished" id="img_purListPagingBadge"/>} 
-                                {/* <img src={badge_finished} alt="finished" id="img_purListPagingBadge"/> */}
                             </div>
                         </Col>
                         <Col xs={2} id="col_purListPaging">
                             <div>
-                                {item.orderState === "AVAILABLE" &&    <div />}
+                                {item.orderState === "AVAILABLE" && <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() => handlerRejected(item)}>구매 취소</Button>}
                                 {/* {item.orderState === "AVAILABLE" &&    <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>} */}
                                 {item.orderState === "COMPLETED" &&   <div />}
                                 {item.orderState === "SHIPPING" &&   <Button size="lg" variant="warning" id="btn_purListPagingConfirm" onClick={() =>handlerFinished(item)}>구매 확정</Button>}
@@ -156,6 +194,29 @@ const MypagePurchaseListComponent = () => {
                             </div>
                         </Col>
 
+                         {/* 구매 취소 모달 */}
+                        <Modal id="order-modal" show={showCancelModal} onHide={handleCloseCancelModal} centered>
+                            <Modal.Header closeButton>
+                                <Modal.Title>구매 취소 확인</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div >
+                                    <p>주의사항</p>
+                                    <ul>
+                                        <li>구매 취소가 완료되면 차감된 포인트는 자동으로 환불됩니다.</li>
+                                        <li>취소 시 재구매에 제한이 있을 수 있습니다.</li>
+                                        <li>구매 후 일정 시간이 지난 경우, 구매 취소가 제한될 수 있습니다.</li>
+                                        <li>포인트 환불 처리에 영업일 기준 최대 1일이 소요될 수 있습니다.</li>
+                                    </ul>
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleCloseCancelModal}>취소</Button>
+                                <Button variant="custom" onClick={orderRejectedHandler}>확인</Button>
+                            </Modal.Footer>
+                        </Modal>
+
+                         {/* 구매 확정 모달 */}
                         <Modal id="order-modal" show={showModal} onHide={handleCloseModal} centered>
                             <Modal.Header closeButton>
                                 <Modal.Title>구매 확정 확인</Modal.Title>
@@ -173,6 +234,7 @@ const MypagePurchaseListComponent = () => {
                             </Modal.Footer>
                         </Modal>
 
+                        {/* 결과 모달 */}
                         <Modal  id="order-modal" show={showResultModal} onHide={handleCloseResultModal} centered>
                             <Modal.Header closeButton>
                                 {/* <Modal.Title>결고</Modal.Title> */}

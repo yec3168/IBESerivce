@@ -80,7 +80,7 @@ const TrendingProductsComponent=({ selectedCategory })=>{
     return (
         <>
             <div className="container">
-                <div id="div_allTitle">추천상품</div>
+                <div id="div_allTitle">추천 상품</div>
                 <div id="div_recTitle">이런 상품은 어떠세요?</div>
                 
                 <div className="row row-cols-4">
@@ -116,7 +116,7 @@ const TrendingProductsComponent=({ selectedCategory })=>{
                                 </div>
                                 <div id="div_proPriceCol">
                                     <div id="div_proPriceTxt">{addComma(product.price)}
-                                    <span id="span_won" style={{ display: 'inline-block' }}>
+                                    <span style={{ display: 'inline-block' }}>
                                         &nbsp;P
                                     </span>
                                     </div>

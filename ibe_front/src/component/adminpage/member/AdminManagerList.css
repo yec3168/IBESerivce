@@ -1,4 +1,5 @@
 .admin-manager-h2 {
+  font-family: "Paperlogy-4Regular";
   text-align: center;
   margin: 1rem;
   font-size: 20px;
@@ -6,6 +7,7 @@
 }
 
 .admin-manager-add-manager-button-container {
+  font-family: 'Pretendard-Regular';
   text-align: center;
   margin-bottom: 1rem;
 }
@@ -36,6 +38,7 @@
 }
 
 .admin-manager-manager-row {
+  font-family: 'Pretendard-Regular';
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,6 +47,7 @@
 }
 
 .admin-manager-manager-row.admin-manager-header {
+  font-family: "Paperlogy-4Regular";
   font-weight: bold;
   background-color: #ffffff;
   border-bottom: 1px solid #ddd;

@@ -3,6 +3,7 @@
 }
 
 .admin-sr-h2 {
+  font-family: "Paperlogy-4Regular";
   font-size: 20px;
   font-weight: bold;
   text-align: center;
@@ -46,6 +47,7 @@
 }
 
 .admin-sr-sales-request-column {
+  font-family: "Paperlogy-4Regular";
   display: flex;
   background-color: #ffffff;
   border-bottom: 1px solid #ddd;
@@ -69,6 +71,8 @@
 }
 
 .admin-sr-sales-request-item {
+  font-family: 'Pretendard-Regular';
+  font-weight: 100;
   border: none;
   margin-top: 5px;
   /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */

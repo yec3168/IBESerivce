@@ -141,7 +141,7 @@ const AdminBuyRequest = () => {
 
   return (
     <>
-      <h2 className="admin-sr-title">게시판 관리 - 판매신청 목록</h2>
+      <h2 className="admin-sr-title">게시판 관리 - 구매신청 목록</h2>
       <div className="admin-sr-sales-request-container">
         <div className="admin-sr-sales-request-column">
           <div className="admin-sr-column admin-sr-id">ID</div>
@@ -230,7 +230,6 @@ const AdminBuyRequest = () => {
                     value={rejectionReason[request.id] || ''}
                     onChange={(e) => handleInputResize(e, request.id)}
                     style={{ overflowY: 'hidden' }}
-
                   />
                 </div>
                 {errorMessage[request.id] && (

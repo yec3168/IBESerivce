@@ -117,7 +117,7 @@ const MypagePwChangeComponent = () => {
     };
 
     return (
-        <div className="container text-center my-5" id="container_info">
+        <div className="container text-center mx-5 my-5" id="container_info">
             <h1 id="h1_infoTitle">비밀번호 변경</h1>
             <hr />
             <div id="div_spacing" />

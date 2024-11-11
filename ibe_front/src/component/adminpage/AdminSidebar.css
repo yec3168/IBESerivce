@@ -30,6 +30,7 @@
 }
 
 .admin-sidebar nav a {
+  font-family: "Paperlogy-2ExtraLight";
   display: block; /* 링크가 블록 요소로 설정 */
   color: #d27a00; /* 메뉴 링크 글자색 */
   text-decoration: none;

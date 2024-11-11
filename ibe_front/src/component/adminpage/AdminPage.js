@@ -11,6 +11,7 @@ import AdminManagerList from './member/AdminManagerList';
 import AdminInquiryOrder from './inquiry/AdminInquiryOrder';
 import AdminInquiryList from './inquiry/AdminInquiryList';
 import AdminPointExchangeDetails from './point/AdminPointExchangeDetails';
+import AdminBuyRequest from './board/AdminBuyRequest';
 
 const AdminPage = () => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
@@ -57,6 +58,9 @@ const AdminPage = () => {
       case 'salesRequest':
         setCurrentComponent(<AdminSalesRequest />);
         break;
+        case 'buyRequest':
+          setCurrentComponent(<AdminBuyRequest />);
+          break;
       case 'deletedPost':
         setCurrentComponent(<AdminDeletedPost />);
         break;

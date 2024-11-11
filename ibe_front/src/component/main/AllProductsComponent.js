@@ -57,10 +57,10 @@ const AllProductsComponent = ({ selectedCategory }) => {
         <>
             <div className="container">
                 <div id="div_allTitle">전체 상품</div>
-                <div className="row row-cols-4">
+                <div className="row row-cols-4" id="div_allProducts">
                     {filteredProducts.slice(0, 4).map((product, idx) => (
                         <Link to={`/products/detail/${product.id}`} className="text-decoration-none text-dark" key={product.id}>
-                            <div className="col">
+                            <div className="col" id="div_productCol">
                                 {/* 상품 이미지 */}
                                <img 
                                     id="img_product" 
@@ -97,7 +97,7 @@ const AllProductsComponent = ({ selectedCategory }) => {
                                 {/* 상품 가격 */}
                                 <div id="div_proPriceCol">
                                     <div id="div_proPriceTxt">{addComma(product.price)} 
-                                    <span id="span_won" style={{ display: 'inline-block' }}>
+                                    <span style={{ display: 'inline-block', fontWeight:'900' }}>
                                         &nbsp;P
                                     </span>
                                         </div>

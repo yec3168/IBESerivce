@@ -74,6 +74,18 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
+                      handleMenuClick('buyRequest');
+                    }}
+                    className={activeMenu === 'buyRequest' ? 'active' : ''}
+                  >
+                    <div>구매신청 목록</div>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
                       handleMenuClick('deletedPost');
                     }}
                     className={activeMenu === 'deletedPost' ? 'active' : ''}
@@ -81,6 +93,7 @@ const AdminSidebar = ({ activeMenu, handleMenuClick }) => {
                     <div>게시글 조회</div>
                   </a>
                 </li>
+                
               </ul>
             </li>
           )}

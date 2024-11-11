@@ -37,6 +37,7 @@ const MypageDeleteAccountComponent = () => {
                     // 탈퇴 성공 시
                     if (deleteResponse.data.code === "200" && deleteResponse.data.data.success) {
                         alert("회원 탈퇴가 완료되었습니다.");
+                        localStorage.removeItem('accessToken'); //로그아웃
                         navigate('/'); // 탈퇴 후 메인 페이지로 리디렉션
                     } else {
                         alert("회원 탈퇴 실패, 다시 시도해주세요.");
@@ -52,7 +53,7 @@ const MypageDeleteAccountComponent = () => {
     };
 
     return (
-        <div className="container text-center my-5" id="container_info">
+        <div className="container text-center mx-5 my-5" id="container_info">
             <h1 id="h1_infoTitle">회원 탈퇴</h1>
             <hr />
             <div id="div_spacing" />
@@ -61,11 +62,10 @@ const MypageDeleteAccountComponent = () => {
                 많은 회원님들이 함께 활동하고 있답니다. <br />
                 정말로 탈퇴하시겠어요? 조금 더 생각해 보세요!<br />
             </div>
-            <div id="div_spacing" />
 
             <Form className="d-flex flex-column align-items-center" onSubmit={handleSubmit}>
                 {showPasswordInput && (
-                    <Form.Group as={Row} className="mb-4">
+                    <Form.Group as={Row} className="my-4">
                         <Form.Label column sm={4}>비밀번호</Form.Label>
                         <Col sm={6}>
                             <Form.Control 
@@ -82,7 +82,7 @@ const MypageDeleteAccountComponent = () => {
                     </Form.Group>
                 )}
                 {!showPasswordInput && (
-                    <div className="d-flex justify-content-center w-100 mt-4">
+                    <div className="d-flex justify-content-center w-100 mt-5">
                         <Button type="button" onClick={handleDeleteClick} id="button_accDelete">회원 탈퇴</Button>
                     </div>
                 )}
