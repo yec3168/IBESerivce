@@ -165,14 +165,14 @@ const IbeBoardListComponent = () => {
         <Row>
           <Col className='col-9'>
               <div style={{display:'inline',float:"right"}}>
-                <Form.Select className='board-search' id="searchCategory" style={{ width: '90px', height: '40px', display:'inline', margin:'1px'}}>
+                <Form.Select className='board-search' id="searchCategory" style={{ width: '95px', height: '40px', display:'inline', margin:'1px'}}>
                     <option value={'ALL'}>전체</option>
                     <option value={'REQUEST'}>요청</option>
                     <option value={'QUESTION'}>질문</option>
                     <option value={'INFORMATION'}>정보</option>
                     <option value={'GENERAL'}>일반</option>
                 </Form.Select>
-                <Form.Select className='board-search' id="searchType" style={{ width: '90px', height: '40px' ,display:'inline',margin:'1px'}}>
+                <Form.Select className='board-search' id="searchType" style={{ width: '95px', height: '40px' ,display:'inline',margin:'1px'}}>
                   <option value={'title'}>제목</option>
                   <option value={'name'}>작성자</option>
                 </Form.Select>
@@ -195,7 +195,7 @@ const IbeBoardListComponent = () => {
           </Col>
           <Col className='col-3'>
             <div className="text-end">
-            <Button className="board-add-post-btn" onClick={handleWriteClick}>
+            <Button className="board-add-post-btn" onClick={handleWriteClick} style={{height: '40px'}}>
               글쓰기
             </Button>
           </div>
@@ -204,7 +204,7 @@ const IbeBoardListComponent = () => {
 
         <Row>
           <Col className="mb-4">
-            <Table hover className="board-table" >
+            <Table hover className="board-table" style={{marginTop:'10px'}}>
               <thead style={{ textAlign: 'center' }}>
                 <tr>
                   <th style={{ width: '150px', textAlign: 'center' }}>번호</th>
