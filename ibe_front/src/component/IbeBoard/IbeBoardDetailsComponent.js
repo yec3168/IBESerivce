@@ -160,7 +160,7 @@ const IbeBoardDetailsComponent = () => {
                   {
                     (isAuthor) && (
                       <Button variant="warning"
-                        className='board-add-post-btn' style={{ marginRight: '10px', borderRadius:"10px", fontSize:"14px"}}
+                         style={{ marginRight: '10px', borderRadius:"10px", fontSize:"14px"}}
                         onClick={()=>handleUpdateBtn()}
                         // className="ml-auto"
                       >
@@ -169,7 +169,7 @@ const IbeBoardDetailsComponent = () => {
                   }
                   {(isAuthor || hasDeletePermission) && (
                   <Button variant="danger" 
-                    className='board-add-post-btn' style={{borderRadius:"10px", fontSize:"14px" }}
+                     style={{borderRadius:"10px", fontSize:"14px" }}
                     onClick={()=>setShowModal(true)}
                     // className="ml-auto"
                   >

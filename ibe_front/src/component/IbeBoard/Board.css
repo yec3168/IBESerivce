@@ -59,7 +59,7 @@
 }
 
 .board-add-post-btn {
-  /* background-color: #ffecbe; */
+  background-color: #ffecbe;
   border: none;
   color: #000;
   /* font-weight: bold; */
@@ -186,6 +186,8 @@
 
 .board-policy-notice {
   font-size: 0.875rem;
+
+  
   color: #6c757d;
   background-color: #f8f9fa;
   padding: 10px;
