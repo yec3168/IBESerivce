@@ -42,6 +42,7 @@ import TermsAgreementComponent from './component/sign/TermsAgreementComponent';
 import MypagePointPayBackComfrimComponent from './component/point/MypagePointPayBackComfirmComponent';
 import PrivateRouter from './component/router/PrivateRouter.js';
 import InputWaybillPage from './component/layout/pages/mypage/InputWaybillPage.js';
+import IbeBoardUpdatePage from './component/layout/pages/IbeBoard/ibeBoardUpdatePage.js';
 
 
 // 권한 감지하는 컴포넌트 PrivateRouter(ROLE, component)  권한 없을 시 <SignInComponent /> 로 보냄
@@ -98,7 +99,7 @@ function App() {
         <Route path="/boards" element={<IbeBoardListPage />} />
         <Route path="/boards/write" element={<PrivateRouter Role="USER" component={<IbeBoardWritePage />}/>} />
         <Route path="/boards/details/:boardId" element={<IbeBoardDetailsPage />} />
-
+        <Route path="/boards/details/update/:boardId" element={<PrivateRouter Role="USER" component={<IbeBoardUpdatePage/>}/>} />
         {/* 404 에러페이지 - 위치 바꾸지 말것, 항상 마지막 Route여야 함. */}
         <Route path="*" element={<NotFound />} />
       </Routes>

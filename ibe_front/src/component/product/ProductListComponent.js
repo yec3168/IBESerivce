@@ -38,7 +38,7 @@ const ProductListComponent = () => {
           }));
           setProducts(formattedData);
           setError(""); // Reset error message if products are fetched successfully
-        }
+        } 
       })
       .catch(error => {
         setError("현재 존재하는 물품이 없습니다"); // Set error message when fetch fails

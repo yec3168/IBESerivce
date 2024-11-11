@@ -150,37 +150,37 @@ const HeaderComponent = () => {
             </button>
             {/* 메뉴바 */}
             <div
-              className="collapse navbar-collapse justify-content-end"
+              className="collapse navbar-collapse justify-content-center"
               id="menubar"
               style={{marginTop:'38px'}}
             >
-              <ul className="navbar-nav menubar">
-                <li className="nav-item mr-150">
+              <ul className="navbar-nav menubar" style={{whiteSpace:'nowrap'}}>
+                <li className="nav-item mr-160 ml-50" >
                   <a className="nav-link active1" href="/products">
-                    전체 상품 조회
+                    &ensp;전체 상품 조회
                   </a>
                 </li>
-                <li className="nav-item mr-150">
+                <li className="nav-item mr-163">
                   <a className="nav-link active2" href="/products/create">
                     판매 신청
                   </a>
                 </li>
-                <li className="nav-item mr-150">
+                <li className="nav-item mr-160">
                   <a className="nav-link active3" href="/boards">
                     아이비 게시판
                   </a>
                 </li>
                 {/* 사용자는 마이페이지, 관리자는 관리자페이지 */}
                 {isAdmin ? (
-                  <li className="nav-item mr-150">
+                  <li className="nav-item mr-180" style={{marginRight:'280px', marginLeft:'10px'}}>
                     <a className="nav-link active5" href="/admin">
                       관리자 페이지
                     </a>
                   </li>
                 ) : (
-                  <li className="nav-item mr-150">
+                  <li className="nav-item mr-180" style={{marginRight:'280px', marginLeft:'6px'}}>
                     <a className="nav-link active5" href="/mypage" onClick={handleMypageClick}>
-                      마이페이지
+                      마이페이지&ensp;
                     </a>
                   </li>
                 )}

@@ -127,6 +127,88 @@ const IbeBoardCommentComponent = ({ boardId }) => {
       <Row>
         <Form.Group controlId="newComment">
           <hr className="board-comment-hr" />
+          {/* {!isRestrictedUser && (
+            <>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="댓글을 입력하세요. (최대 200자)"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                maxLength={200}
+                style={{ resize: 'none' }}
+              />
+              <Button
+                variant="primary"
+                onClick={handleCommentSubmit}
+                className="board-submit-btn"
+              >
+                등록
+              </Button>
+            </>
+          )} */}
+          <br />
+          <br />
+          {comments.map((comment) => (
+            <div key={comment.id} className="comment mb-3">
+              <div className="comment-content">
+                <div className="comment-header">
+                  <strong>{comment.nickname} </strong>
+                  <span className="comment-date">
+                    {formatDate(comment.createdAt)}
+                  </span>
+                </div>
+                <p className="comment-body">{comment.content}</p>
+                {!isRestrictedUser && (
+                  <Button
+                    variant="primary"
+                    onClick={() => handleReplyButtonClick(comment.id)}
+                    className="board-submit-btn"
+                  >
+                    답글
+                  </Button>
+                )}
+              </div>
+
+              {comment.replies && comment.replies.length > 0 && (
+                <div className="replies mt-2">
+                  {comment.replies.map((reply) => (
+                    <div key={reply.id} className="board-reply-head">
+                      <div className="reply-header">
+                        └ <strong>{reply.nickname} </strong>
+                        <span className="board-reply-date">
+                          {formatDate(reply.createdAt)}
+                        </span>
+                      </div>
+                      <p className="reply-body">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{reply.content}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {showReplyInput[comment.id] && !isRestrictedUser && (
+                <div className="reply-input mt-2">
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={replyContent}
+                    onChange={(e) => setReplyContent(e.target.value)}
+                    placeholder="답글을 입력하세요 (최대 200자)"
+                    maxLength={200}
+                  />
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleReplySubmit(comment.id)}
+                    className="board-submit-btn"
+                  >
+                    답글 등록
+                  </Button>
+                </div>
+              )}
+              <hr />
+            </div>
+            
+          ))}
           {!isRestrictedUser && (
             <>
               <Form.Control
@@ -148,67 +230,6 @@ const IbeBoardCommentComponent = ({ boardId }) => {
               </Button>
             </>
           )}
-          <br />
-          <br />
-          {comments.map((comment) => (
-            <div key={comment.id} className="comment mb-3">
-              <div className="comment-content">
-                <div className="comment-header">
-                  <strong>{comment.nickname} </strong>
-                  <span className="comment-date">
-                    {formatDate(comment.createdAt)}
-                  </span>
-                </div>
-                <p className="comment-body">{comment.content}</p>
-                {!isRestrictedUser && (
-                  <Button
-                    variant="primary"
-                    onClick={() => handleReplyButtonClick(comment.id)}
-                    className="reply-btn"
-                  >
-                    답글
-                  </Button>
-                )}
-              </div>
-
-              {comment.replies && comment.replies.length > 0 && (
-                <div className="replies mt-2">
-                  {comment.replies.map((reply) => (
-                    <div key={reply.id} className="board-reply-head">
-                      <div className="reply-header">
-                        └ <strong>{reply.nickname} </strong>
-                        <span className="board-reply-date">
-                          {formatDate(reply.createdAt)}
-                        </span>
-                      </div>
-                      <p className="reply-body">{reply.content}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {showReplyInput[comment.id] && !isRestrictedUser && (
-                <div className="reply-input mt-2">
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={replyContent}
-                    onChange={(e) => setReplyContent(e.target.value)}
-                    placeholder="답글을 입력하세요 (최대 200자)"
-                    maxLength={200}
-                  />
-                  <Button
-                    variant="secondary"
-                    onClick={() => handleReplySubmit(comment.id)}
-                    className="reply-btn"
-                  >
-                    답글 등록
-                  </Button>
-                </div>
-              )}
-              <hr />
-            </div>
-          ))}
         </Form.Group>
       </Row>
     </div>

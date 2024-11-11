@@ -9,11 +9,15 @@
   font-family: 'Pretendard-Regular';
   font-size: 14px;
   color: black;
-  background-color: #ffd97a;
+  background-color: #ffecbe;
   border: none;
   padding: 5px 15px;
   margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease; /* 부드러운 배경색 변화 효과 */
+}
+.board-submit-btn:hover{
+  background-color:#ffdb7d;
+
 }

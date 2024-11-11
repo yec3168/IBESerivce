@@ -80,7 +80,8 @@ const TrendingProductsComponent=({ selectedCategory })=>{
     return (
         <>
             <div className="container">
-                <div id="div_allTitle">이런 상품은 어떠세요?</div>
+                <div id="div_allTitle">추천상품</div>
+                <div id="div_recTitle">이런 상품은 어떠세요?</div>
                 
                 <div className="row row-cols-4">
                     {products.map((product, idx) => (

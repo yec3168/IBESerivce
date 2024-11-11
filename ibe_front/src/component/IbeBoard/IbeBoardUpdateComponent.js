@@ -3,9 +3,10 @@ import axios from 'axios';
 import './Board.css';
 import { Button, Col, Container, Row, Form, Spinner, Modal } from 'react-bootstrap';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const IbeBoardWriteComponent = () => {
+const IbeBoardUpdateComponent = () => {
+  const { boardId } = useParams();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
@@ -38,12 +39,13 @@ const IbeBoardWriteComponent = () => {
         setIsAdmin(true);
       }
     }
+    fetchPostData();
   }, []);
 
   // 글 작성 폼 제출 처리
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(title)
     // 제목, 내용, 카테고리가 비어 있으면 오류 처리
     if (!title || !content || !category) {
       setError('모든 항목을 입력해주세요.');
@@ -53,37 +55,41 @@ const IbeBoardWriteComponent = () => {
     setLoading(true);
     setError('');
 
-    try {
+    
       // 인증 토큰 가져오기 (로컬스토리지에서)
       const token = localStorage.getItem('accessToken');
-      const response = await axios.post(
-        'http://localhost:8080/api/boards', // 서버의 글 작성 API 엔드포인트
-        {
-          boardTitle: title, // boardTitle로 변경
-          boardCategory: category, // boardCategory로 변경
-          boardContent: content, // boardContent로 변경
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // 인증 헤더
-          },
-        }
-      );
 
-      if (response.status === 200) {
-            setError("");
-            setResultMessage('게시글이 성공적으로 작성되었습니다.');
-            handleCloseModal();
-            setShowResultModal(true);
+      try {
+        // 인증 토큰 가져오기 (로컬스토리지에서)
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.put(
+          `http://localhost:8080/api/boards/${boardId}`, // 서버의 글 작성 API 엔드포인트
+          {
+            boardTitle: title, // boardTitle로 변경
+            boardCategory: category, // boardCategory로 변경
+            boardContent: content, // boardContent로 변경
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // 인증 헤더
+            },
+          }
+        );
+  
+        if (response.status === 200) {
+              setError("");
+              setResultMessage('게시글이 성공적으로 수정되었습니다.');
+              handleCloseModal();
+              setShowResultModal(true);
+        }
+      } catch (error) {
+        console.error('Error posting the board:', error);
+        setError('게시글 수정에 실패했습니다. 다시 시도해주세요.');
+        setResultMessage('게시글 수정에 실패했습니다. 다시 시도해주세요.')
+        setShowResultModal(true);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error posting the board:', error);
-      setError('게시글 작성에 실패했습니다. 다시 시도해주세요.');
-      setResultMessage('게시글 작성에 실패했습니다. 다시 시도해주세요.')
-      setShowResultModal(true);
-    } finally {
-      setLoading(false);
-    }
   };
   const handleCloseModal = () => {
     setShowModal(false);
@@ -93,33 +99,68 @@ const IbeBoardWriteComponent = () => {
     setShowResultModal(false);
     navigate('/boards');
   };
+  const categoryMap = {
+    NOTICE: '공지',
+    REQUEST: '요청',
+    QUESTION: '질문',
+    INFORMATION: '정보',
+    GENERAL: '일반',
+  };
 
+  const fetchPostData = () => {
+    fetch(`http://localhost:8080/api/boards/${boardId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.responseCode === 'SUCCESS') {
+          const postStatus = data.data.boardStatus; // 게시글 상태 가져오기
+  
+          if (postStatus) {
+            // boardStatus가 true인 경우, postData를 null로 설정
+            alert('존재하지 않거나 삭제된 게시글 입니다.');
+            navigate('/boards'); // 게시글이 삭제된 상태이면 /boards로 리다이렉트
+          } else {
+            setCategory(data.data.boardCategory);
+            setTitle(data.data.boardTitle);
+            setContent(data.data.boardContent);
+          }
+        } else {
+          alert('존재하지 않거나 삭제된 게시글 입니다.');
+          navigate('/boards'); // 게시글을 찾을 수 없을 경우 /boards로 리다이렉트
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching post data:', error);
+        alert('게시글을 가져오는 데 실패했습니다.');
+        navigate('/boards'); // 오류 발생 시 /boards로 리다이렉트
+      });
+  };
   return (
     <div id="board_content">
       <Container className="board-container">
         <Row>
+          <p className="h2 board-title">글 수정하기</p>
+        </Row>
+
+        <Row>
           <Col md={8} className="mx-auto">
-            <p className="h2 board-title">글 작성하기</p>
-            <br />
-            <br />
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="title">
                 <Form.Label>제목</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="제목을 입력하세요(최대 40자)"
+                  placeholder="제목을 입력하세요(최대 200자)"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
                   className="board-input"
-                  maxLength={40}
-                  spellCheck={false}
+                  maxLength={200}
                 />
               </Form.Group>
 
               <Form.Group controlId="category" className="mt-3">
                 <Form.Label>카테고리</Form.Label>
                 <Form.Control
+                  id='selectCategory'
                   as="select"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
@@ -147,15 +188,10 @@ const IbeBoardWriteComponent = () => {
                     e.target.style.height = 'auto'; // 높이를 자동으로 맞추기 위해 초기화
                     e.target.style.height = `${e.target.scrollHeight}px`; // 컨텐츠 높이에 맞춰 자동 확장
                   }}
-                  style={{
-                    resize: 'none',
-                    overflow: 'hidden',
-                    minHeight: '6em', // 기본 높이를 3줄로 설정 (한 줄 약 1.5em 기준)
-                  }}
+                  style={{ resize: 'none', overflow: 'hidden' }} // 크기 조절 비활성화 및 자동 스크롤 조정
                   required
                   className="board-textarea"
                   maxLength={250}
-                  spellCheck={false}
                 />
               </Form.Group>
 
@@ -182,7 +218,7 @@ const IbeBoardWriteComponent = () => {
                     {/* <Modal.Title></Modal.Title> */}
                 </Modal.Header>
                 <Modal.Body>
-                    <h3>게시글을 등록하시겠습니까?</h3>
+                    <h3>게시글을 수정하시겠습니까?</h3>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button>
@@ -211,4 +247,4 @@ const IbeBoardWriteComponent = () => {
   );
 };
 
-export default IbeBoardWriteComponent;
+export default IbeBoardUpdateComponent;
