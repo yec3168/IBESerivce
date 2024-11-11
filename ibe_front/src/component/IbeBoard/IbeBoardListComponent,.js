@@ -152,183 +152,190 @@ const IbeBoardListComponent = () => {
         <Row>
           <Col className="mb-4">
             <p className="h2 board-title">아이비 게시판
-              {/* <Button className="board-add-post-btn" onClick={handleWriteClick} style={{float:'right'}}>
-               글쓰기
-              </Button> */}
               </p>
-            <span className='board-text'>
-              아이비 게시판은 종합 게시판 입니다.
-              <br/>
-              공지, 정보, 요청, 질문, 일반 게시글을 확인 할 수 있습니다.
-              <div style={{display:'inline',float:"right"}}>
-                <Form.Select className='board-search' id="searchCategory" style={{ width: '90px', height: '40px', display:'inline', margin:'1px'}}>
-                <option value={'ALL'}>전체</option>
-                <option value={'REQUEST'}>요청</option>
-                <option value={'QUESTION'}>질문</option>
-                <option value={'INFORMATION'}>정보</option>
-                <option value={'GENERAL'}>일반</option>
-              </Form.Select>
-              <Form.Select className='board-search' id="searchType" style={{ width: '90px', height: '40px' ,display:'inline',margin:'1px'}}>
-                <option value={'title'}>제목</option>
-                <option value={'name'}>작성자</option>
-              </Form.Select>
-              <Form.Control
-                id="searchValue"
-                className='board_search'
-                type='text'
-                placeholder="검색어를 입력해주세요"
-                onKeyDown={(e) => activeEnter(e)}
-                style={{ width: '400px', height: '40px',display:'inline'}}
-              />
-              <Button
-                className="board-add-post-btn"
-                style={{display:'inline'}}
-                onClick={handleSearch}
-              >
-                검색
-              </Button>
-            </div>
-          </span>
+                <span className='board-text'>
+                  아이비 게시판은 종합 게시판 입니다.
+                  <br/>
+                  공지, 정보, 요청, 질문, 일반 게시글을 확인 할 수 있습니다.
+                  
+              </span>
           </Col>
         </Row>
+          
+        <Row>
+          <Col className='col-9'>
+              <div style={{display:'inline',float:"right"}}>
+                <Form.Select className='board-search' id="searchCategory" style={{ width: '90px', height: '40px', display:'inline', margin:'1px'}}>
+                    <option value={'ALL'}>전체</option>
+                    <option value={'REQUEST'}>요청</option>
+                    <option value={'QUESTION'}>질문</option>
+                    <option value={'INFORMATION'}>정보</option>
+                    <option value={'GENERAL'}>일반</option>
+                </Form.Select>
+                <Form.Select className='board-search' id="searchType" style={{ width: '90px', height: '40px' ,display:'inline',margin:'1px'}}>
+                  <option value={'title'}>제목</option>
+                  <option value={'name'}>작성자</option>
+                </Form.Select>
+                <Form.Control
+                  id="searchValue"
+                  className='board_search'
+                  type='text'
+                  placeholder="검색어를 입력해주세요"
+                  onKeyDown={(e) => activeEnter(e)}
+                  style={{ width: '400px', height: '40px',display:'inline'}}
+                />
+                <Button
+                  className="board-add-post-btn"
+                  style={{display:'inline'}}
+                  onClick={handleSearch}
+                >
+                  검색
+                </Button>
+              </div>
+          </Col>
+          <Col className='col-3'>
+            <div className="text-end">
+            <Button className="board-add-post-btn" onClick={handleWriteClick}>
+              글쓰기
+            </Button>
+          </div>
+          </Col>
+        </Row>
+
         <Row>
           <Col className="mb-4">
-        <Table hover className="board-table" >
-          <thead style={{ textAlign: 'center' }}>
-            <tr>
-              <th style={{ width: '150px', textAlign: 'center' }}>번호</th>
-              <th style={{ width: '800px', textAlign: 'center' }}>제목</th>
-              <th style={{ width: '150px', textAlign: 'center' }}>작성자</th>
-              <th style={{ width: '220px', textAlign: 'center' }}>날짜</th>
-              <th style={{ width: '150px', textAlign: 'center' }}>조회수</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Display 공지 posts */}
+            <Table hover className="board-table" >
+              <thead style={{ textAlign: 'center' }}>
+                <tr>
+                  <th style={{ width: '150px', textAlign: 'center' }}>번호</th>
+                  <th style={{ width: '800px', textAlign: 'center' }}>제목</th>
+                  <th style={{ width: '150px', textAlign: 'center' }}>작성자</th>
+                  <th style={{ width: '220px', textAlign: 'center' }}>날짜</th>
+                  <th style={{ width: '150px', textAlign: 'center' }}>조회수</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Display 공지 posts */}
 
-            {noticePosts.map((post) => (
-              <>
-                {currentPage === 1 ? (
+                {noticePosts.map((post) => (
                   <>
-                    <tr
-                      key={post.id}
-                      onClick={() => handlePostClick(post.id)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <td
-                        style={{
-                          fontWeight: 'bold',
-                          backgroundColor: '#FFFAFA',
-                        }}
-                      ></td>{' '}
-                      {/* No ID displayed */}
-                      <td
-                        style={{ backgroundColor: '#FFFAFA', width: '800px' }}
-                      >
-                        <span className={`board-category-${post.category}`}>
-                          {mapCategory(post.category)}&emsp;
-                        </span>
-                        <strong>{post.title}</strong>
-                        {post.comments !== 0 && (
-                          <span
-                            className="board-comment-count"
-                            style={{ color: '333', fontWeight: '300' }}
+                    {currentPage === 1 ? (
+                      <>
+                        <tr
+                          key={post.id}
+                          onClick={() => handlePostClick(post.id)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          <td
+                            style={{
+                              fontWeight: 'bold',
+                              backgroundColor: '#FFFAFA',
+                            }}
+                          ></td>{' '}
+                          {/* No ID displayed */}
+                          <td
+                            style={{ backgroundColor: '#FFFAFA', width: '800px' }}
                           >
-                            {' '}
-                            [{post.comments}]
-                          </span>
-                        )}
-                        {isToday(post.date) && (
-                          <span className="board-new-tag">New</span>
-                        )}
-                      </td>
-                      <td
-                        style={{
-                          backgroundColor: '#FFFAFA',
-                          textAlign: 'center',
-                        }}
-                      >
-                        <strong>{post.author}</strong>
-                      </td>
-                      <td
-                        style={{
-                          backgroundColor: '#FFFAFA',
-                          textAlign: 'center',
-                        }}
-                      >
-                        <strong>{post.date}</strong>
-                      </td>
-                      <td
-                        style={{
-                          backgroundColor: '#FFFAFA',
-                          textAlign: 'center',
-                        }}
-                      >
-                        <strong>{post.views}</strong>
-                      </td>
-                    </tr>
+                            <span className={`board-category-${post.category}`}>
+                              {mapCategory(post.category)}&emsp;
+                            </span>
+                            <strong>{post.title}</strong>
+                            {post.comments !== 0 && (
+                              <span
+                                className="board-comment-count"
+                                style={{ color: '333', fontWeight: '300' }}
+                              >
+                                {' '}
+                                [{post.comments}]
+                              </span>
+                            )}
+                            {isToday(post.date) && (
+                              <span className="board-new-tag">New</span>
+                            )}
+                          </td>
+                          <td
+                            style={{
+                              backgroundColor: '#FFFAFA',
+                              textAlign: 'center',
+                            }}
+                          >
+                            <strong>{post.author}</strong>
+                          </td>
+                          <td
+                            style={{
+                              backgroundColor: '#FFFAFA',
+                              textAlign: 'center',
+                            }}
+                          >
+                            <strong>{post.date}</strong>
+                          </td>
+                          <td
+                            style={{
+                              backgroundColor: '#FFFAFA',
+                              textAlign: 'center',
+                            }}
+                          >
+                            <strong>{post.views}</strong>
+                          </td>
+                        </tr>
+                      </>
+                    ) : null}
                   </>
-                ) : null}
-              </>
-            ))}
+                ))}
 
-            {/* Display paginated normal posts */}
-            {paginatedPosts.map((post) => (
-              <tr
-                key={post.id}
-                onClick={() => handlePostClick(post.id)}
-                style={{ cursor: 'pointer' }}
-              >
-                <td style={{ textAlign: 'center' }}>{post.id}</td>{' '}
-                {/* ID displayed for normal posts */}
-                <td>
-                  <span className={`board-category-${post.category}`}>
-                    {mapCategory(post.category)}&emsp;
-                  </span>
-                  {post.title}
-                  {post.comments !== 0 && (
-                    <span
-                      className="board-comment-count"
-                      style={{ color: '333', fontWeight: '300' }}
-                    >
-                      {' '}
-                      [{post.comments}]
-                    </span>
-                  )}
-                  {isToday(post.date) && (
-                    <span className="board-new-tag">New</span>
-                  )}
-                </td>
-                <td style={{ textAlign: 'center' }}>{post.author}</td>
-                <td style={{ textAlign: 'center' }}>{post.date}</td>
-                <td style={{ textAlign: 'center' }}>{post.views}</td>
-              </tr>
-            ))}
-          </tbody>
-          {((paginatedPosts.length === 0 && !error) || error) && (
-            <tr>
-              <th colSpan={'5'}>
-                <div className="text-center mt-4">
-                <div id="div_spacing" />
-                  <i
-                    className="bi bi-exclamation-circle"
-                    style={{ fontSize: '3rem', color: 'red' }}
-                  ></i>
-                  <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
-                  <p>다른 키워드로 검색해 주세요.</p>
-                  <div id="div_spacing" />
-                </div>
-              </th>
-            </tr>
-          )}
-        </Table>
+                {/* Display paginated normal posts */}
+                {paginatedPosts.map((post) => (
+                  <tr
+                    key={post.id}
+                    onClick={() => handlePostClick(post.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <td style={{ textAlign: 'center' }}>{post.id}</td>{' '}
+                    {/* ID displayed for normal posts */}
+                    <td>
+                      <span className={`board-category-${post.category}`}>
+                        {mapCategory(post.category)}&emsp;
+                      </span>
+                      {post.title}
+                      {post.comments !== 0 && (
+                        <span
+                          className="board-comment-count"
+                          style={{ color: '333', fontWeight: '300' }}
+                        >
+                          {' '}
+                          [{post.comments}]
+                        </span>
+                      )}
+                      {isToday(post.date) && (
+                        <span className="board-new-tag">New</span>
+                      )}
+                    </td>
+                    <td style={{ textAlign: 'center' }}>{post.author}</td>
+                    <td style={{ textAlign: 'center' }}>{post.date}</td>
+                    <td style={{ textAlign: 'center' }}>{post.views}</td>
+                  </tr>
+                ))}
+              </tbody>
+              {((paginatedPosts.length === 0 && !error) || error) && (
+                <tr>
+                  <th colSpan={'5'}>
+                    <div className="text-center mt-4">
+                    <div id="div_spacing" />
+                      <i
+                        className="bi bi-exclamation-circle"
+                        style={{ fontSize: '3rem', color: 'red' }}
+                      ></i>
+                      <h4 className="mt-2">찾으시는 검색결과가 없습니다</h4>
+                      <p>다른 키워드로 검색해 주세요.</p>
+                      <div id="div_spacing" />
+                    </div>
+                  </th>
+                </tr>
+              )}
+            </Table>
         </Col>
         </Row>
-        <div className="text-end">
-          <Button className="board-add-post-btn" onClick={handleWriteClick}>
-            글쓰기
-          </Button>
-        </div>
+        
         <Pagination className="board-pagination justify-content-center">
           {[...Array(Math.ceil(normalPosts.length / itemsPerPage)).keys()].map(
             (_, index) => (
