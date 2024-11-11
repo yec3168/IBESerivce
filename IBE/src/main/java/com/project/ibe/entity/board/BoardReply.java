@@ -45,4 +45,6 @@ public class BoardReply {
         this.boardComment = boardComment;
         this.member = member;
     }
+    @Column(nullable = false, columnDefinition = "boolean default false") //false: 등록됨, true: 삭제됨
+    private boolean boardReplyStatus;
 }
