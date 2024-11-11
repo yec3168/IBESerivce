@@ -97,6 +97,7 @@
   /* font-family: 'CookieRun-Regular', sans-serif !important; */
   font-family: 'Paperlogy-4Regular';
   font-size: 25px;
+  font-weight: bold;
   /* margin-left: 110px; */
 }
 
@@ -126,6 +127,7 @@
 #div_proPriceTxt {
   /* font-family: 'CookieRun-Regular', sans-serif !important; */
   font-family: 'Pretendard-Regular';
+  font-weight: bold;
   font-size: 20px;
   letter-spacing: 1px;
   margin-left: 45px;
