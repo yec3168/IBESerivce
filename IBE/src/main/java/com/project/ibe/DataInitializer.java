@@ -21,15 +21,15 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        executeSqlScript("classpath:sql/member_dummy.sql");
-        executeSqlScript("classpath:sql/product_dummy.sql");
-        executeSqlScript("classpath:sql/productImg_dummy.sql");
-        executeSqlScript("classpath:sql/productComment_dummy.sql");
-        executeSqlScript("classpath:sql/productReply_dummy.sql");
-        executeSqlScript("classpath:sql/inquiry_dummy.sql");
-        executeSqlScript("classpath:sql/board_dummy.sql");
-        executeSqlScript("classpath:sql/point_charge_dummy.sql");
-        executeSqlScript("classpath:sql/point_pay_back_dummy.sql");
+//        executeSqlScript("classpath:sql/member_dummy.sql");
+//        executeSqlScript("classpath:sql/product_dummy.sql");
+//        executeSqlScript("classpath:sql/productImg_dummy.sql");
+//        executeSqlScript("classpath:sql/productComment_dummy.sql");
+//        executeSqlScript("classpath:sql/productReply_dummy.sql");
+//        executeSqlScript("classpath:sql/inquiry_dummy.sql");
+//        executeSqlScript("classpath:sql/board_dummy.sql");
+//        executeSqlScript("classpath:sql/point_charge_dummy.sql");
+//        executeSqlScript("classpath:sql/point_pay_back_dummy.sql");
     }
 
     private void executeSqlScript(String scriptPath) {
