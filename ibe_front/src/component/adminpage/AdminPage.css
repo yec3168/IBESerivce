@@ -32,6 +32,7 @@
 }
 
 .admin-main-stats-container {
+  font-family: "Paperlogy-4Regular";
   display: flex;
   justify-content: space-between; /* 좌우 공간을 균등하게 배분 */
 }
@@ -71,6 +72,7 @@
 }
 
 .admin-main-dashboard-container {
+  font-family: 'Pretendard-Regular';
   display: flex; /* Flexbox를 사용하여 나란히 배치 */
   justify-content: space-between; /* 두 그래프 사이 공간 분배 */
   margin: 1rem; /* 상하 여백 */
@@ -98,6 +100,7 @@
 }
 
 .admin-main-header {
+  font-family: 'Pretendard-Regular';
   display: flex;
   justify-content: flex-end; /* 오른쪽 정렬 */
   padding: 0.5rem; /* 패딩 추가 */
@@ -113,9 +116,11 @@
 
 .admin-main-content-h2 {
   margin: 1rem; /* 좌우 여백 */
+  font-family: "Paperlogy-4Regular";
 }
 
 .admin-main-stats-summary {
+  font-family: "Paperlogy-4Regular";
   background: #fff; /* 배경색 */
   margin: 1rem; /* 좌우 여백 */
   padding: 1rem; /* 여백 */
