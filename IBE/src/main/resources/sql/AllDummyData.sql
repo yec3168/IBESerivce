@@ -20,7 +20,7 @@ INSERT INTO `member_bank` (`member_id`, `member_account_number`, `member_bank`) 
 (7, '7890123456', 'KB'),
 (8, '8901234567', 'NH'),
 (9, '9012345678', 'KB'),
-
+(10, '1234567891', 'NH');
 INSERT INTO `product` (`member_id`, `product_created_at`, `product_point`, `product_content`, `product_title`, `product_category`, `product_condition_state`, `product_trade_state`, `product_upload_status`, product_hit) VALUES
 (1, '2024-01-01 10:00:00', 1000, '깨끗하게 사용한 아기 책입니다. 페이지마다 오염 없이 잘 보관되었고, 아기가 처음 책을 접하기 좋은 색감과 그림이 많습니다. 5권 세트로 판매합니다.', '동화책 5권 팔아요', 'KIDS_BOOKS', 'HIGH', 'TRADE_COMPLETED', 'STATUS_APPROVE', 504),
 (2, '2024-01-02 10:30:00', 4500, '저렴하게 팔아요! 아기 옷 5벌 세트. 대부분 한두 번 입은 상품으로 아주 깨끗합니다. 겨울용과 여름용 혼합 세트입니다. 사이즈는 80 사이즈입니다.', '애기옷 5벌 싸게 팔아요', 'KIDS_CLOTHING', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE', 151),
@@ -111,17 +111,17 @@ INSERT INTO `product_reply` (`member_id`, `product_comment_id`, `product_id`, `p
 
 INSERT INTO `orders` (`order_date`, `order_delivery_date`, `order_id`, `product_id`, `order_member_email`, `order_way_bill`, `seller_member_email`, `order_state`) VALUES
  ('2024-11-11 19:25:31.847280', NULL, 1, 16, 'hong@naver.com', NULL, 'jang@naver.com', 'AVAILABLE'),
- ('2024-11-11 19:25:31.847280', '2024-11-12 11:30:00.000000', 2, 1, 'jang@naver.com', 'WB564738291', 'hong@naver.com', 'COMPLETED'),
- ('2024-11-11 19:30:12.234567', '2024-11-12 10:30:00.000000', 3, 5, 'kim@naver.com', 'WB123456789', 'choi@naver.com', 'COMPLETED'),
-('2024-11-11 19:40:23.456789', '2024-11-14 09:15:00.000000', 4, 7, 'leej@naver.com', 'WB192837465', 'oh@naver.com', 'COMPLETED'),
-('2024-11-11 19:50:01.678901', '2024-11-12 11:30:00.000000', 5, 9, 'hong@naver.com', 'WB564738292', 'leej@naver.com', 'COMPLETED'),
-('2024-11-11 19:55:15.789012', '2024-11-13 15:00:00.000000', 6, 11, 'lee@naver.com', 'WB283746510', 'hong@naver.com', 'COMPLETED'),
-('2024-11-11 20:00:40.890123', '2024-11-14 10:45:00.000000', 7, 13, 'hong@naver.com', 'WB349857162', 'lee@naver.com', 'COMPLETED'),
+ ('2024-11-11 19:25:31.847280', '2024-11-12 11:30:00.000000', 2, 1, 'jang@naver.com', 'WB564738291', 'hong@naver.com', 'DELIVERED'),
+ ('2024-11-11 19:30:12.234567', '2024-11-12 10:30:00.000000', 3, 5, 'kim@naver.com', 'WB123456789', 'choi@naver.com', 'DELIVERED'),
+('2024-11-11 19:40:23.456789', '2024-11-14 09:15:00.000000', 4, 7, 'leej@naver.com', 'WB192837465', 'oh@naver.com', 'DELIVERED'),
+('2024-11-11 19:50:01.678901', '2024-11-12 11:30:00.000000', 5, 9, 'hong@naver.com', 'WB564738292', 'leej@naver.com', 'DELIVERED'),
+('2024-11-11 19:55:15.789012', NULL, 6, 11, 'lee@naver.com', NULL, 'hong@naver.com', 'COMPLETED'),
+('2024-11-11 20:00:40.890123', NULL, 7, 13, 'hong@naver.com', NULL, 'lee@naver.com', 'COMPLETED'),
 ('2024-11-11 20:05:30.901234', NULL, 8, 6, 'yoo@naver.com', NULL, 'lee@naver.com', 'AVAILABLE'),
-('2024-11-11 20:10:20.012345', '2024-11-12 13:00:00.000000', 9, 15, 'jang@naver.com', 'WB654321987', 'choi@naver.com', 'COMPLETED'),
-('2024-11-11 20:10:20.012345', '2024-11-12 13:00:00.000000', 10, 17, 'jang@naver.com', 'WB654321987', 'oh@naver.com', 'COMPLETED'),
-('2024-11-11 20:10:20.012345', '2024-11-12 13:00:00.000000', 11, 19, 'lee@naver.com', 'WB654321987', 'leej@naver.com', 'COMPLETED'),
-('2024-11-11 20:10:20.012345', '2024-11-12 13:00:00.000000', 12, 21, 'oh@naver.com', 'WB654321987', 'hong@naver.com', 'COMPLETED'),
-('2024-11-11 20:10:20.012345', '2024-11-12 13:00:00.000000', 13, 23, 'oh@naver.com', 'WB654321987', 'lee@naver.com', 'COMPLETED'),
+('2024-11-11 20:10:20.012345', NULL, 9, 15, 'jang@naver.com', 'WB658321987', 'choi@naver.com', 'SHIPPING'),
+('2024-11-11 20:10:20.012345', NULL, 10, 17, 'jang@naver.com', 'WB651321987', 'oh@naver.com', 'SHIPPING'),
+('2024-11-11 20:10:20.012345', NULL, 11, 19, 'lee@naver.com', 'WB654221987', 'leej@naver.com', 'SHIPPING'),
+('2024-11-11 20:10:20.012345', NULL, 12, 21, 'oh@naver.com', NULL, 'hong@naver.com', 'COMPLETED'),
+('2024-11-11 20:10:20.012345', NULL, 13, 23, 'oh@naver.com', NULL, 'lee@naver.com', 'COMPLETED'),
 ('2024-11-11 20:05:30.901234', NULL, 14, 3, 'leej@naver.com', NULL, 'lee@naver.com', 'AVAILABLE'),
 ('2024-11-11 20:05:30.901234', NULL, 15, 3, 'yoo@naver.com', NULL, 'lee@naver.com', 'AVAILABLE');
