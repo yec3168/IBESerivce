@@ -109,6 +109,9 @@
 
 /* MemberPointCardComponent */
 
+.order-modal{
+    font-family: "PretendardVariable";
+}
 #card_memberPointInfo{
     font-family: "PretendardVariable";
     width: 400px;
