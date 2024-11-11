@@ -116,7 +116,7 @@ const TrendingProductsComponent=({ selectedCategory })=>{
                                 </div>
                                 <div id="div_proPriceCol">
                                     <div id="div_proPriceTxt">{addComma(product.price)}
-                                    <span id="span_won" style={{ display: 'inline-block' }}>
+                                    <span style={{ display: 'inline-block' }}>
                                         &nbsp;P
                                     </span>
                                     </div>

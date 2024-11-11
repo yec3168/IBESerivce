@@ -96,13 +96,13 @@
 #div_allTitle {
   /* font-family: 'CookieRun-Regular', sans-serif !important; */
   font-family: 'Paperlogy-4Regular';
-  font-size: 30px;
+  font-size: 25px;
   /* margin-left: 110px; */
 }
 
 #div_recTitle{
   font-family: 'Paperlogy-4Regular';
-  font-size: 20px;
+  font-size: 16px;
   /* font-weight: 100; */
   color: #666666;
   /* margin-left: 310px; */
@@ -112,7 +112,7 @@
   width: 300px;
   height: 250px;
   border-radius: 5%;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 #div_proNameTxt {
@@ -120,6 +120,7 @@
   font-family: 'Pretendard-Regular';
   font-size: 20px;
   /* margin-top: 20px; */
+  margin-left: 45px;
 }
 
 #div_proPriceTxt {
@@ -127,17 +128,21 @@
   font-family: 'Pretendard-Regular';
   font-size: 20px;
   letter-spacing: 1px;
+  margin-left: 45px;
 }
 
 #div_proState {
   margin-top: 10px;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .proStateBadge {
   margin-right: 10px;
   width: 100px;
 }
+
 
 /* AdComponent */
 
