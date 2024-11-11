@@ -15,14 +15,7 @@
         useEffect(() => {
             if (memberPoint !== null) {
                 const inputAmount = parseInt(inputValue) || 0;
-                
-                if (inputAmount > memberPoint) {
-                    setIsExceeded(true);
-                } else if (inputAmount < 1000 && inputAmount !== 0) {
-                    setIsExceeded(true);  // 1000원 이하일 때는 false로 설정
-                } else {
-                    setIsExceeded(false);
-                }
+                setIsExceeded(inputAmount > memberPoint);
             }
             
            
