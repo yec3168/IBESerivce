@@ -2,8 +2,32 @@
   height: 100px;
 }
 
+.mr-250 {
+  margin-right: 250px;
+}
+
+.mr-180 {
+  margin-right: 180px;
+}
+
+.mr-160 {
+  margin-right: 160px;
+}
+
 .mr-150 {
   margin-right: 150px;
+}
+
+.mr-155 {
+  margin-right: 155px;
+}
+
+.mr-160 {
+  margin-right: 160px;
+}
+
+.mr-163 {
+  margin-right: 163px;
 }
 
 .mr-130 {
@@ -30,15 +54,30 @@
   margin-left: 70px;
 }
 
+.ml-30 {
+  margin-left: 30px;
+}
+
+.ml-50 {
+  margin-left: 50px;
+}
+
+.ml-70 {
+  margin-left: 70px;
+}
+
 #header_nav {
   /* font-family: "CookieRun-Regular", sans-serif !important; */
 
   font-family: 'Paperlogy-4Regular';
+
 }
 
 .menubar {
-  font-size: 20px;
+  font-size: 19px;
+  font-weight: 700;
 }
+
 
 .loginMenubar {
   font-size: 15px;

@@ -98,6 +98,14 @@
   /* margin-left: 110px; */
 }
 
+#div_recTitle{
+  font-family: 'Paperlogy-4Regular';
+  font-size: 20px;
+  /* font-weight: 100; */
+  color: #666666;
+  /* margin-left: 310px; */
+}
+
 #img_product {
   width: 300px;
   height: 250px;
