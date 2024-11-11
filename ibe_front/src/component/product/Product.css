@@ -22,6 +22,10 @@
     font-weight: 700;
     font-size: 60px;
 }
+.product_badge{
+    font-size: 0.75rem;
+    padding: 0.5em 0.8em;
+}
 
 
 /* 물품 조회수, 댓글 수 css */
@@ -237,6 +241,7 @@
 }
 #section_2 .product_form_title{
     font-family: 'Paperlogy-4Regular';
+    font-weight: bold;
 }
 
 #section_2 .product_form_label{
@@ -306,34 +311,10 @@
 }
 
 
-
 #commnet_section{
     margin-bottom: 50px;
 }
 
-/* .custom-tooltip_product {
-    text-align: left;
-    width: 600px;  
-    padding: 10px; 
-    background-color: #fff8e1;
-    color: #444;
-    border: 1px solid #f5c71a;
-    line-height: 1.5;
-}
-
-.custom-tooltip_product h5 {
-    color: #f39c12;
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-}
-
-.custom-tooltip_product blockquote {
-
-    color: #555;
-    border-left: 4px solid #f39c12;
-    padding-left: 12px;
-    font-size: 1rem;
-} */
 
 .custom-tooltip_product {
     font-family: 'Pretendard-Regular';
