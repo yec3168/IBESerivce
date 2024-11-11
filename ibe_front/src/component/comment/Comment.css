@@ -14,7 +14,7 @@
 }
 
 #comment #comment_info .comment_top {
-    font-size: 20px;
+    font-size: 19px;
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Paperlogy-4Regular';
 }
@@ -31,7 +31,7 @@
 }
 
 #comment_inputs .form-control {
-    font-size: 15px;
+    font-size: 12px;
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Pretendard-Regular';
     width: 100%;
@@ -45,11 +45,11 @@
 #comment_inputs .submit-btn {
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Pretendard-Regular';
-    font-size: 14px;
+    font-size: 12px;
     color: black;
     background-color: #FFD97A;
     border: none;
-    padding: 5px 15px;
+
     margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -68,7 +68,7 @@
 }
 
 #comment_list .comment-profile {
-    font-size: 24px;
+    font-size: 18px;
     margin-right: 10px;
 }
 
@@ -80,16 +80,16 @@
 
 #comment_list .comment-name {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 #comment_list .comment-createdAt {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 #comment_list .comment-text {
-    font-size: 14px;
+    font-size: 11px;
     margin: 5px 0;
 }
 
@@ -97,13 +97,12 @@
 .reply-btn {
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Pretendard-Regular';
-    font-size: 13px;
+    font-size: 12px;
     color: black;
     background-color: #FFD97A;
     border: none;
     margin-top: 5px;
     align-self: flex-start;
-    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease; /* 부드러운 배경색 변화 효과 */
@@ -115,14 +114,14 @@
 }
 
 .reply-form .form-control {
-    font-size: 14px;
+    font-size: 11px;
     resize: none;
     margin-top: 10px;
     border: 1px solid #ddd;
 }
 
 .submit-reply-btn {
-    font-size: 13px;
+    font-size: 12px;
     color: #007bff;
     margin-top: 5px;
 }
@@ -139,7 +138,7 @@
 }
 
 .reply-profile {
-    font-size: 18px;
+    font-size: 16px;
     margin-right: 10px;
 }
 
@@ -150,30 +149,30 @@
 
 .reply-name {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .reply-createdAt {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .comment-createdAt {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .reply-text {
-    font-size: 13px;
+    font-size: 11px;
     margin: 5px 0;
 }
 
 .submit-reply-btn {
-    font-size: 14px;
+    font-size: 12px;
     color: black;
     background-color: #FFD97A;
     border: none;
-    padding: 5px 15px;
+    font-family: 'Pretendard-Regular';
     margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
