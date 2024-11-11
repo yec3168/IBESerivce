@@ -114,11 +114,11 @@ const MypagePurchaseListComponent = () => {
             {/* 구매 목록 리스트 */}
             <Container className="mb-3" id="container_purListPaging">
                 {currentItems.map(item => (
-                    <Row className="my-5" key={item.id}>
+                    <Row className="my-4" key={item.id} id="row_purListPaging">
                         <Col xs={1} id="col_purListPaging">
                             <img src={getFullImageUrl(item.thumbnail)} alt="thumbnailImg" id="img_purListPagingThumbnail"  onError={(e) => e.target.src = thumbnail2}/>
                         </Col>
-                        <Col xs={2} id="col_purListPagingTitle">
+                        <Col xs={3} id="col_purListPagingTitle">
                             <div>
                                 <div id="purListPagingTitle">{item.title}</div>
                                 <div>{item.seller}</div>

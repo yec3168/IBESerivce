@@ -73,7 +73,7 @@ const NotFound = () => {
                 backgroundColor: '#FFC000',
                 borderRadius: '20px',
                 color: 'white', 
-                fontFamily: "CookieRun-Regular",
+                fontFamily: "Paperlogy-4Regular",
                 fontSize: '22px',
                 border: 'none', 
                 textDecoration: 'none',

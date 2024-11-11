@@ -75,6 +75,7 @@
   #product_price{
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Paperlogy-4Regular';
+    letter-spacing: 1px;
   }
 
   #product_list .text-center {
@@ -82,4 +83,14 @@
     /* font-family: "CookieRun-Regular", sans-serif !important; */
     font-family: 'Paperlogy-4Regular';
     color: #666666; /* Bootstrap danger color for text */
+  }
+
+
+  #product_list_null {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px; /* Makes sure it takes up the full viewport height */
+    text-align: center;
   }

@@ -16,28 +16,34 @@
   font-style: normal;
 }
 
-/* @font-face {
-  font-family: 'Paperlogy-2ExtraLight';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-} */
-/* @font-face {
-  font-family: 'Paperlogy-3Light';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-} */
-@font-face {
-  font-family: 'Paperlogy-4Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-}
-
 @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
+
+/* import .ttf font */
+@font-face { 
+  font-family: "Paperlogy-3Light";
+  src: url("../src/component/assets/fonts/Paperlogy-3Light.ttf") format("truetype");
+  font-weight: normal;
+} 
+
+@font-face { 
+  font-family: "Paperlogy-2ExtraLight";
+  src: url("../src/component/assets/fonts/Paperlogy-2ExtraLight.ttf") format("truetype");
+  font-weight: normal;
+} 
+
+@font-face { 
+  font-family: "Paperlogy-4Regular";
+  src: url("../src/component/assets/fonts/Paperlogy-4Regular.ttf") format("truetype");
+  font-weight: normal;
+} 
+
+@font-face { 
+  font-family: "PretendardVariable";
+  src: url("../src/component/assets/fonts/PretendardVariable.ttf") format("truetype");
+  font-weight: normal;
+} 

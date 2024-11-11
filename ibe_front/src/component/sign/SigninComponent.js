@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, FloatingLabel , Row, Col, Alert } from "react-bootstrap";
 import Logo from '../assets/images/sign/ibe_logo1.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
 import {login } from '../service/MemberService';
 import {getKaKaoLoginLink} from "../service/KakaoService";
 import './Sign.css'
+import { useNavigate } from "react-router-dom";
 
 
 function SignInComponent(){
@@ -12,7 +13,7 @@ function SignInComponent(){
     const [memberEmail, setMemberEmail] = useState("");
     const [memberPassword, setMemberPassword] = useState("");
     const [isEmpty, setIsEmpty] = useState(false);
-   
+    const navigate = useNavigate();
   
 
     const onSubmitHandler =  (event) => {
@@ -35,7 +36,7 @@ function SignInComponent(){
             .then(response => {
             console.log(response.data);
             if (response.data.code === "200") {
-                alert("로그인 성공!");
+                // alert("로그인 성공!");
                 console.log(response.data.message);
                 let accessToken = response.data.message;
                 localStorage.setItem('accessToken', accessToken);
@@ -59,6 +60,13 @@ function SignInComponent(){
         window.location.href = getKaKaoLoginLink()
       
     }
+    // 로그인 한 상태로 접근하면 메인페이지로 보내기
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+          navigate("/");
+        }
+      }, []);
 
     return(
         <div className="sign-in__wrapper">

@@ -169,6 +169,7 @@ const MemberInfoChangeComponent = () => {
             const response = await updateMemberInfo(requestData);
             if (response.data.code === "200") {
               alert("회원 정보가 성공적으로 변경되었습니다.");
+              window.location.href="/mypage/info"
             } else {
               alert("회원 정보 변경에 실패했습니다.");
             }

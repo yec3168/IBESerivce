@@ -78,6 +78,11 @@ const MypagePointChargeComponent = () => {
         setTimeout(() => setIsClicked(false), 3000); // 3000ms 후에 다시 클릭 가능하게 함
     }
 
+     const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
+    }
+
     return(
         <>
             <Container className="text-center my-5 containerPCharge">
@@ -89,7 +94,7 @@ const MypagePointChargeComponent = () => {
                 {/* 보유 포인트 */}
                 <div id="div_pointData">
                     보유 포인트&nbsp;:&nbsp;
-                    <span id="span_point">{memberPoint !== null ? `${memberPoint}` : '로딩중'} </span>
+                    <span id="span_point">{memberPoint !== null ? addComma(`${memberPoint}`) : '로딩중'} </span>
                     <span id="span_p">&nbsp;P</span>
                 </div>
 

@@ -180,7 +180,7 @@ public class BoardService {
      * 게시판 댓글 수.
      */
     private int getCommentCntByBoard(Board board){
-        return boardCommentRepository.findAllByBoard(board).size();
+        return boardCommentRepository.findAllByBoard(board).size()+boardReplyRepository.countByBoard(board);
     }
 
 
@@ -208,10 +208,17 @@ public class BoardService {
             } else {
                 boardList = boardRepository.findByBoardStatusAndBoardCategoryAndBoardTitleContaining(false,BoardCategory.valueOf(category) , value);
             }
-        }else if(type.equals("name")){
-            if(category.equals("ALL"))
-                boardList = boardRepository.findByBoardStatusAndMember_MemberNickName(false, value);
+        }else if(type.equals("name")) {
+            if (category.equals("ALL")){
+                if (value.isEmpty()) {
+                    boardList = boardRepository.findByBoardStatus(false);
+                }else
+            boardList = boardRepository.findByBoardStatusAndMember_MemberNickName(false, value);
+            }
             else{
+                if(value.isEmpty()){
+                    boardList = boardRepository.findByBoardStatusAndBoardCategory(false,BoardCategory.valueOf(category));
+                }else
                 boardList = boardRepository.findByBoardStatusAndBoardCategoryAndMember_MemberNickName(false,BoardCategory.valueOf(category),value);
             }
 
