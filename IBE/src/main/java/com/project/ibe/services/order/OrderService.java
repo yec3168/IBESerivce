@@ -210,6 +210,9 @@ public class OrderService {
                 order.setOrderState(OrderState.COMPLETED);
             }
             else{
+                Member rejectMember = memberService.getMemberByEmail(order.getOrderMemberEmail());
+                rejectMember.setMemberPoint( rejectMember.getMemberPoint() + sellProduct.getProductPoint());
+                memberService.saveMember(rejectMember);
                 order.setOrderState(OrderState.REJECTED);
             }
             orderRepository.save(order);
@@ -289,6 +292,27 @@ public class OrderService {
         return true;
     }
 
+    /**
+     * 구매거부( 구매자가 구매 취소 )
+     */
+    public Boolean rejectedOrder(OrderRejectedRequest orderRejectedRequest ,PrincipalDTO principalDTO){
+        // 구매자
+        Member orderMember = memberService.getMemberByEmail(principalDTO.getMemberEmail());
+
+        // 물품
+        Product product = productService.findProductById(orderRejectedRequest.getProductId());
+
+        // 주문
+        Order order = findOrderById(orderRejectedRequest.getOrderId());
+        order.setOrderState(OrderState.REJECTED);
+        orderRepository.save(order);
+
+        // 회원 금액 되돌려주기.
+        orderMember.setMemberPoint(orderMember.getMemberPoint() + product.getProductPoint());
+        memberService.saveMember(orderMember);
+
+        return true;
+    }
 
     public Order findOrderById(Long orderId){
         return orderRepository.findById(orderId)

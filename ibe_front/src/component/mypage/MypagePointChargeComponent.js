@@ -85,11 +85,10 @@ const MypagePointChargeComponent = () => {
 
     return(
         <>
-            <Container className="text-center my-5 containerPCharge">
+            <Container className="text-center my-5 mx-5 containerPCharge">
                 {/* 포인트 충전 타이틀*/}
                 <h1 id="h1_pointTitle">포인트 충전</h1>
                 <div id="div_pointInfo">포인트로 아이비에서 판매하는 상품을 구매할 수 있습니다.</div>
-                <div id="div_spacing"/>
                 
                 {/* 보유 포인트 */}
                 <div id="div_pointData">
@@ -117,8 +116,6 @@ const MypagePointChargeComponent = () => {
                         </Col>
                     ))}
                 </Row>
-
-                <div id="div_spacing"/>
 
                 {/* 포인트 약관 */}
                 <div id="div_pointTerms">

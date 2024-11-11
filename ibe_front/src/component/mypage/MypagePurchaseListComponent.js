@@ -109,7 +109,7 @@ const MypagePurchaseListComponent = () => {
     return (
         <>
             {/* 구매 목록 타이틀 */}
-            <h3 id="h3_purListTitle">구매 목록</h3>
+            <h3 id="h3_purListTitle">구매 내역</h3>
 
             {/* 구매 목록 리스트 */}
             <Container className="mb-3" id="container_purListPaging">

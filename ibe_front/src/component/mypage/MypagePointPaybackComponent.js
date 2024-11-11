@@ -17,6 +17,8 @@
                 const inputAmount = parseInt(inputValue) || 0;
                 setIsExceeded(inputAmount > memberPoint);
             }
+            
+           
         }, [inputValue, memberPoint]);
         
 
@@ -27,7 +29,7 @@
                 const response = await getMemberInfo(); 
                 console.log(response);
                 if (response.data && response.data.data.memberPoint) {
-                setMemberPoint(response.data.data.memberPoint); 
+                    setMemberPoint(response.data.data.memberPoint); 
                 }
                 if (response.data && response.data.data.memberAccountNumber) {  
                     setAccountNumber(response.data.data.memberAccountNumber); 
@@ -54,7 +56,7 @@
 
         const pointButtonEvent = ()=>{
 
-            if(!inputValue || inputValue===0 ||inputValue>memberPoint){
+            if(!inputValue || inputValue===0 ||inputValue>memberPoint || inputValue < 1000){
                 return
             }
             document.getElementById('point-back-put-bank').style.display='inline';
@@ -97,11 +99,10 @@
         
         return (
             <>
-                <Container className="text-center my-5 containerPCharge">
+                <Container className="text-center my-5 mx-5 containerPCharge">
                     {/* 포인트 환급 타이틀*/}
                     <h1 id="h1_pointTitle">포인트 환급</h1>
                     <div id="div_pointInfo" className="text-muted">포인트를 현금으로 전환할 수 있습니다.</div>
-                    <div id="div_spacing"/>
 
                     {/* 보유 포인트 */}
                     <div id="div_pointData">
@@ -118,7 +119,7 @@
                         <Row className="justify-content-center align-items-center">
                             <Col xs="auto">
                                 <img src={point_to_cash_icon} alt="point_to_cash_icon" 
-                                    style={{ width:'100px', height:'100px', marginLeft:'200px', marginRight:'10px' }} />
+                                    style={{ width:'80px', height:'80px', marginLeft:'0px', marginRight:'10px' }} />
                             </Col>
                             <Col xs={12} md={8}>
                                 <Form inline className="d-flex align-items-center">
@@ -148,6 +149,7 @@
                             ) : (
                                 <div>고객님의 환급 예상 금액은 <strong>{expectedPayback}원</strong>입니다.</div>
                             )}
+                            <div>포인트의 최소 금액은 <strong>1,000P</strong>부터 입니다.</div>
                         </div>
                     </Container>
 

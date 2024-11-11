@@ -1,6 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
 import "./Mypage.css";
-import MypageSidenavComponent from "./MypageSidenavComponent";
 import MemberInfoCardComponent from "./MemberInfoCardComponent";
 import MemberPointCardComponent from "./MemberPointCardComponent";
 import MypagePurchaseListComponent from "./MypagePurchaseListComponent";

@@ -215,7 +215,7 @@ const ProductDetailComponent = () => {
                                                 <Button className="w-75 h-100 mb-3 btn-custom" variant="default" type="button"  
                                                     onClick={purchaseHandler}
                                                     style={{backgroundColor:'#FFD774', color:'black', border:"1px solid #FFD774"}}>
-                                                    구매하기
+                                                    구매신청
                                                 </Button>
                                             </Col>
                                         </Row>

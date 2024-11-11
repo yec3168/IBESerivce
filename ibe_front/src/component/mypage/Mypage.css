@@ -163,12 +163,11 @@
 #h3_purListTitle{
     font-family: "PretendardVariable";
     font-weight: bold;
-    font-size: 25px;
+    font-size: 23px;
     background-color: #f6c3b23f;
     height: 50px;
     width: 970px;
     margin-top: 40px;
-    margin-left: 220px;
     padding-left: 40px; 
     display: flex;
     align-items: center;
@@ -229,7 +228,7 @@
     height: 50px;
     width: 970px;
     margin-top: 20px;
-    margin-left: 220px;
+    /* margin-left: 220px; */
     padding-left: 40px; 
     display: flex;
     align-items: center;
@@ -283,13 +282,20 @@
 /* MypagePointChargeComponent */
 
 .containerPCharge{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "PretendardVariable";
+    width: 100%;
+}
+
+#h1_pointTitle{
     font-family: "Paperlogy-3Light";
+    font-weight: bold;
+    margin-top: -10px;
 }
 
 #div_pointInfo{
     margin-top: 20px;
     font-size: 20px;
+    margin-bottom: 50px;
 }
 
 #div_pointData{
@@ -308,7 +314,8 @@
 }
 
 #div_pNum{
-    font-size: 20px;
+    font-size: 17px;
+    font-weight: bold;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -334,13 +341,17 @@
     color: white; 
 }
 
-#div_pointTerms{
+
+#div_pointTerms {
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: start;
+    white-space: nowrap;
+    margin-top: 50px;
 }
+
 
 /* MypageInquiryComponent */
 
@@ -462,6 +473,8 @@
     padding-left: 50px;
     font-size: 15px;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #purListPagingTitle {
@@ -470,7 +483,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 160px;
+    max-width: 150px;
 }
 
 
@@ -496,6 +509,7 @@
     justify-content: center; 
     margin-top: 30px;
     margin-right: 100px;
+    margin-left: 150px;
     color: black !important;
 }
 
