@@ -94,6 +94,14 @@ const IbeBoardWriteComponent = () => {
     navigate('/boards');
   };
 
+  const handleWriteButton = ()=>{
+    // 제목, 내용, 카테고리가 비어 있으면 오류 처리
+    if (!title || !content || !category) {
+      setError('모든 항목을 입력해주세요.');
+      return;
+    }
+    setShowModal(true);
+  }
   return (
     <div id="board_content">
       <Container className="board-container">
@@ -165,10 +173,10 @@ const IbeBoardWriteComponent = () => {
                 </p>
               </div>
 
-              {error && <p className="board-error-message mt-3">{error}</p>}
+              {error && <p className="board-error-message mt-3" style={{color:'red'}}>{error}</p>}
 
               <div className="text-end">
-                <Button className="board-add-post-btn" onClick={()=>setShowModal(true)} style={{marginTop:'6px'}}>
+                <Button className="board-add-post-btn" onClick={()=>handleWriteButton()} style={{marginTop:'6px'}}>
                   {loading ? <Spinner animation="border" size="sm" /> : '작성'}
                 </Button>
               </div>
@@ -180,7 +188,6 @@ const IbeBoardWriteComponent = () => {
                     <h3>게시글을 등록하시겠습니까?</h3>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button>
                     <Button type="submit" className='board-add-post-btn' onClick={handleSubmit}>확인</Button>
                 </Modal.Footer>
             </Modal>
@@ -191,7 +198,7 @@ const IbeBoardWriteComponent = () => {
                     <Modal.Title>결과</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h3>{resultMessage}</h3>
+                  <h3 >{resultMessage}</h3>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className='board-add-post-btn' onClick={handleCloseResultModal}>확인</Button>
