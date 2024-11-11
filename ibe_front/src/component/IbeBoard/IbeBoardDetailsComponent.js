@@ -131,8 +131,8 @@ const IbeBoardDetailsComponent = () => {
   return (
     <div id="board_content">
       <Container className="board-container">
-        <Row>   
-        <p className='h2'>
+        <Row style={{fontFamily:"Paperlogy-4Regular"}}>   
+        <p className='h3'>
           {post ? (
             <>
               <span className={`board-category-${post.categoryEng}`}>[{post.category}]</span> {post.title}
@@ -145,22 +145,22 @@ const IbeBoardDetailsComponent = () => {
 
         {post && (
           <>
-            <Row>
+            <Row style={{fontFamily:"Pretendard-Regular"}}>
               <Col>
-                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                <div style={{ display: 'inline-block', marginRight: '20px', fontSize:"12px" }}>
                   <strong>작성자:</strong> {post.nickname}
                 </div>
-                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                <div style={{ display: 'inline-block', marginRight: '20px', fontSize:"12px"}}>
                   <strong>등록 시간:</strong> {post.createdAt}
                 </div>
-                <div style={{ display: 'inline-block', marginRight: '20px' }}>
+                <div style={{ display: 'inline-block', marginRight: '20px', fontSize:"12px"}}>
                   <strong>조회수:</strong> {post.views}
                 </div>
                 <div style={{display:'inline',float:"right"}}>
                   {
                     (isAuthor) && (
-                      <Button
-                        className='board-add-post-btn' style={{display:'inline',height:'40px', marginRight: '10px'}}
+                      <Button variant="warning"
+                        className='board-add-post-btn' style={{ marginRight: '10px', borderRadius:"10px", fontSize:"14px"}}
                         onClick={()=>handleUpdateBtn()}
                         // className="ml-auto"
                       >
@@ -168,8 +168,8 @@ const IbeBoardDetailsComponent = () => {
                       </Button>)
                   }
                   {(isAuthor || hasDeletePermission) && (
-                  <Button
-                    className='board-add-post-btn' style={{display:'inline',backgroundColor:'#f5a1a1',height:'40px'}}
+                  <Button variant="danger" 
+                    className='board-add-post-btn' style={{borderRadius:"10px", fontSize:"14px" }}
                     onClick={()=>setShowModal(true)}
                     // className="ml-auto"
                   >
@@ -178,13 +178,13 @@ const IbeBoardDetailsComponent = () => {
                 )}
                 </div>
                 
-                <hr />
-                <p className='board-text'>{post.content}</p>
+                <hr style={{marginBottom:"30px", marginTop:"30px"}}/>
+                <p className='board-text' style={{fontSize:"14px"}}>{post.content}</p>
                 <br />
                 <br />
-                <p className="board-comment-top">
+                <div className="board-comment-top">
                   <FaRegCommentDots /> 댓글 {post.commentCount}
-                </p>
+                </div>
               </Col>
             </Row>
             {/* 댓글 컴포넌트 포함 */}
