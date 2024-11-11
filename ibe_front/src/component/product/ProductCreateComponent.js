@@ -334,7 +334,7 @@ const ProductCreateComponent = () => {
                         <Modal.Header closeButton>
                             <Modal.Title className="productModalTitle">판매신청 주의사항</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body className="productModalContent" style={{ height: "450px" }}>
+                        <Modal.Body className="productModalContent" style={{ height: "250px" }}>
                         <p>판매게시글 등록 시 다음 주의사항을 반드시 확인해 주세요:</p>
                         <ul>
                             <li><strong>승인 필수:</strong> 모든 판매 게시글은 관리자의 승인이 필요합니다. 승인 후에만 다른 사용자들에게 게시글이 노출됩니다.</li>
@@ -356,7 +356,7 @@ const ProductCreateComponent = () => {
                         <Modal.Header closeButton>
                             <Modal.Title className="productModalTitle">등록 결과</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body lassName="productModalContent">
+                        <Modal.Body className="productModalContent">
                             <p>{resultMessage}</p>
                         </Modal.Body>
                         <Modal.Footer className="productModalFooter">
