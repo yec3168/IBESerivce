@@ -1,211 +1,156 @@
-.admin-sr-title {
+.admin-buy-request {
+  font-family: 'Pretendard-Regular';
+}
+
+.admin-buy-request h2 {
   text-align: center;
-}
-
-.admin-sr-button-container {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.admin-sr-action-button-no {
-  padding: 8px 104px;
-  margin: 0.5rem;
-  background-color: rgb(151, 0, 0);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 20px;
+  color: #333;
   font-weight: bold;
+  font-family: 'Paperlogy-4Regular';
 }
 
-.admin-sr-action-button-yes {
-  padding: 8px 104px;
-  margin: 0.5rem;
-  background-color: rgb(33, 95, 33);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-weight: bold;
-}
-
-.admin-sr-action-button-yes:hover {
-  background-color: green;
-}
-
-.admin-sr-action-button-no:hover {
-  background-color: red;
-}
-
-.admin-sr-sales-request-column {
-  display: flex;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
-  font-weight: bold;
-}
-
-.admin-sr-sales-request-container {
+.admin-buy-request-list {
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   padding: 1rem;
   margin: 1rem;
-  border: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  background-color: #ffffff;
 }
 
-.admin-sr-sales-request-header {
+.admin-buy-request-header,
+.admin-buy-request-row {
   display: flex;
-  cursor: pointer;
-  background-color: #ffffff;
+  justify-content: space-between;
+  padding: 0.5rem;
   border-bottom: 1px solid #ddd;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
-}
-
-.admin-sr-sales-request-item {
-  border: none;
-  margin-top: 5px;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
-  /* border-bottom: 1px solid #ddd; */
-}
-
-.admin-sr-column {
-  padding: 0.5rem;
   text-align: center;
 }
 
-.admin-sr-column.admin-sr-id {
+.admin-buy-request-header {
+  font-weight: bold;
+  text-align: center;
+}
+
+.admin-buy-request-header span:nth-child(1),
+.admin-buy-request-row span:nth-child(1) {
   flex: 1;
-}
-
-.admin-sr-column.admin-sr-category {
+} /* 구매ID */
+.admin-buy-request-header span:nth-child(2),
+.admin-buy-request-row span:nth-child(2) {
+  flex: 1;
+} /* 물품ID */
+.admin-buy-request-header span:nth-child(3),
+.admin-buy-request-row span:nth-child(3) {
   flex: 2;
-}
+} /* 구매상태 */
+.admin-buy-request-header span:nth-child(4),
+.admin-buy-request-row span:nth-child(4) {
+  flex: 3;
+} /* 구매신청일 */
+.admin-buy-request-header span:nth-child(5),
+.admin-buy-request-row span:nth-child(5) {
+  flex: 3;
+} /* 배송일 */
+.admin-buy-request-header span:nth-child(6),
+.admin-buy-request-row span:nth-child(6) {
+  flex: 3;
+} /* 구매자 이메일 */
+.admin-buy-request-header span:nth-child(7),
+.admin-buy-request-row span:nth-child(7) {
+  flex: 3;
+} /* 판매자 이메일 */
+.admin-buy-request-header span:nth-child(8),
+.admin-buy-request-row span:nth-child(8) {
+  flex: 3;
+} /* 운송장 번호 */
 
-.admin-sr-column.admin-sr-title {
-  flex: 12;
-}
-
-.admin-sr-column.admin-sr-nickname {
-  flex: 2;
-}
-
-.admin-sr-column.admin-sr-date {
-  flex: 4;
-}
-
-.admin-sr-sales-request-content {
-  padding: 1rem;
-}
-
-.admin-sr-button-container {
-  text-align: center;
-}
-
-.admin-sr-textarea-container {
-  text-align: center;
-}
-
-.admin-sr-textarea {
-  padding: 0.5rem;
-  width: 500px;
-  min-height: 100px; /* 기본 높이 설정 */
-  resize: none; /* 크기 조정 비활성화 */
-  font-size: 14px;
-  line-height: 1.5;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s, box-shadow 0.3s;
-  overflow-y: hidden; /* 스크롤바 숨김 */
-}
-
-.admin-sr-textarea:focus {
-  border-color: black; /* 포커스 시 테두리 색상 변경 */
-  box-shadow: 0 0 5px black; /* 포커스 시 그림자 효과 */
-  outline: none; /* 포커스 아웃라인 제거 */
-}
-
-.admin-sr-error-message-container {
-  text-align: center;
-}
-.admin-sr-error-message {
-  color: red;
-}
-
-.admin-sr-image {
-  width: 150px;
-  height: 150px;
-  margin: 0.5rem;
-  object-fit: cover;
-  border: 1px solid rgb(92, 92, 92);
-  border-radius: 4px;
-}
-
-.admin-sr-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+.admin-buy-request-pagination {
+  font-family: 'Pretendard-Regular';
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+}
+
+.admin-buy-request-pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-buy-request-pagination button:hover {
+  background-color: wheat;
+}
+
+.admin-buy-request-pagination button:disabled {
+  cursor: default;
+  background-color: #ccc;
+}
+
+.admin-buy-request-pagination button.active {
+  background-color: #ffc847;
+  border: none;
+}
+.admin-buy-request-search-container {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.admin-buy-request-search-container input {
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.admin-buy-request-search-container button {
+  background-color: #ffc847;
+  color: black;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s;
+  padding: 9px 15px;
+  font-weight: bold;
+}
+
+.admin-buy-request-search-container button:hover {
+  background-color: wheat;
+}
+
+.admin-buy-request-search-container select,
+.admin-buy-request-search-container input[type='text'] {
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.admin-buy-request-search-container button {
+  padding: 8px 12px;
   cursor: pointer;
 }
 
-.admin-sr-modal-content {
-  position: relative;
-  padding: 20px;
-  background: white;
-  max-width: 80%; /* 화면 너비의 최대 80% */
-  max-height: 80%; /* 화면 높이의 최대 80% */
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.admin-buy-request-search-container select {
+  width: 150px; /* 너비를 300픽셀로 설정 */
+  height: 40px; /* 높이를 40픽셀로 설정 */
+  padding: 8px; /* 내부 여백을 8픽셀로 설정 */
+  border: 1px solid #ccc; /* 테두리 색상 설정 */
+  border-radius: 4px; /* 모서리 둥글게 설정 */
+  font-size: 16px; /* 글자 크기 설정 */
 }
 
-.admin-sr-modal-image {
-  max-width: 100%; /* 이미지의 최대 너비를 모달의 100%로 설정 */
-  max-height: 100%; /* 이미지의 최대 높이를 모달의 100%로 설정 */
-  object-fit: contain; /* 이미지가 비율을 유지하면서 크기 맞추기 */
+.admin-buy-request-search-container input[type='text'] {
+  width: 300px; /* 너비를 300픽셀로 설정 */
+  height: 40px; /* 높이를 40픽셀로 설정 */
+  padding: 8px; /* 내부 여백을 8픽셀로 설정 */
+  border: 1px solid #ccc; /* 테두리 색상 설정 */
+  border-radius: 4px; /* 모서리 둥글게 설정 */
+  font-size: 16px; /* 글자 크기 설정 */
 }
 
-.admin-sr-modal:hover {
-  cursor: default;
-}
-
-
-.admin-sr-image-td {
-  padding: 10px;
+.admin-buy-request-no-results {
   text-align: center;
-}
-
-.admin-sr-image-container {
-  position: relative; /* 이미지와 텍스트를 겹치게 하기 위해 상대 위치 설정 */
-  display: inline-block; /* 여러 이미지를 나열할 때 적합 */
-}
-
-.admin-sr-image {
-  max-width: 100%;
-  height: auto;
-  cursor: pointer; /* 클릭할 수 있다는 피드백 */
-}
-
-.admin-sr-image-text {
-  position: absolute;
-  top: 50%; /* 세로 중앙 */
-  left: 50%; /* 가로 중앙 */
-  transform: translate(-50%, -50%); /* 정확한 중앙 위치 조정 */
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 텍스트 가독성 향상 */
-  opacity: 0.7; /* 기본 투명도 */
-  pointer-events: none; /* 텍스트 클릭 방지 */
-}
-
-.admin-sr-image-container:hover .admin-sr-image-text {
-  opacity: 1; /* 마우스를 올렸을 때 텍스트의 투명도 증가 */
+  margin: 3rem;
 }
