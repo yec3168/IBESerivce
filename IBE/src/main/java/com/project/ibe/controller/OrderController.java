@@ -1,10 +1,7 @@
 package com.project.ibe.controller;
 
 import com.project.ibe.dto.member.PrincipalDTO;
-import com.project.ibe.dto.order.OrderCompleteRequest;
-import com.project.ibe.dto.order.OrderDeliveryRequest;
-import com.project.ibe.dto.order.OrderFinishedRequest;
-import com.project.ibe.dto.order.OrderFormRequest;
+import com.project.ibe.dto.order.*;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
 import com.project.ibe.services.order.OrderService;
@@ -79,4 +76,13 @@ public class OrderController {
         }
     }
 
+    @PostMapping("/reject")
+    public Response orderRejected(@RequestBody OrderRejectedRequest orderRejectedRequest,
+                                  @AuthenticationPrincipal PrincipalDTO principalDTO){
+        try{
+            return new Response(ResponseCode.SUCCESS, orderService.rejectedOrder(orderRejectedRequest, principalDTO), "200");
+        }catch (Exception e){
+            return new Response(ResponseCode.FAIL, e.getMessage(), "404");
+        }
+    }
 }
