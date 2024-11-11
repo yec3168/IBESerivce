@@ -224,7 +224,7 @@ const AdminViewPostSale = () => {
               <div className="admin-vp-column point">
                 {item.productPoint.toLocaleString()}P
               </div>
-              <div className="admin-vp-column buyer">{item.memberNickName}</div>
+              <div className="admin-vp-column buyer">{item.buyerNickName}</div>
               <div className="admin-vp-column seller">
                 {item.memberNickName}
               </div>

@@ -5,6 +5,7 @@ import com.project.ibe.dto.admin.SalesRequestResponse;
 import com.project.ibe.dto.admin.ViewPostInfoResponse;
 import com.project.ibe.entity.board.Board;
 import com.project.ibe.entity.common.OrderState;
+import com.project.ibe.entity.member.Member;
 import com.project.ibe.entity.order.Order;
 import com.project.ibe.entity.product.Product;
 import com.project.ibe.exception.BusinessException;
@@ -40,11 +41,12 @@ public class ViewPostService {
                     SalesRequestResponse response = modelMapper.map(product, SalesRequestResponse.class);
                     response.setMemberNickName(product.getMember().getMemberNickName()); // memberNickName 설정
                     response.setBuyerNickName(
-                            memberRepository.findByMemberEmail(
-                            orderRepository.findByOrderStateAndProductId(
-                                    OrderState.COMPLETED,product.getProductId())
-                                    .orElseThrow(() -> new BusinessException("Order Not Found", HttpStatus.NOT_FOUND)).getOrderMemberEmail())
-                                    .orElseThrow(() -> new BusinessException("Member Not Found", HttpStatus.NOT_FOUND)).getMemberNickName());
+                            orderRepository.findByOrderStateAndProduct(OrderState.COMPLETED, product)
+                                    .map(order -> memberRepository.findByMemberEmail(order.getOrderMemberEmail())
+                                            .map(Member::getMemberNickName) // 닉네임 가져오기
+                                            .orElse(null)) // 멤버가 없으면 null 반환
+                                    .orElse(null) // 주문이 없으면 null 반환
+                    );
                     return response;
                 })
                 .collect(Collectors.toList());
