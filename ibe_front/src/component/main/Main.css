@@ -54,7 +54,7 @@
 
 #div_iconCol {
   height: 150px;
-  width: 200px;
+  width: 160px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,9 +62,10 @@
 
 #div_nameCol {
   height: 50px;
-  width: 200px;
+  width: 160px;
   display: flex;
   justify-content: center;
+  margin-top: -10px;
 }
 
 #div_allIcons {
@@ -86,7 +87,8 @@
 #div_nameTxt {
   /* font-family: 'CookieRun-Regular', sans-serif !important; */
   font-family: 'Paperlogy-4Regular';
-  font-size: 20px;
+  font-weight: bold;
+  font-size: 25px;
 }
 
 /* AllProductsComponent */
