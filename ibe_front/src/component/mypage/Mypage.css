@@ -226,12 +226,11 @@
 #h3_salListTitle{
     font-family: "PretendardVariable";
     font-weight: bold;
-    font-size: 25px;
+    font-size: 23px;
     background-color: #f6c3b23f;
     height: 50px;
     width: 970px;
-    margin-top: 20px;
-    /* margin-left: 220px; */
+    margin-top: 40px;
     padding-left: 40px; 
     display: flex;
     align-items: center;

@@ -89,8 +89,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 80vw;
     height: 100vh;
+    max-height: 700px;
+    margin: auto;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

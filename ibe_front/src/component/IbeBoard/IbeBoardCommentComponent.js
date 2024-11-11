@@ -147,8 +147,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
               </Button>
             </>
           )} */}
-          <br />
-          <br />
+     
           {comments.map((comment) => (
             <div key={comment.id} className="comment mb-3">
               <div className="comment-content">
@@ -161,7 +160,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
                 <p className="comment-body">{comment.content}</p>
                 {!isRestrictedUser && (
                   <Button
-                    variant="primary"
+                    variant="default"
                     onClick={() => handleReplyButtonClick(comment.id)}
                     className="board-submit-btn"
                   >

@@ -1,17 +1,26 @@
+.row .comment{
+    font-size: 13px;
+}
+
 .board-reply-head {
+  font-family: "Paperlogy-4Regular";
   padding-left: 20px;
 }
 .board-reply-body {
+  font-family: 'Pretendard-Regular';
   padding-left: 20px;
+}
+#newComment{
+  font-size: 14px;
 }
 
 .board-submit-btn {
   font-family: 'Pretendard-Regular';
-  font-size: 14px;
+  font-size: 12px;
   color: black;
   background-color: #ffecbe;
   border: none;
-  padding: 5px 15px;
+
   margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
