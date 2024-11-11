@@ -15,8 +15,17 @@
         useEffect(() => {
             if (memberPoint !== null) {
                 const inputAmount = parseInt(inputValue) || 0;
-                setIsExceeded(inputAmount > memberPoint);
+                
+                if (inputAmount > memberPoint) {
+                    setIsExceeded(true);
+                } else if (inputAmount < 1000 && inputAmount !== 0) {
+                    setIsExceeded(true);  // 1000원 이하일 때는 false로 설정
+                } else {
+                    setIsExceeded(false);
+                }
             }
+            
+           
         }, [inputValue, memberPoint]);
         
 
@@ -27,7 +36,7 @@
                 const response = await getMemberInfo(); 
                 console.log(response);
                 if (response.data && response.data.data.memberPoint) {
-                setMemberPoint(response.data.data.memberPoint); 
+                    setMemberPoint(response.data.data.memberPoint); 
                 }
                 if (response.data && response.data.data.memberAccountNumber) {  
                     setAccountNumber(response.data.data.memberAccountNumber); 
@@ -54,7 +63,7 @@
 
         const pointButtonEvent = ()=>{
 
-            if(!inputValue || inputValue===0 ||inputValue>memberPoint){
+            if(!inputValue || inputValue===0 ||inputValue>memberPoint || inputValue < 1000){
                 return
             }
             document.getElementById('point-back-put-bank').style.display='inline';
@@ -148,6 +157,7 @@
                             ) : (
                                 <div>고객님의 환급 예상 금액은 <strong>{expectedPayback}원</strong>입니다.</div>
                             )}
+                            <div>포인트의 최소 금액은 <strong>1,000P</strong>부터 입니다.</div>
                         </div>
                     </Container>
 
