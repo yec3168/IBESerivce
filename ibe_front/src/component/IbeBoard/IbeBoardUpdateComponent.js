@@ -209,7 +209,7 @@ const IbeBoardUpdateComponent = () => {
               {error && <p className="board-error-message mt-3">{error}</p>}
 
               <div className="text-end">
-                <Button className="board-add-post-btn" onClick={()=>setShowModal(true)}>
+                <Button className="board-add-post-btn" onClick={()=>setShowModal(true)} style={{marginTop:'6px'}}>
                   {loading ? <Spinner animation="border" size="sm" /> : '작성'}
                 </Button>
               </div>
