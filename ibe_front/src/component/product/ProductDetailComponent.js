@@ -142,7 +142,7 @@ const ProductDetailComponent = () => {
                                         </span>}
                                             
                                         
-                                        <Badge bg={productTradeState === "거래 가능" ? "success" : "secondary"}>
+                                        <Badge  className="product_badge" bg={productTradeState === "거래 가능" ? "success" : "secondary"}>
                                             {productTradeState === "거래 가능" ? "거래가능" : "거래완료"}
                                         </Badge>
                                     </div>
