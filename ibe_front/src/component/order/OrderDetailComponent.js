@@ -157,7 +157,7 @@ const OrderDetailComponent = () => {
             </div>
             
             {showChargeModal && ReactDOM.createPortal(
-                <Modal id="order-modal"
+                <Modal id="order-modal-point"
                     show={showChargeModal}
                     onHide={handleCloseChargeModal}
                     size="xl"
