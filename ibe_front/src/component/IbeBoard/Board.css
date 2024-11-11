@@ -13,12 +13,13 @@
 }
 
 .board-title {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 .board-text{
-  font-size: 20px;
+  font-size: 17px;
   margin-bottom: 20px;
 }
 .board-table {

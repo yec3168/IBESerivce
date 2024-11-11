@@ -32,8 +32,10 @@ const MainComponent = () => {
 
       <div id="div_spacing"/>
 
+      
       {/* 이런 상품 어떠세요? */}
       <div>
+        {/* <div id="div_recTitle">추천상품</div> */}
         <TrendingProductsComponent selectedCategory={selectedCategory}/>
       </div>
 
