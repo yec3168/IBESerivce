@@ -1,12 +1,16 @@
 .point-container{
     font-family: Pretendard-Regular;
-    font-weight: bold;
+    /* font-weight: bold; */
     justify-content:center;
     align-items:center;
 }
 .point-text{
-    font-size: 30px;
+    font-size: 20px;
 }
 .point-table{
-    font-size: 30PX;
+    font-size: 25PX;
+}
+
+.point-info-container{
+    font-size: 23px;
 }
