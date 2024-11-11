@@ -58,3 +58,10 @@
     /* font-family: "CookieRun-Regular", sans-serif; */
     font-family: 'Pretendard-Regular';
 }
+
+#order-modal .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;     
+    height: 100%;        
+}

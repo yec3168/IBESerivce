@@ -282,13 +282,20 @@
 /* MypagePointChargeComponent */
 
 .containerPCharge{
-    /* font-family: "CookieRun-Regular", sans-serif !important; */
+    font-family: "PretendardVariable";
+    width: 100%;
+}
+
+#h1_pointTitle{
     font-family: "Paperlogy-3Light";
+    font-weight: bold;
+    margin-top: -10px;
 }
 
 #div_pointInfo{
     margin-top: 20px;
     font-size: 20px;
+    margin-bottom: 50px;
 }
 
 #div_pointData{
@@ -307,7 +314,8 @@
 }
 
 #div_pNum{
-    font-size: 20px;
+    font-size: 17px;
+    font-weight: bold;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -333,13 +341,17 @@
     color: white; 
 }
 
-#div_pointTerms{
+
+#div_pointTerms {
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: start;
+    white-space: nowrap;
+    margin-top: 50px;
 }
+
 
 /* MypageInquiryComponent */
 
