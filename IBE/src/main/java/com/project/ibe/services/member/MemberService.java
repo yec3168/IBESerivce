@@ -2,10 +2,7 @@ package com.project.ibe.services.member;
 
 
 import com.project.ibe.config.SmsUtil;
-import com.project.ibe.dto.member.KakaoSignupRequest;
-import com.project.ibe.dto.member.MemberSignupResponse;
-import com.project.ibe.dto.member.MemberSignInRequest;
-import com.project.ibe.dto.member.MemberSignUpRequest;
+import com.project.ibe.dto.member.*;
 import com.project.ibe.dto.member.sms.MemberSmsReqequest;
 import com.project.ibe.dto.member.sms.MemberSmsResponse;
 import com.project.ibe.entity.common.Role;
@@ -130,6 +127,16 @@ public class MemberService {
     public boolean updateAuthNumber(String memberEmail, String authNumber){
         Member member = getMemberByEmail(memberEmail);
         member.setMemberAuthNumber(authNumber);
+
+        return true;
+    }
+
+
+    public boolean updatePwMember(MemberPasswordRequest memberPasswordRequest){
+        // 사용자 찾기
+        Member member = getMemberByEmail(memberPasswordRequest.getMemberEmail());
+        member.setMemberPassword(bCryptPasswordEncoder.encode(memberPasswordRequest.getMemberPassword()));
+        memberRepository.save(member);
 
         return true;
     }
