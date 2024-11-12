@@ -19,6 +19,7 @@ const ProductListComponent = () => {
       .then(response => {
         if (response.data.code === '200') {
           const data = response.data.data;
+          console.log(data)
           const formattedData = data.map(item => ({
             id: item.productId,
             image: item.thumbnail !== "" ? getFullImageUrl(item.thumbnail) : thumbnaiil,
@@ -34,7 +35,8 @@ const ProductListComponent = () => {
               item.productCategory === "외출 용품" ? "OUTDOOR_SUPPLIES" : 
               "MISC",
             price: item.productPoint,
-            productListedAt: new Date(item.productListedAt) // 날짜 필드를 Date 객체로 변환
+            // productListedAt: new Date(item.productListedAt) // 날짜 필드를 Date 객체로 변환
+            productListedAt: item.productListedAt // 날짜 필드를 Date 객체로 변환
           }));
           setProducts(formattedData);
           setError(""); // Reset error message if products are fetched successfully
