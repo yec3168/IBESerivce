@@ -16,8 +16,11 @@ const AdminBuyRequest = () => {
         const response = await axios.get(
           'http://localhost:8080/admin/board/buyrequest'
         );
-        setBuyRequests(response.data);
-        setFilteredRequests(response.data); // 페이지 로딩 시 필터된 데이터를 전체로 설정
+        const sortedRequests = response.data.sort(
+          (a, b) => b.orderId - a.orderId
+        ); // 구매 ID 기준 내림차순 정렬
+        setBuyRequests(sortedRequests);
+        setFilteredRequests(sortedRequests); // 페이지 로딩 시 필터된 데이터를 전체로 설정
       } catch (error) {
         console.error('Error fetching buy requests:', error);
       }
@@ -142,10 +145,12 @@ const AdminBuyRequest = () => {
           <span>판매자 이메일</span>
           <span>운송장 번호</span>
         </div>
-        
+
         {/* Display filtered results or a message if no results */}
         {filteredRequests.length === 0 ? (
-          <div className="admin-buy-request-no-results">검색결과가 없습니다.</div>
+          <div className="admin-buy-request-no-results">
+            검색결과가 없습니다.
+          </div>
         ) : (
           currentRequests.map((request) => (
             <div key={request.orderId} className="admin-buy-request-row">
@@ -156,11 +161,11 @@ const AdminBuyRequest = () => {
               <span>
                 {request.orderDeliveryDate
                   ? formatDate(request.orderDeliveryDate)
-                  : 'N/A'}
+                  : ''}
               </span>
               <span>{request.orderMemberEmail}</span>
               <span>{request.sellerMemberEmail}</span>
-              <span>{request.orderWayBill || 'N/A'}</span>
+              <span>{request.orderWayBill || ''}</span>
             </div>
           ))
         )}
@@ -172,13 +177,13 @@ const AdminBuyRequest = () => {
               onClick={() => handlePageChange(1)}
               disabled={currentPage === 1}
             >
-              맨 처음
+              {'<<'}
             </button>
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              이전
+              {'<'}
             </button>
 
             {/* Page Numbers */}
@@ -202,13 +207,13 @@ const AdminBuyRequest = () => {
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
-              다음
+              {'>'}
             </button>
             <button
               onClick={() => handlePageChange(totalPages)}
               disabled={currentPage === totalPages}
             >
-              맨 끝
+              {'>>'}
             </button>
           </div>
         )}
