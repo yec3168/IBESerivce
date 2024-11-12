@@ -139,7 +139,6 @@
     margin-top: 40px;
     font-size: 12px;
     margin-bottom: 200px;
-    
 }
 
 /* 제품 경고사항  */
@@ -330,9 +329,11 @@
 .productModalTitle {
   font-family: 'Paperlogy-4Regular';
 }
-.productModalContent {
-  font-family: 'Pretendard-Regular';
-}
+.productModalContent{
+    font-family: 'Pretendard-Regular';
+    font-size: 12px;
+} 
+
 .productModalFooter {
   font-family: 'Pretendard-Regular';
 }

@@ -3,6 +3,7 @@ package com.project.ibe.entity.member;
 import com.project.ibe.entity.common.AuditingFields;
 import com.project.ibe.entity.common.Role;
 import com.project.ibe.entity.common.SocialType;
+import com.project.ibe.util.Encrypt256;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -35,12 +36,15 @@ public class Member extends  AuditingFields{
 //    private Date memberBirth;           // 생일
 
     @Column(nullable = false, unique = true)
-    @Size(min=5, max = 15)
+//    @Size(min=5, max = 15)
+    @Convert(converter = Encrypt256.class)
     private String memberPhone;         // 전화번호
 
+    @Convert(converter = Encrypt256.class)
     @Column(nullable = false)
     private String memberAddr;          // 주소
 
+    @Convert(converter = Encrypt256.class)
     @Column(nullable = true)
     private String memberAddrDetail;    // 상세주소
 

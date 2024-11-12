@@ -19,7 +19,7 @@ const MemberInfoChangeComponent = () => {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const nameArr = ["김닉", "홍닉", "이닉", "서영" ];
+    const nameArr = ["길동이", "유진", "철수", "지수", "명훈", "민경", "세훈", "동우", "주현", "수지"];
 
     useEffect(() => {
         // 멤버 정보 조회 API 호출
@@ -37,20 +37,34 @@ const MemberInfoChangeComponent = () => {
         fetchMemberInfo(); 
     }, []);    
 
-    // 닉네임 중복 체크 함수
     const handleNicknameCheck = () => {
-        if (nameArr.includes(nickname)) {
+        setErrors((prev) => ({
+            ...prev,
+            nickname: "", // 기존의 닉네임 에러 메시지 초기화
+            nicknameAvailable: "", // 기존의 닉네임 사용 가능 메시지 초기화
+        }));
+    
+        if (nickname === memberInfo.memberNickName) {
             setErrors((prev) => ({
                 ...prev,
-                nickname: "이 닉네임은 사용할 수 없습니다."  // 중복 닉네임 에러 메시지
+                nickname: "기존 닉네임과 동일합니다." 
+            }));
+        } else if (nameArr.includes(nickname)) {
+            setErrors((prev) => ({
+                ...prev,
+                nickname: "이 닉네임은 사용할 수 없습니다." 
             }));
         } else {
             setErrors((prev) => {
                 const { nickname, ...rest } = prev; // 닉네임 에러만 제거
-                return rest;
+                return {
+                    ...rest,
+                    nicknameAvailable: "사용 가능한 닉네임입니다." 
+                };
             });
         }
     };
+    
 
     // 비밀번호 확인 API 호출
     const handleConfirmClick = async () => {
@@ -279,8 +293,13 @@ const MemberInfoChangeComponent = () => {
                                         placeholder={memberInfo.memberNickName} />
                                     {errors.nickname && 
                                         <small className="text-danger" 
-                                               style={{ textAlign: 'left', display: 'block', marginLeft:'5px' }} >
+                                            style={{ textAlign: 'left', display: 'block', marginLeft: '5px' }} >
                                             {errors.nickname}
+                                        </small>}
+                                    {errors.nicknameAvailable && 
+                                        <small className="text-success" 
+                                            style={{ textAlign: 'left', display: 'block', marginLeft: '5px' }} >
+                                            {errors.nicknameAvailable}
                                         </small>}
                                 </Col>
                                 <Col sm={2}>

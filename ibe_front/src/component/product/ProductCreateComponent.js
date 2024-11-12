@@ -1,14 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  Row,
-  Col,
-  FloatingLabel,
-  Form,
-  Button,
-  OverlayTrigger,
-  Popover,
-  Modal,
-} from 'react-bootstrap';
+import {Row,Col,FloatingLabel,Form,Button,OverlayTrigger,Popover,Modal,} from 'react-bootstrap';
 import { saveProduct } from '../service/ProductService';
 
 import './Product.css';
@@ -433,91 +424,46 @@ const ProductCreateComponent = () => {
               판매신청
             </Button>
           </div>
-
-          <Modal
-            className="productModal"
-            show={showNoticeModal}
-            onHide={handleCloseNoticeModal}
-            centered
-          >
-            <Modal.Header closeButton>
-              <Modal.Title className="productModalTitle">
-                판매신청 주의사항
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body
-              className="productModalContent"
-              style={{ height: '450px' }}
-            >
-              <p>판매게시글 등록 시 다음 주의사항을 반드시 확인해 주세요:</p>
-              <ul>
-                <li>
-                  <strong>승인 필수:</strong> 모든 판매 게시글은 관리자의 승인이
-                  필요합니다. 승인 후에만 다른 사용자들에게 게시글이 노출됩니다.
-                </li>
-                <li>
-                  <strong>승인 소요 기간:</strong> 승인에는 최대 2일이 소요될 수
-                  있으며, 심사량에 따라 지연될 수 있습니다.
-                </li>
-                <li>
-                  <strong>내용 준수:</strong> 부적절한 언어나 허위 정보,
-                  공격적인 콘텐츠를 포함한 게시물은 승인되지 않을 수 있습니다.
-                  이미지와 설명이 플랫폼 규정에 맞는지 확인해 주세요.
-                </li>
-                <li>
-                  <strong>이미지 및 설명 품질:</strong> 규정의 위배되는 이미지와
-                  설명은 서비스 이용에 제한이 될 수 있습니다.
-                </li>
-                <li>
-                  <strong>안전과 개인정보 보호:</strong> 게시글에 개인 연락처나
-                  개인 정보를 포함하지 않도록 주의해 주세요.
-                </li>
-                <li>
-                  <strong>판매 금지 품목:</strong> 플랫폼에서 금지된 품목(예:
-                  위조품, 제한 물품 등)은 등록이 거부됩니다.
-                </li>
-                <li>
-                  <strong>책임 조항:</strong> 상품 상태 및 소유권과 관련된 모든
-                  문제에 대한 책임은 판매자에게 있습니다.
-                </li>
-              </ul>
-            </Modal.Body>
-            <Modal.Footer className="productModalFooter">
-              <Button variant="secondary" onClick={handleCloseNoticeModal}>
-                취소
-              </Button>
-              <Button variant="custom" onClick={handleNoticeConfirm}>
-                확인
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          {/* Result Modal */}
-          <Modal
-            className="productModal"
-            show={showResultModal}
-            onHide={handleCloseResultModal}
-            centered
-          >
-            <Modal.Header closeButton>
-              <Modal.Title className="productModalTitle">등록 결과</Modal.Title>
-            </Modal.Header>
-            <Modal.Body lassName="productModalContent">
-              <p>{resultMessage}</p>
-            </Modal.Body>
-            <Modal.Footer className="productModalFooter">
-              <Button
-                variant="default"
-                style={{ backgroundColor: '#FFD774' }}
-                onClick={handleCloseResultModal}
-              >
-                확인
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Form>
-      </div>
+            <div className="d-flex justify-content-end my-5">
+                <Button  type="submit" variant="default" style={{backgroundColor:'#FFD774'}} >판매신청</Button>
+            </div>
+                    
+            <Modal className="productModal" show={showNoticeModal} onHide={handleCloseNoticeModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title className="productModalTitle">판매신청 주의사항</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="productModalContent" style={{ height: "250px" }}>
+                <p>판매게시글 등록 시 다음 주의사항을 반드시 확인해 주세요:</p>
+                <ul>
+                    <li><strong>승인 필수:</strong> 모든 판매 게시글은 관리자의 승인이 필요합니다. 승인 후에만 다른 사용자들에게 게시글이 노출됩니다.</li>
+                    <li><strong>승인 소요 기간:</strong> 승인에는 최대 2일이 소요될 수 있으며, 심사량에 따라 지연될 수 있습니다.</li>
+                    <li><strong>내용 준수:</strong> 부적절한 언어나 허위 정보, 공격적인 콘텐츠를 포함한 게시물은 승인되지 않을 수 있습니다. 이미지와 설명이 플랫폼 규정에 맞는지 확인해 주세요.</li>
+                    <li><strong>이미지 및 설명 품질:</strong> 규정의 위배되는 이미지와 설명은 서비스 이용에 제한이 될 수 있습니다.</li>
+                    <li><strong>안전과 개인정보 보호:</strong> 게시글에 개인 연락처나 개인 정보를 포함하지 않도록 주의해 주세요.</li>
+                    <li><strong>판매 금지 품목:</strong> 플랫폼에서 금지된 품목(예: 위조품, 제한 물품 등)은 등록이 거부됩니다.</li>
+                    <li><strong>책임 조항:</strong> 상품 상태 및 소유권과 관련된 모든 문제에 대한 책임은 판매자에게 있습니다.</li>
+                </ul>
+                </Modal.Body>
+                <Modal.Footer className="productModalFooter">
+                    <Button variant="secondary" onClick={handleCloseNoticeModal}>취소</Button>
+                    <Button variant="custom" onClick={handleNoticeConfirm}>확인</Button>
+                </Modal.Footer>
+            </Modal>
+            {/* Result Modal */}
+            <Modal className="productModal" show={showResultModal} onHide={handleCloseResultModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title className="productModalTitle">등록 결과</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="productModalContent">
+                    <p>{resultMessage}</p>
+                </Modal.Body>
+                <Modal.Footer className="productModalFooter">
+                    <Button variant="default" style={{ backgroundColor: '#FFD774' }} onClick={handleCloseResultModal}>확인</Button>
+                </Modal.Footer>
+            </Modal>
+          </Form>
+        </div>
     </div>
-  );
-};
-
+    );
+  }
 export default ProductCreateComponent;
