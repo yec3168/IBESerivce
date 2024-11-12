@@ -10,6 +10,7 @@ import {saveCodeNumber, kakaoSignup} from '../service/MemberService';
 
 function KakaoOauthCallback() {
     const navigate = useNavigate();
+
     const [showModal, setShowModal] = useState(false);
     const [showSignUpForm, setShowSignUpForm] = useState(false);
     const [kakaoData, setKakaoData] = useState(null);
@@ -41,9 +42,11 @@ function KakaoOauthCallback() {
                         setKakaoData(response.data.data);
                         setShowModal(true);
                     } else {
-                        console.log("로그인되었습니다.", response.data.data.message);
+                        console.log("로그인되었습니다.", response.data.data);
+                        let accessToken =  response.data.data;
+                        localStorage.setItem('accessToken', accessToken);
                         alert("카카오로 로그인하였습니다.")
-                        navigate("/")
+                        window.location.href = "/";
                     }
                 })
                 .catch((error) => {
@@ -370,6 +373,7 @@ function KakaoOauthCallback() {
                                         name="bank"
                                         required
                                     >
+                                            <option>은행선택</option>
                                             {/* <option value="KB">국민은행</option> */}
                                             {/* <option value="SHINHAN">신한은행</option> */}
                                             {/* <option value="HANA">하나은행</option> */}
