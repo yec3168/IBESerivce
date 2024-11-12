@@ -31,6 +31,7 @@ public class DataInitializer {
 //        executeSqlScript("classpath:sql/board_dummy.sql");
 //        executeSqlScript("classpath:sql/point_charge_dummy.sql");
 //        executeSqlScript("classpath:sql/point_pay_back_dummy.sql");
+//        executeSqlScript("classpath:sql/AllDummyData.sql");
     }
 
     private void executeSqlScript(String scriptPath) {
