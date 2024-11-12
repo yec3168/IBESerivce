@@ -414,16 +414,6 @@ const ProductCreateComponent = () => {
               </Col>
             ))}
           </Row>
-
-          <div className="d-flex justify-content-end my-5">
-            <Button
-              type="submit"
-              variant="default"
-              style={{ backgroundColor: '#FFD774' }}
-            >
-              판매신청
-            </Button>
-          </div>
             <div className="d-flex justify-content-end my-5">
                 <Button  type="submit" variant="default" style={{backgroundColor:'#FFD774'}} >판매신청</Button>
             </div>
