@@ -1,16 +1,16 @@
-.row .comment{
-    font-size: 13px;
+.row .comment {
+  font-size: 13px;
 }
 
 .board-reply-head {
-  font-family: "Paperlogy-4Regular";
+  font-family: 'Pretendard-Regular';
   padding-left: 20px;
 }
 .board-reply-body {
   font-family: 'Pretendard-Regular';
   padding-left: 20px;
 }
-#newComment{
+#newComment {
   font-size: 14px;
 }
 
@@ -26,7 +26,6 @@
   cursor: pointer;
   transition: background-color 0.3s ease; /* 부드러운 배경색 변화 효과 */
 }
-.board-submit-btn:hover{
-  background-color:#ffdb7d;
-
+.board-submit-btn:hover {
+  background-color: #ffdb7d;
 }
