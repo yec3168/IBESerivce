@@ -1,5 +1,6 @@
 package com.project.ibe.dto.product;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class ProductListResponse {
     private String productConditionState;
     private String productTradeState; // 거래상태
     private Long productPoint;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime productListedAt;
 
     private String thumbnail;// 썸네일.

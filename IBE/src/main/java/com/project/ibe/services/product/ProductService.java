@@ -126,6 +126,7 @@ public class ProductService {
         productDetailResponse.setProductTradeState(product.getProductTradeState().getDescription());
         productDetailResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size()); // 댓글 수 추가.
         productDetailResponse.setMember(product.getMember());
+        productDetailResponse.setProductListedAt(product.getProductListedAt());
         productDetailResponse.setImagePath(images);
         return productDetailResponse;
     }
@@ -150,6 +151,7 @@ public class ProductService {
             productListResponse.setProductConditionState(product.getProductConditionState().getDescription());
             productListResponse.setProductTradeState(product.getProductTradeState().getDescription());
             productListResponse.setProductCommentCnt(productCommentRepository.findAllByProduct(product).size() + productReplyRepository.findAllByProduct(product).size());
+            productListResponse.setProductListedAt(product.getProductListedAt());
             productListResponse.setThumbnail(imagePath);
             productListResponseList.add(productListResponse);
         }
