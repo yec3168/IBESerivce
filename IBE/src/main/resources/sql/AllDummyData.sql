@@ -8,7 +8,7 @@ INSERT INTO `member` (`member_deleted`, `entry_date`, `member_name`, `member_nic
 (0, '2024-01-07 15:00:00', '오세훈', '세훈', 900, '2024-01-07 15:00:00', '/dejT8vfh/i8b/5hJfb2zg==', 'gZpnMtM6lAEurscbC8yme4w6lVy3hpA0JwLXWr32GEg=', 'gFmlXLTsg+exRTROm13/fA==', '111213', 'oh@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
 (0, '2024-01-08 16:00:00', '김동우', '동우', 2500, '2024-01-08 16:00:00', 'rfBmD993Srs3otQhJV7O+g==', 'eXhbSiSnC23J7xt+PJxcx2+sLIovQ55/fqQGynl3sy0=', 'ltEYPSTmBbYsxHH6V3+/dg==', '141516', 'kimd@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_ADMIN'),
 (0, '2024-01-09 17:00:00', '이주현', '주현', 2200, '2024-01-09 17:00:00', 'jtcNdDIoMX86louBLGxtrQ==', 'lGkC2e5v2X3zSiDeyZv5KysuIaljqFruzPNi0HPNA7nWyOkx/cytEGTyVu5bzIu8', 'awuDmaU/BpwEjivYCECAdA==', '171819', 'leej@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_CLIENT'),
-(0, '2024-01-10 18:00:00', '배수지', '수지', 2000, '2024-01-10 18:00:00', '+zQLxosizqja5Aeo+E+e+Q==', 'Ik3MhxqCFw8gHBIzHm1KhwMC6idXESdWOolhu4R5rTzH9aVOSC8g+z44Ho5ptAWS', 'A2rKfpfMw3dFEgbqSpDYCg==', '202122', 'bae@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_BOARD_MANAGER');
+(0, '2024-01-10 18:00:00', '배수지', '매니저', 2000, '2024-01-10 18:00:00', '+zQLxosizqja5Aeo+E+e+Q==', 'Ik3MhxqCFw8gHBIzHm1KhwMC6idXESdWOolhu4R5rTzH9aVOSC8g+z44Ho5ptAWS', 'A2rKfpfMw3dFEgbqSpDYCg==', '202122', 'bae@naver.com', '$2b$12$hjCeA7fgEdGNV5z8TbE0NenK8P95c02io97xYVxJAwbjfdMYg8VDi', NULL, 'LOCAL', 'ROLE_BOARD_MANAGER');
 
 INSERT INTO `member_bank` (`member_id`, `member_account_number`, `member_bank`) VALUES
 (1, 'ImmPeHIxCec1m5F+VnLj5A==', 'NH'),
@@ -230,8 +230,8 @@ VALUES
  ) VALUES
  ('REQUEST', '아기 침대 찾아요', '아기 침대 찾고 있어요. 괜찮은 가격에 올려주시면 바로 삽니다.', '2024-10-27 19:42:54', 1, 0),
  ('REQUEST', '미끄럼틀 올려주실분?', '아기미끄럼틀 매물이 별로 없네요', '2024-10-27 19:42:54', 2, 102),
- ('NOTICE', '아이비 게시판 규칙', '1. 회원간의 상호간 예의를 지킵시다. 2. 특정 인물을 항햔 저격 게시글 금지 ', '2024-10-27 19:30:54', 1, 8),
- ('NOTICE', '오픈 기념 아이비 이벤트', '안녕하세요 아이비입니다. 오픈 기념 판매 물품 등록 하신 분들 중 추첨 50명 xxx상품권을 드립니다', '2024-10-27 19:42:54', 3, 11),
+ ('NOTICE', '아이비 게시판 규칙', '1. 회원간의 상호간 예의를 지킵시다. 2. 특정 인물을 항햔 저격 게시글 금지 ', '2024-10-27 19:30:54', 10, 8),
+ ('NOTICE', '오픈 기념 아이비 이벤트', '안녕하세요 아이비입니다. 오픈 기념 판매 물품 등록 하신 분들 중 추첨 50명 xxx상품권을 드립니다', '2024-10-27 19:42:54', 10, 11),
  ('GENERAL', '안녕하세요', '안녕하세요! 육아용품을 구하러 가입했습니다. 잘부탁드려요', '2024-10-29 15:22:54', 1, 50),
  ('GENERAL', '다들 좋은 하루 되세요', '소중한 가족들이 함께하는 11월이 되세요~', '2024-11-01 17:42:54', 2, 14),
  ('REQUEST', '유모차 구합니다', '괜찮은 유모차 있으면 하나 사고 싶어요. 판매글 올려주세요', '2024-11-01 19:55:54', 3, 2),
