@@ -65,16 +65,21 @@ const AdminBuyRequest = () => {
   );
 
   // Filter buy requests based on productId or selectedState (triggered by search button or Enter key)
+  // Filter buy requests based on productId or selectedState (triggered by search button or Enter key)
   const handleSearch = () => {
     // 검색 시 첫 페이지로 리셋
     setCurrentPage(1);
 
+    // 검색어가 없으면 모든 요청을 반환
+    if (!searchTerm) {
+      setFilteredRequests(buyRequests);
+      return;
+    }
+
     const filtered = buyRequests.filter((request) => {
       const matchesState =
         selectedState === '' || request.orderState === selectedState;
-      const matchesProductId = request.productId
-        .toString()
-        .includes(searchTerm);
+      const matchesProductId = request.productId.toString() === searchTerm; // 정확히 일치하는 값만 필터링
 
       return matchesState && matchesProductId;
     });
