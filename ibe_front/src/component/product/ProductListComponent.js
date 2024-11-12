@@ -36,7 +36,7 @@ const ProductListComponent = () => {
               "MISC",
             price: item.productPoint,
             // productListedAt: new Date(item.productListedAt) // 날짜 필드를 Date 객체로 변환
-            productListedAt: item.productListedAt // 날짜 필드를 Date 객체로 변환
+            productListedAt: new Date(item.productListedAt) // 날짜 필드를 Date 객체로 변환
           }));
           setProducts(formattedData);
           setError(""); // Reset error message if products are fetched successfully
