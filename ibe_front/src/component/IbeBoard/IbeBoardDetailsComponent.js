@@ -182,9 +182,9 @@ const IbeBoardDetailsComponent = () => {
                 <p className='board-text' style={{fontSize:"14px"}}>{post.content}</p>
                 <br />
                 <br />
-                <div className="board-comment-top">
+                {/* <div className="board-comment-top">
                   <FaRegCommentDots /> 댓글 {post.commentCount}
-                </div>
+                </div> */}
               </Col>
             </Row>
             {/* 댓글 컴포넌트 포함 */}
