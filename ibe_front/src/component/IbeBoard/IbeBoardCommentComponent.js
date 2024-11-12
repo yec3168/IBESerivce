@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Row } from 'react-bootstrap';
 import './IbeBoardComment.css';
 import { jwtDecode } from 'jwt-decode';
+import { FaRegCommentDots } from 'react-icons/fa6';
 
 const IbeBoardCommentComponent = ({ boardId }) => {
   const [comments, setComments] = useState([]);
@@ -9,7 +10,7 @@ const IbeBoardCommentComponent = ({ boardId }) => {
   const [replyContent, setReplyContent] = useState('');
   const [showReplyInput, setShowReplyInput] = useState({});
   const [isRestrictedUser, setIsRestrictedUser] = useState(false);
-
+  const [commentsCount,setCommentsCount] =useState('')
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     if (token) {
@@ -37,18 +38,26 @@ const IbeBoardCommentComponent = ({ boardId }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.responseCode === 'SUCCESS') {
-          const fetchedComments = data.data.map((comment) => ({
+          let commentsReplyCount=0;
+          const fetchedComments = data.data.map((comment) => {
+            return(
+            {
             id: comment.boardCommentId,
             content: comment.boardCommentContent,
             createdAt: comment.boardCommentCreatedAt,
             nickname: comment.member.memberNickName,
-            replies: comment.boardReplyResponseList.map((reply) => ({
+            replies: comment.boardReplyResponseList.map((reply) => {
+              commentsReplyCount++;
+              return(
+              {
               id: reply.boardReplyId,
               content: reply.boardReplyContent,
               createdAt: reply.boardReplyCreatedAt,
               nickname: reply.member.memberNickName,
-            })),
-          }));
+            })}
+          ),
+          })});
+          setCommentsCount(fetchedComments.length+commentsReplyCount)
           setComments(fetchedComments);
         }
       })
@@ -124,6 +133,13 @@ const IbeBoardCommentComponent = ({ boardId }) => {
 
   return (
     <div>
+      {/* <hr style={{marginBottom:"30px", marginTop:"30px"}}/> */}
+                
+                <br />
+                <br />
+                <div className="board-comment-top">
+                  <FaRegCommentDots /> 댓글 {commentsCount}
+          </div>
       <Row>
         <Form.Group controlId="newComment">
           <hr className="board-comment-hr" />
