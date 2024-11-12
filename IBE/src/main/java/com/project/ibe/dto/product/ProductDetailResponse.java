@@ -26,6 +26,10 @@ public class ProductDetailResponse {
     private String productConditionState;
 
     private Member member; // 판매자 정보 ( 닉네임 만 front에서 바꿈.)
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+    private LocalDateTime productListedAt;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime productCreatedAt; // 물픔 등록 신청 시간. ( 나중에 허가 시간으로 바꿀 예정.)
 

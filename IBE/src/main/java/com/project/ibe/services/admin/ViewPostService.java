@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,12 +42,14 @@ public class ViewPostService {
                     SalesRequestResponse response = modelMapper.map(product, SalesRequestResponse.class);
                     response.setMemberNickName(product.getMember().getMemberNickName()); // memberNickName 설정
                     response.setBuyerNickName(
-                            orderRepository.findByOrderStateAndProduct(OrderState.COMPLETED, product)
+                            orderRepository.findByOrderStateInAndProduct(
+                                            Arrays.asList(OrderState.COMPLETED, OrderState.SHIPPING, OrderState.DELIVERED), product)
                                     .map(order -> memberRepository.findByMemberEmail(order.getOrderMemberEmail())
                                             .map(Member::getMemberNickName) // 닉네임 가져오기
                                             .orElse(null)) // 멤버가 없으면 null 반환
-                                    .orElse(null) // 주문이 없으면 null 반환
+                                    .orElse(null)
                     );
+
                     return response;
                 })
                 .collect(Collectors.toList());

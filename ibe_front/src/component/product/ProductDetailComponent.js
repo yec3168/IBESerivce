@@ -18,7 +18,7 @@ const ProductDetailComponent = () => {
     const [productCommentCnt, setProductCommentCnt] = useState(0);//댓글 넣을 위치.
     const [productConditionState, setProductConditionState] = useState("");
     const [memberNickName, setMemberNickName] = useState("");
-    const [productCreatedAt, setProductCreatedAt] = useState("");
+    const [productListedAt, setProductListedAt] = useState("");
     const [productContent, setProductContent] = useState("");
     //이미지
     const [productImages, setProductImages] = useState([]);
@@ -42,7 +42,7 @@ const ProductDetailComponent = () => {
                     setProductConditionState(data.productConditionState);
                     if(data.member !== null)
                         setMemberNickName(data.member.memberNickName);
-                    setProductCreatedAt(data.productCreatedAt);
+                    setProductListedAt(data.productListedAt);
                     setProductContent(data.productContent);
                     setProductImages(data.imagePath); // Set images from response
             }
@@ -160,7 +160,7 @@ const ProductDetailComponent = () => {
                                                 </span>
                                             </Col>
                                             <Col className="col-6">
-                                                <span id="product_create_info">{productCreatedAt !== "" ? productCreatedAt: "날짜"}</span>
+                                                <span id="product_create_info">{productListedAt !== "" ? productListedAt: "날짜"}</span>
                                             </Col>
                                         </Row>
                                     </div>

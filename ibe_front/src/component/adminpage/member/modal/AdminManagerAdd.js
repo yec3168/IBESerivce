@@ -71,7 +71,7 @@ const AdminManagerAdd = ({
     }
 
     const newManager = {
-      memberEmail: newManagerId + '@manager.com',
+      memberEmail: newManagerId + '@ibe.manager',
       memberName: newManagerName,
       role: newManagerRole,
       memberPassword: newPassword,
@@ -113,14 +113,14 @@ const AdminManagerAdd = ({
     if (/^[a-zA-Z0-9]*$/.test(value)) {
       setNewManagerId(value);
     }
-  
+
     // 아이디 길이 체크
     if (value.length >= 3 && value.length <= 20) {
       setIdError(''); // 아이디가 유효한 길이일 경우 오류 제거
     } else {
       setIdError('아이디는 3~20자 사이여야 합니다.');
     }
-  
+
     // 아이디 중복 체크 초기화
     if (isIdDuplicate) {
       setIsIdDuplicate(false);
@@ -167,7 +167,8 @@ const AdminManagerAdd = ({
         {isIdDuplicate && (
           <p className="admin-manager-modal-error">중복된 아이디입니다.</p>
         )}
-        {idError && <p className="admin-manager-modal-error">{idError}</p>} {/* 아이디 오류 메시지 추가 */}
+        {idError && <p className="admin-manager-modal-error">{idError}</p>}{' '}
+        {/* 아이디 오류 메시지 추가 */}
         <label>역할 선택</label>
         <select
           value={newManagerRole}
@@ -199,7 +200,11 @@ const AdminManagerAdd = ({
           <button
             onClick={handleAddManagerSave}
             disabled={
-              isIdDuplicate || !newManagerId || !newManagerName || nameError || idError // 추가 버튼 비활성화 조건에 아이디 오류 추가
+              isIdDuplicate ||
+              !newManagerId ||
+              !newManagerName ||
+              nameError ||
+              idError // 추가 버튼 비활성화 조건에 아이디 오류 추가
             }
           >
             추가

@@ -182,9 +182,9 @@ const IbeBoardDetailsComponent = () => {
                 <p className='board-text' style={{fontSize:"14px"}}>{post.content}</p>
                 <br />
                 <br />
-                <div className="board-comment-top">
+                {/* <div className="board-comment-top">
                   <FaRegCommentDots /> 댓글 {post.commentCount}
-                </div>
+                </div> */}
               </Col>
             </Row>
             {/* 댓글 컴포넌트 포함 */}
@@ -197,10 +197,10 @@ const IbeBoardDetailsComponent = () => {
                     {/* <Modal.Title>게시글 삭제 확인</Modal.Title> */}
                 </Modal.Header>
                 <Modal.Body>
-                    <h3>게시글을 <span style={{color:'red'}}>삭제</span>하시겠습니까?</h3>
+                    <h3 style={{textAlign:'center'}}>게시글을 <span style={{color:'red'}}>삭제</span>하시겠습니까?</h3>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button>
+                    {/* <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button> */}
                     <Button className='board-add-post-btn' onClick={handleDeletePost}>확인</Button>
                 </Modal.Footer>
             </Modal>
@@ -211,7 +211,7 @@ const IbeBoardDetailsComponent = () => {
                     <Modal.Title>결과</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h3>{resultMessage}</h3>
+                  <h3 style={{textAlign:'center'}}>{resultMessage}</h3>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className='board-add-post-btn' onClick={handleCloseResultModal}>확인</Button>

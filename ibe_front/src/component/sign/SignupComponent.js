@@ -420,6 +420,7 @@ const SignupComponent = () => {
                             // value={memberBank}
                             // onChange={(e) => setMemberBank(e.target.value)}
                             >
+                                <option >은행</option>
                                 {/* <option value="KB">국민은행</option> */}
                                 {/* <option value="SHINHAN">신한은행</option> */}
                                 {/* <option value="HANA">하나은행</option> */}
