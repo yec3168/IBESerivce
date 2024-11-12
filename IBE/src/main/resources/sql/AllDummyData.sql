@@ -19,13 +19,8 @@ INSERT INTO `member_bank` (`member_id`, `member_account_number`, `member_bank`) 
 (6, '6789012345', 'NH'),
 (7, '7890123456', 'KB'),
 (8, '8901234567', 'NH'),
-<<<<<<< HEAD
-(9, '9012345678', 'KB');
-
-=======
 (9, '9012345678', 'KB'),
 (10, '1234567891', 'NH');
->>>>>>> 40a89a76632c3c7c9dcfa58292bd65cdc7b59483
 INSERT INTO `product` (`member_id`, `product_created_at`, `product_point`, `product_content`, `product_title`, `product_category`, `product_condition_state`, `product_trade_state`, `product_upload_status`, product_hit) VALUES
 (1, '2024-01-01 10:00:00', 1000, '깨끗하게 사용한 아기 책입니다. 페이지마다 오염 없이 잘 보관되었고, 아기가 처음 책을 접하기 좋은 색감과 그림이 많습니다. 5권 세트로 판매합니다.', '동화책 5권 팔아요', 'KIDS_BOOKS', 'HIGH', 'TRADE_COMPLETED', 'STATUS_APPROVE', 504),
 (2, '2024-01-02 10:30:00', 4500, '저렴하게 팔아요! 아기 옷 5벌 세트. 대부분 한두 번 입은 상품으로 아주 깨끗합니다. 겨울용과 여름용 혼합 세트입니다. 사이즈는 80 사이즈입니다.', '애기옷 5벌 싸게 팔아요', 'KIDS_CLOTHING', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE', 151),

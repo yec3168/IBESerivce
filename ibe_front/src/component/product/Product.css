@@ -135,18 +135,11 @@
 }
 
 /* 상품 상세정보 */
-<<<<<<< HEAD
-#product_content > #product_content_view {
-  margin-top: 40px;
-  font-size: 15px;
-  margin-bottom: 200px;
-=======
 #product_content > #product_content_view{
     margin-top: 40px;
     font-size: 12px;
     margin-bottom: 200px;
     
->>>>>>> 40a89a76632c3c7c9dcfa58292bd65cdc7b59483
 }
 
 /* 제품 경고사항  */

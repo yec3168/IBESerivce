@@ -157,12 +157,12 @@ const AdminMemberList = () => {
             value={searchType}
             onChange={(e) => setSearchType(e.target.value)}
           >
-            <option value="이메일">검색어 입력</option>
-            <option value="닉네임으">검색어 입력</option>
+            <option value="이메일">이메일로 검색</option>
+            <option value="닉네임으">닉네임으로 검색</option>
           </select>
           <input
             type="text"
-            placeholder={`${searchType}로 검색`}
+            placeholder="검색어 입력"
             value={searchEmail}
             onChange={(e) => setSearchEmail(e.target.value)}
             onKeyDown={handleKeyDown}
