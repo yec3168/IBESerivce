@@ -190,7 +190,7 @@ const IbeBoardWriteComponent = () => {
                     {/* <Modal.Title></Modal.Title> */}
                 </Modal.Header>
                 <Modal.Body>
-                    <h3>게시글을 등록하시겠습니까?</h3>
+                    <h3 style={{textAlign:'center'}}>게시글을 등록하시겠습니까?</h3>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button type="submit" className='board-add-post-btn' onClick={handleSubmit}>확인</Button>
