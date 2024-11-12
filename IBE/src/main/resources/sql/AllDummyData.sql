@@ -44,9 +44,20 @@ INSERT INTO `product` (`member_id`, `product_created_at`, `product_point`, `prod
 (10, '2024-01-20 14:00:00', 850, '겨울철 아기 담요입니다. 부드럽고 따뜻한 소재로 만들어져 아기가 차가운 바닥에서 편안하게 쉴 수 있습니다. 상태는 매우 좋습니다.', '아기 담요', 'OUTDOOR_SUPPLIES', 'LOW', 'TRADING_AVAILABLE', 'STATUS_APPROVE',235, '2024-01-24 10:41:00'),
 (1, '2024-01-21 15:00:00', 1100, '수유복입니다. 아기에게 수유할 때 편리하게 착용할 수 있는 제품으로, 착용하기 쉽고 편안합니다. 상태는 좋습니다.', '아기 수유복', 'OUTDOOR_SUPPLIES', 'MEDIUM', 'TRADE_COMPLETED', 'STATUS_APPROVE',125, '2024-01-25 10:51:00'),
 (2, '2024-01-22 16:00:00', 1150, '아기 배게입니다. 목을 편안하게 지지할 수 있도록 디자인된 배게입니다. 새 제품처럼 깨끗합니다.', '아기 배게', 'MISC', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE', 54, '2024-01-26 10:01:00'),
-(3, '2024-01-23 17:00:00', 3300, '아기 목욕 용품 세트입니다. 바디워시, 샴푸, 수건 등 아기 목욕에 필요한 용품들이 모두 포함되어 있습니다. 모두 미개봉 새 제품입니다.', '아기 목욕 용품 세트', 'MISC', 'HIGH', 'TRADE_COMPLETED', 'STATUS_APPROVE',22, '2024-01-25 10:00:00');
+(3, '2024-01-23 17:00:00', 3300, '아기 목욕 용품 세트입니다. 바디워시, 샴푸, 수건 등 아기 목욕에 필요한 용품들이 모두 포함되어 있습니다. 모두 미개봉 새 제품입니다.', '아기 목욕 용품 세트', 'MISC', 'HIGH', 'TRADE_COMPLETED', 'STATUS_APPROVE',22, '2024-01-25 10:00:00'),
 
+(4, '2024-01-23 18:22:00', 2500, '아동도서 11권 입니다. 그림이 많고 가볍게 읽기 좋아요', '아동 도서 11권 세트', 'KIDS_BOOKS', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE',25, '2024-01-25 11:00:00'),
+(5, '2024-01-23 23:55:00', 5000, '장난감 자동차 24개 입니다. 대부분 깨끗하고, 멀쩡해요! ', '장난감 자동차 24개', 'KIDS_TOYS', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE',24, '2024-01-25 12:00:00'),
+(5, '2024-01-23 23:57:00', 6000, '외출용 케리어 입니다. 5~7세 아이에게 추천드려요 ', '아동 캐리어', 'OUTDOOR_SUPPLIES', 'MEDIUM', 'TRADING_AVAILABLE', 'STATUS_APPROVE',20, '2024-01-25 12:00:00'),
 
+(7, '2024-01-24 02:42:00', 4000, '학습용 아동 도서 45권 입니다. 우리 아들 공부시키려고 샀는데 공부를 안하네요...', '구몬 학습용 아동도서', 'KIDS_BOOKS', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE',11, '2024-01-25 12:00:00'),
+(8, '2024-01-24 07:55:00', 2500, '제품 이름은 도레미피아노 입니다. 구입한지 1달 됬어요. 상태좋아요', '장난감 피아노팔아요', 'KIDS_TOYS', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE',33, '2024-01-25 12:00:00'),
+(9, '2024-01-24 8:22:00', 1000, '외출용 마스크 4개 에요. 사진과 같은 제품 포장 아직 안뜯었어요 ', '아동 마스크', 'OUTDOOR_SUPPLIES', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE',26, '2024-01-25 12:00:00'),
+
+(10, '2024-01-24 09:42:00', 7000, '어린이 과학탐구 도서 입니다. 총 78권 있어요', '아동과학도서78권', 'KIDS_BOOKS', 'MEDIUM', 'TRADING_AVAILABLE', 'STATUS_APPROVE',15, '2024-01-25 12:00:00'),
+(1, '2024-01-24 10:55:00', 2500, '아이들에게 인기 만점 뽀로로 세트입니다!', '뽀로로 인형 세트', 'KIDS_TOYS', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE',53, '2024-01-25 12:00:00'),
+(2, '2024-01-24 11:57:00', 10000, '성장단계별 맞춤조절 탈부착 보조손잡이 접이식 세발자전거  5세아이가 적합합니다. 사진과 같은제품 5개월 사용한 상태입니다.', '아동용 자전거', 'OUTDOOR_SUPPLIES', 'HIGH', 'TRADING_AVAILABLE', 'STATUS_APPROVE',17, '2024-01-25 12:00:00'),
+(3, '2024-01-24 12:57:00', 4000, '여자 아이가 가지고 놀기 좋은 장난감 입니다. 너무 어린 아이는 입에넣지 않게 조심하세요', '크리스탈 레진아트', 'KIDS_TOYS', 'MEDIUM', 'TRADING_AVAILABLE', 'STATUS_APPROVE',7, '2024-01-25 14:00:00');
 INSERT INTO `product_img` (`product_id`, `image_path`) VALUES
 (1, '/images/products/아이책 5권.png'),
 (2, '/images/products/아기 여름옷 2.png'),
@@ -73,7 +84,18 @@ INSERT INTO `product_img` (`product_id`, `image_path`) VALUES
 (20, '/images/products/아기 담요.png'),
 (21, '/images/products/수유복.png'),
 (22, '/images/products/아기 베개.png'),
-(23, '/images/products/아기목욕용품세트.png');
+(23, '/images/products/아기목욕용품세트.png'),
+
+(24, '/images/products/아동도서11개.png'),
+(25, '/images/products/장난감자동차24개.png'),
+(26, '/images/products/아동케리어.png'),
+(27, '/images/products/학습용아동도서.png'),
+(28, '/images/products/도레미피아노.png'),
+(29, '/images/products/외출용마스크.png'),
+(30, '/images/products/어린이과학탐구도서.png'),
+(31, '/images/products/뽀로로인형세트.png'),
+(32, '/images/products/아동 자전거.png'),
+(33, '/images/products/여자아이장난감.png');
 
 
 INSERT INTO `product_comment` (`member_id`, `product_comment_created_at`, `product_comment_id`, `product_id`, `product_comment_content`) VALUES
