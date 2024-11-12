@@ -23,6 +23,9 @@ export const saveCodeNumber = (memberPhone) => axios.post(`${REST_API_URL}/mail/
 // 이메일 찾기
 export const searchEmail = (memberSnsRequest) => axios.post(`${REST_API_URL}/mail/send`, memberSnsRequest)
 
+//비밀번호 찾기
+export const searchPw = (memberPasswordRequest) => axios.post(`${REST_API_URL}/pw`, memberPasswordRequest);
+
 
 // 메일전송
 export const sendMail = (mailRequest) => axios.post(`${REST_API_URL}/emailAuth`, mailRequest)

@@ -1,14 +1,11 @@
 package com.project.ibe.controller;
 
 
-import com.project.ibe.dto.member.KakaoSignupRequest;
+import com.project.ibe.dto.member.*;
 
 
 import com.project.ibe.services.member.KakaoService;
 import com.project.ibe.services.member.MemberService;
-import com.project.ibe.dto.member.MailRequest;
-import com.project.ibe.dto.member.MemberSignInRequest;
-import com.project.ibe.dto.member.MemberSignUpRequest;
 import com.project.ibe.dto.member.sms.MemberSmsReqequest;
 import com.project.ibe.entity.common.Response;
 import com.project.ibe.entity.common.ResponseCode;
@@ -65,12 +62,14 @@ public class MemberController {
      */
     @ResponseBody
     @PostMapping("/emailAuth") // 인증번호를 memberAuthNumber로 넘김
-    public Response emailAuth(@RequestBody MailRequest mailReq) throws MessagingException, UnsupportedEncodingException {
+    public Response emailAuth(@RequestBody MailRequest mailReq) throws MessagingException {
         String memberEmail = mailReq.getEmail();
         String authNumber = mailService.sendSimpleMessage(mailReq.getEmail());
-
+        if(!memberService.updateAuthNumber(memberEmail, authNumber)){
+            return new Response(ResponseCode.FAIL, false, "404");
+        }
         try{
-            return new Response(ResponseCode.SUCCESS, memberService.updateAuthNumber(memberEmail, authNumber), "200");
+            return new Response(ResponseCode.SUCCESS, authNumber, "200");
         } catch (Exception e){
             return new Response(ResponseCode.FAIL, false, "404");
         }
@@ -98,6 +97,19 @@ public class MemberController {
     public Response sendSms(@RequestBody MemberSmsReqequest memberSmsReqequest) {
         try {
             return new Response(ResponseCode.SUCCESS, memberService.sendSmsToFindEmail(memberSmsReqequest), "200");
+        } catch (Exception e) {
+
+            return new Response(ResponseCode.FAIL, e.getMessage(), "400");
+        }
+    }
+
+    /**
+     * 비밀번호 찾기 ( 새 비밀번호로 변경.)
+     */
+    @PostMapping("/pw")
+    public Response updatePw(@RequestBody MemberPasswordRequest memberPasswordRequest){
+        try {
+            return new Response(ResponseCode.SUCCESS, memberService.updatePwMember(memberPasswordRequest), "200");
         } catch (Exception e) {
 
             return new Response(ResponseCode.FAIL, e.getMessage(), "400");
