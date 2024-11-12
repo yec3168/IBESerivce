@@ -200,7 +200,7 @@ const IbeBoardDetailsComponent = () => {
                     <h3>게시글을 <span style={{color:'red'}}>삭제</span>하시겠습니까?</h3>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button>
+                    {/* <Button className='board-cancle-btn'  onClick={handleCloseModal}>취소</Button> */}
                     <Button className='board-add-post-btn' onClick={handleDeletePost}>확인</Button>
                 </Modal.Footer>
             </Modal>
