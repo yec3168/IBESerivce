@@ -155,7 +155,6 @@ const AdminViewPostSale = () => {
           }}
         >
           <option value="">등록상태 선택</option>
-          <option value="STATUS_WAIT">등록중</option>
           <option value="STATUS_APPROVE">등록됨</option>
           <option value="STATUS_REJECT">반려됨</option>
           <option value="STATUS_DELETE">삭제됨</option>

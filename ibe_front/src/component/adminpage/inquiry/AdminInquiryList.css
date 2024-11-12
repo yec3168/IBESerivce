@@ -46,9 +46,7 @@
   transition: max-height 0.3s ease;
 }
 
-.admin-il-inquiry-list-content:hover {
-  background-color: #eaeaea;
-}
+
 
 .admin-il-column {
   flex: 1;
