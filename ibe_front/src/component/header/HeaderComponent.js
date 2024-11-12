@@ -42,6 +42,7 @@ const HeaderComponent = () => {
     const fetchMemberInfo = async () => {
       try {
         const response = await getMemberInfo();
+        console.log(response)
         if (response.data) {
           setMemberPoint(response.data.data.memberPoint); 
           setMemberNickName(response.data.data.memberNickName); 

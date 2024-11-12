@@ -156,8 +156,16 @@ public class MemberService {
         Member member =  modelMapper.map(kakaoSignupRequest, Member.class);
         member.setMemberPoint(0L);
         member.setRole(Role.ROLE_CLIENT);
-        return memberRepository.save(member);
+        Member savedMember = memberRepository.save(member);
 
+        MemberBank memberBank = MemberBank.builder()
+                .member(savedMember)
+                .memberBank(kakaoSignupRequest.getMemberBank())
+                .memberAccountNumber(kakaoSignupRequest.getMemberAccountNumber())
+                .build();
+        memberBankRepository.save(memberBank);
+
+        return  savedMember;
 //        return modelMapper.map(member, MemberSignupResponse.class);
     }
 

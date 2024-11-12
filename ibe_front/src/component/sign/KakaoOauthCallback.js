@@ -223,15 +223,18 @@ function KakaoOauthCallback() {
 
             {/* 회원가입 모달 */}
             <Modal id="kakao_modal" show={showModal} onHide={handleConfirmSignUp} centered>
-                <Modal.Header closeButton>
+                <Modal.Header style={{ fontFamily:"Paperlogy-4Regular"}} closeButton>
                     <Modal.Title>회원가입</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style={{ fontFamily:"PretendardVariable"}}>
                     <p>회원 정보가 없습니다. <br />회원가입을 진행하겠습니다.</p>
-                    <Button variant="default" onClick={handleConfirmSignUp} type="button" style={{ backgroundColor: '#FFD774' }}>
-                        확인
-                    </Button>
+                    
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="custom" onClick={handleConfirmSignUp} type="button" className=""style={{ backgroundColor: '#FFD774',  fontFamily:"PretendardVariable"}}>
+                            확인
+                    </Button>
+                </Modal.Footer>
             </Modal>
 
             {/* 회원가입 폼 */}
