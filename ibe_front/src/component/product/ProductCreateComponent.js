@@ -103,11 +103,11 @@ const ProductCreateComponent = () => {
         setProductContent('');
         setImages([]);
         setErrors({});
-        setResultMessage('등록에 성공하였습니다.\n 잠시만 기다려주세요.');
+        setResultMessage('판매신청에 성공하였습니다.\n 잠시만 기다려주세요.');
         setShowResultModal(true);
       })
       .catch(() => {
-        setResultMessage('등록에 실패했습니다. 다시 시도해주세요.');
+        setResultMessage('판매신청에 실패했습니다. 다시 시도해주세요.');
         setShowResultModal(true);
       });
   };
