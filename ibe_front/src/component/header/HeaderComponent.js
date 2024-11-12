@@ -155,7 +155,7 @@ const HeaderComponent = () => {
               style={{marginTop:'38px'}}
             >
               <ul className="navbar-nav menubar" style={{whiteSpace:'nowrap'}}>
-                <li className="nav-item mr-160 ml-50" >
+                <li className="nav-item mr-140 ml-90" >
                   <a className="nav-link active1" href="/products">
                     &ensp;전체 상품 조회
                   </a>
@@ -178,7 +178,7 @@ const HeaderComponent = () => {
                     </a>
                   </li>
                 ) : (
-                  <li className="nav-item mr-180" style={{marginRight:'280px', marginLeft:'6px'}}>
+                  <li className="nav-item mr-180" style={{marginRight:'280px', marginLeft:'-20px'}}>
                     <a className="nav-link active5" href="/mypage" onClick={handleMypageClick}>
                       마이페이지&ensp;
                     </a>
