@@ -278,7 +278,7 @@ public class OrderService {
         Order order = orderRepository.findByOrderIdAndProductAndOrderMemberEmail(orderFinishedRequest.getOrderId(), sellProduct, sellMember.getMemberEmail());
 
         Member productMember = sellProduct.getMember();
-        productMember.setMemberPoint(sellMember.getMemberPoint() +  sellProduct.getProductPoint());
+        productMember.setMemberPoint(productMember.getMemberPoint() +  sellProduct.getProductPoint());
         memberService.saveMember(productMember);
 
 
