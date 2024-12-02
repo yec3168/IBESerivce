@@ -7,7 +7,7 @@
  - 관리자 페이지: 회원 관리, 판매 물품 게시글 관리 및 등록 반영(부적절한 물품 필터링) , 포인트 관리 기능 구현
 
 
-## 기술스택
+## 기술스텍
 
  ### IDE
    ![js](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)   ![js](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)   ![js](	https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white) 
@@ -26,3 +26,18 @@
 
  ### 외부 API
 ![js](https://img.shields.io/badge/Kakao-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white), STMP, CoolSMS, NH, KakaoPay
+
+ ## SW 아키텍처
+ 
+ ![image](https://github.com/user-attachments/assets/6ac76814-e870-4b9c-b6f2-416908dbc0e1)
+
+ ## 제작일정
+
+ ![image](https://github.com/user-attachments/assets/775d87a2-601f-4467-be5b-6d01cfac70c7)
+
+
+
+
+
+
+
